@@ -5,6 +5,7 @@ import { Button } from "@/registry/8starlabs-ui/ui/button";
 import Link from "next/link";
 import { ArrowRightIcon } from "lucide-react";
 import { Badge } from "@/registry/8starlabs-ui/ui/badge";
+import StatusIndicator from "@/registry/8starlabs-ui/blocks/status-indicator";
 
 const goldman = Goldman({
   weight: "400",
@@ -50,6 +51,7 @@ export default function Home() {
           </Button>
         </div> */}
       </div>
+      <StatusIndicator state="active" label="Systems up" />
     </div>
   );
 }
