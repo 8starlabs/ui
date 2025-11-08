@@ -43,9 +43,9 @@ Please read the [contributing guide](/CONTRIBUTING.md) for more details.
 
 Licensed under the [MIT license](https://github.com/elevenlabs/ui/blob/main/LICENSE.md).
 
-Engineered by [8StarLabs](https://8starlabs.com).
-
 ## Contact
 
 - Tham Kei Lok (Lead Engineer & Developer Relations) - [X](https://www.x.com/keiloktql/), [LinkedIn](https://www.linkedin.com/in/keiloktql/)
 - Wang Jia Hua (Software Engineer, Documentation) - [LinkedIn](https://www.linkedin.com/in/jiahua-wang-74ewfb/)
+
+Engineered by [8StarLabs](https://8starlabs.com).
