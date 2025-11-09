@@ -24,7 +24,7 @@ export function SiteFooter() {
             >
               GitHub
             </a>
-            . Subscribe to 8StarLabs
+            . Subscribe to 8StarLabs{" "}
             <a
               href={siteConfig.links.eslNewsletter}
               target="_blank"
