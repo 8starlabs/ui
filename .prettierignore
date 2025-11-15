@@ -1,0 +1,55 @@
+# Dependencies
+node_modules/
+
+# Next.js build outputs
+.next/
+out/
+
+# Production builds
+dist/
+build/
+
+# Generated files
+*.generated.*
+.contentlayer/
+
+# Package managers
+.pnpm-store/
+.yarn/
+.npm/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# Environment files
+.env*
+
+# Registry files (since they're auto-generated)
+registry/__index__.tsx
+registry/__blocks__.json
+
+# Lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+CHANGELOG.md
+
+# Config files that have specific formatting
+*.min.js
+*.min.css
