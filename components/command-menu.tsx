@@ -30,6 +30,7 @@ import {
 } from "@/registry/8starlabs-ui/ui/dialog";
 import { Button } from "@/registry/8starlabs-ui/ui/button";
 import { Separator } from "@/registry/8starlabs-ui/ui/separator";
+import { Kbd, KbdGroup } from "@/registry/8starlabs-ui/ui/kbd";
 
 const CommandMenu = ({ tree, ...props }: { tree: typeof source.pageTree }) => {
   const router = useRouter();
@@ -107,8 +108,10 @@ const CommandMenu = ({ tree, ...props }: { tree: typeof source.pageTree }) => {
           <span className="hidden lg:inline-flex">Search documentation...</span>
           <span className="inline-flex lg:hidden">Search...</span>
           <div className="absolute top-1.5 right-1.5 hidden gap-1 sm:flex">
-            <CommandMenuKbd>{isMac ? "⌘" : "Ctrl"}</CommandMenuKbd>
-            <CommandMenuKbd className="aspect-square">K</CommandMenuKbd>
+            <KbdGroup>
+              <Kbd className="border">{isMac ? "⌘" : "Ctrl"}</Kbd>
+              <Kbd className="border">K</Kbd>
+            </KbdGroup>
           </div>
         </Button>
       </DialogTrigger>
@@ -216,9 +219,9 @@ const CommandMenu = ({ tree, ...props }: { tree: typeof source.pageTree }) => {
         </Command>
         <div className="text-muted-foreground absolute inset-x-0 bottom-0 z-20 flex h-10 items-center gap-2 rounded-b-xl border-t border-t-neutral-100 bg-neutral-50 px-4 text-xs font-medium dark:border-t-neutral-700 dark:bg-neutral-800">
           <div className="flex items-center gap-2">
-            <CommandMenuKbd>
+            <Kbd className="border">
               <CornerDownLeftIcon />
-            </CommandMenuKbd>{" "}
+            </Kbd>{" "}
             {selectedType === "page" || selectedType === "component"
               ? "Go to Page"
               : null}
@@ -227,8 +230,10 @@ const CommandMenu = ({ tree, ...props }: { tree: typeof source.pageTree }) => {
             <>
               <Separator orientation="vertical" className="!h-4" />
               <div className="flex items-center gap-1">
-                <CommandMenuKbd>{isMac ? "⌘" : "Ctrl"}</CommandMenuKbd>
-                <CommandMenuKbd>C</CommandMenuKbd>
+                <KbdGroup>
+                  <Kbd className="border">{isMac ? "⌘" : "Ctrl"}</Kbd>
+                  <Kbd className="border">K</Kbd>
+                </KbdGroup>
                 {copyPayload}
               </div>
             </>
