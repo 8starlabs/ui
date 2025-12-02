@@ -1,6 +1,6 @@
 # 8starlabs UI
 
-![Marketing](https://github.com/8starlabs/ui/blob/main/public/assets/thumbnails/banner_github.png?raw=true)
+![Marketing](https://github.com/8starlabs/ui/blob/main/public/thumbnails/banner_github.png?raw=true)
 
 [8StarLabs UI](https://ui.8starlabs.com) is a component library built on top of shadcn/ui to help you build modern, interactive, and unique interfaces faster.
 
