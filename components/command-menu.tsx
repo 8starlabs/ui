@@ -232,7 +232,7 @@ const CommandMenu = ({ tree, ...props }: { tree: typeof source.pageTree }) => {
               <div className="flex items-center gap-1">
                 <KbdGroup>
                   <Kbd className="border">{isMac ? "⌘" : "Ctrl"}</Kbd>
-                  <Kbd className="border">K</Kbd>
+                  <Kbd className="border">C</Kbd>
                 </KbdGroup>
                 {copyPayload}
               </div>
