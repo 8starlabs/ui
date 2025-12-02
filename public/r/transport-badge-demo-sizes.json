@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "transport-badge-demo-sizes",
+  "type": "registry:example",
+  "title": "Transport badge demo sizes",
+  "description": "A transport badge demo sizes component",
+  "files": [
+    {
+      "path": "registry/8starlabs-ui/examples/transport-badge-demo-sizes.tsx",
+      "content": "import { TransportBadge } from \"@/registry/8starlabs-ui/blocks/transport-badge\";\n\nexport default function TransportBadgeDemoSizes() {\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <div className=\"flex items-center gap-3\">\n        <TransportBadge system=\"SG\" stationCode=\"NS1\" size=\"xs\" />\n        <TransportBadge system=\"SG\" stationCode={[\"NS1\", \"DT24\"]} size=\"xs\" />\n      </div>\n      <div className=\"flex items-center gap-3\">\n        <TransportBadge system=\"SG\" stationCode=\"EW12\" size=\"sm\" />\n        <TransportBadge system=\"SG\" stationCode={[\"EW12\", \"DT14\"]} size=\"sm\" />\n      </div>\n      <div className=\"flex items-center gap-3\">\n        <TransportBadge system=\"SG\" stationCode=\"CC4\" size=\"md\" />\n        <TransportBadge system=\"SG\" stationCode={[\"CC4\", \"NE6\"]} size=\"md\" />\n      </div>\n      <div className=\"flex items-center gap-3\">\n        <TransportBadge system=\"SG\" stationCode=\"DT15\" size=\"lg\" />\n        <TransportBadge system=\"SG\" stationCode={[\"DT15\", \"TE17\"]} size=\"lg\" />\n      </div>\n    </div>\n  );\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "transport-badge-demo",
+  "type": "registry:example",
+  "title": "Transport badge demo",
+  "description": "A transport badge demo component",
+  "files": [
+    {
+      "path": "registry/8starlabs-ui/examples/transport-badge-demo.tsx",
+      "content": "import { TransportBadge } from \"@/registry/8starlabs-ui/blocks/transport-badge\";\n\nexport default function TransportBadgeDemo() {\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <TransportBadge system=\"SG\" stationCode=\"NS1\" />\n      <TransportBadge system=\"SG\" stationCode={[\"NS1\", \"DT24\", \"TE12\"]} />\n      <TransportBadge system=\"SG\" stationCode=\"CC12\" />\n      <TransportBadge\n        system=\"SG\"\n        stationCode=\"NE12\"\n        stationName=\"Serangoon\"\n        showStationName\n      />\n      <TransportBadge system=\"SG\" stationCode=\"TE12\" size=\"xs\" />\n      <TransportBadge system=\"SG\" stationCode=\"DT1\" size=\"lg\" />\n    </div>\n  );\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

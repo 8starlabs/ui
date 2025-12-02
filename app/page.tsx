@@ -7,19 +7,7 @@ export default function Home() {
   return (
     <div className="max-w-10xl  px-6 md:px-16  mx-auto flex flex-col min-h-svh py-8 gap-8">
       <Hero />
-      <Cards />
-      <TransportBadge system="SG" stationCode="NS1" />
-      <TransportBadge system="SG" stationCode={["NS1", "DT24", "TE12"]} />
-      <TransportBadge system="SG" stationCode="CC12" />
-      <TransportBadge system="SG" stationCode="EW12" />
-      <TransportBadge
-        system="SG"
-        stationCode="NE12"
-        stationName="Jurong East"
-        showStationName
-        size="sm"
-      />
-      <TransportBadge system="SG" stationCode="TE12" size="xs" />
+      <Cards className="mt-4" />
     </div>
   );
 }

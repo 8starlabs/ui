@@ -43,6 +43,22 @@ import TransportBadge from "@/components/ui/transport-badge";
 <TransportBadge system="SG" stationCode="NS1" />
 ```
 
+## Systems Available
+
+- SG - Singapore (Singapore MRT/LRT)
+
+### Future Systems
+
+We're planning to support additional transport systems. Submit a feature request if you'd like to see support for:
+
+- MY - Malaysia (Kuala Lumpur LRT/MRT)
+- HK - Hong Kong MTR
+- JP - Japan (Tokyo Metro/JR)
+- TW - Taiwan (Taipei MRT)
+- TH - Thailand (Bangkok BTS/MRT)
+
+Want to contribute? Help us add support for more transport systems by [contributing to our repository](https://github.com/8starlabs/ui).
+
 ## Examples
 
 ### Single Line Stations
@@ -63,11 +79,11 @@ import TransportBadge from "@/components/ui/transport-badge";
 
 ## API Reference
 
-| Prop              | Type                                             | Default | Description                                           |
-| ----------------- | ------------------------------------------------ | ------- | ----------------------------------------------------- |
-| `system`          | `"SG"` (required)                                | -       | **Required.** Transport system identifier.            |
-| `stationCode`     | `string \| string[]` (required)                  | -       | **Required.** Station code(s) for the badge.          |
-| `stationName`     | `string`                                         | -       | Optional station name to display.                     |
-| `showStationName` | `boolean` (default: `false`)                     | `false` | Whether to show the station name alongside the badge. |
-| `size`            | `"xs" \| "sm" \| "md" \| "lg"` (default: `"md"`) | `"md"`  | Size variant of the badge.                            |
-| `className`       | `string`                                         | -       | Additional CSS classes for styling.                   |
+| Prop              | Type                                       | Default | Description                                                     |
+| ----------------- | ------------------------------------------ | ------- | --------------------------------------------------------------- |
+| `system`          | Refer to "Systems Available" section above | `"SG"`  | **Required.** Transport system identifier.                      |
+| `stationCode`     | `string \| string[]`                       | -       | **Required.** Station code(s) for the badge.                    |
+| `stationName`     | `string`                                   | -       | Optional. station name to display.                              |
+| `showStationName` | `boolean`                                  | `false` | Optional. Whether to show the station name alongside the badge. |
+| `size`            | `"xs" \| "sm" \| "md" \| "lg"`             | `"md"`  | Optional. Size variant of the badge.                            |
+| `className`       | `string`                                   | -       | Optional. Additional CSS classes for styling.                   |

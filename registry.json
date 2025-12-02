@@ -87,13 +87,13 @@
       ]
     },
     {
-      "name": "transport-badge-demo-station-names",
+      "name": "transport-badge-demo-station-name",
       "type": "registry:example",
-      "title": "Transport badge demo station names",
-      "description": "A transport badge demo station names component",
+      "title": "Transport badge demo station name",
+      "description": "A transport badge demo station name component",
       "files": [
         {
-          "path": "registry/8starlabs-ui/examples/transport-badge-demo-station-names.tsx",
+          "path": "registry/8starlabs-ui/examples/transport-badge-demo-station-name.tsx",
           "type": "registry:example"
         }
       ]

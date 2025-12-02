@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "transport-badge-demo-multi-station",
+  "type": "registry:example",
+  "title": "Transport badge demo multi station",
+  "description": "A transport badge demo multi station component",
+  "files": [
+    {
+      "path": "registry/8starlabs-ui/examples/transport-badge-demo-multi-station.tsx",
+      "content": "import { TransportBadge } from \"@/registry/8starlabs-ui/blocks/transport-badge\";\n\nexport default function TransportBadgeDemoMultiStation() {\n  return (\n    <div className=\"flex flex-col gap-3\">\n      <TransportBadge system=\"SG\" stationCode={[\"NS1\", \"EW24\"]} />\n      <TransportBadge system=\"SG\" stationCode={[\"NS27\", \"CC15\"]} />\n      <TransportBadge system=\"SG\" stationCode={[\"DT14\", \"CC10\"]} />\n      <TransportBadge system=\"SG\" stationCode={[\"NS1\", \"DT24\", \"TE12\"]} />\n    </div>\n  );\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

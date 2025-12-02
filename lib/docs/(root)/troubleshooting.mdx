@@ -9,14 +9,13 @@ Make sure your project is configured correctly for shadcn/ui in Tailwind 4 - thi
 
 ## The component imports fail with “module not found”
 
-Check the file exists. If it does, make sure your tsconfig.json has a proper paths alias for @/ i.e.
+Check the file exists. If it does, make sure your `tsconfig.json` has a proper paths alias for `@/` i.e.
 
 ```json
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
-      "@/_": ["./_"]
+      "@/*": ["./*"]
     }
   }
 }

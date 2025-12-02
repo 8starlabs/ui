@@ -99,15 +99,15 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} group/body overscroll-none antialiased [--footer-height:calc(var(--spacing)*14)] [--header-height:calc(var(--spacing)*14)] xl:[--footer-height:calc(var(--spacing)*24)]`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <FaviconWrapper />
-          <SiteHeader tree={tree} />
-          <SystemBannerClientWrapper />
-          <ProgressWrapper>
-            <main className="relative z-10 flex min-h-svh flex-col">
-              {children}
-            </main>
-          </ProgressWrapper>
-          <SiteFooter />
+          <div className="bg-background relative z-10 flex min-h-svh flex-col">
+            <FaviconWrapper />
+            <SiteHeader tree={tree} />
+            <SystemBannerClientWrapper />
+            <ProgressWrapper>
+              <main className="flex flex-1 flex-col">{children}</main>
+            </ProgressWrapper>
+            <SiteFooter />
+          </div>
         </ThemeProvider>
       </body>
     </html>
