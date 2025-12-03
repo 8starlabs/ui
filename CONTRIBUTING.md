@@ -12,25 +12,14 @@ This repository is a monorepo.
 
 ## Getting Started
 
-1. **Fork the repository**
-   Click “Fork” on the top right of the main repo
-   to create a copy under your own GitHub account.
-
-2. **Clone on your local machine**
+1. **Clone the repository on your local machine**
 
    ```bash
-   git clone https://github.com/<your-username>/ui.git
+   git clone https://github.com/8starlabs/ui.git
    cd ui
    ```
 
-3. Add the upstream remote
-   This allows you to sync your fork with the original repo.
-
-   ```bash
-   git remote add upstream https://github.com/8starlabs/ui.git
-   ```
-
-4. **Install Dependencies**
+2. **Install Dependencies**
    ```bash
    npm install
    ```
@@ -44,14 +33,12 @@ This repository is a monorepo.
    ```
 
 2. **Making Changes**
-
    - Components should be added to the appropriate directory in `registry/8starlabs-ui`
    - Follow the existing component structure
    - Ensure your code follows our TypeScript and React best practices
    - Add proper documentation and types
 
 3. **Component Guidelines**
-
    - Keep components modular and reusable
    - Include proper TypeScript types
    - Follow accessibility best practices
@@ -76,7 +63,7 @@ Example: `git commit -m 'feat: add new Button variant'`
    ```
 
 6. **Open a Pull Request (PR)**
-   Go to your fork on GitHub and click “Compare & pull request”.
+   Go to your branch on GitHub and click “Compare & pull request”.
 
 Please include:
 
