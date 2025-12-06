@@ -19,7 +19,7 @@ import {
 
 const TimelineContext = createContext<TimelineConfig | null>(null);
 
-export function useTimelineContext() {
+function useTimelineContext() {
   const context = useContext(TimelineContext);
   if (!context) {
     throw new Error(
@@ -42,56 +42,122 @@ export function TimelineClient({
     titleSize,
     lineColor,
     lineThickness,
+    lineProtrusion,
     shadow,
-    itemSpacing
+    itemSpacing,
+    circleSize,
+    itemGap
   } = config;
   const timelineRef = useRef<HTMLDivElement>(null);
-  const [titleMarginBottom, setTitleMarginBottom] = useState<number>(40);
+  const [timelineTopMargin, setTimelineTopMargin] = useState<number>(40);
+  const [timelineBotMargin, setTimelineBotMargin] = useState<number>(40);
+  const [timelineLeftMargin, setTimelineLeftMargin] = useState<number>(80);
+  const [timelineRightMargin, setTimelineRightMargin] = useState<number>(80);
 
   useLayoutEffect(() => {
     if (timelineRef.current) {
-      const cards = timelineRef.current.querySelectorAll(
+      const timelineMain = timelineRef.current.querySelector("#timeline-main");
+      const topCards = timelineRef.current.querySelectorAll(
         '[data-timeline-card="top"]'
       );
-      let maxHeight = 0;
+      const botCards = timelineRef.current.querySelectorAll(
+        '[data-timeline-card="bottom"]'
+      );
+      const allCards = timelineRef.current.querySelectorAll(
+        "[data-timeline-card]"
+      );
 
-      cards.forEach((card) => {
+      let maxTop = 0;
+      let maxBot = 0;
+
+      topCards.forEach((card) => {
         const height = (card as HTMLElement).offsetHeight;
-        if (height > maxHeight) {
-          maxHeight = height;
+        if (height > maxTop) {
+          maxTop = height;
         }
       });
 
-      setTitleMarginBottom(maxHeight + 32);
+      botCards.forEach((card) => {
+        const height = (card as HTMLElement).offsetHeight;
+        if (height > maxBot) {
+          maxBot = height;
+        }
+      });
+
+      const correction = (circleSize! - lineThickness!) / 2 + itemGap!;
+
+      setTimelineTopMargin(maxTop + correction);
+      setTimelineBotMargin(maxBot + correction);
+
+      // Calculate horizontal padding based on card overflow
+      if (timelineMain && allCards.length > 0) {
+        const timelineRect = timelineMain.getBoundingClientRect();
+
+        let maxLeftOverflow = 0;
+        let maxRightOverflow = 0;
+
+        allCards.forEach((card) => {
+          const cardRect = (card as HTMLElement).getBoundingClientRect();
+
+          // Calculate how much the card extends beyond the timeline on the left
+          const leftOverflow = timelineRect.left - cardRect.left;
+          if (leftOverflow > maxLeftOverflow) {
+            maxLeftOverflow = leftOverflow;
+          }
+
+          // Calculate how much the card extends beyond the timeline on the right
+          const rightOverflow = cardRect.right - timelineRect.right;
+          if (rightOverflow > maxRightOverflow) {
+            maxRightOverflow = rightOverflow;
+          }
+        });
+
+        // Add some buffer padding (16px)
+        setTimelineLeftMargin(maxLeftOverflow);
+        setTimelineRightMargin(maxRightOverflow);
+      }
     }
   }, [children]);
 
   return (
     <TimelineContext.Provider value={config}>
-      <div id="timeline" ref={timelineRef} className="my-8">
+      <div id="timeline" ref={timelineRef}>
         <div
-          className={`font-bold text-center`}
+          id="timeline-title"
+          className={`font-bold text-center pb-3`}
           style={{
             fontSize: `${titleSize}px`,
-            color: titleColor,
-            marginBottom: `${titleMarginBottom}px`
+            color: titleColor
           }}
         >
           {title}
         </div>
 
         <div
-          className="flex flex-row justify-between items-center px-20 rounded"
+          id="timeline-wrapper"
           style={{
-            height: `${lineThickness}px`,
-            backgroundColor: lineColor,
-            boxShadow: shadow ? "0 4px 6px rgba(0, 0, 0, 0.1)" : "none",
-            gap: `${itemSpacing}px`
+            marginTop: `${timelineTopMargin}px`,
+            marginBottom: `${timelineBotMargin}px`,
+            marginLeft: `${timelineLeftMargin}px`,
+            marginRight: `${timelineRightMargin}px`
           }}
         >
-          {children.map((child: any, index: number) =>
-            cloneElement(child, { index })
-          )}
+          <div
+            id="timeline-main"
+            className="flex flex-row justify-between items-center rounded"
+            style={{
+              height: `${lineThickness}px`,
+              backgroundColor: lineColor,
+              boxShadow: shadow ? "0 4px 6px rgba(0, 0, 0, 0.1)" : "none",
+              gap: `${itemSpacing}px`,
+              paddingLeft: `${lineProtrusion}px`,
+              paddingRight: `${lineProtrusion}px`
+            }}
+          >
+            {children.map((child: any, index: number) =>
+              cloneElement(child, { index })
+            )}
+          </div>
         </div>
       </div>
     </TimelineContext.Provider>
@@ -120,7 +186,7 @@ function getDateString(date: Date, format: "day" | "month" | "year") {
   return dateStr;
 }
 
-export function TimelineItemCard({ isAbove, content }: TimelineItemCardProps) {
+function TimelineItemCard({ isAbove, content }: TimelineItemCardProps) {
   const {
     dateDisplayFormat,
     itemFillColor,

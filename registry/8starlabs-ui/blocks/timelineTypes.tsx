@@ -23,6 +23,7 @@ export type TimelineProps = {
 
   lineColor?: string;
   lineThickness?: number;
+  lineProtrusion?: number;
 
   circleSize?: number;
   circleColor?: string;

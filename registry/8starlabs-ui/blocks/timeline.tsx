@@ -47,6 +47,7 @@ export function Timeline({
   alignment = "top",
   lineColor = "#9CA3AF",
   lineThickness = 5,
+  lineProtrusion = 50,
   circleSize = 24,
   circleColor = "#FFFFFF",
   circleBorderColor = "#9CA3AF",
@@ -71,6 +72,7 @@ export function Timeline({
         alignment,
         lineColor,
         lineThickness,
+        lineProtrusion,
         circleSize,
         circleColor,
         circleBorderColor,
@@ -102,6 +104,7 @@ export default function TimelineDemo() {
         alignment="bottom"
         lineColor="#EB34D2"
         lineThickness={9}
+        lineProtrusion={50}
         circleSize={40}
         circleThickness={10}
         circleColor="lightGreen"
