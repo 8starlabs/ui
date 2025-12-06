@@ -128,7 +128,8 @@ export function TimelineItemCard({ isAbove, content }: TimelineItemCardProps) {
     itemBorderColor,
     shadow,
     itemTextAlignment,
-    itemWidth
+    itemWidth,
+    itemGap
   } = useTimelineContext();
 
   return (
@@ -136,7 +137,7 @@ export function TimelineItemCard({ isAbove, content }: TimelineItemCardProps) {
       data-timeline-card={isAbove ? "top" : "bottom"}
       className={clsx(
         "absolute p-2 rounded-sm gap-2 flex flex-col items-start",
-        isAbove ? "bottom-full mb-2" : "top-full mt-2"
+        isAbove ? "bottom-full" : "top-full"
       )}
       style={{
         backgroundColor: itemFillColor,
@@ -144,7 +145,9 @@ export function TimelineItemCard({ isAbove, content }: TimelineItemCardProps) {
         borderColor: content.highlight ? "red" : itemBorderColor,
         boxShadow: shadow ? "0 4px 6px rgba(0, 0, 0, 0.1)" : "none",
         textAlign: itemTextAlignment,
-        width: `${itemWidth}px`
+        width: `${itemWidth}px`,
+        marginTop: isAbove ? "0px" : `${itemGap}px`,
+        marginBottom: isAbove ? `${itemGap}px` : "0px"
       }}
     >
       <div className="text-xs text-gray-500 w-full">

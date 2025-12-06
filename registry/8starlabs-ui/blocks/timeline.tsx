@@ -57,6 +57,7 @@ export function Timeline({
   itemTextAlignment = "left",
   itemSpacing = 240,
   itemWidth = 220,
+  itemGap = 8,
   shadow = false
 }: TimelineProps) {
   return (
@@ -80,6 +81,7 @@ export function Timeline({
         itemTextAlignment,
         itemSpacing,
         itemWidth,
+        itemGap,
         shadow
       }}
     >
@@ -96,7 +98,7 @@ export default function TimelineDemo() {
         titleSize={40}
         titleColor="#FF5733"
         dateDisplayFormat="day"
-        alternating={false}
+        alternating={true}
         alignment="bottom"
         lineColor="#EB34D2"
         lineThickness={9}
@@ -110,6 +112,7 @@ export default function TimelineDemo() {
         itemTextAlignment="left"
         itemSpacing={220}
         itemWidth={240}
+        itemGap={8}
         shadow={false}
       >
         {timelineData.map((item) => (

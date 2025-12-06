@@ -35,6 +35,7 @@ export type TimelineProps = {
   itemTextAlignment?: "left" | "center" | "right";
   itemSpacing?: number;
   itemWidth?: number;
+  itemGap?: number;
 
   title?: string;
   titleColor?: string;
