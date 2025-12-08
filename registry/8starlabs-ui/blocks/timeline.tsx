@@ -134,7 +134,7 @@ const timelineItemContainerVariants = cva("flex relative", {
   ]
 });
 
-interface TimelineItemProps
+export interface TimelineItemProps
   extends
     HTMLAttributes<HTMLLIElement>,
     VariantProps<typeof timelineItemVariants> {
@@ -152,7 +152,7 @@ interface TimelineItemProps
   orientation?: "horizontal" | "vertical";
 }
 
-interface TimelineProps
+export interface TimelineProps
   extends
     HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof timelineLayoutVariants> {
@@ -195,7 +195,7 @@ function useHorizontalScroll() {
   return elRef;
 }
 
-export function Timeline({
+export default function Timeline({
   children,
   className,
   horizItemWidth = 220,
@@ -484,48 +484,3 @@ const dateFormatter = new Intl.DateTimeFormat("en-US", {
   month: "short",
   year: "numeric"
 });
-
-const timelineData: TimelineItemProps[] = [
-  {
-    title: "Project Kickoff",
-    description:
-      "Initial meeting with all stakeholders to define project scope.",
-    date: new Date("2023-01-05"),
-    variant: "info"
-  },
-  {
-    title: "Requirements Gathering",
-    description:
-      "Collected requirements from the client, covering both functional and non-functional aspects. This took several sessions over multiple weeks and included detailed analysis.",
-    date: new Date("2023-01-12"),
-    variant: "success"
-  },
-  {
-    title: "Design Phase",
-    description: "Created wireframes, mockups, and system design diagrams.",
-    date: new Date("2023-01-20")
-  },
-  {
-    title:
-      "Database Setup Extravaganza with Lots of Unnecessary Complexity for Testing Purposes Only",
-    description:
-      "Configured databases, tables, and initial seed data for testing. This included hundreds of tables, dozens of indexes, and a complicated schema that will never be used in production.",
-    date: new Date("2023-02-01"),
-    variant: "destructive"
-  }
-];
-
-export default function TimelineDemo() {
-  return (
-    <Timeline
-      orientation="vertical"
-      alternating={true}
-      alignment="bottom/right"
-      vertItemSpacing={180}
-    >
-      {timelineData.map((item, idx) => (
-        <TimelineItem key={idx} {...item} />
-      ))}
-    </Timeline>
-  );
-}
