@@ -66,7 +66,7 @@ const timelineDotVariants = cva(
 );
 
 const timelineItemVariants = cva(
-  "flex flex-col border rounded-md p-4 text-card-foreground shadow-sm transition-all", // Base card styles
+  "flex flex-col rounded-md transition-all p-4", // remove border/padding from base
   {
     variants: {
       variant: {
@@ -75,10 +75,15 @@ const timelineItemVariants = cva(
         warning: variantStyles.warning.card,
         destructive: variantStyles.destructive.card,
         info: variantStyles.info.card
+      },
+      noCards: {
+        true: "border-none shadow-none bg-transparent",
+        false: "border shadow-sm"
       }
     },
     defaultVariants: {
-      variant: "default"
+      variant: "default",
+      noCards: false
     }
   }
 );
@@ -138,9 +143,6 @@ export interface TimelineItemProps
   extends
     HTMLAttributes<HTMLLIElement>,
     VariantProps<typeof timelineItemVariants> {
-  date: Date;
-  title: string;
-  description?: string;
   index?: number;
 
   total?: number;
@@ -150,12 +152,16 @@ export interface TimelineItemProps
   alternating?: boolean;
   alignment?: "top/left" | "bottom/right";
   orientation?: "horizontal" | "vertical";
+
+  noCards?: boolean;
 }
 
 export interface TimelineProps
   extends
     HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof timelineLayoutVariants> {
+  children?: React.ReactNode;
+
   alternating?: boolean;
   alignment?: "top/left" | "bottom/right";
 
@@ -166,6 +172,23 @@ export interface TimelineProps
   vertItemMaxWidth?: number;
 
   orientation?: "horizontal" | "vertical";
+
+  noCards?: boolean;
+}
+
+export interface TimelineItemDateProps extends Omit<
+  HTMLAttributes<HTMLSpanElement>,
+  "children"
+> {
+  children: Date | string;
+}
+
+export interface TimelineItemTitleProps extends HTMLAttributes<HTMLHeadingElement> {
+  children: React.ReactNode;
+}
+
+export interface TimelineItemDescriptionProps extends HTMLAttributes<HTMLParagraphElement> {
+  children: React.ReactNode;
 }
 
 function useHorizontalScroll() {
@@ -205,6 +228,7 @@ export default function Timeline({
   alternating = true,
   alignment = "top/left",
   orientation = "horizontal",
+  noCards = false,
   ...props
 }: TimelineProps) {
   const isVertical = orientation === "vertical";
@@ -308,7 +332,8 @@ export default function Timeline({
             cardWidth: horizItemWidth,
             maxCardWidth: vertItemMaxWidth,
             alternating,
-            alignment
+            alignment,
+            noCards
           })
         )}
       </ul>
@@ -317,11 +342,9 @@ export default function Timeline({
 }
 
 export function TimelineItem({
+  children,
   className,
   variant,
-  date,
-  title,
-  description,
   index = 0,
   total = 0,
   cardWidth,
@@ -329,6 +352,7 @@ export function TimelineItem({
   alternating,
   alignment,
   orientation,
+  noCards,
   ...props
 }: TimelineItemProps) {
   const isEven = index % 2 === 0;
@@ -411,16 +435,10 @@ export function TimelineItem({
         <div
           id={`timeline-item-${index}`}
           style={cardStyle}
-          className={cn(timelineItemVariants({ variant }), "shrink-0")}
+          className={cn(timelineItemVariants({ variant, noCards }), "shrink-0")}
           data-timeline-card={true}
         >
-          <span className="text-xs text-muted-foreground">
-            {dateFormatter.format(date)}
-          </span>
-          <h3 className="font-semibold mt-1">{title}</h3>
-          {description && (
-            <p className="text-sm text-muted-foreground mt-2">{description}</p>
-          )}
+          {children}
         </div>
       </li>
 
@@ -476,6 +494,48 @@ export function TimelineItem({
         />
       </li>
     </>
+  );
+}
+
+export function TimelineItemDate({
+  children,
+  className,
+  ...props
+}: TimelineItemDateProps) {
+  return (
+    <span
+      className={cn("text-xs text-muted-foreground mb-1", className)}
+      {...props}
+    >
+      {children instanceof Date ? dateFormatter.format(children) : children}
+    </span>
+  );
+}
+
+export function TimelineItemTitle({
+  children,
+  className,
+  ...props
+}: TimelineItemTitleProps) {
+  return (
+    <h3 className={cn("font-semibold", className)} {...props}>
+      {children}
+    </h3>
+  );
+}
+
+export function TimelineItemDescription({
+  children,
+  className,
+  ...props
+}: TimelineItemDescriptionProps) {
+  return (
+    <p
+      className={cn("text-sm text-muted-foreground mt-2", className)}
+      {...props}
+    >
+      {children}
+    </p>
   );
 }
 

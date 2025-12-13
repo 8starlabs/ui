@@ -52,9 +52,9 @@ const timelineData = [
 
 export default function TimelineNoCardsDemo() {
   return (
-    <Timeline orientation="horizontal">
+    <Timeline orientation="horizontal" noCards>
       {timelineData.map((item, idx) => (
-        <TimelineItem key={idx} variant={item.variant}>
+        <TimelineItem key={idx} variant={item.variant} className="text-center">
           <TimelineItemDate>{item.date.toDateString()}</TimelineItemDate>
           <TimelineItemTitle>{item.title}</TimelineItemTitle>
           <TimelineItemDescription>{item.description}</TimelineItemDescription>
