@@ -1,8 +1,13 @@
 // AUTO-GENERATED FILE. DO NOT EDIT MANUALLY.
 import status_indicator_component from "@/registry/8starlabs-ui/blocks/status-indicator";
 import system_banner_component from "@/registry/8starlabs-ui/blocks/system-banner";
+import timeline_component from "@/registry/8starlabs-ui/blocks/timeline";
 import transport_badge_component from "@/registry/8starlabs-ui/blocks/transport-badge";
 import status_indicator_demo_component from "@/registry/8starlabs-ui/examples/status-indicator-demo";
+import timeline_demo_component from "@/registry/8starlabs-ui/examples/timeline-demo";
+import timeline_nocards_demo_component from "@/registry/8starlabs-ui/examples/timeline-nocards-demo";
+import timeline_not_alternating_demo_component from "@/registry/8starlabs-ui/examples/timeline-not-alternating-demo";
+import timeline_vertical_demo_component from "@/registry/8starlabs-ui/examples/timeline-vertical-demo";
 import transport_badge_demo_multi_station_component from "@/registry/8starlabs-ui/examples/transport-badge-demo-multi-station";
 import transport_badge_demo_single_station_component from "@/registry/8starlabs-ui/examples/transport-badge-demo-single-station";
 import transport_badge_demo_sizes_component from "@/registry/8starlabs-ui/examples/transport-badge-demo-sizes";
@@ -31,6 +36,16 @@ export const Index: Record<string, any> = {
       }],
       component: system_banner_component
     },
+    "timeline": {
+      name: "timeline",
+      type: "registry:block",
+      files: [{
+        path: "registry/8starlabs-ui/blocks/timeline.tsx",
+        type: "registry:block",
+        target: ""
+      }],
+      component: timeline_component
+    },
     "transport-badge": {
       name: "transport-badge",
       type: "registry:block",
@@ -50,6 +65,46 @@ export const Index: Record<string, any> = {
         target: ""
       }],
       component: status_indicator_demo_component
+    },
+    "timeline-demo": {
+      name: "timeline-demo",
+      type: "registry:example",
+      files: [{
+        path: "registry/8starlabs-ui/examples/timeline-demo.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+      component: timeline_demo_component
+    },
+    "timeline-nocards-demo": {
+      name: "timeline-nocards-demo",
+      type: "registry:example",
+      files: [{
+        path: "registry/8starlabs-ui/examples/timeline-nocards-demo.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+      component: timeline_nocards_demo_component
+    },
+    "timeline-not-alternating-demo": {
+      name: "timeline-not-alternating-demo",
+      type: "registry:example",
+      files: [{
+        path: "registry/8starlabs-ui/examples/timeline-not-alternating-demo.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+      component: timeline_not_alternating_demo_component
+    },
+    "timeline-vertical-demo": {
+      name: "timeline-vertical-demo",
+      type: "registry:example",
+      files: [{
+        path: "registry/8starlabs-ui/examples/timeline-vertical-demo.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+      component: timeline_vertical_demo_component
     },
     "transport-badge-demo-multi-station": {
       name: "transport-badge-demo-multi-station",
