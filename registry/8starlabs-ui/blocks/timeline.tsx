@@ -3,9 +3,11 @@
 import {
   Children,
   cloneElement,
+  createContext,
   CSSProperties,
   HTMLAttributes,
   ReactElement,
+  useContext,
   useEffect,
   useLayoutEffect,
   useRef,
@@ -14,49 +16,17 @@ import {
 import { cn } from "@/lib/utils";
 import { cva, VariantProps } from "class-variance-authority";
 
-const variantStyles: Record<
-  string,
-  { dot: string; branch: string; card: string }
-> = {
-  default: {
-    dot: "border-primary bg-background",
-    branch: "bg-primary",
-    // Uses 'border-primary' to make it stand out in Dark Mode (White)
-    card: "border-primary bg-card"
-  },
-  success: {
-    dot: "border-emerald-500 bg-emerald-500",
-    branch: "bg-emerald-500",
-    card: "border-emerald-500 bg-emerald-50/50 dark:bg-emerald-950/20"
-  },
-  warning: {
-    dot: "border-amber-500 bg-amber-500",
-    branch: "bg-amber-500",
-    card: "border-amber-500 bg-amber-50/50 dark:bg-amber-950/20"
-  },
-  destructive: {
-    // Renamed from 'error' to match Shadcn
-    dot: "border-destructive bg-destructive",
-    branch: "bg-destructive",
-    card: "border-destructive bg-destructive/10"
-  },
-  info: {
-    dot: "border-sky-500 bg-sky-500",
-    branch: "bg-sky-500",
-    card: "border-sky-500 bg-sky-50/50 dark:bg-sky-950/20"
-  }
-};
-
 const timelineDotVariants = cva(
-  "h-4 w-4 rounded-full border-2 bg-background z-10 box-border", // Base styles
+  "h-4 w-4 rounded-full z-10 box-border flex items-center justify-center ring-offset-background",
   {
     variants: {
       variant: {
-        default: variantStyles.default.dot,
-        success: variantStyles.success.dot,
-        warning: variantStyles.warning.dot,
-        destructive: variantStyles.destructive.dot,
-        info: variantStyles.info.dot
+        default: "bg-primary border-2 border-primary text-primary-foreground",
+        secondary:
+          "bg-secondary border-2 border-secondary text-secondary-foreground",
+        destructive:
+          "bg-destructive border-2 border-destructive text-destructive-foreground",
+        outline: "bg-background border-2 border-input"
       }
     },
     defaultVariants: {
@@ -66,19 +36,19 @@ const timelineDotVariants = cva(
 );
 
 const timelineItemVariants = cva(
-  "flex flex-col rounded-md transition-all p-4", // remove border/padding from base
+  "flex flex-col rounded-md transition-all p-4",
   {
     variants: {
       variant: {
-        default: variantStyles.default.card,
-        success: variantStyles.success.card,
-        warning: variantStyles.warning.card,
-        destructive: variantStyles.destructive.card,
-        info: variantStyles.info.card
+        default: "bg-card border text-card-foreground shadow-sm",
+        secondary: "bg-secondary text-secondary-foreground shadow-sm",
+        destructive:
+          "bg-destructive/10 border border-destructive/20 text-destructive-foreground shadow-sm",
+        outline: "bg-transparent border shadow-sm"
       },
       noCards: {
-        true: "border-none shadow-none bg-transparent",
-        false: "border shadow-sm"
+        true: "border-none shadow-none bg-transparent p-0",
+        false: ""
       }
     },
     defaultVariants: {
@@ -88,14 +58,15 @@ const timelineItemVariants = cva(
   }
 );
 
-const timelineBranchVariants = cva("", {
+// We need a specific variant for the lines because "outline"
+// shouldn't make the connecting line invisible.
+const timelineBranchVariants = cva("absolute z-0", {
   variants: {
     variant: {
-      default: variantStyles.default.branch,
-      success: variantStyles.success.branch,
-      warning: variantStyles.warning.branch,
-      destructive: variantStyles.destructive.branch,
-      info: variantStyles.info.branch
+      default: "bg-primary",
+      secondary: "bg-muted-foreground/30", // Gentle gray for secondary
+      destructive: "bg-destructive",
+      outline: "bg-border" // Matches standard border color
     }
   },
   defaultVariants: {
@@ -119,22 +90,17 @@ const timelineItemContainerVariants = cva("flex relative", {
   variants: {
     orientation: {
       horizontal: "w-full justify-center",
-      vertical: "h-full items-center" // Vertical items need to center vertically
+      vertical: "h-full items-center"
     },
     side: {
-      // Logic for "Before Line" (on top / left) vs "After Line" (on bottom / right)
       before: "",
       after: ""
     }
   },
   compoundVariants: [
-    // Horizontal + Top (Even)
     { orientation: "horizontal", side: "before", class: "items-end" },
-    // Horizontal + Bottom (Odd)
     { orientation: "horizontal", side: "after", class: "items-start" },
-    // Vertical + Left (Even)
     { orientation: "vertical", side: "before", class: "justify-end" },
-    // Vertical + Right (Odd)
     { orientation: "vertical", side: "after", class: "justify-start" }
   ]
 });
@@ -144,16 +110,6 @@ export interface TimelineItemProps
     HTMLAttributes<HTMLLIElement>,
     VariantProps<typeof timelineItemVariants> {
   index?: number;
-
-  total?: number;
-  cardWidth?: number;
-  maxCardWidth?: number;
-
-  alternating?: boolean;
-  alignment?: "top/left" | "bottom/right";
-  orientation?: "horizontal" | "vertical";
-
-  noCards?: boolean;
 }
 
 export interface TimelineProps
@@ -189,6 +145,28 @@ export interface TimelineItemTitleProps extends HTMLAttributes<HTMLHeadingElemen
 
 export interface TimelineItemDescriptionProps extends HTMLAttributes<HTMLParagraphElement> {
   children: React.ReactNode;
+}
+
+type TimelineContextType = {
+  orientation: "horizontal" | "vertical";
+  total: number;
+  cardWidth?: number;
+  maxCardWidth?: number;
+  alternating: boolean;
+  alignment: "top/left" | "bottom/right";
+  noCards: boolean;
+};
+
+const TlCtxt = createContext<TimelineContextType | null>(null);
+
+function useTimelineContext() {
+  const context = useContext(TlCtxt);
+  if (context === null) {
+    throw new Error(
+      "Timeline components must be used within a Timeline component."
+    );
+  }
+  return context;
 }
 
 function useHorizontalScroll() {
@@ -280,6 +258,16 @@ export default function Timeline({
     return () => observer.disconnect();
   }, [isVertical, vertItemSpacing, children]);
 
+  const contextVal: TimelineContextType = {
+    orientation,
+    total: Children.count(children),
+    cardWidth: horizItemWidth,
+    maxCardWidth: vertItemMaxWidth,
+    alternating,
+    alignment,
+    noCards
+  };
+
   return (
     <div
       id="timeline-container"
@@ -324,18 +312,11 @@ export default function Timeline({
         }
         ref={listRef}
       >
-        {Children.map(children, (child, index) =>
-          cloneElement(child as ReactElement<any>, {
-            index,
-            orientation,
-            total: Children.count(children),
-            cardWidth: horizItemWidth,
-            maxCardWidth: vertItemMaxWidth,
-            alternating,
-            alignment,
-            noCards
-          })
-        )}
+        <TlCtxt.Provider value={contextVal}>
+          {Children.map(children, (child, index) =>
+            cloneElement(child as ReactElement<any>, { index })
+          )}
+        </TlCtxt.Provider>
       </ul>
     </div>
   );
@@ -346,15 +327,18 @@ export function TimelineItem({
   className,
   variant,
   index = 0,
-  total = 0,
-  cardWidth,
-  maxCardWidth,
-  alternating,
-  alignment,
-  orientation,
-  noCards,
   ...props
 }: TimelineItemProps) {
+  const {
+    orientation,
+    total,
+    cardWidth,
+    maxCardWidth,
+    alternating,
+    alignment,
+    noCards
+  } = useTimelineContext();
+
   const isEven = index % 2 === 0;
   const isVertical = orientation === "vertical";
 

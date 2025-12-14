@@ -33,27 +33,35 @@ npx shadcn@latest add https://ui.8starlabs.com/r/timeline
 ## Usage
 
 ```tsx showLineNumbers
-import Timeline, { TimelineItem } from "@/components/ui/timeline";
+import {
+  Timeline,
+  TimelineItem,
+  TimelineItemDate,
+  TimelineItemTitle,
+  TimelineItemDescription
+} from "@/components/ui/timeline";
 
-<Timeline orientation="horizontal">
-  <TimelineItem
-    title="Event 1"
-    description="Description for event 1"
-    date={new Date("2023-01-01")}
-  />
-  <TimelineItem
-    title="Event 2"
-    description="Description for event 2"
-    date={new Date("2023-01-02")}
-    variant="destructive"
-  />
-  <TimelineItem
-    title="Event 3"
-    description="Description for event 3"
-    date={new Date("2023-01-03")}
-    variant="success"
-  />
-</Timeline>;
+export function MyTimeline() {
+  return (
+    <Timeline orientation="horizontal">
+      <TimelineItem>
+        <TimelineItemDate>January 2024</TimelineItemDate>
+        <TimelineItemTitle>Project Kickoff</TimelineItemTitle>
+        <TimelineItemDescription>
+          Initial planning and requirements gathering.
+        </TimelineItemDescription>
+      </TimelineItem>
+
+      <TimelineItem variant="secondary">
+        <TimelineItemDate>February 2024</TimelineItemDate>
+        <TimelineItemTitle>Design Phase</TimelineItemTitle>
+        <TimelineItemDescription>
+          Mockups and prototypes approved.
+        </TimelineItemDescription>
+      </TimelineItem>
+    </Timeline>
+  );
+}
 ```
 
 ## API Reference
@@ -65,24 +73,22 @@ import Timeline, { TimelineItem } from "@/components/ui/timeline";
 | `orientation`      | `"horizontal" \| "vertical"`   | `"horizontal"` | The orientation of the timeline.                                                                                                                                                                                        |
 | `alternating`      | `boolean`                      | `true`         | Whether the timeline cards alternate from one side of the line to the other. If set to `true`, `alignment` has no effect. The first card is always placed at the top left (for both horizontal and vertical timelines). |
 | `alignment`        | `"top/left" \| "bottom/right"` | `"top/left"`   | Determines which side of the line to display the cards. Only takes effect if `alternating` is `false`.                                                                                                                  |
-| `horizItemSpacing` | `number`                       | `130`          | The horizontal distance between successive timeline points on a horizontal timeline.                                                                                                                                    |
-| `horizItemWidth`   | `number`                       | `220`          | The width of each card in a horizontal timeline.                                                                                                                                                                        |
-| `vertItemSpacing`  | `number`                       | `130`          | The vertical distance between successive timeline points on a vertical timeline.                                                                                                                                        |
-| `vertItemMaxWidth` | `number`                       | `350`          | The maximum width of each card in a vertical timeline.                                                                                                                                                                  |
+| `horizItemSpacing` | `number`                       | `130`          | The horizontal distance (in px) between successive timeline points on a horizontal timeline.                                                                                                                            |
+| `horizItemWidth`   | `number`                       | `220`          | The width (in px) of each card in a horizontal timeline.                                                                                                                                                                |
+| `vertItemSpacing`  | `number`                       | `130`          | The vertical distance (in px) between successive timeline points on a vertical timeline.                                                                                                                                |
+| `vertItemMaxWidth` | `number`                       | `350`          | The maximum width (in px) of each card in a vertical timeline.                                                                                                                                                          |
+| `noCards`          | `boolean`                      | `false`        | If `true`, removes the card background and border styling from all items.                                                                                                                                               |
 
 `<TimelineItem>` props
 
-| Prop          | Type                                                             | Description                                      |
-| ------------- | ---------------------------------------------------------------- | ------------------------------------------------ |
-| `title`       | `string`                                                         | (Optional) The title of the timeline item.       |
-| `description` | `string`                                                         | (Optional) The description of the timeline item. |
-| `date`        | `Date`                                                           | (Optional) The date of the timeline item.        |
-| `variant`     | `"default" \| "success" \| "warning" \| "destructive" \| "info"` | (Optional) The variant of the timeline item.     |
+| Prop      | Type                                                   | Description                                               |
+| --------- | ------------------------------------------------------ | --------------------------------------------------------- |
+| `variant` | `"default" \| "success" \| "destructive" \| "outline"` | (Optional) The visual style of the timeline card and dot. |
 
 ## Examples
 
-<ComponentPreview name="timeline-nocards-demo" />
+{/\* <ComponentPreview name="timeline-nocards-demo" />
 
 <ComponentPreview name="timeline-vertical-demo" />
 
-<ComponentPreview name="timeline-not-alternating-demo" />
+<ComponentPreview name="timeline-not-alternating-demo" /> */}
