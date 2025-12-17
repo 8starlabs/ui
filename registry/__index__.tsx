@@ -9,6 +9,7 @@ import timeline_hollow_demo_component from "@/registry/8starlabs-ui/examples/tim
 import timeline_nocards_demo_component from "@/registry/8starlabs-ui/examples/timeline-nocards-demo";
 import timeline_not_alternating_demo_component from "@/registry/8starlabs-ui/examples/timeline-not-alternating-demo";
 import timeline_vertical_demo_component from "@/registry/8starlabs-ui/examples/timeline-vertical-demo";
+import transport_badge_demo_hk_component from "@/registry/8starlabs-ui/examples/transport-badge-demo-hk";
 import transport_badge_demo_multi_station_component from "@/registry/8starlabs-ui/examples/transport-badge-demo-multi-station";
 import transport_badge_demo_single_station_component from "@/registry/8starlabs-ui/examples/transport-badge-demo-single-station";
 import transport_badge_demo_sizes_component from "@/registry/8starlabs-ui/examples/transport-badge-demo-sizes";
@@ -116,6 +117,16 @@ export const Index: Record<string, any> = {
         target: ""
       }],
       component: timeline_vertical_demo_component
+    },
+    "transport-badge-demo-hk": {
+      name: "transport-badge-demo-hk",
+      type: "registry:example",
+      files: [{
+        path: "registry/8starlabs-ui/examples/transport-badge-demo-hk.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+      component: transport_badge_demo_hk_component
     },
     "transport-badge-demo-multi-station": {
       name: "transport-badge-demo-multi-station",

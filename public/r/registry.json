@@ -182,6 +182,18 @@
           "type": "registry:example"
         }
       ]
+    },
+    {
+      "name": "transport-badge-demo-hk",
+      "type": "registry:example",
+      "title": "Transport Badge Demo HK",
+      "description": "A transport badge demo for Hong Kong MTR",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/transport-badge-demo-hk.tsx",
+          "type": "registry:example"
+        }
+      ]
     }
   ]
 }
