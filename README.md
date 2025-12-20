@@ -9,7 +9,7 @@ The library integrates seamlessly with Next.js projects using shadcn/ui and prov
 ## Installation
 
 ```bash
-npx shadcn@latest add https://ui.8starlabs.io/r/status-indicator.json
+npx shadcn@latest add https://ui.8starlabs.com/r/status-indicator.json
 ```
 
 All available components can be found [here](https://ui.8starlabs.com/docs/components).
