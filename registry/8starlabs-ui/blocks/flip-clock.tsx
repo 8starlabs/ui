@@ -2,7 +2,14 @@
 
 import { cn } from "@/lib/utils";
 import { cva, VariantProps } from "class-variance-authority";
-import { HTMLAttributes, memo, ReactNode, useEffect, useState } from "react";
+import {
+  FC,
+  HTMLAttributes,
+  memo,
+  ReactNode,
+  useEffect,
+  useState
+} from "react";
 
 const flipUnitVariants = cva(
   "relative subpixel-antialiased perspective-[1000px] rounded-md overflow-hidden",
@@ -40,7 +47,12 @@ const commonCardStyle = cn(
   "absolute inset-x-0 overflow-hidden h-1/2 bg-inherit text-inherit"
 );
 
-const FlipUnit = memo(({ digit, size, variant, className }: FlipUnitProps) => {
+const FlipUnit: FC<FlipUnitProps> = memo(function FlipUnit({
+  digit,
+  size,
+  variant,
+  className
+}: FlipUnitProps) {
   const [prevDigit, setPrevDigit] = useState(digit);
   const [flipping, setFlipping] = useState(false);
 

@@ -25,7 +25,8 @@ export default [
       "no-unused-vars": 0,
       "no-param-reassign": ["error", { props: false }],
       "no-console": 0,
-      "prettier/prettier": 1
+      "prettier/prettier": 1,
+      "react/display-name": ["off"]
     }
   })
 ];
