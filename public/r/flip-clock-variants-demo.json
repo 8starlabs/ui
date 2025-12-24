@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "flip-clock-variants-demo",
+  "type": "registry:example",
+  "title": "Flip clock",
+  "description": "A flip clock demo component",
+  "files": [
+    {
+      "path": "registry/8starlabs-ui/examples/flip-clock-variants-demo.tsx",
+      "content": "import FlipClock from \"@/registry/8starlabs-ui/blocks/flip-clock\";\n\nexport default function FlipClockVariantsDemo() {\n  return (\n    <div className=\"flex flex-col gap-8\">\n      <FlipClock variant={\"default\"} />\n      <FlipClock variant={\"secondary\"} />\n      <FlipClock variant={\"destructive\"} />\n      <FlipClock variant={\"outline\"} />\n      <FlipClock variant={\"muted\"} />\n    </div>\n  );\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "flip-clock-countdown-demo",
+  "type": "registry:example",
+  "title": "Flip clock",
+  "description": "A flip clock demo component",
+  "files": [
+    {
+      "path": "registry/8starlabs-ui/examples/flip-clock-countdown-demo.tsx",
+      "content": "import FlipClock from \"@/registry/8starlabs-ui/blocks/flip-clock\";\n\nexport default function FlipClockCountdownDemo() {\n  return (\n    <div className=\"flex flex-col gap-8\">\n      <FlipClock\n        countdown={true}\n        targetDate={new Date(Date.now() + 1000 * 60 * 60 * 24)}\n        size={\"md\"}\n      />\n      <FlipClock\n        countdown={true}\n        showDays=\"always\"\n        targetDate={new Date(Date.now() + 1000 * 60 * 60 * 24)}\n        size={\"md\"}\n      />\n      <div />\n      <FlipClock\n        variant=\"secondary\"\n        countdown={true}\n        targetDate={new Date(Date.now() + 10000 * 60 * 60 * 24)}\n        size={\"md\"}\n      />\n      <FlipClock\n        variant=\"secondary\"\n        countdown={true}\n        showDays=\"never\"\n        targetDate={new Date(Date.now() + 10000 * 60 * 60 * 24)}\n        size={\"md\"}\n      />\n      <div />\n      <FlipClock\n        variant=\"muted\"\n        countdown={true}\n        targetDate={new Date(Date.now() + 500000 * 60 * 60 * 24)}\n        size={\"md\"}\n      />\n    </div>\n  );\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

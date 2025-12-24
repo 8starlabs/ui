@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "flip-clock-size-demo",
+  "type": "registry:example",
+  "title": "Flip clock",
+  "description": "A flip clock demo component",
+  "files": [
+    {
+      "path": "registry/8starlabs-ui/examples/flip-clock-size-demo.tsx",
+      "content": "import FlipClock from \"@/registry/8starlabs-ui/blocks/flip-clock\";\n\nexport default function FlipClockSizeDemo() {\n  return (\n    <div className=\"flex flex-col gap-8\">\n      <FlipClock size={\"sm\"} />\n      <FlipClock size={\"md\"} />\n      <FlipClock size={\"lg\"} />\n      <FlipClock size={\"xl\"} />\n    </div>\n  );\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

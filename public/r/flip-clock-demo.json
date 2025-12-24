@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "flip-clock-demo",
+  "type": "registry:example",
+  "title": "Flip clock",
+  "description": "A flip clock demo component",
+  "files": [
+    {
+      "path": "registry/8starlabs-ui/examples/flip-clock-demo.tsx",
+      "content": "import FlipClock from \"@/registry/8starlabs-ui/blocks/flip-clock\";\n\nexport default function FlipClockDemo() {\n  return <FlipClock size={\"md\"} />;\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

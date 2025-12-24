@@ -4,6 +4,66 @@
   "homepage": "https://ui.8starlabs.com",
   "items": [
     {
+      "name": "flip-clock",
+      "type": "registry:ui",
+      "title": "Flip clock",
+      "description": "A flip clock component",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/blocks/flip-clock.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "flip-clock-demo",
+      "type": "registry:example",
+      "title": "Flip clock",
+      "description": "A flip clock demo component",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/flip-clock-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "flip-clock-size-demo",
+      "type": "registry:example",
+      "title": "Flip clock",
+      "description": "A flip clock demo component",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/flip-clock-size-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "flip-clock-variants-demo",
+      "type": "registry:example",
+      "title": "Flip clock",
+      "description": "A flip clock demo component",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/flip-clock-variants-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "flip-clock-countdown-demo",
+      "type": "registry:example",
+      "title": "Flip clock",
+      "description": "A flip clock demo component",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/flip-clock-countdown-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
       "name": "status-indicator",
       "type": "registry:ui",
       "title": "Status indicator",
