@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "partition-bar-alignment-demo",
+  "type": "registry:example",
+  "title": "Partition Bar",
+  "description": "A partition bar demo component",
+  "files": [
+    {
+      "path": "registry/8starlabs-ui/examples/partition-bar-alignment-demo.tsx",
+      "content": "import {\n  PartitionBar,\n  PartitionBarSegment,\n  PartitionBarSegmentTitle,\n  PartitionBarSegmentValue\n} from \"@/registry/8starlabs-ui/blocks/partition-bar\";\n\nexport default function PartitionBarAlignmentDemo() {\n  return (\n    <PartitionBar size=\"md\">\n      <PartitionBarSegment num={4} alignment=\"left\">\n        <PartitionBarSegmentTitle>Start</PartitionBarSegmentTitle>\n        <PartitionBarSegmentValue>40</PartitionBarSegmentValue>\n      </PartitionBarSegment>\n\n      <PartitionBarSegment num={2} alignment=\"center\" variant=\"secondary\">\n        <PartitionBarSegmentTitle>Middle</PartitionBarSegmentTitle>\n        <PartitionBarSegmentValue>20</PartitionBarSegmentValue>\n      </PartitionBarSegment>\n\n      <PartitionBarSegment num={4} alignment=\"right\" variant=\"muted\">\n        <PartitionBarSegmentTitle>End</PartitionBarSegmentTitle>\n        <PartitionBarSegmentValue>40</PartitionBarSegmentValue>\n      </PartitionBarSegment>\n    </PartitionBar>\n  );\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

@@ -4,6 +4,90 @@
   "homepage": "https://ui.8starlabs.com",
   "items": [
     {
+      "name": "partition-bar",
+      "type": "registry:ui",
+      "title": "Partition Bar",
+      "description": "A partition bar component",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/blocks/partition-bar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "partition-bar-demo",
+      "type": "registry:example",
+      "title": "Partition Bar",
+      "description": "A partition bar demo component",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/partition-bar-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "partition-bar-size-demo",
+      "type": "registry:example",
+      "title": "Partition Bar",
+      "description": "A partition bar demo component",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/partition-bar-size-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "partition-bar-alignment-demo",
+      "type": "registry:example",
+      "title": "Partition Bar",
+      "description": "A partition bar demo component",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/partition-bar-alignment-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "partition-bar-width-demo",
+      "type": "registry:example",
+      "title": "Partition Bar",
+      "description": "A partition bar demo component",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/partition-bar-width-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "partition-bar-custom-colours-demo",
+      "type": "registry:example",
+      "title": "Partition Bar",
+      "description": "A partition bar demo component",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/partition-bar-custom-colours-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "partition-bar-variants-demo",
+      "type": "registry:example",
+      "title": "Partition Bar",
+      "description": "A partition bar demo component",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/partition-bar-variants-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
       "name": "flip-clock",
       "type": "registry:ui",
       "title": "Flip clock",

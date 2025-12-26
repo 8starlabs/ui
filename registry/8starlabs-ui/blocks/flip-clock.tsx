@@ -63,7 +63,7 @@ const FlipUnit: FC<FlipUnitProps> = memo(function FlipUnit({
       const timer = setTimeout(() => {
         setFlipping(false);
         setPrevDigit(digit);
-      }, 600);
+      }, 550); // Slightly less than 600ms to ensure smoothness
       return () => clearTimeout(timer);
     }
   }, [digit, prevDigit]);
@@ -210,9 +210,21 @@ export default function FlipClock({
   const [time, setTime] = useState<TimeLeft>(getTime(countdown, targetDate));
 
   useEffect(() => {
+    // Run a faster heartbeat (250ms) to catch the second rollover immediately
     const timer = setInterval(() => {
-      setTime(getTime(countdown, targetDate));
-    }, 1000);
+      const nextTime = getTime(countdown, targetDate);
+
+      // Only update state if the seconds actually changed to prevent unnecessary re-renders
+      setTime((prev) => {
+        if (
+          prev.seconds === nextTime.seconds &&
+          prev.minutes === nextTime.minutes
+        ) {
+          return prev;
+        }
+        return nextTime;
+      });
+    }, 250); // 4fps check is plenty
 
     return () => clearInterval(timer);
   }, [countdown, targetDate]);

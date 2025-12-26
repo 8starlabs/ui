@@ -1,5 +1,6 @@
 // AUTO-GENERATED FILE. DO NOT EDIT MANUALLY.
 import flip_clock_component from "@/registry/8starlabs-ui/blocks/flip-clock";
+import partition_bar_component from "@/registry/8starlabs-ui/blocks/partition-bar";
 import scroll_fade_component from "@/registry/8starlabs-ui/blocks/scroll-fade";
 import status_indicator_component from "@/registry/8starlabs-ui/blocks/status-indicator";
 import system_banner_component from "@/registry/8starlabs-ui/blocks/system-banner";
@@ -10,6 +11,12 @@ import flip_clock_demo_component from "@/registry/8starlabs-ui/examples/flip-clo
 import flip_clock_showdays_demo_component from "@/registry/8starlabs-ui/examples/flip-clock-showdays-demo";
 import flip_clock_size_demo_component from "@/registry/8starlabs-ui/examples/flip-clock-size-demo";
 import flip_clock_variants_demo_component from "@/registry/8starlabs-ui/examples/flip-clock-variants-demo";
+import partition_bar_alignment_demo_component from "@/registry/8starlabs-ui/examples/partition-bar-alignment-demo";
+import partition_bar_custom_colours_demo_component from "@/registry/8starlabs-ui/examples/partition-bar-custom-colours-demo";
+import partition_bar_demo_component from "@/registry/8starlabs-ui/examples/partition-bar-demo";
+import partition_bar_size_demo_component from "@/registry/8starlabs-ui/examples/partition-bar-size-demo";
+import partition_bar_variants_demo_component from "@/registry/8starlabs-ui/examples/partition-bar-variants-demo";
+import partition_bar_width_demo_component from "@/registry/8starlabs-ui/examples/partition-bar-width-demo";
 import scroll_fade_demo_component from "@/registry/8starlabs-ui/examples/scroll-fade-demo";
 import status_indicator_demo_component from "@/registry/8starlabs-ui/examples/status-indicator-demo";
 import timeline_demo_component from "@/registry/8starlabs-ui/examples/timeline-demo";
@@ -35,6 +42,16 @@ export const Index: Record<string, any> = {
         target: ""
       }],
       component: flip_clock_component
+    },
+    "partition-bar": {
+      name: "partition-bar",
+      type: "registry:block",
+      files: [{
+        path: "registry/8starlabs-ui/blocks/partition-bar.tsx",
+        type: "registry:block",
+        target: ""
+      }],
+      component: partition_bar_component
     },
     "scroll-fade": {
       name: "scroll-fade",
@@ -135,6 +152,66 @@ export const Index: Record<string, any> = {
         target: ""
       }],
       component: flip_clock_variants_demo_component
+    },
+    "partition-bar-alignment-demo": {
+      name: "partition-bar-alignment-demo",
+      type: "registry:example",
+      files: [{
+        path: "registry/8starlabs-ui/examples/partition-bar-alignment-demo.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+      component: partition_bar_alignment_demo_component
+    },
+    "partition-bar-custom-colours-demo": {
+      name: "partition-bar-custom-colours-demo",
+      type: "registry:example",
+      files: [{
+        path: "registry/8starlabs-ui/examples/partition-bar-custom-colours-demo.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+      component: partition_bar_custom_colours_demo_component
+    },
+    "partition-bar-demo": {
+      name: "partition-bar-demo",
+      type: "registry:example",
+      files: [{
+        path: "registry/8starlabs-ui/examples/partition-bar-demo.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+      component: partition_bar_demo_component
+    },
+    "partition-bar-size-demo": {
+      name: "partition-bar-size-demo",
+      type: "registry:example",
+      files: [{
+        path: "registry/8starlabs-ui/examples/partition-bar-size-demo.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+      component: partition_bar_size_demo_component
+    },
+    "partition-bar-variants-demo": {
+      name: "partition-bar-variants-demo",
+      type: "registry:example",
+      files: [{
+        path: "registry/8starlabs-ui/examples/partition-bar-variants-demo.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+      component: partition_bar_variants_demo_component
+    },
+    "partition-bar-width-demo": {
+      name: "partition-bar-width-demo",
+      type: "registry:example",
+      files: [{
+        path: "registry/8starlabs-ui/examples/partition-bar-width-demo.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+      component: partition_bar_width_demo_component
     },
     "scroll-fade-demo": {
       name: "scroll-fade-demo",

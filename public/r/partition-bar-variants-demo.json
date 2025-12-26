@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "partition-bar-variants-demo",
+  "type": "registry:example",
+  "title": "Partition Bar",
+  "description": "A partition bar demo component",
+  "files": [
+    {
+      "path": "registry/8starlabs-ui/examples/partition-bar-variants-demo.tsx",
+      "content": "import {\n  PartitionBar,\n  PartitionBarSegment,\n  PartitionBarSegmentTitle,\n  PartitionBarSegmentValue\n} from \"@/registry/8starlabs-ui/blocks/partition-bar\";\n\nexport default function PartitionBarVariantsDemo() {\n  return (\n    <PartitionBar size=\"md\">\n      <PartitionBarSegment num={3} variant=\"default\">\n        <PartitionBarSegmentTitle>Apples</PartitionBarSegmentTitle>\n        <PartitionBarSegmentValue>300kg</PartitionBarSegmentValue>\n      </PartitionBarSegment>\n\n      <PartitionBarSegment num={2} variant=\"secondary\">\n        <PartitionBarSegmentTitle>Oranges</PartitionBarSegmentTitle>\n        <PartitionBarSegmentValue>200kg</PartitionBarSegmentValue>\n      </PartitionBarSegment>\n\n      <PartitionBarSegment num={3} variant=\"destructive\">\n        <PartitionBarSegmentTitle>Bananas</PartitionBarSegmentTitle>\n        <PartitionBarSegmentValue>300kg</PartitionBarSegmentValue>\n      </PartitionBarSegment>\n\n      <PartitionBarSegment num={2} variant=\"outline\">\n        <PartitionBarSegmentTitle>Pears</PartitionBarSegmentTitle>\n        <PartitionBarSegmentValue>200kg</PartitionBarSegmentValue>\n      </PartitionBarSegment>\n\n      <PartitionBarSegment num={3} variant=\"muted\">\n        <PartitionBarSegmentTitle>Mangoes</PartitionBarSegmentTitle>\n        <PartitionBarSegmentValue>300kg</PartitionBarSegmentValue>\n      </PartitionBarSegment>\n    </PartitionBar>\n  );\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

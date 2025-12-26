@@ -1,0 +1,100 @@
+---
+title: Partition Bar
+description: A horizontal partition bar component that visually represents segments of a whole, with customizable sizes, colors, and text alignment.
+---
+
+<ComponentPreview name="partition-bar-demo" align="start" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add https://ui.8starlabs.com/r/partition-bar.json
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<ComponentSource name="partition-bar" title="components/ui/partition-bar.tsx" />
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx showLineNumbers
+import {
+  PartitionBar,
+  PartitionBarSegment,
+  PartitionBarSegmentTitle,
+  PartitionBarSegmentValue
+} from "@/components/ui/partition-bar";
+```
+
+```tsx showLineNumbers
+<PartitionBar size="md">
+  <PartitionBarSegment num={3}>
+    <PartitionBarSegmentTitle>Apples</PartitionBarSegmentTitle>
+    <PartitionBarSegmentValue>30%</PartitionBarSegmentValue>
+  </PartitionBarSegment>
+
+  <PartitionBarSegment num={7} variant="secondary">
+    <PartitionBarSegmentTitle>Oranges</PartitionBarSegmentTitle>
+    <PartitionBarSegmentValue>70%</PartitionBarSegmentValue>
+  </PartitionBarSegment>
+</PartitionBar>
+```
+
+## API Reference
+
+### PartitionBar
+
+| Prop       | Type              | Default     | Description                                                                              |
+| ---------- | ----------------- | ----------- | ---------------------------------------------------------------------------------------- |
+| `gap`      | `number`          | `1`         | The gap between partition bar segments, in terms of tailwindcss spacing units.           |
+| `children` | `React.ReactNode` | `undefined` | The child elements of the partition bar, which must be `PartitionBarSegment` components. |
+
+### PartitionBarSegment
+
+| Prop        | Type                                                                | Default     | Description                                                                                                                                                                      |
+| ----------- | ------------------------------------------------------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `num`       | `number`                                                            | `0`         | The numerical value representing the size of this segment relative to others. The width of this segment is calculated based on this value relative to the total of all segments. |
+| `variant`   | `'default' \| 'secondary' \| 'destructive' \| 'outline' \| 'muted'` | `'default'` | The visual style variant of the partition bar segment.                                                                                                                           |
+| `alignment` | `'left' \| 'center' \| 'right'`                                     | `'center'`  | The text alignment within the partition bar segment.                                                                                                                             |
+| `children`  | `React.ReactNode`                                                   | `undefined` | The child elements of the partition bar segment, which must be `PartitionBarSegmentTitle` and `PartitionBarSegmentValue` components.                                             |
+
+## Examples
+
+### Variants
+
+<ComponentPreview name="partition-bar-variants-demo" align="start" />
+
+### Sizes
+
+<ComponentPreview name="partition-bar-size-demo" align="start" />
+
+### Text Alignment
+
+<ComponentPreview name="partition-bar-alignment-demo" align="start" />
+
+### Manually Setting Width
+
+By default, the partition bar fills the width of its container. You can manually set the width of the partition bar using standard CSS width properties on the `PartitionBar` component.
+
+<ComponentPreview name="partition-bar-width-demo" align="start" />
+
+### Custom Colours
+
+You may also customize the colours of the partition bar segments using standard CSS properties. Note that using the `className` prop of `PartitionBarSegment` will apply it to the <strong>coloured bar</strong> only. To customize the text colours, you can use the `className` prop on `PartitionBarSegmentTitle` and `PartitionBarSegmentValue`.
+
+<ComponentPreview name="partition-bar-custom-colours-demo" align="start" />
