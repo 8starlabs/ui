@@ -1,6 +1,6 @@
 export const PAGES_NEW = [
-  "/docs/components/timeline",
-  "/docs/components/scroll-fade"
+  "/docs/components/flip-clock",
+  "/docs/components/partition-bar"
 ];
 
 export const PAGES_UPDATED = [];
