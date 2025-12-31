@@ -14,22 +14,37 @@ export type HeatmapValue = {
 
 export type HeatmapData = HeatmapValue[];
 
-interface HeatmapProps extends HTMLAttributes<HTMLDivElement> {
-  data: HeatmapData;
-  startDate: Date;
-  endDate: Date;
-  cellSize?: number;
-  gap?: number;
-  daysOfTheWeek?: "all" | "MWF" | "none" | "single letter";
-  daysOfTheWeekSize?: number;
-  displayStyle?: "squares" | "bubbles";
-  dateDisplayFunction?: (date: Date) => ReactNode;
-  valueDisplayFunction?: (value: number) => ReactNode;
-  customColorMap?: (value: number, max: number, colorCount: number) => number;
-  colorScale?: string[];
-  maxColor?: string;
-  zeroValueColor?: string;
-}
+type InterpolationModes = "linear" | "sqrt" | "log";
+
+type ColorOptions =
+  | {
+      colorMode: "discrete";
+      colorScale?: string[];
+      customColorMap?: (
+        value: number,
+        max: number,
+        colorCount: number
+      ) => number;
+    }
+  | {
+      colorMode: "interpolate";
+      maxColor?: string;
+      zeroValueColor?: string;
+      interpolation?: InterpolationModes;
+    };
+
+type HeatmapProps = HTMLAttributes<HTMLDivElement> &
+  ColorOptions & {
+    data: HeatmapData;
+    startDate: Date;
+    endDate: Date;
+    cellSize?: number;
+    gap?: number;
+    daysOfTheWeek?: "all" | "MWF" | "none" | "single letter";
+    displayStyle?: "squares" | "bubbles";
+    dateDisplayFunction?: (date: Date) => ReactNode;
+    valueDisplayFunction?: (value: number) => ReactNode;
+  };
 
 function getAllDays(start: Date, end: Date): Date[] {
   // Generate all dates between start and end, inclusive
@@ -78,13 +93,22 @@ function interpolateColor(
   value: number,
   max: number,
   maxColor: string,
-  zeroValueColor: string
+  zeroValueColor: string,
+  scale: InterpolationModes
 ): string {
-  // Interpolate color from transparent to maxColor based on value/max
+  // Interpolate color from zeroValueColor to maxColor based on value/max
   if (value <= 0) return zeroValueColor;
-  const ratio = Math.min(value / max, 1);
 
-  // Convert hex maxColor to RGB
+  let ratio = value / max;
+  switch (scale) {
+    case "sqrt":
+      ratio = Math.sqrt(ratio);
+      break;
+    case "log":
+      ratio = Math.log10(value + 1) / Math.log10(max + 1); // log scale
+      break;
+  }
+
   const r = parseInt(maxColor.slice(1, 3), 16);
   const g = parseInt(maxColor.slice(3, 5), 16);
   const b = parseInt(maxColor.slice(5, 7), 16);
@@ -104,14 +128,12 @@ const daysOfTheWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 interface DaysOfTheWeekIndicatorProps extends HTMLAttributes<HTMLDivElement> {
   daysOfTheWeekOption: "all" | "MWF" | "none" | "single letter";
-  daysOfTheWeekSize: number;
   cellSize: number;
   gap: number;
 }
 
 function DaysOfTheWeekIndicator({
   daysOfTheWeekOption,
-  daysOfTheWeekSize,
   cellSize,
   gap,
   style
@@ -127,7 +149,7 @@ function DaysOfTheWeekIndicator({
         className="flex items-center text-muted-foreground"
         style={{
           height: cellSize,
-          fontSize: daysOfTheWeekSize,
+          fontSize: cellSize,
           lineHeight: `${cellSize}px`
         }}
       >
@@ -142,25 +164,28 @@ function DaysOfTheWeekIndicator({
   );
 }
 
-function ValueIndicator({
-  cellSize,
-  displayStyle,
-  value,
-  maxValue,
-  color
-}: {
+interface ValueIndicatorProps extends HTMLAttributes<HTMLDivElement> {
   cellSize: number;
   displayStyle: "squares" | "bubbles";
   value: number; // current cell value
   maxValue: number; // maximum possible value out of all cells
   color: string;
-}) {
+}
+
+function ValueIndicator({
+  cellSize,
+  displayStyle,
+  value,
+  maxValue,
+  color,
+  ...htmlProps
+}: ValueIndicatorProps) {
   let finalSize = cellSize;
 
   if (displayStyle === "bubbles") {
     // Min bubble size = 0.3 * size, Max bubble size = size
     const minScale = 0.3;
-    const scale = value / maxValue;
+    const scale = maxValue > 0 ? value / maxValue : 0;
     finalSize = cellSize * (minScale + (1 - minScale) * scale);
   }
 
@@ -168,6 +193,7 @@ function ValueIndicator({
     <div
       className="flex items-center justify-center"
       style={{ width: cellSize, height: cellSize }}
+      {...htmlProps}
     >
       <div
         className="transition-colors rounded-full"
@@ -183,28 +209,27 @@ function ValueIndicator({
         borderRadius: 4,
         backgroundColor: color
       }}
+      {...htmlProps}
     />
   );
 }
 
-export default function Heatmap({
-  data,
-  startDate,
-  endDate,
-  cellSize = 20,
-  daysOfTheWeek = "MWF",
-  daysOfTheWeekSize = 20,
-  gap = 2,
-  displayStyle = "squares",
-  valueDisplayFunction,
-  dateDisplayFunction,
-  customColorMap,
-  className,
-  colorScale,
-  maxColor,
-  zeroValueColor = "#a6a6a6",
-  ...props
-}: HeatmapProps) {
+export default function Heatmap(props: HeatmapProps) {
+  const {
+    data,
+    startDate,
+    endDate,
+    cellSize = 20,
+    daysOfTheWeek = "MWF",
+    gap = 2,
+    displayStyle = "squares",
+    valueDisplayFunction,
+    dateDisplayFunction,
+    className,
+    colorMode,
+    ...htmlProps
+  } = props;
+
   const valueByDate = new Map<string, number>(
     data.map(({ date, value }) => [date, value])
   );
@@ -221,22 +246,36 @@ export default function Heatmap({
     return label !== prevLabel ? label : null;
   });
 
-  // if the user specified a maxColor, we use interpolate mode.
-  // this means we interpolate from transparent to maxColor based on value/max
-  // otherwise we use discrete mode with the colorScale or default colors
-  // so if the user specified both maxColor and colorScale, maxColor takes precedence
-  const mode = maxColor ? "interpolate" : "discrete";
+  const getCellColor = (value: number) => {
+    if (colorMode === "interpolate") {
+      return interpolateColor(
+        value,
+        computedMax,
+        props.maxColor ?? "#00ff00",
+        props.zeroValueColor ?? "#212735",
+        props.interpolation ?? "linear"
+      );
+    } else {
+      const colorArray =
+        props.colorScale && props.colorScale.length > 0
+          ? props.colorScale
+          : defaultIntensityColours;
 
-  const colorArray = colorScale ?? defaultIntensityColours;
+      const map = props.customColorMap ?? defaultColourMap;
 
-  const colorMap = customColorMap || defaultColourMap;
+      return colorArray[map(value, computedMax, colorArray.length)];
+    }
+  };
 
   return (
-    <div className={cn("flex", className)} style={{ gap }} {...props}>
+    <div
+      className={cn("flex", className)}
+      style={{ gap }}
+      {...(htmlProps as HTMLAttributes<HTMLDivElement>)}
+    >
       <DaysOfTheWeekIndicator
         style={{ paddingTop: `${gap + 16}px` }}
         daysOfTheWeekOption={daysOfTheWeek}
-        daysOfTheWeekSize={daysOfTheWeekSize}
         cellSize={cellSize}
         gap={gap}
       />
@@ -259,41 +298,28 @@ export default function Heatmap({
             {weeks.map((week, i) => (
               <div key={i} className="flex flex-col" style={{ gap }}>
                 {week.map((day, j) => {
-                  if (!day)
+                  if (!day) {
                     return (
                       <div
                         key={j}
                         style={{ width: cellSize, height: cellSize }}
                       />
                     );
+                  }
 
                   const dateKey = day.toISOString().slice(0, 10);
                   const thisDateValue = valueByDate.get(dateKey) ?? 0;
-
-                  let thisColor: string;
-                  if (mode === "interpolate" && maxColor) {
-                    thisColor = interpolateColor(
-                      thisDateValue,
-                      computedMax,
-                      maxColor,
-                      zeroValueColor
-                    );
-                  } else {
-                    const thisColorLevel = colorMap(
-                      thisDateValue,
-                      computedMax,
-                      colorArray.length
-                    );
-                    thisColor = colorArray[thisColorLevel];
-                  }
+                  const safeValue = Math.max(0, thisDateValue);
+                  const thisColor = getCellColor(safeValue);
 
                   return (
                     <Tooltip key={j}>
                       <TooltipTrigger asChild>
                         <ValueIndicator
+                          id={`heatmap-cell-${dateKey}`}
                           cellSize={cellSize}
                           displayStyle={displayStyle}
-                          value={thisDateValue}
+                          value={safeValue}
                           maxValue={computedMax}
                           color={thisColor}
                         />
@@ -307,8 +333,8 @@ export default function Heatmap({
                           </div>
                           <div className="text-muted-foreground">
                             {valueDisplayFunction
-                              ? valueDisplayFunction(thisDateValue)
-                              : `${thisDateValue} event${thisDateValue !== 1 ? "s" : ""}`}
+                              ? valueDisplayFunction(safeValue)
+                              : `${safeValue} event${safeValue !== 1 ? "s" : ""}`}
                           </div>
                         </div>
                       </TooltipContent>

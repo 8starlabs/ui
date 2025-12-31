@@ -100,29 +100,33 @@ const sampleData: HeatmapData = [
   { date: "2026-02-28", value: 5 }
 ];
 
-const rainbowColors = [
-  "#ff0000", // red
-  "#ff7f00", // orange
-  "#ffff00", // yellow
-  "#7fff00", // chartreuse green
-  "#00ff00", // green
-  "#00ff7f", // spring green
-  "#00ffff", // cyan
-  "#007fff", // azure
-  "#0000ff", // blue
-  "#7f00ff", // violet
-  "#ff00ff" // magenta
-];
+const generateMonthData = (): HeatmapData => {
+  const start = new Date("2025-12-01");
+  const end = new Date("2025-12-31");
+  const data: HeatmapData = [];
+
+  const curr = new Date(start);
+  while (curr <= end) {
+    data.push({
+      date: curr.toISOString().slice(0, 10),
+      value: Math.floor(Math.random() * 201) // 0 to 200
+    });
+    curr.setDate(curr.getDate() + 1);
+  }
+
+  return data;
+};
+
+const decemberData = generateMonthData();
 
 export default function page() {
   return (
     <Heatmap
       data={sampleData}
-      startDate={new Date("2025-12-01")}
-      endDate={new Date("2026-02-28")}
-      cellSize={15}
+      startDate={new Date("2025-11-20")}
+      endDate={new Date("2026-01-01")}
+      cellSize={13}
       gap={4}
-      daysOfTheWeekSize={12}
       daysOfTheWeek={"single letter"}
       displayStyle="squares"
       valueDisplayFunction={(value) => (
@@ -132,8 +136,10 @@ export default function page() {
       )}
       dateDisplayFunction={(date) => date.toLocaleDateString()}
       // colorScale={rainbowColors}
-      maxColor="#ff0000"
-      zeroValueColor="#a6a6a6"
+      // maxColor="#ff0000"
+      // zeroValueColor="#a6a6a6"
+      colorMode="interpolate"
+      interpolation="linear"
     />
   );
 }
