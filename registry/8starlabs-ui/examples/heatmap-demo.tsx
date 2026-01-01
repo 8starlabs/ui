@@ -40,7 +40,7 @@ export default function HeatmapDemo() {
       data={data}
       startDate={new Date("2025-01-01")}
       endDate={new Date("2025-06-30")}
-      colorMode="discrete"
+      colorMode="interpolate"
     />
   );
 }

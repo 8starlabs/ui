@@ -254,8 +254,7 @@ export default function Heatmap(props: HeatmapProps) {
     valueDisplayFunction,
     dateDisplayFunction,
     className,
-    colorMode,
-    ...htmlProps
+    colorMode
   } = props;
 
   const valueByDate = new Map<string, number>(
@@ -275,6 +274,47 @@ export default function Heatmap(props: HeatmapProps) {
   });
 
   const fontSize = Math.min(16, cellSize);
+
+  let safeProps: HTMLAttributes<HTMLDivElement> = {};
+
+  if (colorMode === "discrete") {
+    const {
+      data,
+      startDate,
+      endDate,
+      cellSize,
+      daysOfTheWeek,
+      gap,
+      displayStyle,
+      valueDisplayFunction,
+      dateDisplayFunction,
+      className,
+      colorMode,
+      customColorMap,
+      colorScale,
+      ...others
+    } = props;
+    safeProps = others;
+  } else if (colorMode === "interpolate") {
+    const {
+      data,
+      startDate,
+      endDate,
+      cellSize,
+      daysOfTheWeek,
+      gap,
+      displayStyle,
+      valueDisplayFunction,
+      dateDisplayFunction,
+      className,
+      colorMode,
+      minColor,
+      maxColor,
+      interpolation,
+      ...others
+    } = props;
+    safeProps = others;
+  }
 
   const getCellColor = (value: number) => {
     if (colorMode === "interpolate") {
@@ -306,14 +346,14 @@ export default function Heatmap(props: HeatmapProps) {
   return (
     <div
       role="grid"
-      className="grid"
+      className={cn("grid", className)}
       aria-label="Activity Heatmap"
       style={{
         gap,
         gridTemplateColumns: `max-content repeat(${weeks.length}, ${cellSize}px)`,
         gridTemplateRows: `repeat(8, ${cellSize}px)`
       }}
-      {...(htmlProps as HTMLAttributes<HTMLDivElement>)}
+      {...safeProps}
     >
       {daysOfTheWeekIndicator({ daysOfTheWeekOption: daysOfTheWeek, fontSize })}
 
