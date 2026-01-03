@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "heatmap-demo",
+  "type": "registry:example",
+  "title": "Heatmap",
+  "description": "A heatmap demo component",
+  "files": [
+    {
+      "path": "registry/8starlabs-ui/examples/heatmap-demo.tsx",
+      "content": "import Heatmap, {\n  type HeatmapData\n} from \"@/registry/8starlabs-ui/blocks/heatmap\";\nimport { useMemo } from \"react\";\n\nfunction generateRandomHeatmapData(\n  startDate: Date,\n  endDate: Date,\n  minValue: number = 0,\n  maxValue: number = 30\n): HeatmapData {\n  const data: HeatmapData = [];\n  const current = new Date(startDate);\n\n  while (current <= endDate) {\n    const dateString = current.toISOString().slice(0, 10);\n    const value =\n      Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue;\n    data.push({ date: dateString, value });\n    current.setDate(current.getDate() + 1);\n  }\n\n  return data;\n}\n\nexport default function HeatmapDemo() {\n  const data = useMemo(\n    () =>\n      generateRandomHeatmapData(\n        new Date(\"2025-01-01\"),\n        new Date(\"2025-06-30\"),\n        0,\n        30\n      ),\n    []\n  );\n\n  return (\n    <Heatmap\n      data={data}\n      startDate={new Date(\"2025-01-01\")}\n      endDate={new Date(\"2025-06-30\")}\n      colorMode=\"interpolate\"\n    />\n  );\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

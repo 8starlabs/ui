@@ -1,0 +1,128 @@
+---
+title: Heatmap
+description: A heatmap component to visualize data density over time.
+---
+
+<ComponentPreview name="heatmap-demo" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add https://ui.8starlabs.com/r/heatmap
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<ComponentSource name="heatmap" title="components/ui/heatmap.tsx" />
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx showLineNumbers
+import Heatmap from "@/components/ui/heatmap";
+
+const sampleData = [
+  { date: "2025-11-20", value: 5 },
+  { date: "2025-11-21", value: 10 },
+  { date: "2025-11-22", value: 2 },
+  { date: "2025-11-23", value: 8 },
+  { date: "2025-11-24", value: 0 },
+  { date: "2025-11-25", value: 15 },
+  { date: "2025-11-26", value: 7 }
+  // ...more data points
+];
+
+export function MyHeatmap() {
+  return (
+    <Heatmap
+      data={sampleData}
+      startDate={new Date("2025-11-20")}
+      endDate={new Date("2026-01-01")}
+    />
+  );
+}
+```
+
+## API Reference
+
+### Heatmap
+
+| Prop                   | Type                                                         | Default              | Description                                                                                          |
+| ---------------------- | ------------------------------------------------------------ | -------------------- | ---------------------------------------------------------------------------------------------------- |
+| `data`                 | `HeatmapData`                                                | Required             | Array of objects with `date` (YYYY-MM-DD) and `value` (number) to display in the heatmap.            |
+| `startDate`            | `Date`                                                       | Required             | The start date for the heatmap range.                                                                |
+| `endDate`              | `Date`                                                       | Required             | The end date for the heatmap range.                                                                  |
+| `cellSize`             | `number`                                                     | `20`                 | Size of each cell in pixels.                                                                         |
+| `gap`                  | `number`                                                     | `4`                  | Gap between cells in pixels.                                                                         |
+| `daysOfTheWeek`        | `"all" \| "MWF" \| "none" \| "single letter"`                | `"MWF"`              | How to display day of week labels. "MWF" shows Mon/Wed/Fri, "single letter" shows first letter only. |
+| `displayStyle`         | `"squares" \| "bubbles"`                                     | `"squares"`          | Visual style of the cells. "bubbles" scales cell size based on value.                                |
+| `colorMode`            | `"discrete" \| "interpolate"`                                | Required             | Color mode for the heatmap. "discrete" uses a fixed color scale, "interpolate" blends colors.        |
+| `colorScale`           | `string[]`                                                   | Green palette        | (discrete mode) Array of color values to use. Only applies when `colorMode="discrete"`.              |
+| `customColorMap`       | `(value: number, max: number, colorCount: number) => number` | Linear mapping       | (discrete mode) Custom function to map values to color indices.                                      |
+| `maxColor`             | `string`                                                     | `"#00ff00"`          | (interpolate mode) Color for maximum values.                                                         |
+| `minColor`             | `string`                                                     | `"#212735"`          | (interpolate mode) Color for zero/minimum values.                                                    |
+| `interpolation`        | `"linear" \| "sqrt" \| "log"`                                | `"linear"`           | (interpolate mode) Interpolation method for color scaling.                                           |
+| `dateDisplayFunction`  | `(date: Date) => ReactNode`                                  | `Date.toDateString`  | Custom function to format the date in tooltips.                                                      |
+| `valueDisplayFunction` | `(value: number) => ReactNode`                               | "`{value}` event(s)" | Custom function to format the value in tooltips.                                                     |
+| `className`            | `string`                                                     | -                    | Additional CSS classes for the container.                                                            |
+
+### Types
+
+```tsx
+type HeatmapValue = {
+  date: string; // YYYY-MM-DD format
+  value: number;
+};
+
+type HeatmapData = HeatmapValue[];
+```
+
+## Examples
+
+### Display Styles
+
+<ComponentPreview name="heatmap-display-style-demo" />
+
+### Color Interpolation
+
+The heatmap supports different color interpolation modes to visualize data density.
+
+<ComponentPreview name="heatmap-interpolate-demo" />
+
+### Days of the Week
+
+Customize how day-of-week labels are displayed.
+
+<ComponentPreview name="heatmap-days-of-week-demo" />
+
+### Sizes
+
+Adjust the cell size and gap between cells to fit your design.
+
+<ComponentPreview name="heatmap-size-demo" />
+
+### Custom Colors
+
+Use custom color scales to match your brand or design system.
+
+<ComponentPreview name="heatmap-custom-colors-demo" />
+
+### Custom Display Functions
+
+Customize how dates and values are displayed in tooltips.
+
+<ComponentPreview name="heatmap-custom-display-demo" />

@@ -9,7 +9,7 @@ import PartitionBar, {
 
 const PartitionBarCard = () => {
   return (
-    <Link prefetch={false} href="/docs/components/flip-clock">
+    <Link prefetch={false} href="/docs/components/partition-bar">
       <Card className="size-full px-6 group relative overflow-hidden hover:bg-muted/20 transition-colors">
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">

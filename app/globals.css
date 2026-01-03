@@ -1,6 +1,14 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+:root {
+  --heatmap-zero: rgb(221, 221, 221); /* light theme */
+}
+
+.dark {
+  --heatmap-zero: rgb(51, 51, 51); /* dark theme */
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @custom-variant fixed (&:is(.layout-fixed *));

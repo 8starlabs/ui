@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "heatmap-custom-display-demo",
+  "type": "registry:example",
+  "title": "Heatmap",
+  "description": "A heatmap demo component",
+  "files": [
+    {
+      "path": "registry/8starlabs-ui/examples/heatmap-custom-display-demo.tsx",
+      "content": "import Heatmap, {\n  type HeatmapData\n} from \"@/registry/8starlabs-ui/blocks/heatmap\";\n\nconst data: HeatmapData = [\n  { date: \"2025-12-01\", value: 120 },\n  { date: \"2025-12-02\", value: 0 },\n  { date: \"2025-12-03\", value: 250 },\n  { date: \"2025-12-04\", value: 80 },\n  { date: \"2025-12-05\", value: 150 },\n  { date: \"2025-12-06\", value: 200 },\n  { date: \"2025-12-07\", value: 90 },\n  { date: \"2025-12-08\", value: 0 },\n  { date: \"2025-12-09\", value: 180 },\n  { date: \"2025-12-10\", value: 300 },\n  { date: \"2025-12-11\", value: 110 },\n  { date: \"2025-12-12\", value: 60 },\n  { date: \"2025-12-13\", value: 220 },\n  { date: \"2025-12-14\", value: 0 },\n  { date: \"2025-12-15\", value: 130 },\n  { date: \"2025-12-16\", value: 270 },\n  { date: \"2025-12-17\", value: 160 },\n  { date: \"2025-12-18\", value: 210 },\n  { date: \"2025-12-19\", value: 0 },\n  { date: \"2025-12-20\", value: 95 },\n  { date: \"2025-12-21\", value: 140 },\n  { date: \"2025-12-22\", value: 190 },\n  { date: \"2025-12-23\", value: 0 },\n  { date: \"2025-12-24\", value: 100 },\n  { date: \"2025-12-25\", value: 280 },\n  { date: \"2025-12-26\", value: 75 },\n  { date: \"2025-12-27\", value: 0 },\n  { date: \"2025-12-28\", value: 170 },\n  { date: \"2025-12-29\", value: 230 },\n  { date: \"2025-12-30\", value: 120 },\n  { date: \"2025-12-31\", value: 85 }\n];\n\nexport default function HeatmapCustomDisplayDemo() {\n  return (\n    <Heatmap\n      data={data}\n      startDate={new Date(\"2025-12-01\")}\n      endDate={new Date(\"2025-12-31\")}\n      colorMode=\"discrete\"\n      dateDisplayFunction={(date) => (\n        <span className=\"font-semibold\">\n          {date.toLocaleDateString(\"en-US\", {\n            month: \"short\",\n            day: \"numeric\",\n            year: \"numeric\"\n          })}\n        </span>\n      )}\n      valueDisplayFunction={(value) => (\n        <span className=\"text-primary\">\n          {value > 0 ? `${value} commits` : \"No activity\"}\n        </span>\n      )}\n    />\n  );\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}
