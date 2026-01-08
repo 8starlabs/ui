@@ -16,7 +16,7 @@ const TransportBadgeCard = () => {
           </div>
 
           <div className="flex flex-col gap-3">
-            <TransportBadge system="SG" stationCode={["CC19", "DT9"]} />
+            <TransportBadge system="SG" stationCode={["CE19", "DT9"]} />
             <TransportBadge
               system="SG"
               stationCode="EW5"
