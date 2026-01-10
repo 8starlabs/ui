@@ -67,6 +67,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.7
+    },
+    {
+      url: "https://ui.8starlabs.com/docs/components/partition-bar",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7
+    },
+    {
+      url: "https://ui.8starlabs.com/docs/components/flip-clock",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7
+    },
+    {
+      url: "https://ui.8starlabs.com/docs/components/heatmap",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7
     }
   ];
 }

@@ -30,7 +30,7 @@ function usePartitionBarContext(): PartitionBarContextType {
 
 //////////////////////////////////////////////////////////////////////////////
 
-const partitionBarVariants = cva("flex flex-row bg-background", {
+const partitionBarVariants = cva("flex flex-row", {
   variants: {
     size: {
       sm: "text-xs",

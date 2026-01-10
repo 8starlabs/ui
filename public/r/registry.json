@@ -4,6 +4,102 @@
   "homepage": "https://ui.8starlabs.com",
   "items": [
     {
+      "name": "heatmap",
+      "type": "registry:ui",
+      "title": "Heatmap",
+      "description": "A heatmap component",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/blocks/heatmap.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "heatmap-demo",
+      "type": "registry:example",
+      "title": "Heatmap",
+      "description": "A heatmap demo component",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/heatmap-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "heatmap-interpolate-demo",
+      "type": "registry:example",
+      "title": "Heatmap",
+      "description": "A heatmap demo component",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/heatmap-interpolate-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "heatmap-display-style-demo",
+      "type": "registry:example",
+      "title": "Heatmap",
+      "description": "A heatmap demo component",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/heatmap-display-style-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "heatmap-days-of-week-demo",
+      "type": "registry:example",
+      "title": "Heatmap",
+      "description": "A heatmap demo component",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/heatmap-days-of-week-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "heatmap-size-demo",
+      "type": "registry:example",
+      "title": "Heatmap",
+      "description": "A heatmap demo component",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/heatmap-size-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "heatmap-custom-colors-demo",
+      "type": "registry:example",
+      "title": "Heatmap",
+      "description": "A heatmap demo component",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/heatmap-custom-colors-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "heatmap-custom-display-demo",
+      "type": "registry:example",
+      "title": "Heatmap",
+      "description": "A heatmap demo component",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/heatmap-custom-display-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
       "name": "partition-bar",
       "type": "registry:ui",
       "title": "Partition Bar",

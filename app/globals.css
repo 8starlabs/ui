@@ -60,6 +60,7 @@
 }
 
 :root {
+  --heatmap-zero: rgb(221, 221, 221); /* light theme */
   --header-height: calc(var(--spacing) * 12 + 1px);
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -102,6 +103,7 @@
 }
 
 .dark {
+  --heatmap-zero: rgb(51, 51, 51); /* dark theme */
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
