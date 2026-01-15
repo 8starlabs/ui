@@ -1,0 +1,63 @@
+---
+title: Marquee
+description: An animated scrolling component that continuously loops content with optional grayscale effect and directional control.
+---
+
+<ComponentPreview name="marquee-demo" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add https://ui.8starlabs.com/r/marquee.json
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<ComponentSource name="marquee" title="blocks/marquee.tsx" />
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx showLineNumbers
+import Marquee from "@/registry/8starlabs-ui/blocks/marquee";
+```
+
+```tsx showLineNumbers
+<Marquee Grayscale={false}>
+  <div className="bg-blue-500 text-white px-4 py-2 rounded-lg">Item 1</div>
+  <div className="bg-purple-500 text-white px-4 py-2 rounded-lg">Item 2</div>
+  <div className="bg-pink-500 text-white px-4 py-2 rounded-lg">Item 3</div>
+</Marquee>
+```
+
+## Examples
+
+### Grayscale Effect
+
+<ComponentPreview name="marquee-greyscale-demo" />
+
+### Reverse Direction
+
+<ComponentPreview name="marquee-reverse-demo" />
+
+## API Reference
+
+| Prop        | Type                | Default  | Description                                                  |
+| ----------- | ------------------- | -------- | ------------------------------------------------------------ |
+| `Grayscale` | `boolean`           | `false`  | Optional. Applies grayscale filter to the marquee content.   |
+| `Direction` | `"left" \| "right"` | `"left"` | Optional. Controls the direction of the scrolling animation. |
+| `children`  | `React.ReactNode`   | -        | Optional. The content to be animated in the marquee.         |
