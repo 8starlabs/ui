@@ -35,12 +35,13 @@ export default function Marquee({
       className={cn(
         "group/marquee flex overflow-hidden p-2 [--gap:1rem]",
         greyscale && "grayscale",
+        "mask-[linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]",
         className
       )}
     >
       <div
         className={cn(
-          "flex shrink-0 min-w-full items-center gap-[var(--gap)] pr-[var(--gap)] group-hover/marquee:[animation-play-state:paused]",
+          "flex shrink-0 min-w-full items-center gap-(--gap) pr-(--gap) group-hover/marquee:paused",
           animationClass
         )}
       >
@@ -62,7 +63,7 @@ export default function Marquee({
 
       <div
         className={cn(
-          "flex shrink-0 min-w-full items-center gap-[var(--gap)] pr-[var(--gap)] group-hover/marquee:[animation-play-state:paused]",
+          "flex shrink-0 min-w-full items-center gap-(--gap) pr-(--gap) group-hover/marquee:paused",
           animationClass
         )}
       >
