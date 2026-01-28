@@ -2,9 +2,8 @@ import Marquee from "../blocks/marquee";
 
 export default function MarqueeDemo() {
   return (
-    <Marquee>
-      {" "}
-      <div className="w-48 h-25">
+    <Marquee fade={false}>
+      <div className="w-48 h-20">
         <img
           src="/svgs/oikova_logo_light.svg"
           alt=""
@@ -15,9 +14,9 @@ export default function MarqueeDemo() {
           }}
         />
       </div>
-      <div className="w-48 h-25">
+      <div className="w-48 h-14">
         <img
-          src="/svgs/vercel-logotype-light.svg"
+          src="/svgs/the_weather_company.svg"
           alt=""
           style={{
             width: "100%",
@@ -26,7 +25,7 @@ export default function MarqueeDemo() {
           }}
         />
       </div>
-      <div className="w-48 h-25">
+      <div className="w-48 h-20">
         <img
           src="/svgs/supabase-logo-wordmark--light.svg"
           alt=""

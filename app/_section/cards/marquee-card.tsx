@@ -14,21 +14,9 @@ const MarqueeCard = () => {
             </p>
           </div>
 
-          <div className="flex flex-col gap-4 overflow-hidden">
+          <div className="flex flex-col gap-2 overflow-hidden">
             <Marquee greyscale={true}>
-              <div className="w-48 h-30">
-                <img
-                  src="/svgs/oikova_logo_light.svg"
-                  alt=""
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "contain"
-                  }}
-                />
-              </div>
-
-              <div className="w-48 h-30">
+              <div className="w-30 h-14">
                 <img
                   src="/svgs/vercel-logotype-light.svg"
                   alt=""
@@ -39,9 +27,53 @@ const MarqueeCard = () => {
                   }}
                 />
               </div>
-              <div className="w-48 h-30">
+              <div className="w-30 h-14">
                 <img
-                  src="/svgs/supabase-logo-wordmark--light.svg"
+                  src="/svgs/shopify_monotone_black.svg"
+                  alt=""
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "contain"
+                  }}
+                />
+              </div>
+              <div className="w-30 h-14">
+                <img
+                  src="/svgs/the_weather_company.svg"
+                  alt=""
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "contain"
+                  }}
+                />
+              </div>
+              <div className="w-30 h-5">
+                <img
+                  src="/svgs/Wix.svg"
+                  alt=""
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "contain"
+                  }}
+                />
+              </div>
+              <div className="w-30 h-14">
+                <img
+                  src="/svgs/Johnson & Johnson_Logo_0.svg"
+                  alt=""
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "contain"
+                  }}
+                />
+              </div>
+              <div className="w-30 h-14">
+                <img
+                  src="/svgs/singapore_airlines.svg"
                   alt=""
                   style={{
                     width: "100%",
@@ -53,20 +85,63 @@ const MarqueeCard = () => {
             </Marquee>
 
             <Marquee direction="right">
-              <div className="bg-blue-500 text-white px-4 py-2 rounded-lg">
-                Going
+              <div className="w-38 h-20">
+                <img
+                  src="/svgs/oikova_logo_light.svg"
+                  alt=""
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "contain"
+                  }}
+                />
               </div>
-              <div className="bg-purple-500 text-white px-4 py-2 rounded-lg">
-                To
+              <div className="w-38 h-20">
+                <img
+                  src="/svgs/supabase-logo-wordmark--light.svg"
+                  alt=""
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "contain"
+                  }}
+                />
               </div>
-              <div className="bg-pink-500 text-white px-4 py-2 rounded-lg">
-                The
+              <div className="w-38 h-20">
+                <img
+                  src="/svgs/BigCommerce.svg"
+                  alt=""
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "contain"
+                  }}
+                />
               </div>
-              <div className="bg-green-500 text-white px-4 py-2 rounded-lg">
-                Right
+              <div className="w-30 h-14">
+                <img
+                  src="/svgs/singapore_airlines.svg"
+                  alt=""
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "contain"
+                  }}
+                />
+              </div>
+              <div className="w-38 h-14">
+                <img
+                  src="/svgs/the_weather_company.svg"
+                  alt=""
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "contain"
+                  }}
+                />
               </div>
             </Marquee>
-            <Marquee></Marquee>
+            <Marquee pauseOnHover={false}></Marquee>
           </div>
         </div>
 
