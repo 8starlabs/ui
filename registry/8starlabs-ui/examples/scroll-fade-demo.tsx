@@ -2,7 +2,7 @@ import ScrollFade from "@/registry/8starlabs-ui/blocks/scroll-fade";
 
 export default function ScrollFadeDemo() {
   return (
-    <ScrollFade className="max-w-full">
+    <ScrollFade className="max-w-full" intensity={0}>
       <div className="flex space-x-4 px-4 py-2 min-w-[700px]">
         {[...Array(12).keys()].map((num) => (
           <div

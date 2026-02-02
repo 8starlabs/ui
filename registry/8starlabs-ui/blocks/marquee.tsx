@@ -44,6 +44,14 @@ export default function Marquee({
           fade && "relative",
           className
         )}
+        style={{
+          maskImage: fade
+            ? "linear-gradient(to right, transparent, black 5%, black 95%, transparent)"
+            : "none",
+          WebkitMaskImage: fade
+            ? "linear-gradient(to right, transparent, black 5%, black 95%, transparent)"
+            : "none"
+        }}
       >
         <div
           className={cn(
@@ -91,28 +99,6 @@ export default function Marquee({
           )}
         </div>
       </div>
-
-      {fade && (
-        <div
-          aria-hidden
-          className="pointer-events-none absolute left-0 top-0 h-full w-10 z-10"
-          style={{
-            background:
-              "linear-gradient(to right, var(--background) 60%, transparent 100%)"
-          }}
-        />
-      )}
-
-      {fade && (
-        <div
-          aria-hidden
-          className="pointer-events-none absolute right-0 top-0 h-full w-10 z-10"
-          style={{
-            background:
-              "linear-gradient(to left, var(--background) 60%, transparent 100%)"
-          }}
-        />
-      )}
     </div>
   );
 }
