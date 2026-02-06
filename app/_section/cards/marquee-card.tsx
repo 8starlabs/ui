@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Marquee from "@/registry/8starlabs-ui/blocks/marquee";
 import { Card } from "@/registry/8starlabs-ui/ui/card";
+import { Icons } from "@/components/icons";
 
 const MarqueeCard = () => {
   return (
@@ -50,9 +51,7 @@ const MarqueeCard = () => {
                 />
               </div>
               <div className="w-30 h-5">
-                <img
-                  src="/svgs/Wix.svg"
-                  alt=""
+                <Icons.wix_black
                   style={{
                     width: "100%",
                     height: "100%",
