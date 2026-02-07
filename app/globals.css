@@ -57,6 +57,27 @@
   --color-code-number: var(--code-number);
   --color-selection: var(--selection);
   --color-selection-foreground: var(--selection-foreground);
+  --animate-marquee: marquee 25s linear infinite;
+  --animate-marquee-reverse: marquee-reverse 25s linear infinite;
+  @keyframes marquee {
+      from {
+        transform: translateX(0);
+      }
+  
+      to {
+        transform: translateX(-100%);
+      }
+    }
+  
+    @keyframes marquee-reverse {
+      from {
+        transform: translateX(-100%);
+      }
+  
+      to {
+        transform: translateX(0);
+      }
+    }
 }
 
 :root {

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "marquee-demo",
+  "type": "registry:example",
+  "title": "Marquee Demo",
+  "description": "A marquee demo component",
+  "files": [
+    {
+      "path": "registry/8starlabs-ui/examples/marquee-demo.tsx",
+      "content": "import Marquee from \"../blocks/marquee\";\n\nexport default function MarqueeDemo() {\n  return (\n    <Marquee>\n      {\" \"}\n      <div className=\"w-48 h-25\">\n        <img\n          src=\"/svgs/oikova_logo_light.svg\"\n          alt=\"\"\n          style={{\n            width: \"100%\",\n            height: \"100%\",\n            objectFit: \"contain\"\n          }}\n        />\n      </div>\n      <div className=\"w-48 h-25\">\n        <img\n          src=\"/svgs/vercel-logotype-light.svg\"\n          alt=\"\"\n          style={{\n            width: \"100%\",\n            height: \"100%\",\n            objectFit: \"contain\"\n          }}\n        />\n      </div>\n      <div className=\"w-48 h-25\">\n        <img\n          src=\"/svgs/supabase-logo-wordmark--light.svg\"\n          alt=\"\"\n          style={{\n            width: \"100%\",\n            height: \"100%\",\n            objectFit: \"contain\"\n          }}\n        />\n      </div>\n    </Marquee>\n  );\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}

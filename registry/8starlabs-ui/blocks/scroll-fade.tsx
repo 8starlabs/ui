@@ -10,13 +10,15 @@ interface ScrollFadeProps {
   className?: string;
   hideScrollbar?: boolean;
   axis?: ScrollAxis;
+  intensity?: number;
 }
 
 export default function ScrollFade({
   children,
   className,
   hideScrollbar = true,
-  axis = "horizontal"
+  axis = "horizontal",
+  intensity = 1
 }: ScrollFadeProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const contentRef = useRef<HTMLDivElement | null>(null);
@@ -26,6 +28,7 @@ export default function ScrollFade({
   const [showTop, setShowTop] = useState(false);
   const [showBottom, setShowBottom] = useState(false);
 
+  const fadeIntensity = Math.min(Math.max(intensity, 0), 1);
   const checkScroll = () => {
     const el = containerRef.current;
     if (!el) return;
@@ -112,8 +115,8 @@ export default function ScrollFade({
           aria-hidden
           className="pointer-events-none absolute left-0 top-0 h-full w-10 z-10"
           style={{
-            background:
-              "linear-gradient(to right, var(--background) 0%, transparent 100%)"
+            opacity: fadeIntensity,
+            background: `linear-gradient(to right, var(--background), transparent)`
           }}
         />
       )}
@@ -123,8 +126,8 @@ export default function ScrollFade({
           aria-hidden
           className="pointer-events-none absolute right-0 top-0 h-full w-10 z-10"
           style={{
-            background:
-              "linear-gradient(to left, var(--background) 0%, transparent 100%)"
+            opacity: fadeIntensity,
+            background: `linear-gradient(to left, var(--background), transparent)`
           }}
         />
       )}
@@ -134,8 +137,8 @@ export default function ScrollFade({
           aria-hidden
           className="pointer-events-none absolute top-0 left-0 w-full h-10 z-10"
           style={{
-            background:
-              "linear-gradient(to bottom, var(--background) 0%, transparent 100%)"
+            opacity: fadeIntensity,
+            background: `linear-gradient(to bottom, var(--background), transparent)`
           }}
         />
       )}
@@ -145,8 +148,8 @@ export default function ScrollFade({
           aria-hidden
           className="pointer-events-none absolute bottom-0 left-0 w-full h-10 z-10"
           style={{
-            background:
-              "linear-gradient(to top, var(--background) 0%, transparent 100%)"
+            opacity: fadeIntensity,
+            background: `linear-gradient(to top, var(--background), transparent)`
           }}
         />
       )}

@@ -479,6 +479,54 @@
           "type": "registry:example"
         }
       ]
+    },
+    {
+      "name": "marquee",
+      "type": "registry:ui",
+      "title": "Marquee component",
+      "description": "A marquee component",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/blocks/marquee.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "marquee-demo",
+      "type": "registry:example",
+      "title": "Marquee Demo",
+      "description": "A marquee demo component",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/marquee-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "marquee-greyscale-demo",
+      "type": "registry:example",
+      "title": "Marquee Greyscale Demo",
+      "description": "A marquee greyscale demo component",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/marquee-greyscale-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "marquee-reverse-demo",
+      "type": "registry:example",
+      "title": "Marquee Reverse Demo",
+      "description": "A marquee reverse demo component",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/marquee-reverse-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
     }
   ]
 }

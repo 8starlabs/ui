@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "marquee",
+  "type": "registry:ui",
+  "title": "Marquee component",
+  "description": "A marquee component",
+  "files": [
+    {
+      "path": "registry/8starlabs-ui/blocks/marquee.tsx",
+      "content": "\"use client\";\n\nimport { cn } from \"@/lib/utils\";\n\nimport React from \"react\";\n\ninterface MarqueeProps {\n  greyscale?: boolean;\n  direction?: \"left\" | \"right\";\n  children?: React.ReactNode;\n  className?: string;\n}\n\nexport default function Marquee({\n  greyscale = false,\n  direction = \"left\",\n  children,\n  className\n}: MarqueeProps) {\n  const content = React.Children.toArray(children);\n  const repeat = 4;\n  const duplicatedContent = React.useMemo(() => {\n    if (content.length === 0) {\n      return [];\n    } else if (content.length < repeat) {\n      return Array.from({ length: repeat }, () => content).flat();\n    }\n    return content;\n  }, [content, repeat]);\n  const animationClass =\n    direction === \"left\" ? \"animate-marquee\" : \"animate-marquee-reverse\";\n\n  return (\n    <div\n      className={cn(\n        \"group/marquee flex overflow-hidden p-2 [--gap:1rem]\",\n        greyscale && \"grayscale\",\n        \"mask-[linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]\",\n        className\n      )}\n    >\n      <div\n        className={cn(\n          \"flex shrink-0 min-w-full items-center gap-(--gap) pr-(--gap) group-hover/marquee:paused\",\n          animationClass\n        )}\n      >\n        {duplicatedContent.length === 0 ? (\n          <>\n            <div\n              aria-hidden=\"true\"\n              className=\"bg-black rounded-xl h-20 w-40\"\n            ></div>\n            <div className=\"bg-black rounded-xl h-20 w-40\"></div>\n            <div className=\"bg-black rounded-xl h-20 w-40\"></div>\n          </>\n        ) : (\n          duplicatedContent.map((item, index) => (\n            <div key={`source-${index}`}>{item}</div>\n          ))\n        )}\n      </div>\n\n      <div\n        className={cn(\n          \"flex shrink-0 min-w-full items-center gap-(--gap) pr-(--gap) group-hover/marquee:paused\",\n          animationClass\n        )}\n      >\n        {duplicatedContent.length === 0 ? (\n          <>\n            <div\n              aria-hidden=\"true\"\n              className=\"bg-black rounded-xl h-20 w-40\"\n            ></div>\n            <div className=\"bg-black rounded-xl h-20 w-40\"></div>\n            <div className=\"bg-black rounded-xl h-20 w-40\"></div>\n          </>\n        ) : (\n          duplicatedContent.map((item, index) => (\n            <div key={`source-${index}`}>{item}</div>\n          ))\n        )}\n      </div>\n    </div>\n  );\n}\n",
+      "type": "registry:ui"
+    }
+  ]
+}

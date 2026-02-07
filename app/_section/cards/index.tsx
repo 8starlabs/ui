@@ -5,6 +5,7 @@ import TimelineCard from "./timeline-card";
 import FlipClockCard from "./flip-clock-card";
 import PartitionBarCard from "./partition-bar-card";
 import HeatmapCard from "./heatmap-card";
+import MarqueeCard from "./marquee-card";
 
 interface CardsProps {
   className?: string;
@@ -35,6 +36,9 @@ const Cards = ({ className }: CardsProps) => {
       </div>
       <div className="sm:col-span-2 xl:col-span-2 xl:col-start-2">
         <HeatmapCard />
+      </div>
+      <div className="sm:col-span-2 xl:col-span-2 xl:col-start-2">
+        <MarqueeCard />
       </div>
     </div>
   );
