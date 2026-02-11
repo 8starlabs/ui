@@ -1,12 +1,11 @@
 import Marquee from "../blocks/marquee";
+import { Icons } from "@/components/icons";
 
 export default function MarqueeGreyscaleDemo() {
   return (
     <Marquee greyscale={true}>
       <div className="w-30 h-14">
-        <img
-          src="/svgs/vercel-logotype-light.svg"
-          alt=""
+        <Icons.vercel_light
           style={{
             width: "100%",
             height: "100%",
@@ -15,9 +14,7 @@ export default function MarqueeGreyscaleDemo() {
         />
       </div>
       <div className="w-30 h-14">
-        <img
-          src="/svgs/shopify_monotone_black.svg"
-          alt=""
+        <Icons.shopify
           style={{
             width: "100%",
             height: "100%",
@@ -26,9 +23,7 @@ export default function MarqueeGreyscaleDemo() {
         />
       </div>
       <div className="w-30 h-14">
-        <img
-          src="/svgs/the_weather_company.svg"
-          alt=""
+        <Icons.the_weather_company
           style={{
             width: "100%",
             height: "100%",
@@ -37,9 +32,7 @@ export default function MarqueeGreyscaleDemo() {
         />
       </div>
       <div className="w-30 h-5">
-        <img
-          src="/svgs/Wix.svg"
-          alt=""
+        <Icons.wix_black
           style={{
             width: "100%",
             height: "100%",
@@ -48,9 +41,7 @@ export default function MarqueeGreyscaleDemo() {
         />
       </div>
       <div className="w-30 h-14">
-        <img
-          src="/svgs/Johnson & Johnson_Logo_0.svg"
-          alt=""
+        <Icons.johnson_and_johnson
           style={{
             width: "100%",
             height: "100%",
@@ -59,9 +50,7 @@ export default function MarqueeGreyscaleDemo() {
         />
       </div>
       <div className="w-30 h-14">
-        <img
-          src="/svgs/singapore_airlines.svg"
-          alt=""
+        <Icons.singapore_airlines
           style={{
             width: "100%",
             height: "100%",

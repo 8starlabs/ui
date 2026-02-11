@@ -18,9 +18,7 @@ const MarqueeCard = () => {
           <div className="flex flex-col gap-2 overflow-hidden">
             <Marquee greyscale={true}>
               <div className="w-30 h-14">
-                <img
-                  src="/svgs/vercel-logotype-light.svg"
-                  alt=""
+                <Icons.vercel_light
                   style={{
                     width: "100%",
                     height: "100%",
@@ -29,9 +27,7 @@ const MarqueeCard = () => {
                 />
               </div>
               <div className="w-30 h-14">
-                <img
-                  src="/svgs/shopify_monotone_black.svg"
-                  alt=""
+                <Icons.shopify
                   style={{
                     width: "100%",
                     height: "100%",
@@ -40,9 +36,7 @@ const MarqueeCard = () => {
                 />
               </div>
               <div className="w-30 h-14">
-                <img
-                  src="/svgs/the_weather_company.svg"
-                  alt=""
+                <Icons.the_weather_company
                   style={{
                     width: "100%",
                     height: "100%",
@@ -60,9 +54,7 @@ const MarqueeCard = () => {
                 />
               </div>
               <div className="w-30 h-14">
-                <img
-                  src="/svgs/Johnson & Johnson_Logo_0.svg"
-                  alt=""
+                <Icons.johnson_and_johnson
                   style={{
                     width: "100%",
                     height: "100%",
@@ -71,9 +63,7 @@ const MarqueeCard = () => {
                 />
               </div>
               <div className="w-30 h-14">
-                <img
-                  src="/svgs/singapore_airlines.svg"
-                  alt=""
+                <Icons.singapore_airlines
                   style={{
                     width: "100%",
                     height: "100%",
@@ -84,10 +74,8 @@ const MarqueeCard = () => {
             </Marquee>
 
             <Marquee direction="right">
-              <div className="w-38 h-20">
-                <img
-                  src="/svgs/oikova_logo_light.svg"
-                  alt=""
+              <div className="w-30 h-20">
+                <Icons.oikova_light
                   style={{
                     width: "100%",
                     height: "100%",
@@ -95,10 +83,8 @@ const MarqueeCard = () => {
                   }}
                 />
               </div>
-              <div className="w-38 h-20">
-                <img
-                  src="/svgs/supabase-logo-wordmark--light.svg"
-                  alt=""
+              <div className="w-30 h-20">
+                <Icons.supabase
                   style={{
                     width: "100%",
                     height: "100%",
@@ -106,10 +92,8 @@ const MarqueeCard = () => {
                   }}
                 />
               </div>
-              <div className="w-38 h-20">
-                <img
-                  src="/svgs/BigCommerce.svg"
-                  alt=""
+              <div className="w-30 h-20">
+                <Icons.big_commerce
                   style={{
                     width: "100%",
                     height: "100%",
@@ -118,9 +102,7 @@ const MarqueeCard = () => {
                 />
               </div>
               <div className="w-30 h-14">
-                <img
-                  src="/svgs/singapore_airlines.svg"
-                  alt=""
+                <Icons.singapore_airlines
                   style={{
                     width: "100%",
                     height: "100%",
@@ -128,10 +110,8 @@ const MarqueeCard = () => {
                   }}
                 />
               </div>
-              <div className="w-38 h-14">
-                <img
-                  src="/svgs/the_weather_company.svg"
-                  alt=""
+              <div className="w-30 h-14">
+                <Icons.the_weather_company
                   style={{
                     width: "100%",
                     height: "100%",
