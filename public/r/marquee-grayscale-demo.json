@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "marquee-grayscale-demo",
+  "type": "registry:example",
+  "title": "Marquee Grayscale Demo",
+  "description": "A marquee grayscale demo component",
+  "files": [
+    {
+      "path": "registry/8starlabs-ui/examples/marquee-grayscale-demo.tsx",
+      "content": "import Marquee from \"../blocks/marquee\";\nimport { Icons } from \"@/components/icons\";\n\nexport default function MarqueeGrayscaleDemo() {\n  return (\n    <Marquee grayscale={true}>\n      <div className=\"w-30 h-14\">\n        <Icons.vercel_light\n          style={{\n            width: \"100%\",\n            height: \"100%\",\n            objectFit: \"contain\"\n          }}\n        />\n      </div>\n      <div className=\"w-30 h-14\">\n        <Icons.shopify\n          style={{\n            width: \"100%\",\n            height: \"100%\",\n            objectFit: \"contain\"\n          }}\n        />\n      </div>\n      <div className=\"w-30 h-14\">\n        <Icons.the_weather_company\n          style={{\n            width: \"100%\",\n            height: \"100%\",\n            objectFit: \"contain\"\n          }}\n        />\n      </div>\n      <div className=\"w-30 h-5\">\n        <Icons.wix_black\n          style={{\n            width: \"100%\",\n            height: \"100%\",\n            objectFit: \"contain\"\n          }}\n        />\n      </div>\n      <div className=\"w-30 h-14\">\n        <Icons.johnson_and_johnson\n          style={{\n            width: \"100%\",\n            height: \"100%\",\n            objectFit: \"contain\"\n          }}\n        />\n      </div>\n      <div className=\"w-30 h-14\">\n        <Icons.singapore_airlines\n          style={{\n            width: \"100%\",\n            height: \"100%\",\n            objectFit: \"contain\"\n          }}\n        />\n      </div>\n    </Marquee>\n  );\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}
