@@ -85,6 +85,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.7
+    },
+    {
+      url: "https://ui.8starlabs.com/docs/components/marquee",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7
     }
   ];
 }

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "marquee-reverse-demo",
+  "type": "registry:example",
+  "title": "Marquee Reverse Demo",
+  "description": "A marquee reverse demo component",
+  "files": [
+    {
+      "path": "registry/8starlabs-ui/examples/marquee-reverse-demo.tsx",
+      "content": "import Marquee from \"../blocks/marquee\";\r\n\r\nexport default function MarqueeReverseDemo() {\r\n  return (\r\n    <Marquee direction=\"right\">\r\n      <div className=\"bg-blue-500 text-white px-4 py-2 rounded-lg\">Item 1</div>\r\n      <div className=\"bg-purple-500 text-white px-4 py-2 rounded-lg\">\r\n        Item 2\r\n      </div>\r\n      <div className=\"bg-pink-500 text-white px-4 py-2 rounded-lg\">Item 3</div>\r\n    </Marquee>\r\n  );\r\n}\r\n",
+      "type": "registry:example"
+    }
+  ]
+}

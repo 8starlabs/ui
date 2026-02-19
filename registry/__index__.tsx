@@ -1,6 +1,7 @@
 // AUTO-GENERATED FILE. DO NOT EDIT MANUALLY.
 import flip_clock_component from "@/registry/8starlabs-ui/blocks/flip-clock";
 import heatmap_component from "@/registry/8starlabs-ui/blocks/heatmap";
+import marquee_component from "@/registry/8starlabs-ui/blocks/marquee";
 import partition_bar_component from "@/registry/8starlabs-ui/blocks/partition-bar";
 import scroll_fade_component from "@/registry/8starlabs-ui/blocks/scroll-fade";
 import status_indicator_component from "@/registry/8starlabs-ui/blocks/status-indicator";
@@ -19,6 +20,9 @@ import heatmap_demo_component from "@/registry/8starlabs-ui/examples/heatmap-dem
 import heatmap_display_style_demo_component from "@/registry/8starlabs-ui/examples/heatmap-display-style-demo";
 import heatmap_interpolate_demo_component from "@/registry/8starlabs-ui/examples/heatmap-interpolate-demo";
 import heatmap_size_demo_component from "@/registry/8starlabs-ui/examples/heatmap-size-demo";
+import marquee_demo_component from "@/registry/8starlabs-ui/examples/marquee-demo";
+import marquee_grayscale_demo_component from "@/registry/8starlabs-ui/examples/marquee-grayscale-demo";
+import marquee_reverse_demo_component from "@/registry/8starlabs-ui/examples/marquee-reverse-demo";
 import partition_bar_alignment_demo_component from "@/registry/8starlabs-ui/examples/partition-bar-alignment-demo";
 import partition_bar_custom_colours_demo_component from "@/registry/8starlabs-ui/examples/partition-bar-custom-colours-demo";
 import partition_bar_demo_component from "@/registry/8starlabs-ui/examples/partition-bar-demo";
@@ -60,6 +64,16 @@ export const Index: Record<string, any> = {
         target: ""
       }],
       component: heatmap_component
+    },
+    "marquee": {
+      name: "marquee",
+      type: "registry:block",
+      files: [{
+        path: "registry/8starlabs-ui/blocks/marquee.tsx",
+        type: "registry:block",
+        target: ""
+      }],
+      component: marquee_component
     },
     "partition-bar": {
       name: "partition-bar",
@@ -240,6 +254,36 @@ export const Index: Record<string, any> = {
         target: ""
       }],
       component: heatmap_size_demo_component
+    },
+    "marquee-demo": {
+      name: "marquee-demo",
+      type: "registry:example",
+      files: [{
+        path: "registry/8starlabs-ui/examples/marquee-demo.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+      component: marquee_demo_component
+    },
+    "marquee-grayscale-demo": {
+      name: "marquee-grayscale-demo",
+      type: "registry:example",
+      files: [{
+        path: "registry/8starlabs-ui/examples/marquee-grayscale-demo.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+      component: marquee_grayscale_demo_component
+    },
+    "marquee-reverse-demo": {
+      name: "marquee-reverse-demo",
+      type: "registry:example",
+      files: [{
+        path: "registry/8starlabs-ui/examples/marquee-reverse-demo.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+      component: marquee_reverse_demo_component
     },
     "partition-bar-alignment-demo": {
       name: "partition-bar-alignment-demo",
