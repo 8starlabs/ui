@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import React from "react";
 
 interface MarqueeProps {
-  greyscale?: boolean;
+  grayscale?: boolean;
   direction?: "left" | "right";
   pauseOnHover?: boolean;
   fade?: boolean;
@@ -14,7 +14,7 @@ interface MarqueeProps {
 }
 
 export default function Marquee({
-  greyscale = false,
+  grayscale = false,
   direction = "left",
   pauseOnHover = true,
   fade = true,
@@ -40,7 +40,7 @@ export default function Marquee({
         className={cn(
           "flex overflow-hidden p-2 [--gap:3rem]",
           pauseOnHover && "group/marquee",
-          greyscale && "grayscale contrast-200",
+          grayscale && "grayscale contrast-200 dark:invert",
           fade && "relative",
           className
         )}

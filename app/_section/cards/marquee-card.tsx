@@ -16,7 +16,7 @@ const MarqueeCard = () => {
           </div>
 
           <div className="flex flex-col gap-2 overflow-hidden">
-            <Marquee greyscale={true}>
+            <Marquee grayscale={true}>
               <div className="w-30 h-14">
                 <Icons.vercel_light
                   style={{

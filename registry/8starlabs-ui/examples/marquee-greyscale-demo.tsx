@@ -3,7 +3,7 @@ import { Icons } from "@/components/icons";
 
 export default function MarqueeGreyscaleDemo() {
   return (
-    <Marquee greyscale={true}>
+    <Marquee grayscale={true}>
       <div className="w-30 h-14">
         <Icons.vercel_light
           style={{
