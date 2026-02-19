@@ -505,13 +505,13 @@
       ]
     },
     {
-      "name": "marquee-greyscale-demo",
+      "name": "marquee-grayscale-demo",
       "type": "registry:example",
-      "title": "Marquee Greyscale Demo",
-      "description": "A marquee greyscale demo component",
+      "title": "Marquee Grayscale Demo",
+      "description": "A marquee grayscale demo component",
       "files": [
         {
-          "path": "registry/8starlabs-ui/examples/marquee-greyscale-demo.tsx",
+          "path": "registry/8starlabs-ui/examples/marquee-grayscale-demo.tsx",
           "type": "registry:example"
         }
       ]
