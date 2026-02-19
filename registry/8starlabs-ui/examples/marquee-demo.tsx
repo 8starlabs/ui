@@ -3,7 +3,7 @@ import { Icons } from "@/components/icons";
 
 export default function MarqueeDemo() {
   return (
-    <Marquee fade={false}>
+    <Marquee>
       <div className="w-48 h-20">
         <Icons.oikova_light
           style={{

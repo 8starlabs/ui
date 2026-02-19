@@ -37,7 +37,7 @@ const Cards = ({ className }: CardsProps) => {
       <div className="sm:col-span-2 xl:col-span-2 xl:col-start-2">
         <HeatmapCard />
       </div>
-      <div className="sm:col-span-2 xl:col-span-2 xl:col-start-2">
+      <div className="sm:col-span-2 xl:col-span-2 xl:col-start-4">
         <MarqueeCard />
       </div>
     </div>
