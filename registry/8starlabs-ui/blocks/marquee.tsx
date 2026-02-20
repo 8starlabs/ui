@@ -21,27 +21,45 @@ export default function Marquee({
   className
 }: MarqueeProps) {
   const content = React.Children.toArray(children);
-  const repeat = 4;
+  const containerRef = React.useRef<HTMLDivElement>(null);
 
-  const duplicatedContent = React.useMemo(() => {
-    if (content.length === 0) return [];
-    if (content.length < repeat) {
-      return Array.from({ length: repeat }, () => content).flat();
-    }
-    return content;
-  }, [content, repeat]);
+  // Prevent any scrolling
+  React.useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const preventScroll = (e: Event) => {
+      e.preventDefault();
+      e.stopPropagation();
+      container.scrollLeft = 0;
+    };
+
+    container.addEventListener("scroll", preventScroll, { passive: false });
+    container.addEventListener("wheel", preventScroll, { passive: false });
+    container.addEventListener("touchmove", preventScroll, { passive: false });
+
+    return () => {
+      container.removeEventListener("scroll", preventScroll);
+      container.removeEventListener("wheel", preventScroll);
+      container.removeEventListener("touchmove", preventScroll);
+    };
+  }, []);
 
   const animationClass =
     direction === "left" ? "marquee-inner" : "marquee-inner-reverse";
 
   return (
-    <div className="relative">
+    <div className="relative overflow-hidden">
       <style jsx global>{`
+        .marquee-container::-webkit-scrollbar {
+          display: none;
+        }
+
         .marquee-inner {
-          animation: marquee-anim 25s linear infinite;
+          animation: marquee-anim 10s linear infinite;
         }
         .marquee-inner-reverse {
-          animation: marquee-anim-reverse 25s linear infinite;
+          animation: marquee-anim-reverse 10s linear infinite;
         }
 
         .marquee-container:hover .marquee-inner,
@@ -50,70 +68,74 @@ export default function Marquee({
         }
 
         @keyframes marquee-anim {
-          from {
+          0% {
             transform: translateX(0);
           }
-          to {
-            transform: translateX(-100%);
+          100% {
+            transform: translateX(-50%);
           }
         }
 
         @keyframes marquee-anim-reverse {
-          from {
-            transform: translateX(-100%);
+          0% {
+            transform: translateX(-50%);
           }
-          to {
+          100% {
             transform: translateX(0);
           }
         }
       `}</style>
 
       <div
+        ref={containerRef}
         className={cn(
-          "flex overflow-hidden p-2 [--gap:3rem]",
+          "flex w-full p-2 [--gap:3rem] select-none cursor-default",
           pauseOnHover && "marquee-container",
           grayscale && "grayscale contrast-200 dark:invert",
           className
         )}
         style={{
           maskImage: fade
-            ? "linear-gradient(to right, transparent, black 5%, black 95%, transparent)"
+            ? "linear-gradient(90deg, transparent 0%, rgba(0,0,0,1) 8%, rgba(0,0,0,1) 92%, transparent 100%)"
             : "none",
           WebkitMaskImage: fade
-            ? "linear-gradient(to right, transparent, black 5%, black 95%, transparent)"
-            : "none"
+            ? "linear-gradient(90deg, transparent 0%, rgba(0,0,0,1) 8%, rgba(0,0,0,1) 92%, transparent 100%)"
+            : "none",
+          userSelect: "none",
+          WebkitUserSelect: "none",
+          pointerEvents: pauseOnHover ? "auto" : "none",
+          overflow: "hidden",
+          scrollbarWidth: "none",
+          msOverflowStyle: "none"
         }}
       >
-        {[0, 1].map((i) => (
-          <div
-            key={i}
-            className={cn(
-              "flex shrink-0 items-center [gap:var(--gap)] [padding-right:var(--gap)]",
-              animationClass
-            )}
-          >
-            {duplicatedContent.length === 0 ? (
-              <>
+        <div
+          className={cn(
+            "flex shrink-0 items-center [gap:var(--gap)] will-change-transform",
+            animationClass
+          )}
+        >
+          {content.length === 0 ? (
+            <>
+              {Array.from({ length: 6 }).map((_, i) => (
                 <div
+                  key={i}
                   aria-hidden="true"
                   className="bg-black rounded-xl h-20 w-40"
                 />
-                <div
-                  aria-hidden="true"
-                  className="bg-black rounded-xl h-20 w-40"
-                />
-                <div
-                  aria-hidden="true"
-                  className="bg-black rounded-xl h-20 w-40"
-                />
-              </>
-            ) : (
-              duplicatedContent.map((item, index) => (
-                <div key={`${i}-${index}`}>{item}</div>
-              ))
-            )}
-          </div>
-        ))}
+              ))}
+            </>
+          ) : (
+            <>
+              {content.map((item, index) => (
+                <div key={index}>{item}</div>
+              ))}
+              {content.map((item, index) => (
+                <div key={`duplicate-${index}`}>{item}</div>
+              ))}
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

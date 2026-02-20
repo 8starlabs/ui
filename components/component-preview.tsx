@@ -11,6 +11,7 @@ export function ComponentPreview({
   className,
   align = "center",
   hideCode = false,
+  noPaddingOnComponentSource = false,
   chromeLessOnMobile = false,
   ...props
 }: React.ComponentProps<"div"> & {
@@ -19,6 +20,7 @@ export function ComponentPreview({
   align?: "center" | "start" | "end";
   description?: string;
   hideCode?: boolean;
+  noPaddingOnComponentSource?: boolean;
   type?: "block" | "component" | "example";
   chromeLessOnMobile?: boolean;
 }) {
@@ -41,6 +43,7 @@ export function ComponentPreview({
       className={className}
       align={align}
       hideCode={hideCode}
+      noPaddingOnComponentSource={noPaddingOnComponentSource}
       component={<Component />}
       source={
         <ComponentSource

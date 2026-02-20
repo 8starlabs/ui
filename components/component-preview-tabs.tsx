@@ -10,12 +10,14 @@ export function ComponentPreviewTabs({
   align = "center",
   hideCode = false,
   chromeLessOnMobile = false,
+  noPaddingOnComponentSource = false,
   component,
   source,
   ...props
 }: React.ComponentProps<"div"> & {
   align?: "center" | "start" | "end";
   hideCode?: boolean;
+  noPaddingOnComponentSource?: boolean;
   chromeLessOnMobile?: boolean;
   component: React.ReactNode;
   source: React.ReactNode;
@@ -34,7 +36,8 @@ export function ComponentPreviewTabs({
             data-align={align}
             className={cn(
               "preview flex w-full justify-center data-[align=center]:items-center data-[align=end]:items-end data-[align=start]:items-start",
-              chromeLessOnMobile ? "sm:p-10" : "min-h-[200px] p-10"
+              chromeLessOnMobile ? "sm:p-10" : "min-h-[200px] p-10",
+              noPaddingOnComponentSource && "p-0"
             )}
           >
             {component}
