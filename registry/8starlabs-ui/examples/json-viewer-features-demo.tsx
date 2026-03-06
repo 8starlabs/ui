@@ -128,7 +128,7 @@ const JsonViewerFeaturesDemo = () => {
                   {defaultExpanded === true
                     ? "Expand All"
                     : defaultExpanded === false
-                      ? "Collapsed (Default)"
+                      ? "Collapsed"
                       : `Depth ${defaultExpanded}`}
                   <ChevronDown className="h-3.5 w-3.5 opacity-50" />
                 </Button>
@@ -149,7 +149,7 @@ const JsonViewerFeaturesDemo = () => {
                   }}
                 >
                   <DropdownMenuRadioItem value="false" className="text-xs">
-                    Collapsed (Default)
+                    Collapsed
                   </DropdownMenuRadioItem>
                   <DropdownMenuRadioItem value="true" className="text-xs">
                     Expand All
