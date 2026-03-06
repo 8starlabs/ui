@@ -3,6 +3,7 @@
 import React, { useMemo, useState } from "react";
 import type { JSX } from "react";
 import { cn } from "@/lib/utils";
+import { useIsMobile } from "@/hooks/use-mobile";
 import * as Collapsible from "@radix-ui/react-collapsible";
 import { ChevronRight } from "lucide-react";
 import { CopyButton } from "@/components/copy-button";
@@ -14,6 +15,8 @@ interface JsonViewerProps {
   showLineNumbers?: boolean;
   showColorIndent?: boolean;
   collapseOn?: "click" | "doubleClick";
+  defaultExpanded?: boolean | number;
+  title?: string;
 }
 
 interface TruncationSettings {
@@ -109,8 +112,9 @@ const SmartValue = React.forwardRef<
   any,
   { value: any; type: DataType } & React.HTMLAttributes<HTMLElement>
 >(({ value, type, ...props }, ref) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   if (type === "string") {
-    // Color detection
     if (
       /^#([0-9A-F]{3}){1,2}$/i.test(value) ||
       /^rgba?\(/.test(value) ||
@@ -120,7 +124,10 @@ const SmartValue = React.forwardRef<
         <span
           ref={ref}
           {...props}
-          className={cn("inline-flex items-center gap-1.5", props.className)}
+          className={cn(
+            "inline-flex items-center gap-1.5 whitespace-nowrap",
+            props.className
+          )}
         >
           <span
             className="w-3 h-3 rounded-[2px] border border-white/20 shrink-0"
@@ -131,8 +138,55 @@ const SmartValue = React.forwardRef<
       );
     }
 
-    // URL detection
     if (/^https?:\/\//.test(value)) {
+      const isLongUrl = String(value).length > 50;
+      const isVeryLongUrl = String(value).length > 180;
+
+      if (isVeryLongUrl) {
+        return (
+          <span className="inline-flex flex-col items-start gap-1">
+            <a
+              ref={ref}
+              href={value}
+              target="_blank"
+              rel="noopener noreferrer"
+              {...(props as any)}
+              className={cn(
+                "text-green-600 dark:text-green-400 hover:underline hover:text-blue-600 dark:hover:text-blue-400 transition-colors whitespace-pre-wrap break-all",
+                !isExpanded && "line-clamp-3",
+                props.className
+              )}
+              style={
+                !isExpanded
+                  ? {
+                      display: "-webkit-box",
+                      WebkitLineClamp: 3,
+                      WebkitBoxOrient: "vertical",
+                      overflow: "hidden"
+                    }
+                  : undefined
+              }
+              onClick={(e) => {
+                e.stopPropagation();
+                props.onClick?.(e);
+              }}
+            >
+              {`'${value}'`}
+            </a>
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsExpanded(!isExpanded);
+              }}
+              className="text-xs text-muted-foreground hover:text-foreground underline select-none"
+            >
+              {isExpanded ? "Show less" : "Show more"}
+            </button>
+          </span>
+        );
+      }
+
       return (
         <a
           ref={ref}
@@ -142,6 +196,7 @@ const SmartValue = React.forwardRef<
           {...(props as any)}
           className={cn(
             "text-green-600 dark:text-green-400 hover:underline hover:text-blue-600 dark:hover:text-blue-400 transition-colors",
+            isLongUrl ? "whitespace-pre-wrap break-all" : "whitespace-nowrap",
             props.className
           )}
           onClick={(e) => {
@@ -156,22 +211,81 @@ const SmartValue = React.forwardRef<
   }
 
   const typeStyle = getTypeStyle(type);
-  if (type === "string")
+  if (type === "string") {
+    const isLongString = String(value).length > 50;
+    const isVeryLongString = String(value).length > 180;
+
+    if (isVeryLongString) {
+      return (
+        <span className="inline-flex flex-col items-start gap-1">
+          <span
+            ref={ref}
+            {...props}
+            className={cn(
+              typeStyle,
+              "whitespace-pre-wrap wrap-break-words",
+              !isExpanded && "line-clamp-3",
+              props.className
+            )}
+            style={
+              !isExpanded
+                ? {
+                    display: "-webkit-box",
+                    WebkitLineClamp: 3,
+                    WebkitBoxOrient: "vertical",
+                    overflow: "hidden"
+                  }
+                : undefined
+            }
+          >
+            {`'${value}'`}
+          </span>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsExpanded(!isExpanded);
+            }}
+            className="text-xs text-muted-foreground hover:text-foreground underline select-none"
+          >
+            {isExpanded ? "Show less" : "Show more"}
+          </button>
+        </span>
+      );
+    }
+
     return (
       <span
         ref={ref}
         {...props}
-        className={cn(typeStyle, props.className)}
-      >{`'${value}'`}</span>
+        className={cn(
+          typeStyle,
+          isLongString
+            ? "whitespace-pre-wrap wrap-break-words"
+            : "whitespace-nowrap",
+          props.className
+        )}
+      >
+        {`'${value}'`}
+      </span>
     );
+  }
   if (type === "null")
     return (
-      <span ref={ref} {...props} className={cn(typeStyle, props.className)}>
+      <span
+        ref={ref}
+        {...props}
+        className={cn(typeStyle, "whitespace-nowrap", props.className)}
+      >
         null
       </span>
     );
   return (
-    <span ref={ref} {...props} className={cn(typeStyle, props.className)}>
+    <span
+      ref={ref}
+      {...props}
+      className={cn(typeStyle, "whitespace-nowrap", props.className)}
+    >
       {String(value)}
     </span>
   );
@@ -253,15 +367,61 @@ const calculateLineCount = (
   return 1;
 };
 
+const generateAllPaths = (
+  data: any,
+  maxLevel: number = Infinity,
+  currentLevel: number = 0,
+  currentPath: string = "root"
+): Set<string> => {
+  const paths = new Set<string>();
+  if (currentLevel > maxLevel) return paths;
+
+  if (typeof data === "object" && data !== null) {
+    paths.add(currentPath);
+    if (Array.isArray(data)) {
+      data.forEach((item, index) => {
+        const childPaths = generateAllPaths(
+          item,
+          maxLevel,
+          currentLevel + 1,
+          `${currentPath}[${index}]`
+        );
+        childPaths.forEach((path) => paths.add(path));
+      });
+    } else {
+      Object.entries(data).forEach(([key, value]) => {
+        const childPaths = generateAllPaths(
+          value,
+          maxLevel,
+          currentLevel + 1,
+          `${currentPath}.${key}`
+        );
+        childPaths.forEach((path) => paths.add(path));
+      });
+    }
+  }
+  return paths;
+};
+
 const JsonViewer: React.FC<JsonViewerProps> = ({
   data,
   className,
   truncation: truncationProp,
   showLineNumbers = true,
   showColorIndent = false,
-  collapseOn = "click"
+  collapseOn = "click",
+  defaultExpanded = false,
+  title
 }) => {
+  const isMobile = useIsMobile();
+
   const [expandedPaths, setExpandedPaths] = React.useState<Set<string>>(() => {
+    if (typeof defaultExpanded === "number") {
+      return generateAllPaths(data, defaultExpanded);
+    }
+    if (defaultExpanded === true) {
+      return generateAllPaths(data);
+    }
     const initialPaths = new Set<string>();
     if (typeof data === "object" && data !== null) {
       initialPaths.add("root");
@@ -269,12 +429,20 @@ const JsonViewer: React.FC<JsonViewerProps> = ({
     return initialPaths;
   });
 
+  const expandAll = () => {
+    setExpandedPaths(generateAllPaths(data));
+  };
+
+  const collapseAll = () => {
+    setExpandedPaths(new Set(["root"]));
+  };
+
   const truncation: TruncationSettings = React.useMemo(
     () => ({
-      enabled: truncationProp?.enabled ?? true,
+      enabled: isMobile ? false : (truncationProp?.enabled ?? true),
       itemsPerArray: truncationProp?.itemsPerArray ?? 5
     }),
-    [truncationProp]
+    [truncationProp, isMobile]
   );
 
   const toggleNode = (path: string) => {
@@ -297,28 +465,57 @@ const JsonViewer: React.FC<JsonViewerProps> = ({
   return (
     <div
       className={cn(
-        "relative font-mono text-[13px] leading-6 w-full text-foreground",
+        "relative font-mono text-[13px] leading-6 w-full text-foreground bg-secondary/10 dark:bg-muted/50 rounded-md border border-border flex flex-col",
         className
       )}
     >
-      <CopyButton
-        value={JSON.stringify(data, null, 2)}
-        className="absolute top-2 right-2 z-10"
-      />
-      <pre className="w-full overflow-auto p-4 flex bg-secondary/10 dark:bg-muted/50 rounded-md border border-border">
-        {showLineNumbers && <LineNumbers lineCount={lineCount} />}
-        <code>
-          <JsonNode
-            data={data}
-            path="root"
-            expandedPaths={expandedPaths}
-            toggleNode={toggleNode}
-            truncation={truncation}
-            showColorIndent={showColorIndent}
-            collapseOn={collapseOn}
+      <div className="flex justify-between items-center p-2 z-10 gap-2">
+        <div className="text-xs font-medium text-muted-foreground px-2">
+          {title}
+        </div>
+        <div className="flex items-center rounded-md border bg-muted/50 overflow-hidden">
+          <button
+            onClick={expandAll}
+            className="h-7 px-2 flex items-center justify-center text-xs font-medium hover:bg-muted transition-colors"
+            title="Expand All"
+          >
+            Expand All
+          </button>
+          <div className="w-px h-4 bg-border" />
+          <button
+            onClick={collapseAll}
+            className="h-7 px-2 flex items-center justify-center text-xs font-medium hover:bg-muted transition-colors"
+            title="Collapse All"
+          >
+            Collapse All
+          </button>
+          <div className="w-px h-4 bg-border" />
+          <CopyButton
+            value={JSON.stringify(data, null, 2)}
+            className="static size-7 bg-transparent hover:bg-muted hover:opacity-100 focus-visible:opacity-100 text-foreground rounded-none"
           />
-        </code>
-      </pre>
+        </div>
+      </div>
+      <div className="w-full overflow-auto flex-1 p-4 pt-0">
+        <pre className="flex">
+          {showLineNumbers && (
+            <div className="hidden sm:block">
+              <LineNumbers lineCount={lineCount} />
+            </div>
+          )}
+          <code>
+            <JsonNode
+              data={data}
+              path="root"
+              expandedPaths={expandedPaths}
+              toggleNode={toggleNode}
+              truncation={truncation}
+              showColorIndent={showColorIndent}
+              collapseOn={collapseOn}
+            />
+          </code>
+        </pre>
+      </div>
     </div>
   );
 };
@@ -542,7 +739,7 @@ const JsonObject: React.FC<{
                   key={key}
                   className={cn(
                     "group rounded-md",
-                    !isChildCollapsible && "flex items-center h-6",
+                    !isChildCollapsible && "flex items-start min-h-6",
                     isChildOpen ? "" : "hover:bg-muted-foreground/20"
                   )}
                 >
@@ -651,7 +848,7 @@ const JsonArray: React.FC<{
           e.stopPropagation();
           toggleNode(path);
         }}
-        className="inline-flex items-center"
+        className="inline-flex items-center text-muted-foreground hover:text-foreground transition-colors"
       >
         <ChevronRight
           className={cn(
@@ -698,7 +895,8 @@ const JsonArray: React.FC<{
                 key={index}
                 className={cn(
                   "group rounded-md",
-                  !isChildCollapsible && "flex items-center h-6",
+                  !isChildCollapsible &&
+                    "flex sm:items-center items-start sm:h-6 h-auto",
                   isChildOpen ? "" : "hover:bg-muted-foreground/20"
                 )}
               >

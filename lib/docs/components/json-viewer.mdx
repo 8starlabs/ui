@@ -52,17 +52,20 @@ The `JsonViewer` component offers several customization options to enhance data 
 - `showLineNumbers`: Display line numbers for easier reference.
 - `showColorIndent`: Visualize nesting levels with color-coded indentation guides.
 - `collapseOn`: Choose between single-click or double-click to toggle nodes. Double-click is useful for preventing accidental collapses when selecting text.
+- `defaultExpanded`: Control the initial expansion state of the JSON tree. Set to `true` to expand all, `false` to collapse all (default), or a number to expand up to a specific depth.
 - `truncation`: Automatically truncate large arrays to keep the view clean.
 
 <ComponentPreview name="json-viewer-features-demo" />
 
 ## API Reference
 
-| Prop              | Type                          | Default                               | Description                                              |
-| ----------------- | ----------------------------- | ------------------------------------- | -------------------------------------------------------- |
-| `data`            | `any`                         | -                                     | Required. The JSON data to display.                      |
-| `className`       | `string`                      | -                                     | Optional. Additional Tailwind classes for the container. |
-| `truncation`      | `Partial<TruncationSettings>` | `{ enabled: true, itemsPerArray: 5 }` | Optional. Configuration for array truncation.            |
-| `showLineNumbers` | `boolean`                     | `true`                                | Optional. Controls whether line numbers are shown.       |
-| `showColorIndent` | `boolean`                     | `false`                               | Optional. Controls whether to use color-coded indents.   |
-| `collapseOn`      | `'click' \| 'doubleClick'`    | `'click'`                             | Optional. Controls the interaction for collapsing nodes. |
+| Prop              | Type                          | Default                               | Description                                                         |
+| ----------------- | ----------------------------- | ------------------------------------- | ------------------------------------------------------------------- |
+| `data`            | `any`                         | -                                     | Required. The JSON data to display.                                 |
+| `title`           | `string`                      | -                                     | Optional. Display a title in the header.                            |
+| `truncation`      | `Partial<TruncationSettings>` | `{ enabled: true, itemsPerArray: 5 }` | Optional. Configuration for array truncation.                       |
+| `showLineNumbers` | `boolean`                     | `true`                                | Optional. Controls whether line numbers are shown.                  |
+| `showColorIndent` | `boolean`                     | `false`                               | Optional. Controls whether to use color-coded indents.              |
+| `collapseOn`      | `'click' \| 'doubleClick'`    | `'click'`                             | Optional. Controls the interaction for collapsing nodes.            |
+| `defaultExpanded` | `boolean \| number`           | `false`                               | Optional. Initial expansion state (true for all, number for depth). |
+| `className`       | `string`                      | -                                     | Optional. Additional Tailwind classes for the container.            |

@@ -18,6 +18,8 @@ const JsonViewerDemo = () => {
     isActive: true,
     isGlutenFree: false,
     discontinued: null,
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In lobortis tellus eu justo hendrerit, a viverra turpis aliquam. Morbi sollicitudin accumsan lectus, eget sollicitudin magna tempus et. Cras fringilla risus sed libero consequat faucibus. Nulla facilisi. Quisque pretium, lorem id dignissim iaculis, est sem aliquet risus, sed suscipit elit sem sit amet dui. Vivamus tempor orci nec imperdiet molestie. Integer elit ex, elementum sed libero vitae, varius porta nisi. Pellentesque eget nibh justo. Morbi nec cursus metus, et faucibus nunc. Quisque vehicula sollicitudin ipsum, laoreet aliquam libero lobortis nec. Nulla facilisi.",
     batters: {
       batter: [
         { id: "1001", type: "Regular" },
@@ -37,7 +39,9 @@ const JsonViewerDemo = () => {
     ]
   };
 
-  return <JsonViewer data={jsonData} className="h-[500px]" />;
+  return (
+    <JsonViewer data={jsonData} className="h-[500px]" title="Response Data" />
+  );
 };
 
 export default JsonViewerDemo;

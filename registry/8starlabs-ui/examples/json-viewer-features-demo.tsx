@@ -11,6 +11,9 @@ const JsonViewerFeaturesDemo = () => {
   const [collapseOnDoubleClick, setCollapseOnDoubleClick] = useState(false);
   const [enableTruncation, setEnableTruncation] = useState(true);
   const [truncationLimit, setTruncationLimit] = useState(3);
+  const [defaultExpanded, setDefaultExpanded] = useState<boolean | number>(
+    false
+  );
 
   const jsonData = {
     id: "0001",
@@ -27,6 +30,8 @@ const JsonViewerFeaturesDemo = () => {
     isActive: true,
     isGlutenFree: false,
     discontinued: null,
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In lobortis tellus eu justo hendrerit, a viverra turpis aliquam. Morbi sollicitudin accumsan lectus, eget sollicitudin magna tempus et. Cras fringilla risus sed libero consequat faucibus. Nulla facilisi. Quisque pretium, lorem id dignissim iaculis, est sem aliquet risus, sed suscipit elit sem sit amet dui. Vivamus tempor orci nec imperdiet molestie. Integer elit ex, elementum sed libero vitae, varius porta nisi. Pellentesque eget nibh justo. Morbi nec cursus metus, et faucibus nunc. Quisque vehicula sollicitudin ipsum, laoreet aliquam libero lobortis nec. Nulla facilisi.",
     batters: {
       batter: [
         { id: "1001", type: "Regular" },
@@ -88,7 +93,32 @@ const JsonViewerFeaturesDemo = () => {
             <span>Double Click</span>
           </button>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
+          <div className="flex items-center gap-1 text-xs text-muted-foreground mr-2">
+            <span>Initial Expansion:</span>
+            <select
+              value={
+                defaultExpanded === true
+                  ? "true"
+                  : defaultExpanded === false
+                    ? "false"
+                    : String(defaultExpanded)
+              }
+              onChange={(e) => {
+                const value = e.target.value;
+                if (value === "true") setDefaultExpanded(true);
+                else if (value === "false") setDefaultExpanded(false);
+                else setDefaultExpanded(Number(value));
+              }}
+              className="h-7 px-2 rounded border border-input bg-background text-xs cursor-pointer focus:outline-none focus:ring-1 focus:ring-ring"
+            >
+              <option value="false">Collapsed (Default)</option>
+              <option value="true">Expand All</option>
+              <option value="1">Depth 1</option>
+              <option value="2">Depth 2</option>
+              <option value="3">Depth 3</option>
+            </select>
+          </div>
           <button
             onClick={() => setEnableTruncation(!enableTruncation)}
             className={cn(
@@ -116,6 +146,7 @@ const JsonViewerFeaturesDemo = () => {
         </div>
       </div>
       <JsonViewer
+        key={String(defaultExpanded)}
         data={jsonData}
         showLineNumbers={showLineNumbers}
         showColorIndent={showColorIndent}
@@ -124,7 +155,9 @@ const JsonViewerFeaturesDemo = () => {
           enabled: enableTruncation,
           itemsPerArray: truncationLimit
         }}
+        defaultExpanded={defaultExpanded}
         className="h-[500px]"
+        title="Feature Showcase"
       />
     </div>
   );
