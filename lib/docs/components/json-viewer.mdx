@@ -1,0 +1,68 @@
+---
+title: JSON Viewer
+description: A component for displaying JSON data with syntax highlighting and code folding.
+---
+
+<ComponentPreview name="json-viewer-demo" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add https://ui.8starlabs.com/r/json-viewer.json
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<ComponentSource name="json-viewer" title="components/ui/json-viewer.tsx" />
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx showLineNumbers
+import JsonViewer from "@/components/ui/json-viewer";
+
+export function MyComponent() {
+  const data = {
+    hello: "world"
+  };
+  return <JsonViewer data={data} />;
+}
+```
+
+## Examples
+
+### Custom Features
+
+The `JsonViewer` component offers several customization options to enhance data readability and interaction:
+
+- `showLineNumbers`: Display line numbers for easier reference.
+- `showColorIndent`: Visualize nesting levels with color-coded indentation guides.
+- `collapseOn`: Choose between single-click or double-click to toggle nodes. Double-click is useful for preventing accidental collapses when selecting text.
+- `truncation`: Automatically truncate large arrays to keep the view clean.
+
+<ComponentPreview name="json-viewer-features-demo" />
+
+## API Reference
+
+| Prop              | Type                          | Default                               | Description                                              |
+| ----------------- | ----------------------------- | ------------------------------------- | -------------------------------------------------------- |
+| `data`            | `any`                         | -                                     | Required. The JSON data to display.                      |
+| `className`       | `string`                      | -                                     | Optional. Additional Tailwind classes for the container. |
+| `truncation`      | `Partial<TruncationSettings>` | `{ enabled: true, itemsPerArray: 5 }` | Optional. Configuration for array truncation.            |
+| `showLineNumbers` | `boolean`                     | `true`                                | Optional. Controls whether line numbers are shown.       |
+| `showColorIndent` | `boolean`                     | `false`                               | Optional. Controls whether to use color-coded indents.   |
+| `collapseOn`      | `'click' \| 'doubleClick'`    | `'click'`                             | Optional. Controls the interaction for collapsing nodes. |

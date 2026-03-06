@@ -1,6 +1,7 @@
 // AUTO-GENERATED FILE. DO NOT EDIT MANUALLY.
 import flip_clock_component from "@/registry/8starlabs-ui/blocks/flip-clock";
 import heatmap_component from "@/registry/8starlabs-ui/blocks/heatmap";
+import json_viewer_component from "@/registry/8starlabs-ui/blocks/json-viewer";
 import marquee_component from "@/registry/8starlabs-ui/blocks/marquee";
 import partition_bar_component from "@/registry/8starlabs-ui/blocks/partition-bar";
 import scroll_fade_component from "@/registry/8starlabs-ui/blocks/scroll-fade";
@@ -20,6 +21,8 @@ import heatmap_demo_component from "@/registry/8starlabs-ui/examples/heatmap-dem
 import heatmap_display_style_demo_component from "@/registry/8starlabs-ui/examples/heatmap-display-style-demo";
 import heatmap_interpolate_demo_component from "@/registry/8starlabs-ui/examples/heatmap-interpolate-demo";
 import heatmap_size_demo_component from "@/registry/8starlabs-ui/examples/heatmap-size-demo";
+import json_viewer_demo_component from "@/registry/8starlabs-ui/examples/json-viewer-demo";
+import json_viewer_features_demo_component from "@/registry/8starlabs-ui/examples/json-viewer-features-demo";
 import marquee_demo_component from "@/registry/8starlabs-ui/examples/marquee-demo";
 import marquee_grayscale_demo_component from "@/registry/8starlabs-ui/examples/marquee-grayscale-demo";
 import marquee_greyscale_demo_component from "@/registry/8starlabs-ui/examples/marquee-greyscale-demo";
@@ -65,6 +68,16 @@ export const Index: Record<string, any> = {
         target: ""
       }],
       component: heatmap_component
+    },
+    "json-viewer": {
+      name: "json-viewer",
+      type: "registry:block",
+      files: [{
+        path: "registry/8starlabs-ui/blocks/json-viewer.tsx",
+        type: "registry:block",
+        target: ""
+      }],
+      component: json_viewer_component
     },
     "marquee": {
       name: "marquee",
@@ -255,6 +268,26 @@ export const Index: Record<string, any> = {
         target: ""
       }],
       component: heatmap_size_demo_component
+    },
+    "json-viewer-demo": {
+      name: "json-viewer-demo",
+      type: "registry:example",
+      files: [{
+        path: "registry/8starlabs-ui/examples/json-viewer-demo.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+      component: json_viewer_demo_component
+    },
+    "json-viewer-features-demo": {
+      name: "json-viewer-features-demo",
+      type: "registry:example",
+      files: [{
+        path: "registry/8starlabs-ui/examples/json-viewer-features-demo.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+      component: json_viewer_features_demo_component
     },
     "marquee-demo": {
       name: "marquee-demo",
