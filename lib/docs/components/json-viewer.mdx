@@ -61,7 +61,7 @@ The `JsonViewer` component offers several customization options to enhance data 
 
 | Prop              | Type                          | Default                               | Description                                                         |
 | ----------------- | ----------------------------- | ------------------------------------- | ------------------------------------------------------------------- |
-| `data`            | `any`                         | -                                     | Required. The JSON data to display.                                 |
+| `data`            | `Record<string, any>`         | -                                     | Required. The JSON data to display.                                 |
 | `title`           | `string`                      | -                                     | Optional. Display a title in the header.                            |
 | `truncation`      | `Partial<TruncationSettings>` | `{ enabled: true, itemsPerArray: 5 }` | Optional. Configuration for array truncation.                       |
 | `showLineNumbers` | `boolean`                     | `true`                                | Optional. Controls whether line numbers are shown.                  |
