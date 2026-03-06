@@ -533,7 +533,7 @@
       "type": "registry:ui",
       "title": "JSON Viewer",
       "description": "A JSON viewer component",
-      "registryDependencies": ["tooltip"],
+      "registryDependencies": ["button", "collapsible", "separator", "tooltip"],
       "files": [
         {
           "path": "registry/8starlabs-ui/blocks/json-viewer.tsx",
