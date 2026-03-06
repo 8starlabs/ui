@@ -664,16 +664,20 @@ const JsonObject: React.FC<{
   const isOpen = expandedPaths.has(path);
 
   const trigger = (
-    <Collapsible.Trigger
+    <div
       className={cn(
-        "inline-flex items-center text-left h-6 leading-6 group rounded-sm px-1 -ml-1 w-full",
+        "inline-flex items-center text-left h-6 leading-6 group rounded-sm px-1 -ml-1 w-full cursor-pointer select-none",
         isOpen && "hover:bg-muted-foreground/20"
       )}
       onDoubleClick={
         collapseOn === "doubleClick" ? () => toggleNode(path) : undefined
       }
       onClick={
-        collapseOn === "doubleClick" ? (e) => e.preventDefault() : undefined
+        collapseOn === "doubleClick"
+          ? undefined
+          : (e) => {
+              toggleNode(path);
+            }
       }
     >
       {objectKey && (
@@ -706,7 +710,7 @@ const JsonObject: React.FC<{
           {showComma && <span className="text-muted-foreground">,</span>}
         </>
       )}
-    </Collapsible.Trigger>
+    </div>
   );
 
   return (
@@ -825,16 +829,20 @@ const JsonArray: React.FC<{
   };
 
   const trigger = (
-    <Collapsible.Trigger
+    <div
       className={cn(
-        "inline-flex items-center text-left h-6 leading-6 group rounded-sm px-1 -ml-1 w-full",
+        "inline-flex items-center text-left h-6 leading-6 group rounded-sm px-1 -ml-1 w-full cursor-pointer select-none",
         isOpen && "hover:bg-muted-foreground/20"
       )}
       onDoubleClick={
         collapseOn === "doubleClick" ? () => toggleNode(path) : undefined
       }
       onClick={
-        collapseOn === "doubleClick" ? (e) => e.preventDefault() : undefined
+        collapseOn === "doubleClick"
+          ? undefined
+          : (e) => {
+              toggleNode(path);
+            }
       }
     >
       {objectKey && (
@@ -867,7 +875,7 @@ const JsonArray: React.FC<{
           {showComma && <span className="text-muted-foreground">,</span>}
         </>
       )}
-    </Collapsible.Trigger>
+    </div>
   );
 
   return (
