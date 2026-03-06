@@ -469,8 +469,8 @@ const JsonObject: React.FC<{
   const trigger = (
     <Collapsible.Trigger
       className={cn(
-        "inline-flex items-center text-left h-6 leading-6 group rounded-sm px-1 -ml-1",
-        isOpen && "bg-muted/40"
+        "inline-flex items-center text-left h-6 leading-6 group rounded-sm px-1 -ml-1 w-full",
+        isOpen && "hover:bg-muted-foreground/20"
       )}
       onDoubleClick={
         collapseOn === "doubleClick" ? () => toggleNode(path) : undefined
@@ -630,8 +630,8 @@ const JsonArray: React.FC<{
   const trigger = (
     <Collapsible.Trigger
       className={cn(
-        "inline-flex items-center text-left h-6 leading-6 group rounded-sm px-1 -ml-1",
-        isOpen && "bg-muted/40"
+        "inline-flex items-center text-left h-6 leading-6 group rounded-sm px-1 -ml-1 w-full",
+        isOpen && "hover:bg-muted-foreground/20"
       )}
       onDoubleClick={
         collapseOn === "doubleClick" ? () => toggleNode(path) : undefined
