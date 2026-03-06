@@ -1,9 +1,25 @@
 "use client";
 
 import { useState } from "react";
-import { Hash, Palette, Scissors, MousePointerClick } from "lucide-react";
+import {
+  Hash,
+  Palette,
+  Scissors,
+  MousePointerClick,
+  ChevronDown
+} from "lucide-react";
 import JsonViewer from "../blocks/json-viewer";
 import { cn } from "@/lib/utils";
+import { Button } from "@/registry/8starlabs-ui/ui/button";
+import { Input } from "@/registry/8starlabs-ui/ui/input";
+import { Label } from "@/registry/8starlabs-ui/ui/label";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem
+} from "@/registry/8starlabs-ui/ui/dropdown-menu";
 
 const JsonViewerFeaturesDemo = () => {
   const [showLineNumbers, setShowLineNumbers] = useState(true);
@@ -24,9 +40,7 @@ const JsonViewerFeaturesDemo = () => {
     primaryColor: "#FF5733",
     secondaryColor: "rgb(255, 255, 255)",
     createdAt: 1709251200000,
-    updatedAt: new Date().toISOString(),
-    futureEvent: new Date(Date.now() + 86400000 * 2).toISOString(),
-    recentEvent: Math.floor(Date.now() / 1000) - 300,
+    updatedAt: "2026-03-06T12:00:00.000Z",
     isActive: true,
     isGlutenFree: false,
     discontinued: null,
@@ -56,90 +70,128 @@ const JsonViewerFeaturesDemo = () => {
       {/* Feature Dashboard */}
       <div className="space-y-3">
         <div className="flex flex-wrap gap-2">
-          <button
+          <Button
+            size="sm"
+            variant="ghost"
             onClick={() => setShowLineNumbers(!showLineNumbers)}
             className={cn(
-              "flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs border transition-colors cursor-pointer",
+              "h-8 text-xs font-normal border transition-colors",
               showLineNumbers
-                ? "bg-secondary border-primary/50 text-primary font-medium shadow-[0_0_8px_-2px_rgba(var(--primary),0.5)]"
+                ? "bg-secondary border-primary/50 text-primary font-medium shadow-[0_0_8px_-2px_rgba(var(--primary),0.5)] hover:bg-secondary/80"
                 : "bg-secondary/30 border-transparent text-muted-foreground hover:bg-secondary/50"
             )}
           >
             <Hash className="w-3.5 h-3.5" />
-            <span>Line Numbers</span>
-          </button>
-          <button
+            Line Numbers
+          </Button>
+          <Button
+            size="sm"
+            variant="ghost"
             onClick={() => setShowColorIndent(!showColorIndent)}
             className={cn(
-              "flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs border transition-colors cursor-pointer",
+              "h-8 text-xs font-normal border transition-colors",
               showColorIndent
-                ? "bg-secondary border-primary/50 text-primary font-medium shadow-[0_0_8px_-2px_rgba(var(--primary),0.5)]"
+                ? "bg-secondary border-primary/50 text-primary font-medium shadow-[0_0_8px_-2px_rgba(var(--primary),0.5)] hover:bg-secondary/80"
                 : "bg-secondary/30 border-transparent text-muted-foreground hover:bg-secondary/50"
             )}
           >
             <Palette className="w-3.5 h-3.5" />
-            <span>Color Indent</span>
-          </button>
-          <button
+            Color Indent
+          </Button>
+          <Button
+            size="sm"
+            variant="ghost"
             onClick={() => setCollapseOnDoubleClick(!collapseOnDoubleClick)}
             className={cn(
-              "flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs border transition-colors cursor-pointer",
+              "h-8 text-xs font-normal border transition-colors",
               collapseOnDoubleClick
-                ? "bg-secondary border-primary/50 text-primary font-medium shadow-[0_0_8px_-2px_rgba(var(--primary),0.5)]"
+                ? "bg-secondary border-primary/50 text-primary font-medium shadow-[0_0_8px_-2px_rgba(var(--primary),0.5)] hover:bg-secondary/80"
                 : "bg-secondary/30 border-transparent text-muted-foreground hover:bg-secondary/50"
             )}
           >
             <MousePointerClick className="w-3.5 h-3.5" />
-            <span>Double Click</span>
-          </button>
+            Double Click
+          </Button>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <div className="flex items-center gap-1 text-xs text-muted-foreground mr-2">
-            <span>Initial Expansion:</span>
-            <select
-              value={
-                defaultExpanded === true
-                  ? "true"
-                  : defaultExpanded === false
-                    ? "false"
-                    : String(defaultExpanded)
-              }
-              onChange={(e) => {
-                const value = e.target.value;
-                if (value === "true") setDefaultExpanded(true);
-                else if (value === "false") setDefaultExpanded(false);
-                else setDefaultExpanded(Number(value));
-              }}
-              className="h-7 px-2 rounded border border-input bg-background text-xs cursor-pointer focus:outline-none focus:ring-1 focus:ring-ring"
-            >
-              <option value="false">Collapsed (Default)</option>
-              <option value="true">Expand All</option>
-              <option value="1">Depth 1</option>
-              <option value="2">Depth 2</option>
-              <option value="3">Depth 3</option>
-            </select>
+          <div className="flex items-center gap-2 mr-2">
+            <Label className="text-xs text-muted-foreground whitespace-nowrap">
+              Initial Expansion:
+            </Label>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="h-8 text-xs font-normal justify-between w-[140px]"
+                >
+                  {defaultExpanded === true
+                    ? "Expand All"
+                    : defaultExpanded === false
+                      ? "Collapsed (Default)"
+                      : `Depth ${defaultExpanded}`}
+                  <ChevronDown className="h-3.5 w-3.5 opacity-50" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-[140px]">
+                <DropdownMenuRadioGroup
+                  value={
+                    defaultExpanded === true
+                      ? "true"
+                      : defaultExpanded === false
+                        ? "false"
+                        : String(defaultExpanded)
+                  }
+                  onValueChange={(value) => {
+                    if (value === "true") setDefaultExpanded(true);
+                    else if (value === "false") setDefaultExpanded(false);
+                    else setDefaultExpanded(Number(value));
+                  }}
+                >
+                  <DropdownMenuRadioItem value="false" className="text-xs">
+                    Collapsed (Default)
+                  </DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem value="true" className="text-xs">
+                    Expand All
+                  </DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem value="1" className="text-xs">
+                    Depth 1
+                  </DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem value="2" className="text-xs">
+                    Depth 2
+                  </DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem value="3" className="text-xs">
+                    Depth 3
+                  </DropdownMenuRadioItem>
+                </DropdownMenuRadioGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
-          <button
+          <Button
+            size="sm"
+            variant="ghost"
             onClick={() => setEnableTruncation(!enableTruncation)}
             className={cn(
-              "flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs border transition-colors cursor-pointer",
+              "h-8 text-xs font-normal border transition-colors",
               enableTruncation
-                ? "bg-secondary border-primary/50 text-primary font-medium shadow-[0_0_8px_-2px_rgba(var(--primary),0.5)]"
+                ? "bg-secondary border-primary/50 text-primary font-medium shadow-[0_0_8px_-2px_rgba(var(--primary),0.5)] hover:bg-secondary/80"
                 : "bg-secondary/30 border-transparent text-muted-foreground hover:bg-secondary/50"
             )}
           >
             <Scissors className="w-3.5 h-3.5" />
-            <span>Smart Truncation</span>
-          </button>
+            Smart Truncation
+          </Button>
           {enableTruncation && (
-            <div className="flex items-center gap-1.5 text-xs text-muted-foreground animate-in fade-in slide-in-from-left-2">
-              <span>Limit:</span>
-              <input
+            <div className="flex items-center gap-2 animate-in fade-in slide-in-from-left-2">
+              <Label className="text-xs text-muted-foreground whitespace-nowrap">
+                Limit:
+              </Label>
+              <Input
                 type="number"
                 min="1"
                 value={truncationLimit}
                 onChange={(e) => setTruncationLimit(Number(e.target.value))}
-                className="w-12 h-7 px-1.5 rounded border border-input bg-background text-xs"
+                className="w-16 h-8 text-xs px-2"
               />
             </div>
           )}
