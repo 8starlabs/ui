@@ -24,6 +24,9 @@ const JsonViewerFeaturesDemo = () => {
     updatedAt: new Date().toISOString(),
     futureEvent: new Date(Date.now() + 86400000 * 2).toISOString(),
     recentEvent: Math.floor(Date.now() / 1000) - 300,
+    isActive: true,
+    isGlutenFree: false,
+    discontinued: null,
     batters: {
       batter: [
         { id: "1001", type: "Regular" },
@@ -47,7 +50,6 @@ const JsonViewerFeaturesDemo = () => {
     <div className="w-full max-w-2xl mx-auto space-y-4">
       {/* Feature Dashboard */}
       <div className="space-y-3">
-        <h3 className="text-lg font-semibold">Feature Dashboard</h3>
         <div className="flex flex-wrap gap-2">
           <button
             onClick={() => setShowLineNumbers(!showLineNumbers)}

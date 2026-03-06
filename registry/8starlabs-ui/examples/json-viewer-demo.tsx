@@ -15,6 +15,9 @@ const JsonViewerDemo = () => {
     updatedAt: new Date().toISOString(),
     futureEvent: new Date(Date.now() + 86400000 * 2).toISOString(),
     recentEvent: Math.floor(Date.now() / 1000) - 300,
+    isActive: true,
+    isGlutenFree: false,
+    discontinued: null,
     batters: {
       batter: [
         { id: "1001", type: "Regular" },
