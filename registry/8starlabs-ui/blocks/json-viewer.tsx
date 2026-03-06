@@ -4,12 +4,17 @@ import React, { useMemo, useState } from "react";
 import type { JSX } from "react";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
-import * as Collapsible from "@radix-ui/react-collapsible";
+import { Button } from "@/registry/8starlabs-ui/ui/button";
+import {
+  Collapsible,
+  CollapsibleContent
+} from "@/registry/8starlabs-ui/ui/collapsible";
+import { Separator } from "@/registry/8starlabs-ui/ui/separator";
 import { ChevronRight } from "lucide-react";
 import { CopyButton } from "@/components/copy-button";
 
 interface JsonViewerProps {
-  data: any;
+  data: Record<string, any>;
   className?: string;
   truncation?: Partial<TruncationSettings>;
   showLineNumbers?: boolean;
@@ -173,16 +178,17 @@ const SmartValue = React.forwardRef<
             >
               {`'${value}'`}
             </a>
-            <button
-              type="button"
+            <Button
+              variant="link"
+              size="sm"
               onClick={(e) => {
                 e.stopPropagation();
                 setIsExpanded(!isExpanded);
               }}
-              className="text-xs text-muted-foreground hover:text-foreground underline select-none"
+              className="h-auto p-0 text-xs text-muted-foreground hover:text-foreground underline select-none"
             >
               {isExpanded ? "Show less" : "Show more"}
-            </button>
+            </Button>
           </span>
         );
       }
@@ -240,16 +246,17 @@ const SmartValue = React.forwardRef<
           >
             {`'${value}'`}
           </span>
-          <button
-            type="button"
+          <Button
+            variant="link"
+            size="sm"
             onClick={(e) => {
               e.stopPropagation();
               setIsExpanded(!isExpanded);
             }}
-            className="text-xs text-muted-foreground hover:text-foreground underline select-none"
+            className="h-auto p-0 text-xs text-muted-foreground hover:text-foreground underline select-none"
           >
             {isExpanded ? "Show less" : "Show more"}
-          </button>
+          </Button>
         </span>
       );
     }
@@ -474,22 +481,26 @@ const JsonViewer: React.FC<JsonViewerProps> = ({
           {title}
         </div>
         <div className="flex items-center rounded-md border bg-muted/50 overflow-hidden">
-          <button
+          <Button
+            variant="ghost"
+            size="sm"
             onClick={expandAll}
-            className="h-7 px-2 flex items-center justify-center text-xs font-medium hover:bg-muted transition-colors"
+            className="h-7 px-2 text-xs hover:bg-muted rounded-none"
             title="Expand All"
           >
             Expand All
-          </button>
-          <div className="w-px h-4 bg-border" />
-          <button
+          </Button>
+          <Separator orientation="vertical" className="h-4" />
+          <Button
+            variant="ghost"
+            size="sm"
             onClick={collapseAll}
-            className="h-7 px-2 flex items-center justify-center text-xs font-medium hover:bg-muted transition-colors"
+            className="h-7 px-2 text-xs hover:bg-muted rounded-none"
             title="Collapse All"
           >
             Collapse All
-          </button>
-          <div className="w-px h-4 bg-border" />
+          </Button>
+          <Separator orientation="vertical" className="h-4" />
           <CopyButton
             value={JSON.stringify(data, null, 2)}
             className="static size-7 bg-transparent hover:bg-muted hover:opacity-100 focus-visible:opacity-100 text-foreground rounded-none"
@@ -686,12 +697,14 @@ const JsonObject: React.FC<{
           <span className="text-muted-foreground mx-1">: </span>
         </span>
       )}
-      <button
+      <Button
+        variant="ghost"
+        size="icon"
         onClick={(e) => {
           e.stopPropagation();
           toggleNode(path);
         }}
-        className="inline-flex items-center text-muted-foreground hover:text-foreground transition-colors"
+        className="h-4 w-4 p-0 text-muted-foreground hover:text-foreground hover:bg-transparent"
       >
         <ChevronRight
           className={cn(
@@ -699,7 +712,7 @@ const JsonObject: React.FC<{
             isOpen && "rotate-90"
           )}
         />
-      </button>
+      </Button>
       <span className="text-muted-foreground">{"{"}</span>
       {!isOpen && (
         <>
@@ -714,14 +727,10 @@ const JsonObject: React.FC<{
   );
 
   return (
-    <Collapsible.Root
-      open={isOpen}
-      onOpenChange={() => toggleNode(path)}
-      asChild
-    >
+    <Collapsible open={isOpen} onOpenChange={() => toggleNode(path)} asChild>
       <div>
         {trigger}
-        <Collapsible.Content className="transition-all duration-200">
+        <CollapsibleContent className="transition-all duration-200">
           <div
             className={cn(
               "pl-5 border-l",
@@ -787,9 +796,9 @@ const JsonObject: React.FC<{
             <span className="text-muted-foreground">{"}"}</span>
             {showComma && <span className="text-muted-foreground">,</span>}
           </div>
-        </Collapsible.Content>
+        </CollapsibleContent>
       </div>
-    </Collapsible.Root>
+    </Collapsible>
   );
 };
 
@@ -851,12 +860,14 @@ const JsonArray: React.FC<{
           <span className="text-muted-foreground mx-1">: </span>
         </span>
       )}
-      <button
+      <Button
+        variant="ghost"
+        size="icon"
         onClick={(e) => {
           e.stopPropagation();
           toggleNode(path);
         }}
-        className="inline-flex items-center text-muted-foreground hover:text-foreground transition-colors"
+        className="h-4 w-4 p-0 text-muted-foreground hover:text-foreground hover:bg-transparent"
       >
         <ChevronRight
           className={cn(
@@ -864,7 +875,7 @@ const JsonArray: React.FC<{
             isOpen && "rotate-90"
           )}
         />
-      </button>
+      </Button>
       <span className="text-muted-foreground">{"["}</span>
       {!isOpen && (
         <>
@@ -879,75 +890,81 @@ const JsonArray: React.FC<{
   );
 
   return (
-    <Collapsible.Root open={isOpen} onOpenChange={() => toggleNode(path)}>
-      {trigger}
-      <Collapsible.Content className="transition-all duration-200">
-        <div
-          className={cn(
-            "pl-5 border-l",
-            showColorIndent
-              ? indentColors[level % indentColors.length]
-              : "border-[rgba(0,0,0,0.1)] dark:border-[rgba(255,255,255,0.1)]"
-          )}
-        >
-          {itemsToShow.map((item, index) => {
-            const childPath = `${path}[${index}]`;
-            const dataType = getDataType(item);
-            const isChildCollapsible =
-              dataType === "object" || dataType === "array";
-            const isChildOpen =
-              isChildCollapsible && expandedPaths.has(childPath);
+    <Collapsible open={isOpen} onOpenChange={() => toggleNode(path)} asChild>
+      <div>
+        {trigger}
+        <CollapsibleContent className="transition-all duration-200">
+          <div
+            className={cn(
+              "pl-5 border-l",
+              showColorIndent
+                ? indentColors[level % indentColors.length]
+                : "border-[rgba(0,0,0,0.1)] dark:border-[rgba(255,255,255,0.1)]"
+            )}
+          >
+            {itemsToShow.map((item, index) => {
+              const childPath = `${path}[${index}]`;
+              const dataType = getDataType(item);
+              const isChildCollapsible =
+                dataType === "object" || dataType === "array";
+              const isChildOpen =
+                isChildCollapsible && expandedPaths.has(childPath);
 
-            return (
-              <div
-                key={index}
-                className={cn(
-                  "group rounded-md",
-                  !isChildCollapsible &&
-                    "flex sm:items-center items-start sm:h-6 h-auto",
-                  isChildOpen ? "" : "hover:bg-muted-foreground/20"
+              return (
+                <div
+                  key={index}
+                  className={cn(
+                    "group rounded-md",
+                    !isChildCollapsible &&
+                      "flex sm:items-center items-start sm:h-6 h-auto",
+                    isChildOpen ? "" : "hover:bg-muted-foreground/20"
+                  )}
+                >
+                  <JsonNode
+                    data={item}
+                    level={level + 1}
+                    path={childPath}
+                    expandedPaths={expandedPaths}
+                    toggleNode={toggleNode}
+                    showComma={index < data.length - 1}
+                    truncation={truncation}
+                    showColorIndent={showColorIndent}
+                    collapseOn={collapseOn}
+                  />
+                </div>
+              );
+            })}
+            {truncation.enabled && data.length > truncation.itemsPerArray && (
+              <div className="pl-5">
+                {!showAll ? (
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={handleShowMore}
+                    className="h-auto px-2 py-0.5 text-xs bg-secondary/30 hover:bg-secondary/50 text-muted-foreground hover:text-foreground mt-1"
+                  >
+                    Show {data.length - truncation.itemsPerArray} more items...
+                  </Button>
+                ) : (
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={() => setShowAll(false)}
+                    className="h-auto px-2 py-0.5 text-xs bg-secondary/30 hover:bg-secondary/50 text-muted-foreground hover:text-foreground mt-1"
+                  >
+                    Show Less
+                  </Button>
                 )}
-              >
-                <JsonNode
-                  data={item}
-                  level={level + 1}
-                  path={childPath}
-                  expandedPaths={expandedPaths}
-                  toggleNode={toggleNode}
-                  showComma={index < data.length - 1}
-                  truncation={truncation}
-                  showColorIndent={showColorIndent}
-                  collapseOn={collapseOn}
-                />
               </div>
-            );
-          })}
-          {truncation.enabled && data.length > truncation.itemsPerArray && (
-            <div className="pl-5">
-              {!showAll ? (
-                <button
-                  onClick={handleShowMore}
-                  className="text-muted-foreground hover:text-foreground text-xs bg-secondary/30 hover:bg-secondary/50 px-2 py-0.5 rounded transition-colors mt-1"
-                >
-                  Show {data.length - truncation.itemsPerArray} more items...
-                </button>
-              ) : (
-                <button
-                  onClick={() => setShowAll(false)}
-                  className="text-muted-foreground hover:text-foreground text-xs bg-secondary/30 hover:bg-secondary/50 px-2 py-0.5 rounded transition-colors mt-1"
-                >
-                  Show Less
-                </button>
-              )}
-            </div>
-          )}
-        </div>
-        <div>
-          <span className="text-muted-foreground">]</span>
-          {showComma && <span className="text-muted-foreground">,</span>}
-        </div>
-      </Collapsible.Content>
-    </Collapsible.Root>
+            )}
+          </div>
+          <div>
+            <span className="text-muted-foreground">]</span>
+            {showComma && <span className="text-muted-foreground">,</span>}
+          </div>
+        </CollapsibleContent>
+      </div>
+    </Collapsible>
   );
 };
 
