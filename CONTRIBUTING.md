@@ -57,9 +57,14 @@ This repository is a monorepo.
    ```
 
 4. **Install Dependencies**
+
    ```bash
    npm install
    ```
+
+5. **Set up linting and formatting in VS Code**
+   - Install the extensions: `esbenp.prettier-vscode`, `dbaeumer.vscode-eslint`
+   - Enable **Format On Save** and set Prettier as the default formatter
 
 ## Development Workflow
 
