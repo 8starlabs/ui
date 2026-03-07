@@ -24,14 +24,12 @@ export function SiteFooter() {
             >
               GitHub
             </a>
-            . Subscribe to 8StarLabs{" "}
+            . For AI models and bots, see{" "}
             <a
-              href={siteConfig.links.eslNewsletter}
-              target="_blank"
-              rel="noreferrer"
+              href="/llms.txt"
               className="font-medium underline underline-offset-4"
             >
-              Newsletter
+              llms.txt
             </a>
             .
           </div>

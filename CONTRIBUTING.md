@@ -74,7 +74,6 @@ This repository is a monorepo.
    - Follow the existing component structure
    - Ensure your code follows our TypeScript and React best practices
    - Add proper documentation and types
-   - If adding new components/page, add an entry to `sitemap.ts`
 
 3. **Component Guidelines**
    - Keep components modular and reusable
