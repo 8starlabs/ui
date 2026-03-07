@@ -527,6 +527,44 @@
           "type": "registry:example"
         }
       ]
+    },
+    {
+      "name": "json-viewer",
+      "type": "registry:ui",
+      "title": "JSON Viewer",
+      "description": "A JSON viewer component",
+      "registryDependencies": ["button", "collapsible", "separator", "tooltip"],
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/blocks/json-viewer.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "json-viewer-demo",
+      "type": "registry:example",
+      "title": "JSON Viewer",
+      "description": "A JSON viewer demo component",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/json-viewer-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
+      "name": "json-viewer-features-demo",
+      "type": "registry:example",
+      "title": "JSON Viewer Features",
+      "description": "A JSON viewer demo showcasing features like line numbers, color indentation, and truncation",
+      "registryDependencies": ["button", "input", "label", "dropdown"],
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/json-viewer-features-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
     }
   ]
 }

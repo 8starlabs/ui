@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "json-viewer-demo",
+  "type": "registry:example",
+  "title": "JSON Viewer",
+  "description": "A JSON viewer demo component",
+  "files": [
+    {
+      "path": "registry/8starlabs-ui/examples/json-viewer-demo.tsx",
+      "content": "\"use client\";\n\nimport JsonViewer from \"../blocks/json-viewer\";\n\nconst JsonViewerDemo = () => {\n  const jsonData = {\n    id: \"0001\",\n    type: \"donut\",\n    name: \"Cake\",\n    ppu: 0.55,\n    website: \"https://example.com/donuts/cake\",\n    primaryColor: \"#FF5733\",\n    secondaryColor: \"rgb(255, 255, 255)\",\n    createdAt: 1709251200000,\n    updatedAt: \"2026-03-06T12:00:00.000Z\",\n    isActive: true,\n    isGlutenFree: false,\n    discontinued: null,\n    description:\n      \"Lorem ipsum dolor sit amet, consectetur adipiscing elit. In lobortis tellus eu justo hendrerit, a viverra turpis aliquam. Morbi sollicitudin accumsan lectus, eget sollicitudin magna tempus et. Cras fringilla risus sed libero consequat faucibus. Nulla facilisi. Quisque pretium, lorem id dignissim iaculis, est sem aliquet risus, sed suscipit elit sem sit amet dui. Vivamus tempor orci nec imperdiet molestie. Integer elit ex, elementum sed libero vitae, varius porta nisi. Pellentesque eget nibh justo. Morbi nec cursus metus, et faucibus nunc. Quisque vehicula sollicitudin ipsum, laoreet aliquam libero lobortis nec. Nulla facilisi.\",\n    batters: {\n      batter: [\n        { id: \"1001\", type: \"Regular\" },\n        { id: \"1002\", type: \"Chocolate\" },\n        { id: \"1003\", type: \"Blueberry\" },\n        { id: \"1004\", type: \"Devil's Food\" }\n      ]\n    },\n    topping: [\n      { id: \"5001\", type: \"None\" },\n      { id: \"5002\", type: \"Glazed\" },\n      { id: \"5005\", type: \"Sugar\" },\n      { id: \"5007\", type: \"Powdered Sugar\" },\n      { id: \"5006\", type: \"Chocolate with Sprinkles\" },\n      { id: \"5003\", type: \"Chocolate\" },\n      { id: \"5004\", type: \"Maple\" }\n    ]\n  };\n\n  return (\n    <JsonViewer data={jsonData} className=\"h-[500px]\" title=\"Response Data\" />\n  );\n};\n\nexport default JsonViewerDemo;\n",
+      "type": "registry:example"
+    }
+  ]
+}
