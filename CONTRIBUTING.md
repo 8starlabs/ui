@@ -63,8 +63,11 @@ This repository is a monorepo.
    ```
 
 5. **Set up linting and formatting in VS Code**
-   - Install the extensions: `esbenp.prettier-vscode`, `dbaeumer.vscode-eslint`
-   - Enable **Format On Save** and set Prettier as the default formatter
+   - Install the Prettier extension: `esbenp.prettier-vscode`
+   - Install the ESLint extension: `dbaeumer.vscode-eslint`
+   - In VS Code settings (⌘+, on Mac or Ctrl+, on Windows):
+     - Search for "format on save" and check the box
+     - Search for "default formatter" and select "Prettier - Code formatter"
 
 ## Development Workflow
 

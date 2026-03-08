@@ -42,3 +42,7 @@ Licensed under the [MIT license](https://github.com/8starlabs/ui/blob/main/LICEN
 - Wang Jia Hua (Software Engineer, Full-stack) - [LinkedIn](https://www.linkedin.com/in/jiahua-wang-74ewfb/)
 
 Engineered by [8StarLabs](https://8starlabs.com).
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/image?repos=8starlabs/ui&type=date&legend=top-left)](https://www.star-history.com/?repos=8starlabs%2Fui&type=date&legend=top-left)
