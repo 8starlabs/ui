@@ -23,21 +23,17 @@ export default function Marquee({
   const content = React.Children.toArray(children);
   const containerRef = React.useRef<HTMLDivElement>(null);
 
-  // Prevent any scrolling
   React.useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
-
     const preventScroll = (e: Event) => {
       e.preventDefault();
       e.stopPropagation();
       container.scrollLeft = 0;
     };
-
     container.addEventListener("scroll", preventScroll, { passive: false });
     container.addEventListener("wheel", preventScroll, { passive: false });
     container.addEventListener("touchmove", preventScroll, { passive: false });
-
     return () => {
       container.removeEventListener("scroll", preventScroll);
       container.removeEventListener("wheel", preventScroll);
@@ -56,10 +52,11 @@ export default function Marquee({
         }
 
         .marquee-inner {
-          animation: marquee-anim 10s linear infinite;
+          animation: marquee-anim 20s linear infinite;
         }
+
         .marquee-inner-reverse {
-          animation: marquee-anim-reverse 10s linear infinite;
+          animation: marquee-anim-reverse 20s linear infinite;
         }
 
         .marquee-container:hover .marquee-inner,
@@ -68,19 +65,19 @@ export default function Marquee({
         }
 
         @keyframes marquee-anim {
-          0% {
+          from {
             transform: translateX(0);
           }
-          100% {
+          to {
             transform: translateX(-50%);
           }
         }
 
         @keyframes marquee-anim-reverse {
-          0% {
+          from {
             transform: translateX(-50%);
           }
-          100% {
+          to {
             transform: translateX(0);
           }
         }
@@ -89,9 +86,9 @@ export default function Marquee({
       <div
         ref={containerRef}
         className={cn(
-          "flex w-full p-2 [--gap:3rem] select-none cursor-default",
-          pauseOnHover && "marquee-container",
-          grayscale && "grayscale contrast-200 dark:invert",
+          "flex w-full p-2 [--gap:3rem] select-none cursor-default marquee-container",
+          grayscale &&
+            "grayscale brightness-0 dark:invert opacity-80 transition-opacity",
           className
         )}
         style={{
@@ -111,30 +108,25 @@ export default function Marquee({
       >
         <div
           className={cn(
-            "flex shrink-0 items-center [gap:var(--gap)] will-change-transform",
+            "flex shrink-0 items-center will-change-transform",
             animationClass
           )}
         >
-          {content.length === 0 ? (
-            <>
-              {Array.from({ length: 6 }).map((_, i) => (
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div
+              key={i}
+              className="flex shrink-0 items-center gap-(--gap) pr-(--gap)"
+            >
+              {content.map((item, index) => (
                 <div
-                  key={i}
-                  aria-hidden="true"
-                  className="bg-black rounded-xl h-20 w-40"
-                />
+                  key={index}
+                  className="flex shrink-0 items-center justify-center"
+                >
+                  {item}
+                </div>
               ))}
-            </>
-          ) : (
-            <>
-              {content.map((item, index) => (
-                <div key={index}>{item}</div>
-              ))}
-              {content.map((item, index) => (
-                <div key={`duplicate-${index}`}>{item}</div>
-              ))}
-            </>
-          )}
+            </div>
+          ))}
         </div>
       </div>
     </div>
