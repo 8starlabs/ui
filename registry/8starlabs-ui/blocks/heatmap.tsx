@@ -247,7 +247,7 @@ export default function Heatmap(props: HeatmapProps) {
     data,
     startDate,
     endDate,
-    cellSize = 20,
+    cellSize = 16,
     daysOfTheWeek = "MWF",
     gap = 4,
     displayStyle = "squares",
@@ -273,7 +273,7 @@ export default function Heatmap(props: HeatmapProps) {
     return label !== prevLabel ? label : null;
   });
 
-  const fontSize = Math.min(16, cellSize);
+  const fontSize = Math.min(12, cellSize);
 
   let safeProps: HTMLAttributes<HTMLDivElement> = {};
 
