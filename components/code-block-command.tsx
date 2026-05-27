@@ -56,13 +56,7 @@ export function CodeBlockCommand({
       return;
     }
 
-    copyToClipboardWithMeta(command, {
-      name: "copy_npm_command",
-      properties: {
-        command,
-        pm: packageManager
-      }
-    });
+    copyToClipboardWithMeta(command);
     setHasCopied(true);
   }, [packageManager, tabs]);
 

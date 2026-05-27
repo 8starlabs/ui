@@ -5,7 +5,7 @@ import {
   TooltipProvider,
   TooltipTrigger
 } from "@/registry/8starlabs-ui/ui/tooltip";
-import { HTMLAttributes, ReactNode } from "react";
+import { type HTMLAttributes, type ReactNode } from "react";
 
 export type HeatmapValue = {
   date: string; // YYYY-MM-DD

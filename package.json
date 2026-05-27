@@ -2,7 +2,7 @@
   "name": "8starlabs-ui",
   "version": "0.0.1",
   "private": true,
-  "packageManager": "pnpm@11.0.9",
+  "packageManager": "pnpm@11.3.0+sha512.2c403d6594527287672b1f7056343a1f7c3634036a67ffabfcc2b3d7595d843768f8787148d1b57cf7956c90606bbd192857c363af19e96d2d0ec9ec5741d215",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",

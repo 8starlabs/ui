@@ -91,9 +91,9 @@ This repository is a monorepo.
    - Test your components thoroughly
 
 4. **Update the Registry**
-   After developing or updating any registry items (such as blocks or examples), update the root `registry.json` and run `pnpm registry:build` to ensure the registry is up to date and your changes can be installed properly.
-
-   If you’ve added a new registry item, please also run `pnpm registry:generate-index` to update the `__index__.tsx` file.
+   1. After developing or updating any registry items (such as blocks or examples), update the root `registry.json`.
+   2. Run `pnpm registry:build` to ensure the registry is up to date and your changes can be installed properly.
+   3. If you’ve added a new registry item, also run `pnpm registry:generate-index` to update the `__index__.tsx` file.
 
 5. **Commit Guidelines**
    We follow conventional commit messages:

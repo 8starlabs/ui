@@ -3,10 +3,10 @@
 import { cn } from "@/lib/utils";
 import { cva, VariantProps } from "class-variance-authority";
 import {
-  FC,
-  HTMLAttributes,
+  type FC,
+  type HTMLAttributes,
   memo,
-  ReactNode,
+  type ReactNode,
   useEffect,
   useState
 } from "react";
@@ -37,8 +37,7 @@ const flipUnitVariants = cva(
 );
 
 interface FlipUnitProps
-  extends
-    HTMLAttributes<HTMLDivElement>,
+  extends HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof flipUnitVariants> {
   digit: number | string;
 }
@@ -159,8 +158,7 @@ const flipClockVariants = cva(
 );
 
 interface FlipClockProps
-  extends
-    VariantProps<typeof flipClockVariants>,
+  extends VariantProps<typeof flipClockVariants>,
     HTMLAttributes<HTMLDivElement> {
   countdown?: boolean;
   targetDate?: Date;

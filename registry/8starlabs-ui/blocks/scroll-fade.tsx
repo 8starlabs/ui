@@ -59,6 +59,7 @@ export default function ScrollFade({
 
   useLayoutEffect(() => {
     requestAnimationFrame(checkScroll);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [axis]);
 
   useEffect(() => {
@@ -83,6 +84,7 @@ export default function ScrollFade({
       ro.disconnect();
       cancelAnimationFrame(raf);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [axis]);
 
   return (

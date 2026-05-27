@@ -84,10 +84,7 @@ const CommandMenu = ({ tree, ...props }: { tree: typeof source.pageTree }) => {
 
       if (e.key === "c" && (e.metaKey || e.ctrlKey)) {
         runCommand(() => {
-          copyToClipboardWithMeta(copyPayload, {
-            name: "copy_npm_command",
-            properties: { command: copyPayload, pm: packageManager }
-          });
+          copyToClipboardWithMeta(copyPayload);
         });
       }
     };

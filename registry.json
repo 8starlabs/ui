@@ -536,6 +536,14 @@
       "registryDependencies": ["button", "collapsible", "separator", "tooltip"],
       "files": [
         {
+          "path": "registry/8starlabs-ui/hooks/use-mobile.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "registry/8starlabs-ui/ui/copy-button.tsx",
+          "type": "registry:ui"
+        },
+        {
           "path": "registry/8starlabs-ui/blocks/json-viewer.tsx",
           "type": "registry:ui"
         }

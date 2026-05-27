@@ -1,9 +1,9 @@
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 import {
   Alert,
   AlertDescription,
-  AlertTitle,
-} from "@/registry/8starlabs-ui/ui/alert"
+  AlertTitle
+} from "@/registry/8starlabs-ui/ui/alert";
 
 export function Callout({
   title,
@@ -13,8 +13,8 @@ export function Callout({
   variant = "default",
   ...props
 }: React.ComponentProps<typeof Alert> & {
-  icon?: React.ReactNode
-  variant?: "default" | "info" | "warning"
+  icon?: React.ReactNode;
+  variant?: "default" | "info" | "warning";
 }) {
   return (
     <Alert
@@ -31,5 +31,5 @@ export function Callout({
         {children}
       </AlertDescription>
     </Alert>
-  )
+  );
 }
