@@ -8,7 +8,8 @@
     {
       "path": "registry/8starlabs-ui/examples/flip-clock-demo.tsx",
       "content": "import FlipClock from \"@/registry/8starlabs-ui/blocks/flip-clock\";\n\nexport default function FlipClockDemo() {\n  return <FlipClock size={\"md\"} />;\n}\n",
-      "type": "registry:example"
+      "type": "registry:example",
+      "target": "components/8starlabs-ui/examples/flip-clock-demo.tsx"
     }
   ]
 }

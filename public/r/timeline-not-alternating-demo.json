@@ -8,7 +8,8 @@
     {
       "path": "registry/8starlabs-ui/examples/timeline-not-alternating-demo.tsx",
       "content": "import Timeline, {\n  TimelineItem,\n  TimelineItemTitle\n} from \"@/registry/8starlabs-ui/blocks/timeline\";\n\nconst timelineData = [\n  {\n    title: \"Project Kickoff\",\n    variant: \"default\" as const\n  },\n  {\n    title: \"Research Phase\",\n    variant: \"secondary\" as const\n  },\n  {\n    title: \"Prototype Approval\",\n    variant: \"default\" as const\n  },\n  {\n    title: \"Unexpected API Delays\",\n    variant: \"secondary\" as const\n  },\n  {\n    title: \"Critical Database Failure\",\n    variant: \"default\" as const\n  },\n  {\n    title: \"Beta Launch\",\n    variant: \"secondary\" as const\n  }\n];\n\nexport default function TimelineNoCardsDemo() {\n  return (\n    <Timeline\n      orientation=\"horizontal\"\n      alternating={false}\n      alignment=\"bottom/right\"\n      horizItemSpacing={180}\n      horizItemWidth={150}\n    >\n      {timelineData.map((item, idx) => (\n        <TimelineItem key={idx} variant={item.variant} className=\"text-center\">\n          <TimelineItemTitle>{item.title}</TimelineItemTitle>\n        </TimelineItem>\n      ))}\n    </Timeline>\n  );\n}\n",
-      "type": "registry:example"
+      "type": "registry:example",
+      "target": "components/8starlabs-ui/examples/timeline-not-alternating-demo.tsx"
     }
   ]
 }

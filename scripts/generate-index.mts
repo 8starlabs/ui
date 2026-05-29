@@ -5,12 +5,25 @@ const REGISTRY_PATH = "./registry";
 const OUTPUT_FILE = path.join(REGISTRY_PATH, "__index__.tsx");
 const STYLE_NAME = "8starlabs-ui";
 const COMPONENT_FOLDERS = [
-  { folder: "blocks", type: "registry:block" },
-  { folder: "examples", type: "registry:example" }
+  { folder: "blocks", type: "registry:block", targetFolder: "" },
+  { folder: "examples", type: "registry:example", targetFolder: "examples" }
 ];
 
-function getComponentFiles(folderConfig: { folder: string; type: string }) {
-  const { folder, type } = folderConfig;
+function getTargetPath(name: string, targetFolder: string) {
+  return path.posix.join(
+    "components",
+    "8starlabs-ui",
+    targetFolder,
+    `${name}.tsx`
+  );
+}
+
+function getComponentFiles(folderConfig: {
+  folder: string;
+  type: string;
+  targetFolder: string;
+}) {
+  const { folder, type, targetFolder } = folderConfig;
   const dir = path.join(REGISTRY_PATH, STYLE_NAME, folder);
   if (!fs.existsSync(dir)) return [];
 
@@ -23,7 +36,8 @@ function getComponentFiles(folderConfig: { folder: string; type: string }) {
       name: path.basename(f, ".tsx"),
       importPath: `@/registry/${STYLE_NAME}/${folder}/${f.replace(/\.tsx$/, "")}`,
       filePath: `registry/${STYLE_NAME}/${folder}/${f}`,
-      type: type
+      type,
+      target: getTargetPath(path.basename(f, ".tsx"), targetFolder)
     }));
 }
 
@@ -32,6 +46,7 @@ const allComponents: {
   importPath: string;
   filePath: string;
   type: string;
+  target: string;
 }[] = [];
 
 for (const folderConfig of COMPONENT_FOLDERS) {
@@ -41,7 +56,7 @@ for (const folderConfig of COMPONENT_FOLDERS) {
 let imports = "";
 let indexEntries = "";
 
-for (const { name, importPath, filePath, type } of allComponents) {
+for (const { name, importPath, filePath, type, target } of allComponents) {
   const varName = `${name.replace(/[^a-zA-Z0-9]/g, "_")}_component`;
   imports +=
     name === "button"
@@ -53,7 +68,7 @@ for (const { name, importPath, filePath, type } of allComponents) {
       files: [{
         path: "${filePath}",
         type: "${type}",
-        target: ""
+        target: "${target}"
       }],
       component: ${varName}
     },\n`;

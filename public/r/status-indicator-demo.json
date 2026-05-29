@@ -8,7 +8,8 @@
     {
       "path": "registry/8starlabs-ui/examples/status-indicator-demo.tsx",
       "content": "import StatusIndicator from \"@/registry/8starlabs-ui/blocks/status-indicator\";\n\nexport default function StatusIndicatorDemo() {\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <StatusIndicator state=\"active\" label=\"All systems operational\" />\n      <StatusIndicator state=\"down\" label=\"Systems down\" />\n      <StatusIndicator state=\"idle\" label=\"Systems idle\" />\n      <StatusIndicator state=\"fixing\" label=\"Diagnosing issue, fixing\" />\n      <StatusIndicator state=\"active\" label=\"Small size\" size=\"sm\" />\n      <StatusIndicator state=\"fixing\" label=\"Large size\" size=\"lg\" />\n    </div>\n  );\n}\n",
-      "type": "registry:example"
+      "type": "registry:example",
+      "target": "components/8starlabs-ui/examples/status-indicator-demo.tsx"
     }
   ]
 }

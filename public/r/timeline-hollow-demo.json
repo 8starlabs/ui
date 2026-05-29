@@ -8,7 +8,8 @@
     {
       "path": "registry/8starlabs-ui/examples/timeline-hollow-demo.tsx",
       "content": "import Timeline, {\n  TimelineItem,\n  TimelineItemDate,\n  TimelineItemTitle\n} from \"@/registry/8starlabs-ui/blocks/timeline\";\n\nconst timelineData = [\n  {\n    title: \"Project Kickoff\",\n    date: new Date(\"2023-01-01\"),\n    variant: \"default\" as const,\n    hollow: true\n  },\n  {\n    title: \"Research Phase\",\n    date: new Date(\"2023-01-15\"),\n    variant: \"secondary\" as const,\n    hollow: false\n  },\n  {\n    title: \"Prototype Approval\",\n    date: new Date(\"2023-02-01\"),\n    variant: \"outline\" as const,\n    hollow: true\n  },\n  {\n    title: \"Unexpected API Delays\",\n    date: new Date(\"2023-02-10\"),\n    variant: \"destructive\" as const,\n    hollow: false\n  },\n  {\n    title: \"Critical Database Failure\",\n    date: new Date(\"2023-02-14\"),\n    variant: \"destructive\" as const,\n    hollow: true\n  },\n  {\n    title: \"Beta Launch\",\n    date: new Date(\"2023-03-01\"),\n    variant: \"default\" as const,\n    hollow: false\n  }\n];\n\nexport default function TimelineVerticalDemo() {\n  return (\n    <Timeline orientation=\"vertical\" noCards vertItemSpacing={60}>\n      {timelineData.map((item, idx) => (\n        <TimelineItem key={idx} variant={item.variant} hollow={item.hollow}>\n          <TimelineItemDate>{item.date.toDateString()}</TimelineItemDate>\n          <TimelineItemTitle>{item.title}</TimelineItemTitle>\n        </TimelineItem>\n      ))}\n    </Timeline>\n  );\n}\n",
-      "type": "registry:example"
+      "type": "registry:example",
+      "target": "components/8starlabs-ui/examples/timeline-hollow-demo.tsx"
     }
   ]
 }

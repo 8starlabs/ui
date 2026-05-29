@@ -14,6 +14,8 @@ pnpm dlx shadcn@latest add https://ui.8starlabs.com/r/status-indicator.json
 
 All available components can be found [here](https://ui.8starlabs.com/docs/components).
 
+Installed components are added under `components/8starlabs-ui` by default.
+
 ## MCP
 
 8StarLabs UI can be used with AI coding assistants through the shadcn MCP server. Add the registry to your project's `components.json`:

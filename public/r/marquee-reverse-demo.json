@@ -8,7 +8,8 @@
     {
       "path": "registry/8starlabs-ui/examples/marquee-reverse-demo.tsx",
       "content": "import Marquee from \"../blocks/marquee\";\n\nexport default function MarqueeReverseDemo() {\n  return (\n    <Marquee direction=\"right\" pauseOnHover={false}>\n      <div className=\"bg-blue-500 text-white px-4 py-2 rounded-lg\">Item 1</div>\n      <div className=\"bg-purple-500 text-white px-4 py-2 rounded-lg\">\n        Item 2\n      </div>\n      <div className=\"bg-pink-500 text-white px-4 py-2 rounded-lg\">Item 3</div>\n    </Marquee>\n  );\n}\n",
-      "type": "registry:example"
+      "type": "registry:example",
+      "target": "components/8starlabs-ui/examples/marquee-reverse-demo.tsx"
     }
   ]
 }

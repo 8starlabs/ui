@@ -8,7 +8,8 @@
     {
       "path": "registry/8starlabs-ui/examples/transport-badge-demo-hk.tsx",
       "content": "import { TransportBadge } from \"@/registry/8starlabs-ui/blocks/transport-badge\";\n\nexport default function TransportBadgeDemoHK() {\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <div className=\"flex items-center gap-2\">\n        <TransportBadge\n          system=\"HK\"\n          stationCode={[\"TW\", \"TM\"]}\n          stationName=\"Mei Foo\"\n        />\n        <TransportBadge\n          system=\"HK\"\n          stationCode=\"AE\"\n          stationName=\"Airport\"\n          showStationName\n        />\n      </div>\n      <div className=\"flex items-center gap-2\">\n        <TransportBadge system=\"HK\" stationCode={[\"KT\", \"TM\"]} />\n        <TransportBadge system=\"HK\" stationCode=\"AE\" size=\"lg\" />\n      </div>\n    </div>\n  );\n}\n",
-      "type": "registry:example"
+      "type": "registry:example",
+      "target": "components/8starlabs-ui/examples/transport-badge-demo-hk.tsx"
     }
   ]
 }

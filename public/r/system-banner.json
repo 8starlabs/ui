@@ -8,7 +8,8 @@
     {
       "path": "registry/8starlabs-ui/blocks/system-banner.tsx",
       "content": "interface SystemBannerProps {\n  text?: string;\n  color?: string;\n  size?: \"xs\" | \"sm\" | \"md\" | \"lg\";\n  show?: boolean;\n}\n\nconst sizeClasses: Record<NonNullable<SystemBannerProps[\"size\"]>, string> = {\n  xs: \"text-[10px] px-1 py-0.5\",\n  sm: \"text-xs px-2 py-0.5\",\n  md: \"text-sm px-3 py-1\",\n  lg: \"text-base px-4 py-1.5\"\n};\n\nexport default function SystemBanner({\n  text = \"Development Mode\",\n  color = \"bg-orange-500\",\n  size = \"xs\",\n  show = true\n}: SystemBannerProps) {\n  if (!show) return null;\n  return (\n    <div\n      className={`\n        fixed top-0 left-0 w-full h-0.5 z-50 flex justify-center\n        ${typeof color === \"string\" && color.startsWith(\"#\") ? \"\" : color}\n      `}\n      style={\n        typeof color === \"string\" && color.startsWith(\"#\")\n          ? { backgroundColor: color }\n          : undefined\n      }\n    >\n      <span\n        className={`\n          absolute -bottom-4 text-white font-bold rounded shadow-md\n          ${sizeClasses[size]}\n          ${typeof color === \"string\" && color.startsWith(\"#\") ? \"\" : color}\n        `}\n        style={\n          typeof color === \"string\" && color.startsWith(\"#\")\n            ? { backgroundColor: color }\n            : undefined\n        }\n      >\n        {text}\n      </span>\n    </div>\n  );\n}\n",
-      "type": "registry:ui"
+      "type": "registry:ui",
+      "target": "components/8starlabs-ui/system-banner.tsx"
     }
   ]
 }

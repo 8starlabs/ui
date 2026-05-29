@@ -8,7 +8,8 @@
     {
       "path": "registry/8starlabs-ui/examples/scroll-fade-demo.tsx",
       "content": "import ScrollFade from \"@/registry/8starlabs-ui/blocks/scroll-fade\";\n\nexport default function ScrollFadeDemo() {\n  return (\n    <ScrollFade className=\"max-w-full\">\n      <div className=\"flex space-x-4 px-4 py-2 min-w-[700px]\">\n        {[...Array(12).keys()].map((num) => (\n          <div\n            key={num}\n            className=\"flex h-24 w-24 items-center justify-center rounded-md bg-muted text-muted-foreground\"\n          >\n            Item {num + 1}\n          </div>\n        ))}\n      </div>\n    </ScrollFade>\n  );\n}\n",
-      "type": "registry:example"
+      "type": "registry:example",
+      "target": "components/8starlabs-ui/examples/scroll-fade-demo.tsx"
     }
   ]
 }

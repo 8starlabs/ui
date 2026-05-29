@@ -46,7 +46,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/blocks/heatmap.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "components/8starlabs-ui/heatmap.tsx"
         }
       ]
     },
@@ -58,7 +59,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/heatmap-demo.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/heatmap-demo.tsx"
         }
       ]
     },
@@ -70,7 +72,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/heatmap-interpolate-demo.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/heatmap-interpolate-demo.tsx"
         }
       ]
     },
@@ -82,7 +85,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/heatmap-display-style-demo.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/heatmap-display-style-demo.tsx"
         }
       ]
     },
@@ -94,7 +98,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/heatmap-days-of-week-demo.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/heatmap-days-of-week-demo.tsx"
         }
       ]
     },
@@ -106,7 +111,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/heatmap-size-demo.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/heatmap-size-demo.tsx"
         }
       ]
     },
@@ -118,7 +124,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/heatmap-custom-colors-demo.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/heatmap-custom-colors-demo.tsx"
         }
       ]
     },
@@ -130,7 +137,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/heatmap-custom-display-demo.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/heatmap-custom-display-demo.tsx"
         }
       ]
     },
@@ -142,7 +150,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/blocks/partition-bar.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "components/8starlabs-ui/partition-bar.tsx"
         }
       ]
     },
@@ -154,7 +163,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/partition-bar-demo.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/partition-bar-demo.tsx"
         }
       ]
     },
@@ -166,7 +176,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/partition-bar-size-demo.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/partition-bar-size-demo.tsx"
         }
       ]
     },
@@ -178,7 +189,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/partition-bar-alignment-demo.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/partition-bar-alignment-demo.tsx"
         }
       ]
     },
@@ -190,7 +202,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/partition-bar-width-demo.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/partition-bar-width-demo.tsx"
         }
       ]
     },
@@ -202,7 +215,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/partition-bar-custom-colours-demo.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/partition-bar-custom-colours-demo.tsx"
         }
       ]
     },
@@ -214,7 +228,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/partition-bar-variants-demo.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/partition-bar-variants-demo.tsx"
         }
       ]
     },
@@ -226,7 +241,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/blocks/flip-clock.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "components/8starlabs-ui/flip-clock.tsx"
         }
       ]
     },
@@ -238,7 +254,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/flip-clock-demo.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/flip-clock-demo.tsx"
         }
       ]
     },
@@ -250,7 +267,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/flip-clock-size-demo.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/flip-clock-size-demo.tsx"
         }
       ]
     },
@@ -262,7 +280,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/flip-clock-variants-demo.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/flip-clock-variants-demo.tsx"
         }
       ]
     },
@@ -274,7 +293,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/flip-clock-countdown-demo.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/flip-clock-countdown-demo.tsx"
         }
       ]
     },
@@ -286,7 +306,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/flip-clock-showdays-demo.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/flip-clock-showdays-demo.tsx"
         }
       ]
     },
@@ -298,7 +319,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/blocks/status-indicator.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "components/8starlabs-ui/status-indicator.tsx"
         }
       ]
     },
@@ -310,7 +332,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/blocks/transport-badge.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "components/8starlabs-ui/transport-badge.tsx"
         }
       ]
     },
@@ -322,7 +345,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/blocks/system-banner.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "components/8starlabs-ui/system-banner.tsx"
         }
       ]
     },
@@ -334,7 +358,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/status-indicator-demo.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/status-indicator-demo.tsx"
         }
       ]
     },
@@ -346,7 +371,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/transport-badge-demo-multi-station.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/transport-badge-demo-multi-station.tsx"
         }
       ]
     },
@@ -358,7 +384,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/transport-badge-demo-single-station.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/transport-badge-demo-single-station.tsx"
         }
       ]
     },
@@ -370,7 +397,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/transport-badge-demo-sizes.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/transport-badge-demo-sizes.tsx"
         }
       ]
     },
@@ -382,7 +410,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/transport-badge-demo-station-name.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/transport-badge-demo-station-name.tsx"
         }
       ]
     },
@@ -394,7 +423,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/transport-badge-demo.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/transport-badge-demo.tsx"
         }
       ]
     },
@@ -406,7 +436,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/blocks/timeline.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "components/8starlabs-ui/timeline.tsx"
         }
       ]
     },
@@ -418,7 +449,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/timeline-demo.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/timeline-demo.tsx"
         }
       ]
     },
@@ -430,7 +462,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/timeline-hollow-demo.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/timeline-hollow-demo.tsx"
         }
       ]
     },
@@ -442,7 +475,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/timeline-nocards-demo.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/timeline-nocards-demo.tsx"
         }
       ]
     },
@@ -454,7 +488,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/timeline-not-alternating-demo.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/timeline-not-alternating-demo.tsx"
         }
       ]
     },
@@ -466,7 +501,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/timeline-vertical-demo.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/timeline-vertical-demo.tsx"
         }
       ]
     },
@@ -478,7 +514,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/transport-badge-demo-hk.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/transport-badge-demo-hk.tsx"
         }
       ]
     },
@@ -490,7 +527,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/blocks/scroll-fade.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "components/8starlabs-ui/scroll-fade.tsx"
         }
       ]
     },
@@ -502,7 +540,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/scroll-fade-demo.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/scroll-fade-demo.tsx"
         }
       ]
     },
@@ -514,7 +553,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/blocks/marquee.tsx",
-          "type": "registry:ui"
+          "type": "registry:ui",
+          "target": "components/8starlabs-ui/marquee.tsx"
         }
       ]
     },
@@ -526,7 +566,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/marquee-demo.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/marquee-demo.tsx"
         }
       ]
     },
@@ -538,7 +579,8 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/marquee-grayscale-demo.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/marquee-grayscale-demo.tsx"
         }
       ]
     },
@@ -550,7 +592,49 @@
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/marquee-reverse-demo.tsx",
-          "type": "registry:example"
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/marquee-reverse-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "json-viewer",
+      "type": "registry:ui",
+      "title": "JSON Viewer",
+      "description": "A JSON viewer component",
+      "registryDependencies": ["button", "collapsible", "separator", "tooltip"],
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/blocks/json-viewer.tsx",
+          "type": "registry:ui",
+          "target": "components/8starlabs-ui/json-viewer.tsx"
+        }
+      ]
+    },
+    {
+      "name": "json-viewer-demo",
+      "type": "registry:example",
+      "title": "JSON Viewer",
+      "description": "A JSON viewer demo component",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/json-viewer-demo.tsx",
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/json-viewer-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "json-viewer-features-demo",
+      "type": "registry:example",
+      "title": "JSON Viewer Features",
+      "description": "A JSON viewer demo showcasing features like line numbers, color indentation, and truncation",
+      "registryDependencies": ["button", "input", "label", "dropdown"],
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/json-viewer-features-demo.tsx",
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/json-viewer-features-demo.tsx"
         }
       ]
     },
