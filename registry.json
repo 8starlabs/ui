@@ -4,6 +4,32 @@
   "homepage": "https://ui.8starlabs.com",
   "items": [
     {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "A shadcn-compatible button with an optional Stripe-style arrow animation",
+      "dependencies": ["@radix-ui/react-slot", "class-variance-authority"],
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/blocks/button.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "button-demo",
+      "type": "registry:example",
+      "title": "Button",
+      "description": "A button demo component",
+      "registryDependencies": ["https://ui.8starlabs.com/r/button.json"],
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/button-demo.tsx",
+          "type": "registry:example"
+        }
+      ]
+    },
+    {
       "name": "heatmap",
       "type": "registry:ui",
       "title": "Heatmap",
@@ -533,7 +559,12 @@
       "type": "registry:ui",
       "title": "JSON Viewer",
       "description": "A JSON viewer component",
-      "registryDependencies": ["button", "collapsible", "separator", "tooltip"],
+      "registryDependencies": [
+        "https://ui.8starlabs.com/r/button.json",
+        "collapsible",
+        "separator",
+        "tooltip"
+      ],
       "files": [
         {
           "path": "registry/8starlabs-ui/blocks/json-viewer.tsx",
@@ -558,7 +589,12 @@
       "type": "registry:example",
       "title": "JSON Viewer Features",
       "description": "A JSON viewer demo showcasing features like line numbers, color indentation, and truncation",
-      "registryDependencies": ["button", "input", "label", "dropdown"],
+      "registryDependencies": [
+        "https://ui.8starlabs.com/r/button.json",
+        "input",
+        "label",
+        "dropdown"
+      ],
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/json-viewer-features-demo.tsx",

@@ -8,7 +8,7 @@ import { PanelLeftIcon } from "lucide-react";
 
 import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
-import { Button } from "@/registry/8starlabs-ui/ui/button";
+import { Button } from "@/registry/8starlabs-ui/blocks/button";
 import { Input } from "@/registry/8starlabs-ui/ui/input";
 import { Separator } from "@/registry/8starlabs-ui/ui/separator";
 import {

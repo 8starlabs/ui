@@ -1,0 +1,58 @@
+---
+title: Button
+description: A shadcn-compatible button with an optional Stripe-style arrow animation.
+---
+
+<ComponentPreview name="button-demo" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+pnpm dlx shadcn@latest add https://ui.8starlabs.com/r/button.json
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<ComponentSource
+  src="registry/8starlabs-ui/blocks/button.tsx"
+  title="components/ui/button.tsx"
+/>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx showLineNumbers
+import { Button } from "@/components/ui/button";
+```
+
+```tsx showLineNumbers
+<Button>Save changes</Button>
+<Button withArrow>Start building</Button>
+<Button withArrow variant="secondary">
+  View components
+</Button>
+```
+
+## API Reference
+
+| Prop             | Type                                                                          | Default     | Description                                                 |
+| ---------------- | ----------------------------------------------------------------------------- | ----------- | ----------------------------------------------------------- |
+| `variant`        | `"default" \| "destructive" \| "outline" \| "secondary" \| "ghost" \| "link"` | `"default"` | Optional. Controls the visual style of the button.          |
+| `size`           | `"default" \| "sm" \| "lg" \| "icon" \| "icon-sm" \| "icon-lg"`               | `"default"` | Optional. Controls the button size.                         |
+| `withArrow`      | `boolean`                                                                     | `false`     | Optional. Adds the animated arrow.                          |
+| `arrowClassName` | `string`                                                                      | -           | Optional. Adds classes to the arrow wrapper.                |
+| `asChild`        | `boolean`                                                                     | `false`     | Optional. Renders the button styles onto a child component. |

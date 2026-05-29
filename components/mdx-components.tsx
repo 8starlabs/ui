@@ -24,7 +24,7 @@ import {
   AlertTitle
 } from "@/registry/8starlabs-ui/ui/alert";
 import { AspectRatio } from "@/registry/8starlabs-ui/ui/aspect-ratio";
-import { Button } from "@/registry/8starlabs-ui/ui/button";
+import { Button } from "@/registry/8starlabs-ui/blocks/button";
 import { Kbd } from "@/registry/8starlabs-ui/ui/kbd";
 import {
   Tabs,

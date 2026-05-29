@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { GitHubIcon } from "@/components/icons";
 import { siteConfig, api } from "@/lib/config";
-import { Button } from "@/registry/8starlabs-ui/ui/button";
+import { Button } from "@/registry/8starlabs-ui/blocks/button";
 import { Skeleton } from "@/registry/8starlabs-ui/ui/skeleton";
 
 export function GitHubLink() {

@@ -1,7 +1,6 @@
 export const PAGES_NEW = [
-  "/docs/components/heatmap",
-  "/docs/components/marquee",
-  "/docs/components/json-viewer"
+  "/docs/components/button",
+  "/docs/components/heatmap"
 ];
 
 export const PAGES_UPDATED = [];

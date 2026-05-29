@@ -44,8 +44,7 @@ const partitionBarVariants = cva("flex flex-row", {
 });
 
 interface PartitionBar
-  extends
-    HTMLAttributes<HTMLUListElement>,
+  extends HTMLAttributes<HTMLUListElement>,
     VariantProps<typeof partitionBarVariants> {
   children?:
     | ReactElement<PartitionBarSegment>
@@ -116,8 +115,7 @@ const partitionBarTitleVariants = cva("", {
 });
 
 interface PartitionBarSegment
-  extends
-    HTMLAttributes<HTMLLIElement>,
+  extends HTMLAttributes<HTMLLIElement>,
     VariantProps<typeof partitionBarLineVariants> {
   children?: React.ReactNode;
   num?: number;

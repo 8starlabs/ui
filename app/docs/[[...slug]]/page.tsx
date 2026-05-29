@@ -15,7 +15,7 @@ import { absoluteUrl } from "@/lib/utils";
 import { DocsCopyPage } from "@/components/docs-copy-page";
 import { DocsTableOfContents } from "@/components/docs-toc";
 import { Badge } from "@/registry/8starlabs-ui/ui/badge";
-import { Button } from "@/registry/8starlabs-ui/ui/button";
+import { Button } from "@/registry/8starlabs-ui/blocks/button";
 import { DEV_BASE_URL, ENVIRONMENT } from "@/lib/config";
 
 export const revalidate = false;

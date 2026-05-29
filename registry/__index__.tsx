@@ -1,4 +1,5 @@
 // AUTO-GENERATED FILE. DO NOT EDIT MANUALLY.
+import { Button as button_component } from "@/registry/8starlabs-ui/blocks/button";
 import flip_clock_component from "@/registry/8starlabs-ui/blocks/flip-clock";
 import heatmap_component from "@/registry/8starlabs-ui/blocks/heatmap";
 import json_viewer_component from "@/registry/8starlabs-ui/blocks/json-viewer";
@@ -9,6 +10,7 @@ import status_indicator_component from "@/registry/8starlabs-ui/blocks/status-in
 import system_banner_component from "@/registry/8starlabs-ui/blocks/system-banner";
 import timeline_component from "@/registry/8starlabs-ui/blocks/timeline";
 import transport_badge_component from "@/registry/8starlabs-ui/blocks/transport-badge";
+import button_demo_component from "@/registry/8starlabs-ui/examples/button-demo";
 import flip_clock_countdown_demo_component from "@/registry/8starlabs-ui/examples/flip-clock-countdown-demo";
 import flip_clock_demo_component from "@/registry/8starlabs-ui/examples/flip-clock-demo";
 import flip_clock_showdays_demo_component from "@/registry/8starlabs-ui/examples/flip-clock-showdays-demo";
@@ -49,6 +51,16 @@ import transport_badge_demo_component from "@/registry/8starlabs-ui/examples/tra
 
 export const Index: Record<string, any> = {
   "8starlabs-ui": {
+    "button": {
+      name: "button",
+      type: "registry:block",
+      files: [{
+        path: "registry/8starlabs-ui/blocks/button.tsx",
+        type: "registry:block",
+        target: ""
+      }],
+      component: button_component
+    },
     "flip-clock": {
       name: "flip-clock",
       type: "registry:block",
@@ -148,6 +160,16 @@ export const Index: Record<string, any> = {
         target: ""
       }],
       component: transport_badge_component
+    },
+    "button-demo": {
+      name: "button-demo",
+      type: "registry:example",
+      files: [{
+        path: "registry/8starlabs-ui/examples/button-demo.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+      component: button_demo_component
     },
     "flip-clock-countdown-demo": {
       name: "flip-clock-countdown-demo",

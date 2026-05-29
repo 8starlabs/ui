@@ -137,8 +137,7 @@ const timelineItemContainerVariants = cva("flex relative snap-center", {
 
 // EXPORTED INTERFACES AND COMPONENTS
 export interface TimelineItemProps
-  extends
-    HTMLAttributes<HTMLLIElement>,
+  extends HTMLAttributes<HTMLLIElement>,
     VariantProps<typeof timelineItemVariants> {
   hollow?: boolean;
 }
@@ -148,8 +147,7 @@ type _timelineItemProps = TimelineItemProps & {
 };
 
 export interface TimelineProps
-  extends
-    HTMLAttributes<HTMLDivElement>,
+  extends HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof timelineLayoutVariants> {
   children?: React.ReactNode;
 
@@ -167,18 +165,18 @@ export interface TimelineProps
   noCards?: boolean;
 }
 
-export interface TimelineItemDateProps extends Omit<
-  HTMLAttributes<HTMLSpanElement>,
-  "children"
-> {
+export interface TimelineItemDateProps
+  extends Omit<HTMLAttributes<HTMLSpanElement>, "children"> {
   children: Date | string;
 }
 
-export interface TimelineItemTitleProps extends HTMLAttributes<HTMLHeadingElement> {
+export interface TimelineItemTitleProps
+  extends HTMLAttributes<HTMLHeadingElement> {
   children: React.ReactNode;
 }
 
-export interface TimelineItemDescriptionProps extends HTMLAttributes<HTMLParagraphElement> {
+export interface TimelineItemDescriptionProps
+  extends HTMLAttributes<HTMLParagraphElement> {
   children: React.ReactNode;
 }
 

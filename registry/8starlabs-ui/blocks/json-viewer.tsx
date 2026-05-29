@@ -4,7 +4,7 @@ import React, { useMemo, useState } from "react";
 import type { JSX } from "react";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Button } from "@/registry/8starlabs-ui/ui/button";
+import { Button } from "@/registry/8starlabs-ui/blocks/button";
 import {
   Collapsible,
   CollapsibleContent

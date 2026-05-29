@@ -37,8 +37,7 @@ const flipUnitVariants = cva(
 );
 
 interface FlipUnitProps
-  extends
-    HTMLAttributes<HTMLDivElement>,
+  extends HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof flipUnitVariants> {
   digit: number | string;
 }
@@ -159,8 +158,7 @@ const flipClockVariants = cva(
 );
 
 interface FlipClockProps
-  extends
-    VariantProps<typeof flipClockVariants>,
+  extends VariantProps<typeof flipClockVariants>,
     HTMLAttributes<HTMLDivElement> {
   countdown?: boolean;
   targetDate?: Date;

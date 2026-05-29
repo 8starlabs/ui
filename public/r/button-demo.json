@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "button-demo",
+  "type": "registry:example",
+  "title": "Button",
+  "description": "A button demo component",
+  "registryDependencies": ["https://ui.8starlabs.com/r/button.json"],
+  "files": [
+    {
+      "path": "registry/8starlabs-ui/examples/button-demo.tsx",
+      "content": "import { Button } from \"@/registry/8starlabs-ui/blocks/button\";\n\nexport default function ButtonDemo() {\n  return (\n    <div className=\"flex flex-wrap items-center gap-3\">\n      <Button withArrow>Start building</Button>\n      <Button variant=\"secondary\" withArrow>\n        View components\n      </Button>\n      <Button variant=\"outline\">Default action</Button>\n    </div>\n  );\n}\n",
+      "type": "registry:example"
+    }
+  ]
+}
