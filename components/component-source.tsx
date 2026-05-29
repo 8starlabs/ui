@@ -6,7 +6,7 @@ import { highlightCode } from "@/lib/highlight-code";
 import { getRegistryItem } from "@/lib/registry";
 import { cn } from "@/lib/utils";
 import { CodeCollapsibleWrapper } from "@/components/code-collapsible-wrapper";
-import { CopyButton } from "@/components/copy-button";
+import { CopyButton } from "@/registry/8starlabs-ui/ui/copy-button";
 import { getIconForLanguageExtension } from "@/components/icons";
 import { type Style } from "@/registry/styles";
 

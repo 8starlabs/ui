@@ -10,7 +10,7 @@ import { CodeTabs } from "@/components/code-tabs";
 import { ComponentPreview } from "@/components/component-preview";
 import { ComponentSource } from "@/components/component-source";
 import { ComponentsList } from "@/components/components-list";
-import { CopyButton } from "@/components/copy-button";
+import { CopyButton } from "@/registry/8starlabs-ui/ui/copy-button";
 import { getIconForLanguageExtension } from "@/components/icons";
 import {
   Accordion,
