@@ -25,6 +25,7 @@ const TOP_LEVEL_SECTIONS = [
   },
   { name: "Setup", href: "/docs/setup" },
   { name: "Usage", href: "/docs/usage" },
+  { name: "MCP", href: "/docs/mcp" },
   { name: "Troubleshooting", href: "/docs/troubleshooting" }
 ];
 const EXCLUDED_SECTIONS = ["(root)"];

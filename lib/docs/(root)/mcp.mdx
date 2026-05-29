@@ -1,0 +1,139 @@
+---
+title: MCP
+description: Use 8StarLabs UI with AI coding assistants through the shadcn MCP server.
+---
+
+The [shadcn MCP server](https://ui.shadcn.com/docs/mcp) lets AI coding assistants discover and install components from shadcn-compatible registries. Since 8StarLabs UI ships as a shadcn registry, you can expose it to Claude, Codex, Cursor, VS Code, and other MCP clients by adding the registry to your project.
+
+## Add the Registry
+
+Add an `@8starlabs` registry entry to your project's `components.json`:
+
+```json title="components.json" showLineNumbers
+{
+  "registries": {
+    "@8starlabs": "https://ui.8starlabs.com/r/{name}.json"
+  }
+}
+```
+
+If your project already has a `registries` object, merge the `@8starlabs` entry into it.
+
+You can still install components directly with the CLI:
+
+```bash
+pnpm dlx shadcn@latest add https://ui.8starlabs.com/r/status-indicator.json
+```
+
+With MCP configured, your assistant can use the registry by name instead:
+
+```txt
+Install @8starlabs/status-indicator and use it on my dashboard.
+```
+
+## Configure Your MCP Client
+
+The shadcn MCP server is provided by the shadcn CLI. Use `shadcn@latest mcp init` when your client is supported, or add the server manually to your MCP configuration.
+
+<Tabs defaultValue="claude">
+  <TabsList>
+    <TabsTrigger value="claude">Claude</TabsTrigger>
+    <TabsTrigger value="codex">Codex</TabsTrigger>
+    <TabsTrigger value="cursor">Cursor</TabsTrigger>
+    <TabsTrigger value="vscode">VS Code</TabsTrigger>
+  </TabsList>
+  <TabsContent value="claude">
+
+```bash
+pnpm dlx shadcn@latest mcp init --client claude
+```
+
+Or add the server manually to `.mcp.json`:
+
+```json title=".mcp.json" showLineNumbers
+{
+  "mcpServers": {
+    "shadcn": {
+      "command": "npx",
+      "args": ["shadcn@latest", "mcp"]
+    }
+  }
+}
+```
+
+  </TabsContent>
+  <TabsContent value="codex">
+
+Add the shadcn MCP server to your Codex config:
+
+```toml title="~/.codex/config.toml" showLineNumbers
+[mcp_servers.shadcn]
+command = "npx"
+args = ["shadcn@latest", "mcp"]
+```
+
+Codex will read your project's `components.json`, including the `@8starlabs` registry entry.
+
+  </TabsContent>
+  <TabsContent value="cursor">
+
+```bash
+pnpm dlx shadcn@latest mcp init --client cursor
+```
+
+Or add the server manually to `.cursor/mcp.json`:
+
+```json title=".cursor/mcp.json" showLineNumbers
+{
+  "mcpServers": {
+    "shadcn": {
+      "command": "npx",
+      "args": ["shadcn@latest", "mcp"]
+    }
+  }
+}
+```
+
+  </TabsContent>
+  <TabsContent value="vscode">
+
+```bash
+pnpm dlx shadcn@latest mcp init --client vscode
+```
+
+Or add the server manually to `.vscode/mcp.json`:
+
+```json title=".vscode/mcp.json" showLineNumbers
+{
+  "servers": {
+    "shadcn": {
+      "command": "npx",
+      "args": ["shadcn@latest", "mcp"]
+    }
+  }
+}
+```
+
+  </TabsContent>
+</Tabs>
+
+## Use It in Prompts
+
+Once the server is connected, ask your assistant to browse or install 8StarLabs UI components with the `@8starlabs` namespace:
+
+```txt
+Show me the available components in the @8starlabs registry.
+```
+
+```txt
+Install @8starlabs/heatmap and add it to the analytics page.
+```
+
+```txt
+Use @8starlabs/transport-badge for the transit status list.
+```
+
+## Learn More
+
+- [shadcn MCP docs](https://ui.shadcn.com/docs/mcp)
+- [shadcn registry MCP docs](https://ui.shadcn.com/docs/registry/mcp)

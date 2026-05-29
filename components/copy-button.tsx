@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { CheckIcon, ClipboardIcon } from "lucide-react";
+import { IconCheck, IconCopy } from "@tabler/icons-react";
 
 import { Event, trackEvent } from "@/lib/events";
 import { cn } from "@/lib/utils";
@@ -33,10 +33,13 @@ export function CopyButton({
   const [hasCopied, setHasCopied] = React.useState(false);
 
   React.useEffect(() => {
-    setTimeout(() => {
-      setHasCopied(false);
-    }, 2000);
-  }, []);
+    if (!hasCopied) {
+      return;
+    }
+
+    const timer = setTimeout(() => setHasCopied(false), 2000);
+    return () => clearTimeout(timer);
+  }, [hasCopied]);
 
   return (
     <Tooltip>
@@ -46,7 +49,7 @@ export function CopyButton({
           size="icon"
           variant={variant}
           className={cn(
-            "bg-code absolute top-3 right-2 z-10 size-7 hover:opacity-100 focus-visible:opacity-100",
+            "absolute top-2 right-2 z-10 size-7 opacity-70 hover:opacity-100 focus-visible:opacity-100",
             className
           )}
           onClick={() => {
@@ -66,7 +69,7 @@ export function CopyButton({
           {...props}
         >
           <span className="sr-only">Copy</span>
-          {hasCopied ? <CheckIcon /> : <ClipboardIcon />}
+          {hasCopied ? <IconCheck /> : <IconCopy />}
         </Button>
       </TooltipTrigger>
       <TooltipContent>
