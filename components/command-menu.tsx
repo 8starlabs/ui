@@ -28,7 +28,7 @@ import {
   DialogTitle,
   DialogTrigger
 } from "@/registry/8starlabs-ui/ui/dialog";
-import { Button } from "@/registry/8starlabs-ui/ui/button";
+import { Button } from "@/registry/8starlabs-ui/blocks/button";
 import { Separator } from "@/registry/8starlabs-ui/ui/separator";
 import { Kbd, KbdGroup } from "@/registry/8starlabs-ui/ui/kbd";
 

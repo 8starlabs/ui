@@ -4,7 +4,12 @@
   "type": "registry:ui",
   "title": "JSON Viewer",
   "description": "A JSON viewer component",
-  "registryDependencies": ["button", "collapsible", "separator", "tooltip"],
+  "registryDependencies": [
+    "https://ui.8starlabs.com/r/button.json",
+    "collapsible",
+    "separator",
+    "tooltip"
+  ],
   "files": [
     {
       "path": "registry/8starlabs-ui/hooks/use-mobile.ts",

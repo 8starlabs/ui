@@ -6,7 +6,7 @@ import { IconCheck, IconCopy, IconTerminal } from "@tabler/icons-react";
 import { useConfig } from "@/hooks/use-config";
 import { copyToClipboardWithMeta } from "@/registry/8starlabs-ui/ui/copy-button";
 
-import { Button } from "@/registry/8starlabs-ui/ui/button";
+import { Button } from "@/registry/8starlabs-ui/blocks/button";
 import {
   Tabs,
   TabsContent,

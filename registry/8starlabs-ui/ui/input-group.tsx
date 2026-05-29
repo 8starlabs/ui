@@ -4,7 +4,7 @@ import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
-import { Button } from "@/registry/8starlabs-ui/ui/button";
+import { Button } from "@/registry/8starlabs-ui/blocks/button";
 import { Input } from "@/registry/8starlabs-ui/ui/input";
 import { Textarea } from "@/registry/8starlabs-ui/ui/textarea";
 

@@ -96,7 +96,7 @@ export default function RootLayout({
         <meta name="theme-color" content={META_THEME_COLORS.light} />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} group/body antialiased [--footer-height:calc(var(--spacing)*14)] [--header-height:calc(var(--spacing)*14)] xl:[--footer-height:calc(var(--spacing)*24)]`}
+        className={`${geistSans.variable} ${geistMono.variable} group/body antialiased [--footer-height:calc(var(--spacing)*18)] [--header-height:calc(var(--spacing)*14)] xl:[--footer-height:calc(var(--spacing)*24)]`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="bg-background relative z-10 flex min-h-svh flex-col">

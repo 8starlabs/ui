@@ -120,6 +120,7 @@ Please include:
 - A clear title and description
 - Screenshots or GIFs for UI changes
 - Any related issue links
+- A closing keyword in the PR description, such as `Closes #123`, `Fixes #123`, or `Resolves #123`, when the PR should automatically close an issue after merge. See GitHub's guide on [linking a pull request to an issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue).
 - The reason or context behind the change
 
 ## Project Structure
@@ -138,6 +139,7 @@ registry/8starlabs-ui/
 4. Push to your fork
 5. Submit a Pull Request with a clear title and description
    - Link any related issues
+   - Use GitHub closing keywords like `Closes #123`, `Fixes #123`, or `Resolves #123` in the PR description when the PR should close an issue automatically
    - Include screenshots for UI changes
    - Describe your changes and the rationale behind them
 

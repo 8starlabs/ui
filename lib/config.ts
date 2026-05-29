@@ -8,10 +8,16 @@ export const siteConfig = {
   navLinks: [
     { href: "/docs", label: "Docs" },
     { href: "/docs/components", label: "Components" },
-    { href: "https://8starlabs.com/blogs", label: "Blog", external: true }
+    { href: "https://8starlabs.com/blogs", label: "Blog", external: true },
+    {
+      href: "https://status.8starlabs.com/",
+      label: "Status",
+      external: true
+    }
   ],
   links: {
     github: "https://github.com/8starlabs/ui",
+    status: "https://status.8starlabs.com/",
     eslNewsletter: "https://8starlabs.com#newsletter"
   },
   utm: {

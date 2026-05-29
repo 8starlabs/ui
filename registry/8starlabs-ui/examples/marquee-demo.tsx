@@ -1,11 +1,15 @@
 import Marquee from "../blocks/marquee";
-import { Icons } from "@/components/icons";
+import {
+  OikovaLightIcon,
+  SupabaseIcon,
+  TheWeatherCompanyIcon
+} from "@/components/icons";
 
 export default function MarqueeDemo() {
   return (
     <Marquee>
       <div className="w-48 h-20">
-        <Icons.oikova_light
+        <OikovaLightIcon
           style={{
             width: "100%",
             height: "100%",
@@ -14,7 +18,7 @@ export default function MarqueeDemo() {
         />
       </div>
       <div className="w-48 h-14">
-        <Icons.the_weather_company
+        <TheWeatherCompanyIcon
           style={{
             width: "100%",
             height: "100%",
@@ -23,7 +27,7 @@ export default function MarqueeDemo() {
         />
       </div>
       <div className="w-48 h-20">
-        <Icons.supabase
+        <SupabaseIcon
           style={{
             width: "100%",
             height: "100%",

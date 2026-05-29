@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 import React from "react";
 
-import { Button } from "@/registry/8starlabs-ui/ui/button";
+import { Button } from "@/registry/8starlabs-ui/blocks/button";
 import { cn } from "@/lib/utils";
 
 export default function Error({

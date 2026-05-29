@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
-import { Button } from "@/registry/8starlabs-ui/ui/button";
+import { Button } from "@/registry/8starlabs-ui/blocks/button";
 
 export function MainNav({
   items,

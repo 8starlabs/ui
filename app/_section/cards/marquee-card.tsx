@@ -1,7 +1,13 @@
 import Link from "next/link";
 import Marquee from "@/registry/8starlabs-ui/blocks/marquee";
 import { Card } from "@/registry/8starlabs-ui/ui/card";
-import { Icons } from "@/components/icons";
+import {
+  BigCommerceIcon,
+  OikovaLightIcon,
+  SingaporeAirlinesIcon,
+  SupabaseIcon,
+  TheWeatherCompanyIcon
+} from "@/components/icons";
 
 const MarqueeCard = () => {
   return (
@@ -17,7 +23,7 @@ const MarqueeCard = () => {
         <div className="flex flex-col gap-2 overflow-hidden justify-center h-full">
           <Marquee direction="right">
             <div className="w-30 h-20">
-              <Icons.oikova_light
+              <OikovaLightIcon
                 style={{
                   width: "100%",
                   height: "100%",
@@ -26,7 +32,7 @@ const MarqueeCard = () => {
               />
             </div>
             <div className="w-30 h-20">
-              <Icons.supabase
+              <SupabaseIcon
                 style={{
                   width: "100%",
                   height: "100%",
@@ -35,7 +41,7 @@ const MarqueeCard = () => {
               />
             </div>
             <div className="w-30 h-20">
-              <Icons.big_commerce
+              <BigCommerceIcon
                 style={{
                   width: "100%",
                   height: "100%",
@@ -44,7 +50,7 @@ const MarqueeCard = () => {
               />
             </div>
             <div className="w-30 h-14">
-              <Icons.singapore_airlines
+              <SingaporeAirlinesIcon
                 style={{
                   width: "100%",
                   height: "100%",
@@ -53,7 +59,7 @@ const MarqueeCard = () => {
               />
             </div>
             <div className="w-30 h-14">
-              <Icons.the_weather_company
+              <TheWeatherCompanyIcon
                 style={{
                   width: "100%",
                   height: "100%",

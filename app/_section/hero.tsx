@@ -1,10 +1,13 @@
 "use client";
 import { Badge } from "@/registry/8starlabs-ui/ui/badge";
-import { Icons } from "@/components/icons";
+import {
+  EslUiLogoDarkPrimaryIcon,
+  EslUiLogoLightPrimaryIcon
+} from "@/components/icons";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
-import { Button } from "@/registry/8starlabs-ui/ui/button";
+import { Button } from "@/registry/8starlabs-ui/blocks/button";
 import Link from "next/link";
 import Snowfall from "react-snowfall";
 
@@ -23,12 +26,12 @@ const Hero = ({ className }: HeroProps) => {
 
   const logo = mounted ? (
     effectiveTheme === "dark" ? (
-      <Icons.eslUiLogoDarkPrimary className="w-auto h-8 md:h-16" />
+      <EslUiLogoDarkPrimaryIcon className="w-auto h-8 md:h-16" />
     ) : (
-      <Icons.eslUiLogoLightPrimary className="w-auto h-8 md:h-16" />
+      <EslUiLogoLightPrimaryIcon className="w-auto h-8 md:h-16" />
     )
   ) : (
-    <Icons.eslUiLogoLightPrimary className="w-auto h-8 md:h-16" />
+    <EslUiLogoLightPrimaryIcon className="w-auto h-8 md:h-16" />
   );
 
   return (
@@ -57,12 +60,12 @@ const Hero = ({ className }: HeroProps) => {
         standard libraries.
       </p>
       <div className="flex gap-2">
-        <Button asChild size="sm">
+        <Button asChild size="sm" withArrow>
           <Link prefetch={false} href="/docs">
             Get Started
           </Link>
         </Button>
-        <Button asChild size="sm" variant="ghost">
+        <Button asChild size="sm" variant="ghost" withArrow>
           <Link prefetch={false} href="/docs/components">
             View Components
           </Link>

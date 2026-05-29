@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Icons } from "@/components/icons";
+import { GitHubIcon } from "@/components/icons";
 import { siteConfig, api } from "@/lib/config";
-import { Button } from "@/registry/8starlabs-ui/ui/button";
+import { Button } from "@/registry/8starlabs-ui/blocks/button";
 import { Skeleton } from "@/registry/8starlabs-ui/ui/skeleton";
 
 export function GitHubLink() {
@@ -16,7 +16,7 @@ export function GitHubLink() {
         target="_blank"
         rel="noreferrer"
       >
-        <Icons.gitHub />
+        <GitHubIcon />
         <StarsCountClient />
       </Link>
     </Button>

@@ -1,11 +1,18 @@
 import Marquee from "../blocks/marquee";
-import { Icons } from "@/components/icons";
+import {
+  JohnsonAndJohnsonIcon,
+  ShopifyIcon,
+  SingaporeAirlinesIcon,
+  TheWeatherCompanyIcon,
+  VercelLightIcon,
+  WixBlackIcon
+} from "@/components/icons";
 
 export default function MarqueeGreyscaleDemo() {
   return (
     <Marquee grayscale={true}>
       <div className="w-30 h-14">
-        <Icons.vercel_light
+        <VercelLightIcon
           style={{
             width: "100%",
             height: "100%",
@@ -14,7 +21,7 @@ export default function MarqueeGreyscaleDemo() {
         />
       </div>
       <div className="w-30 h-14">
-        <Icons.shopify
+        <ShopifyIcon
           style={{
             width: "100%",
             height: "100%",
@@ -23,7 +30,7 @@ export default function MarqueeGreyscaleDemo() {
         />
       </div>
       <div className="w-30 h-14">
-        <Icons.the_weather_company
+        <TheWeatherCompanyIcon
           style={{
             width: "100%",
             height: "100%",
@@ -32,7 +39,7 @@ export default function MarqueeGreyscaleDemo() {
         />
       </div>
       <div className="w-30 h-5">
-        <Icons.wix_black
+        <WixBlackIcon
           style={{
             width: "100%",
             height: "100%",
@@ -41,7 +48,7 @@ export default function MarqueeGreyscaleDemo() {
         />
       </div>
       <div className="w-30 h-14">
-        <Icons.johnson_and_johnson
+        <JohnsonAndJohnsonIcon
           style={{
             width: "100%",
             height: "100%",
@@ -50,7 +57,7 @@ export default function MarqueeGreyscaleDemo() {
         />
       </div>
       <div className="w-30 h-14">
-        <Icons.singapore_airlines
+        <SingaporeAirlinesIcon
           style={{
             width: "100%",
             height: "100%",

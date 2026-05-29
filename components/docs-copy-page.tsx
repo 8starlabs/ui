@@ -3,7 +3,7 @@
 import { IconCheck, IconChevronDown, IconCopy } from "@tabler/icons-react";
 
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
-import { Button } from "@/registry/8starlabs-ui/ui/button";
+import { Button } from "@/registry/8starlabs-ui/blocks/button";
 import {
   DropdownMenu,
   DropdownMenuContent,

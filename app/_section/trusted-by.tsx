@@ -56,7 +56,7 @@ const organizations: Organization[] = [
 const TrustedBy = ({ className }: TrustedByProps) => {
   return (
     <div className={`flex flex-col items-center gap-2 ${className || ""}`}>
-      <h2 className="text-lg font-medium text-muted-foreground">Trusted By</h2>
+      <h2 className="text-lg font-bold text-muted-foreground">Trusted By</h2>
       <div className="flex items-center justify-center flex-wrap gap-4">
         {organizations.map((organization) => (
           <Link

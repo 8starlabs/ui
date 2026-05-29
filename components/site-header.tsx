@@ -8,9 +8,12 @@ import { GitHubLink } from "@/components/github-link";
 import { MainNav } from "@/components/main-nav";
 import { MobileNav } from "@/components/mobile-nav";
 import { ModeSwitcher } from "@/components/mode-switcher";
-import { Button } from "@/registry/8starlabs-ui/ui/button";
+import { Button } from "@/registry/8starlabs-ui/blocks/button";
 import { Separator } from "@/registry/8starlabs-ui/ui/separator";
-import { Icons } from "@/components/icons";
+import {
+  EslLogoDarkSecondaryIcon,
+  EslLogoLightSecondaryIcon
+} from "@/components/icons";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { source } from "@/lib/source";
@@ -24,12 +27,12 @@ export function SiteHeader({ tree }: { tree: typeof source.pageTree }) {
     theme === "system" ? (resolvedTheme ?? "light") : (theme ?? "light");
   const logo = mounted ? (
     effectiveTheme === "dark" ? (
-      <Icons.eslLogoDarkSecondary className="w-auto size-10" />
+      <EslLogoDarkSecondaryIcon className="w-auto size-10" />
     ) : (
-      <Icons.eslLogoLightSecondary className="w-auto size-10" />
+      <EslLogoLightSecondaryIcon className="w-auto size-10" />
     )
   ) : (
-    <Icons.eslLogoLightSecondary className="w-auto size-10" />
+    <EslLogoLightSecondaryIcon className="w-auto size-10" />
   );
   return (
     <header className="sticky left-0 top-0 z-50 h-20 w-full justify-center bg-[#ffffffb8] dark:bg-[#000000b8] backdrop-blur-[20px] backdrop-saturate-180">
