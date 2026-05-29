@@ -183,6 +183,13 @@ const heightMap: Record<FlipClockSize, string> = {
   xl: "text-8xl"
 };
 
+const EMPTY_TIME: TimeLeft = {
+  days: 0,
+  hours: 0,
+  minutes: 0,
+  seconds: 0
+};
+
 function ClockSeparator({ size }: { size?: FlipClockSize }) {
   return (
     <span
@@ -205,9 +212,11 @@ export default function FlipClock({
   className,
   ...props
 }: FlipClockProps) {
-  const [time, setTime] = useState<TimeLeft>(getTime(countdown, targetDate));
+  const [time, setTime] = useState<TimeLeft>(EMPTY_TIME);
 
   useEffect(() => {
+    setTime(getTime(countdown, targetDate));
+
     // Run a faster heartbeat (250ms) to catch the second rollover immediately
     const timer = setInterval(() => {
       const nextTime = getTime(countdown, targetDate);

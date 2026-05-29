@@ -1,9 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { useTheme } from "next-themes";
 
 import { useMetaColor } from "@/hooks/use-meta-color";
+import { useTheme } from "@/providers/ThemeProvider";
 import { Button } from "@/registry/8starlabs-ui/blocks/button";
 
 export function ModeSwitcher() {
