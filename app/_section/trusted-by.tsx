@@ -17,28 +17,6 @@ interface TrustedByProps {
 
 const organizations: Organization[] = [
   {
-    name: "Oikova",
-    logo: "/svgs/oikova_logo_light.svg",
-    alt: "Oikova Logo",
-    url: "https://oikova.com",
-    utm: {
-      utm_source: "ui.8starlabs.com",
-      utm_medium: "referral",
-      utm_campaign: "8sl_ui_trusted_by"
-    }
-  },
-  {
-    name: "Resumify",
-    logo: "/svgs/resumify_logo.png",
-    alt: "Resumify Logo",
-    url: "https://resumify.org",
-    utm: {
-      utm_source: "ui.8starlabs.com",
-      utm_medium: "referral",
-      utm_campaign: "8sl_ui_trusted_by"
-    }
-  },
-  {
     name: "Formo",
     logo: "/svgs/formo_logo.svg",
     alt: "Formo Logo",
@@ -49,6 +27,29 @@ const organizations: Organization[] = [
       utm_campaign: "8sl_ui_trusted_by"
     },
     className: "scale-75"
+  },
+  {
+    name: "Kurtosis Labs",
+    logo: "/images/kurtosis-labs_logo.png",
+    alt: "Kurtosis Labs Logo",
+    url: "https://kurtosis-labs.com",
+    utm: {
+      utm_source: "ui.8starlabs.com",
+      utm_medium: "referral",
+      utm_campaign: "8sl_ui_trusted_by"
+    },
+    className: "scale-75"
+  },
+  {
+    name: "Resumify",
+    logo: "/images/resumify_logo.png",
+    alt: "Resumify Logo",
+    url: "https://resumify.org",
+    utm: {
+      utm_source: "ui.8starlabs.com",
+      utm_medium: "referral",
+      utm_campaign: "8sl_ui_trusted_by"
+    }
   }
   // Add more Organization here later
 ];
