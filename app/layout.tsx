@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "@/app/globals.css";
 import { META_THEME_COLORS, siteConfig } from "@/lib/config";
@@ -6,8 +6,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import ProgressWrapper from "@/providers/ProgressWrapper";
 import { ThemeProvider } from "@/providers/ThemeProvider";
-import FaviconWrapper from "@/providers/FaviconWrapper";
-import Script from "next/script";
+import GoogleAnalytics from "@/providers/GoogleAnalytics";
 import { source } from "@/lib/source";
 import SystemBannerClientWrapper from "@/providers/SystemBannerClientWrapper";
 
@@ -58,6 +57,13 @@ export const metadata: Metadata = {
   creator: "8StarLabs"
 };
 
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: META_THEME_COLORS.light },
+    { media: "(prefers-color-scheme: dark)", color: META_THEME_COLORS.dark }
+  ]
+};
+
 export default function RootLayout({
   children
 }: Readonly<{
@@ -65,42 +71,13 @@ export default function RootLayout({
 }>) {
   const tree = source.pageTree;
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=G-RHF72GM2ES`}
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-RHF72GM2ES');
-          `}
-        </Script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              try {
-                if (localStorage.theme === 'dark' || ((!('theme' in localStorage) || localStorage.theme === 'system') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                  document.querySelector('meta[name="theme-color"]').setAttribute('content', '${META_THEME_COLORS.dark}')
-                }
-                if (localStorage.layout) {
-                  document.documentElement.classList.add('layout-' + localStorage.layout)
-                }
-              } catch (_) {}
-            `
-          }}
-        />
-        <meta name="theme-color" content={META_THEME_COLORS.light} />
-      </head>
+    <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} group/body antialiased [--footer-height:calc(var(--spacing)*18)] [--header-height:calc(var(--spacing)*14)] xl:[--footer-height:calc(var(--spacing)*24)]`}
       >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <GoogleAnalytics />
+        <ThemeProvider defaultTheme="system" enableSystem>
           <div className="bg-background relative z-10 flex min-h-svh flex-col">
-            <FaviconWrapper />
             <SiteHeader tree={tree} />
             <SystemBannerClientWrapper />
             <ProgressWrapper>

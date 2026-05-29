@@ -4,7 +4,7 @@ import {
   EslUiLogoDarkPrimaryIcon,
   EslUiLogoLightPrimaryIcon
 } from "@/components/icons";
-import { useTheme } from "next-themes";
+import { useTheme } from "@/providers/ThemeProvider";
 import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { Button } from "@/registry/8starlabs-ui/blocks/button";

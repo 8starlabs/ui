@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import Link, { LinkProps } from "next/link";
-import { useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/registry/8starlabs-ui/blocks/button";
@@ -12,12 +12,9 @@ import {
   PopoverContent,
   PopoverTrigger
 } from "@/registry/8starlabs-ui/ui/popover";
-import {
-  EslLogoDarkSecondaryIcon,
-  EslLogoLightSecondaryIcon
-} from "@/components/icons";
-import { useTheme } from "next-themes";
 import { PAGES_NEW } from "@/lib/docs";
+
+const HEADER_LOGO_SRC = "/images/8sl_logo_disco_transparent.png";
 
 export function MobileNav({
   tree,
@@ -29,17 +26,13 @@ export function MobileNav({
   className?: string;
 }) {
   const [open, setOpen] = React.useState(false);
-  const [mounted, setMounted] = React.useState(false);
-  const { resolvedTheme } = useTheme();
-  React.useEffect(() => setMounted(true), []);
-  if (!mounted) return null;
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
           variant="ghost"
           className={cn(
-            "extend-touch-target h-8 touch-manipulation items-center justify-start gap-2.5 p-0! hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 active:bg-transparent dark:hover:bg-transparent",
+            "extend-touch-target h-10 touch-manipulation items-center justify-start gap-2.5 p-0! hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 active:bg-transparent dark:hover:bg-transparent",
             className
           )}
         >
@@ -60,12 +53,15 @@ export function MobileNav({
             </div>
             <span className="sr-only">Toggle Menu</span>
           </div>
-          <span className="flex h-8 items-center text-lg leading-none font-medium">
-            {resolvedTheme === "dark" ? (
-              <EslLogoDarkSecondaryIcon className="size-8" />
-            ) : (
-              <EslLogoLightSecondaryIcon className="size-8" />
-            )}
+          <span className="flex h-10 items-center text-lg leading-none font-medium">
+            <Image
+              src={HEADER_LOGO_SRC}
+              alt=""
+              width={40}
+              height={40}
+              className="object-contain"
+              style={{ width: 40, height: 40 }}
+            />
           </span>
         </Button>
       </PopoverTrigger>
@@ -169,15 +165,11 @@ function MobileLink({
   children: React.ReactNode;
   className?: string;
 }) {
-  const router = useRouter();
   return (
     <Link
       prefetch={false}
       href={href}
-      onClick={() => {
-        router.push(href.toString());
-        onOpenChange?.(false);
-      }}
+      onClick={() => onOpenChange?.(false)}
       className={cn("text-2xl font-medium flex gap-2 items-center", className)}
       {...props}
     >

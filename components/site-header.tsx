@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 
 import { siteConfig } from "@/lib/config";
@@ -10,30 +11,11 @@ import { MobileNav } from "@/components/mobile-nav";
 import { ModeSwitcher } from "@/components/mode-switcher";
 import { Button } from "@/registry/8starlabs-ui/blocks/button";
 import { Separator } from "@/registry/8starlabs-ui/ui/separator";
-import {
-  EslLogoDarkSecondaryIcon,
-  EslLogoLightSecondaryIcon
-} from "@/components/icons";
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
 import { source } from "@/lib/source";
 
+const HEADER_LOGO_SRC = "/images/8sl_logo_disco_transparent.png";
+
 export function SiteHeader({ tree }: { tree: typeof source.pageTree }) {
-  const { theme, resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-  if (!mounted) return null;
-  const effectiveTheme =
-    theme === "system" ? (resolvedTheme ?? "light") : (theme ?? "light");
-  const logo = mounted ? (
-    effectiveTheme === "dark" ? (
-      <EslLogoDarkSecondaryIcon className="w-auto size-10" />
-    ) : (
-      <EslLogoLightSecondaryIcon className="w-auto size-10" />
-    )
-  ) : (
-    <EslLogoLightSecondaryIcon className="w-auto size-10" />
-  );
   return (
     <header className="sticky left-0 top-0 z-50 h-20 w-full justify-center bg-[#ffffffb8] dark:bg-[#000000b8] backdrop-blur-[20px] backdrop-saturate-180">
       <div className="m-auto flex h-full w-full max-w-10xl justify-between px-6 md:px-16 items-center">
@@ -46,10 +28,17 @@ export function SiteHeader({ tree }: { tree: typeof source.pageTree }) {
           asChild
           variant="ghost"
           size="icon"
-          className="hidden size-8 lg:flex"
+          className="hidden size-12 lg:flex"
         >
           <Link prefetch={false} href="/">
-            {logo}
+            <Image
+              src={HEADER_LOGO_SRC}
+              alt=""
+              width={48}
+              height={48}
+              className="object-contain"
+              style={{ width: 48, height: 48 }}
+            />
             <span className="sr-only">{siteConfig.name}</span>
           </Link>
         </Button>
