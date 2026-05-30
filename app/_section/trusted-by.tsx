@@ -41,6 +41,18 @@ const organizations: Organization[] = [
     className: "scale-75"
   },
   {
+    name: "The Collective",
+    logo: "/images/the-collective_logo.png",
+    alt: "The Collective Logo",
+    url: "https://www.thecollectivefounders.com/",
+    utm: {
+      utm_source: "ui.8starlabs.com",
+      utm_medium: "referral",
+      utm_campaign: "8sl_ui_trusted_by"
+    },
+    className: "scale-140"
+  },
+  {
     name: "Resumify",
     logo: "/images/resumify_logo.png",
     alt: "Resumify Logo",

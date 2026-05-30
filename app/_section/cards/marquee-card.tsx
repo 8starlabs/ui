@@ -12,7 +12,7 @@ import {
 const MarqueeCard = () => {
   return (
     <Link prefetch={false} href="/docs/components/marquee">
-      <Card className="size-full px-6 relative overflow-hidden hover:bg-muted/20 transition-colors">
+      <Card className="size-full px-6 group relative overflow-hidden hover:bg-muted/20 transition-colors">
         <div className="flex flex-col gap-2">
           <h3 className="font-semibold text-lg">Marquee</h3>
           <p className="text-sm text-muted-foreground">
@@ -68,6 +68,28 @@ const MarqueeCard = () => {
               />
             </div>
           </Marquee>
+        </div>
+
+        <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+          <svg
+            className="w-4 h-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <path
+              d="M7 17L17 7"
+              strokeWidth={2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M7 7h10v10"
+              strokeWidth={2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </div>
       </Card>
     </Link>
