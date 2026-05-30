@@ -3,7 +3,7 @@
 import React, { useMemo, useState } from "react";
 import type { JSX } from "react";
 import { cn } from "@/lib/utils";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { useIsMobile } from "@/registry/8starlabs-ui/hooks/use-mobile";
 import { Button } from "@/registry/8starlabs-ui/blocks/button";
 import {
   Collapsible,
@@ -11,7 +11,7 @@ import {
 } from "@/registry/8starlabs-ui/ui/collapsible";
 import { Separator } from "@/registry/8starlabs-ui/ui/separator";
 import { ChevronRight } from "lucide-react";
-import { CopyButton } from "@/components/copy-button";
+import { CopyButton } from "@/registry/8starlabs-ui/custom-ui/copy-button";
 
 interface JsonViewerProps {
   data: Record<string, any>;

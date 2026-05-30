@@ -6,7 +6,7 @@ import { highlightCode } from "@/lib/highlight-code";
 import { getRegistryItem } from "@/lib/registry";
 import { cn } from "@/lib/utils";
 import { CodeCollapsibleWrapper } from "@/components/code-collapsible-wrapper";
-import { CopyButton } from "@/components/copy-button";
+import CopyButtonTrackEvent from "@/components/copy-button-track-event";
 import { getIconForLanguageExtension } from "@/components/icons";
 import { type Style } from "@/registry/styles";
 
@@ -105,7 +105,7 @@ function ComponentCode({
           {title}
         </figcaption>
       )}
-      <CopyButton value={code} />
+      <CopyButtonTrackEvent value={code} />
       <div dangerouslySetInnerHTML={{ __html: highlightedCode }} />
     </figure>
   );

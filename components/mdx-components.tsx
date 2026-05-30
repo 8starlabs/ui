@@ -10,7 +10,7 @@ import { CodeTabs } from "@/components/code-tabs";
 import { ComponentPreview } from "@/components/component-preview";
 import { ComponentSource } from "@/components/component-source";
 import { ComponentsList } from "@/components/components-list";
-import { CopyButton } from "@/components/copy-button";
+import CopyButtonTrackEvent from "@/components/copy-button-track-event";
 import { getIconForLanguageExtension } from "@/components/icons";
 import {
   Accordion,
@@ -255,7 +255,7 @@ export const mdxComponents = {
     // Default codeblock.
     return (
       <>
-        {__raw__ && <CopyButton value={__raw__} src={__src__} />}
+        {__raw__ && <CopyButtonTrackEvent value={__raw__} src={__src__} />}
         <code {...props} />
       </>
     );
