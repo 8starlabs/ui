@@ -604,6 +604,7 @@
       "type": "registry:ui",
       "title": "JSON Viewer",
       "description": "A JSON viewer component",
+      "dependencies": ["@tabler/icons-react"],
       "registryDependencies": [
         "https://ui.8starlabs.com/r/button.json",
         "collapsible",
@@ -615,6 +616,16 @@
           "path": "registry/8starlabs-ui/blocks/json-viewer.tsx",
           "type": "registry:ui",
           "target": "components/8starlabs-ui/json-viewer.tsx"
+        },
+        {
+          "path": "registry/8starlabs-ui/ui/copy-button.tsx",
+          "type": "registry:ui",
+          "target": "components/8starlabs-ui/ui/copy-button.tsx"
+        },
+        {
+          "path": "registry/8starlabs-ui/hooks/use-mobile.ts",
+          "type": "registry:hook",
+          "target": "components/8starlabs-ui/hooks/use-mobile.ts"
         }
       ]
     },

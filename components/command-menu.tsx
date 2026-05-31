@@ -19,7 +19,7 @@ import { source } from "@/lib/source";
 import { IconArrowRight } from "@tabler/icons-react";
 import { useMutationObserver } from "@/hooks/use-mutation-observer";
 import { useConfig } from "@/hooks/use-config";
-import { copyToClipboardWithMeta } from "@/components/copy-button";
+import { copyToClipboardWithMeta } from "@/components/copy-button-track-event";
 import {
   Dialog,
   DialogContent,
