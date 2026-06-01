@@ -3,7 +3,6 @@
 import * as React from "react";
 import { IconCheck, IconCopy } from "@tabler/icons-react";
 
-import { Event, trackEvent } from "@/lib/events";
 import { cn } from "@/lib/utils";
 import { Button } from "@/registry/8starlabs-ui/blocks/button";
 import {
@@ -12,23 +11,14 @@ import {
   TooltipTrigger
 } from "@/registry/8starlabs-ui/ui/tooltip";
 
-export function copyToClipboardWithMeta(value: string, event?: Event) {
-  navigator.clipboard.writeText(value);
-  if (event) {
-    trackEvent(event);
-  }
-}
-
 export function CopyButton({
   value,
   className,
   variant = "ghost",
-  event,
   ...props
 }: React.ComponentProps<typeof Button> & {
   value: string;
   src?: string;
-  event?: Event["name"];
 }) {
   const [hasCopied, setHasCopied] = React.useState(false);
 
@@ -53,17 +43,7 @@ export function CopyButton({
             className
           )}
           onClick={() => {
-            copyToClipboardWithMeta(
-              value,
-              event
-                ? {
-                    name: event,
-                    properties: {
-                      code: value
-                    }
-                  }
-                : undefined
-            );
+            navigator.clipboard.writeText(value);
             setHasCopied(true);
           }}
           {...props}

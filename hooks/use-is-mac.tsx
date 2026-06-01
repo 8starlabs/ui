@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 
 export function useIsMac() {
-  const [isMac, setIsMac] = useState(true);
-
-  useEffect(() => {
-    setIsMac(navigator.platform.toUpperCase().includes("MAC"));
+  return useMemo(() => {
+    if (typeof navigator === "undefined") return false;
+    const ua = navigator.userAgent;
+    return /Macintosh|Mac OS X/.test(ua) && !/iPhone|iPad|iPod/.test(ua);
   }, []);
-
-  return isMac;
 }
