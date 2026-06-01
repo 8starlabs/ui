@@ -1,11 +1,26 @@
-import React from "react";
+import {
+  VideoRoot,
+  VideoViewport,
+  VideoControls,
+  VideoPlayTrigger,
+  VideoFullscreenTrigger,
+  VideoProgressBar
+} from "./video-player";
 
 export default function TestPage() {
   return (
-    <div className="flex min-h-screen items-center justify-center">
-      <video controls className="h-[30rem] w-auto max-w-full" src="/sample.mp4">
-        Your browser does not support the video tag.
-      </video>
+    <div className="max-w-3xl mx-auto mt-10">
+      <VideoRoot className="rounded-xl shadow-lg aspect-video">
+        <VideoViewport src="/sample.mp4" />
+
+        <VideoControls className="flex flex-col gap-2">
+          <div className="flex items-center justify-between">
+            <VideoPlayTrigger />
+            <VideoProgressBar />
+            {/* <VideoFullscreenTrigger /> */}
+          </div>
+        </VideoControls>
+      </VideoRoot>
     </div>
   );
 }
