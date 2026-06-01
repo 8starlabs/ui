@@ -1,20 +1,29 @@
 "use client";
 
-import React, { createContext, useContext, useRef, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState
+} from "react";
 
 interface VideoContextType {
   videoRef: React.RefObject<HTMLVideoElement | null>;
   isPlaying: boolean;
-  progress: number;
-  duration: number;
+  videoProgress: number;
+  videoDuration: number;
   showControls: boolean;
+  isFullscreen: boolean;
   togglePlay: () => void;
   toggleFullscreen: () => void;
   // Setters for the native video events to update context
   setIsPlaying: (playing: boolean) => void;
-  setProgress: (progress: number) => void;
-  setDuration: (duration: number) => void;
+  setVideoProgress: (progress: number) => void;
+  setVideoDuration: (videoDuration: number) => void;
   setShowControls: (show: boolean) => void;
+  setVolume: (x: number) => void;
+  toggleMute: () => void;
 }
 
 const VideoContext = createContext<VideoContextType | null>(null);
@@ -34,9 +43,11 @@ export function VideoProvider({
 }): React.ReactElement {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [duration, setDuration] = useState(0);
+  const [videoProgress, setVideoProgress] = useState(0);
+  const [videoDuration, setVideoDuration] = useState(0);
   const [showControls, setShowControls] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const lastVolume = useRef<number>(1);
 
   const togglePlay = () => {
     if (videoRef.current) {
@@ -61,20 +72,56 @@ export function VideoProvider({
     }
   };
 
+  const setVolume = (volume: number) => {
+    if (videoRef.current) {
+      videoRef.current.volume = volume;
+      lastVolume.current = volume;
+    }
+  };
+
+  const toggleMute = () => {
+    if (!videoRef.current) return;
+
+    if (videoRef.current.muted) {
+      videoRef.current.muted = false;
+      videoRef.current.volume = lastVolume.current;
+    } else {
+      videoRef.current.muted = true;
+      lastVolume.current = videoRef.current.volume;
+    }
+  };
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      const container = videoRef.current?.parentElement;
+      setIsFullscreen(!!container && document.fullscreenElement === container);
+    };
+
+    handleFullscreenChange();
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+    };
+  }, []);
+
   return (
     <VideoContext.Provider
       value={{
         videoRef,
         isPlaying,
-        progress,
-        duration,
+        videoProgress,
+        videoDuration,
         showControls,
+        isFullscreen,
         togglePlay,
         toggleFullscreen,
         setIsPlaying,
-        setProgress,
-        setDuration,
-        setShowControls
+        setVideoProgress,
+        setVideoDuration,
+        setShowControls,
+        setVolume,
+        toggleMute
       }}
     >
       {children}
