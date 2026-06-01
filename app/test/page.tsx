@@ -11,14 +11,11 @@ export default function TestPage() {
   return (
     <div className="max-w-3xl mx-auto mt-10">
       <VideoRoot className="rounded-xl shadow-lg aspect-video">
-        <VideoViewport src="/sample.mp4" />
+        <VideoViewport src="/sample2.mp4" />
 
-        <VideoControls className="flex flex-col gap-2">
-          <div className="flex items-center justify-between">
-            <VideoPlayTrigger />
-            <VideoProgressBar />
-            {/* <VideoFullscreenTrigger /> */}
-          </div>
+        <VideoControls className="flex gap-2 items-center justify-between">
+          <VideoPlayTrigger />
+          <VideoProgressBar />
         </VideoControls>
       </VideoRoot>
     </div>

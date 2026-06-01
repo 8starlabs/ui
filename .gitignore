@@ -11,6 +11,7 @@
 !.yarn/versions
 
 /public/sample.mp4
+/public/sample2.mp4
 
 # testing
 /coverage

@@ -2,8 +2,8 @@
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { VideoProvider, useVideo } from "./video-context";
-import { Slider } from "@/registry/8starlabs-ui/ui/slider";
 import { Pause, Play } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 // -----------------------------------------------------------------------------
 // VideoRoot: Handles the Provider and the Inactivity Timeout Logic
@@ -148,8 +148,9 @@ export function VideoControls({
 
   return (
     <div
-      className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 transition-opacity duration-300 ${
-        showControls ? "opacity-100" : "opacity-0 pointer-events-none"
+      id="video-controls"
+      className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3 transition-opacity duration-300 ${
+        true ? "opacity-100" : "opacity-0 pointer-events-none"
       } ${className}`}
       {...props}
     >
@@ -173,10 +174,14 @@ export function VideoPlayTrigger({
   return (
     <button
       onClick={togglePlay}
-      className={`text-white p-2 ${className}`}
+      className={`text-white ${className}`}
       {...props}
     >
-      {isPlaying ? <Pause /> : <Play />}
+      {isPlaying ? (
+        <Pause fill="white" size={20} />
+      ) : (
+        <Play fill="white" size={20} />
+      )}
     </button>
   );
 }
@@ -202,90 +207,193 @@ export function VideoFullscreenTrigger({
 }
 
 export interface VideoProgressBarProps
-  extends React.ComponentPropsWithoutRef<typeof Slider> {}
+  extends React.ComponentPropsWithoutRef<"div"> {}
 
 export function VideoProgressBar({
   className = "",
   ...props
 }: VideoProgressBarProps): React.ReactElement {
   const { progress, duration, videoRef } = useVideo();
+  const wasPlayingRef = useRef(false);
 
   const percentage = duration > 0 ? (progress / duration) * 100 : 0;
 
-  const handleValueChange = (v: number[]) => {
+  const handleSeekVideo = (v: number) => {
     if (!videoRef.current || duration === 0) return;
-    const newTime = (v[0] / 100) * duration;
+    const newTime = (v / 100) * duration;
     videoRef.current.currentTime = newTime;
   };
 
+  const handleSeekStart = () => {
+    if (!videoRef.current) return;
+    wasPlayingRef.current = !videoRef.current.paused;
+    videoRef.current.pause();
+  };
+
+  const handleSeekEnd = () => {
+    if (!videoRef.current) return;
+    if (wasPlayingRef.current) {
+      videoRef.current.play();
+    }
+    wasPlayingRef.current = false;
+  };
+
   return (
-    <div className={`flex-1 ${className} flex items-center gap-2`}>
-      <span className="text-white text-sm">{formatTime(progress)}</span>
+    <div
+      className={`flex-1 ${className} flex items-center justify-center gap-2`}
+    >
+      <span className="text-white text-sm -translate-y-[0.7px]">
+        {formatTime(progress)}
+      </span>
       <VideoSeekSlider
         percentage={percentage}
         duration={duration}
-        onValueChange={handleValueChange}
+        handleSeekVideo={handleSeekVideo}
+        onSeekStart={handleSeekStart}
+        onSeekEnd={handleSeekEnd}
         {...props}
       />
-      <span className="text-white text-sm">{formatTime(duration)}</span>
+      <span className="text-white text-sm -translate-y-[0.7px]">
+        {formatTime(duration)}
+      </span>
     </div>
   );
 }
 
-interface VideoSeekSliderProps
-  extends Omit<
-    React.ComponentPropsWithoutRef<typeof Slider>,
-    "value" | "defaultValue"
-  > {
+interface VideoSeekSliderProps extends React.ComponentPropsWithoutRef<"div"> {
   percentage: number;
   duration: number;
+  handleSeekVideo: (value: number) => void;
+  onSeekStart: () => void;
+  onSeekEnd: () => void;
 }
 
 function VideoSeekSlider({
   percentage,
-  onValueChange,
+  handleSeekVideo,
+  onSeekStart,
+  onSeekEnd,
   duration,
   className = "",
   ...props
 }: VideoSeekSliderProps): React.ReactElement {
   const containerRef = useRef<HTMLDivElement | null>(null);
+  // x: pixels from left edge of slider container
   const [hover, setHover] = useState<{ x: number; time: number } | null>(null);
   const [isHovering, setIsHovering] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+
+  const getXOffsetandFraction = useCallback(
+    (clientX: number): { x: number; frac: number } | undefined => {
+      if (!containerRef.current || duration === 0) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const x = Math.min(Math.max(clientX - rect.left, 0), rect.width);
+      const frac = rect.width ? x / rect.width : 0;
+      return { x, frac };
+    },
+    [duration]
+  );
+
+  const updateHoverFromClientX = useCallback(
+    (clientX: number) => {
+      const val = getXOffsetandFraction(clientX);
+      if (!val) return;
+      setHover({ x: val.x, time: val.frac * duration });
+    },
+    [duration, getXOffsetandFraction]
+  );
 
   const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (!containerRef.current || duration === 0) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = Math.min(Math.max(event.clientX - rect.left, 0), rect.width);
-    const percent = rect.width ? x / rect.width : 0;
-    setHover({ x, time: percent * duration });
+    updateHoverFromClientX(event.clientX);
     setIsHovering(true);
   };
 
-  const handleMouseLeave = () => {
-    setIsHovering(false);
+  const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+    const val = getXOffsetandFraction(event.clientX);
+    if (!val) return;
+    setHover({ x: val.x, time: val.frac * duration });
+    setIsHovering(true);
+    setIsDragging(true);
+    onSeekStart();
+    handleSeekVideo(val.frac * 100);
   };
+
+  const handleMouseLeave = () => {
+    if (!isDragging) {
+      setIsHovering(false);
+    }
+  };
+
+  const handlePointerMove = useCallback(
+    (event: PointerEvent) => {
+      updateHoverFromClientX(event.clientX);
+      const val = getXOffsetandFraction(event.clientX);
+      if (!val) return;
+      handleSeekVideo(val.frac * 100);
+    },
+    [updateHoverFromClientX, getXOffsetandFraction, handleSeekVideo]
+  );
+
+  const handlePointerUp = useCallback(() => {
+    setIsDragging(false);
+    setIsHovering(false);
+    onSeekEnd();
+  }, [onSeekEnd]);
+
+  useEffect(() => {
+    if (!isDragging) return;
+
+    window.addEventListener("pointermove", handlePointerMove);
+    window.addEventListener("pointerup", handlePointerUp);
+
+    return () => {
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("pointerup", handlePointerUp);
+    };
+  }, [
+    isDragging,
+    duration,
+    updateHoverFromClientX,
+    handleSeekVideo,
+    getXOffsetandFraction,
+    handlePointerMove,
+    handlePointerUp
+  ]);
 
   return (
     <div
+      id="video-progress-bar"
       ref={containerRef}
-      className="relative flex-1"
+      className={cn("relative flex-1 h-1 translate-y-[0.4px]", className)}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      onPointerDown={handlePointerDown}
+      {...props}
     >
-      <Slider
-        value={[percentage]}
-        onValueChange={onValueChange}
-        className={`w-full ${className}`}
-        {...props}
+      <div
+        id="video-progress-bar-bg"
+        className="relative h-full w-full rounded-full bg-neutral-600"
       />
+      <div
+        id="video-progress-bar-fill"
+        className="pointer-events-none absolute left-0 top-0 h-full rounded-full bg-white"
+        style={{ width: `${percentage}%` }}
+      />
+
       {hover && (
         <div
-          className={`pointer-events-none absolute -top-7 z-10 rounded bg-black/80 px-2 py-0.5 text-xs text-white transition-opacity duration-200 ${
+          id="video-progress-bar-hover-time"
+          className={cn(
+            "pointer-events-none absolute -top-13 z-10 rounded text-sm text-white transition-opacity duration-200 flex flex-col items-center gap-[3px]",
             isHovering ? "opacity-100" : "opacity-0"
-          }`}
+          )}
           style={{ left: hover.x, transform: "translateX(-50%)" }}
         >
-          {formatTime(hover.time)}
+          <div className="flex flex-row items-center gap-1">
+            <span>{formatTime(hover.time)}</span>
+            <span className="opacity-50 whitespace-nowrap">{`/ ${formatTime(duration)}`}</span>
+          </div>
+          <div>|</div>
         </div>
       )}
     </div>
