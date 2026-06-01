@@ -2,7 +2,18 @@
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { VideoProvider, useVideo } from "./video-context";
-import { Maximize2, Minimize2, Pause, Play } from "lucide-react";
+import {
+  ChevronDown,
+  ChevronUp,
+  Maximize2,
+  Minimize2,
+  Pause,
+  Play,
+  Volume,
+  Volume1,
+  Volume2,
+  VolumeOff
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // -----------------------------------------------------------------------------
@@ -179,40 +190,114 @@ export function VideoSoundControl({
 }: VideoSoundControlProps) {
   const { videoRef, toggleMute, setVolume } = useVideo();
 
-  const [volume, setVolumeState] = useState(100);
+  const [localVolume, setLocalVolume] = useState<number>(1);
+  const [localMuted, setLocalMuted] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (!videoRef.current) return;
-    setVolumeState(Math.round(videoRef.current.volume * 100));
-  }, [videoRef]);
+  const [isVolumeDragging, setIsVolumeDragging] = useState(false);
+  const [showVolumeSlider, setShowVolumeSlider] = useState(false);
+  const sliderRef = useRef<HTMLDivElement | null>(null);
 
-  const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const next = Number(event.target.value);
-    setVolumeState(next);
-    setVolume(next / 100);
+  const setVolumeFromClientY = useCallback(
+    (clientY: number) => {
+      if (!sliderRef.current) return;
+      const rect = sliderRef.current.getBoundingClientRect();
+      const y = Math.min(Math.max(clientY - rect.top, 0), rect.height);
+      const frac = rect.height ? 1 - y / rect.height : 0;
+      setVolume(frac);
+      toggleMute(frac === 0);
+    },
+    [setVolume, toggleMute]
+  );
+
+  const handleSliderPointerDown = (
+    event: React.PointerEvent<HTMLDivElement>
+  ) => {
+    setIsVolumeDragging(true);
+    setShowVolumeSlider(true);
+    setVolumeFromClientY(event.clientY);
   };
 
+  useEffect(() => {
+    if (!isVolumeDragging) return;
+
+    const handlePointerMove = (event: PointerEvent) => {
+      setVolumeFromClientY(event.clientY);
+    };
+
+    const handlePointerUp = () => {
+      setIsVolumeDragging(false);
+    };
+
+    window.addEventListener("pointermove", handlePointerMove);
+    window.addEventListener("pointerup", handlePointerUp);
+
+    return () => {
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("pointerup", handlePointerUp);
+    };
+  }, [isVolumeDragging, setVolumeFromClientY]);
+
+  useEffect(() => {
+    const videoElement = videoRef.current;
+    if (!videoElement) return;
+    const sync = () => {
+      setLocalMuted(videoElement.muted);
+      setLocalVolume(videoElement.volume);
+    };
+    sync();
+    videoElement.addEventListener("volumechange", sync);
+    return () => videoElement.removeEventListener("volumechange", sync);
+  }, [videoRef]);
+
+  const iconToDisplay = (() => {
+    if (localMuted) {
+      return <VolumeOff size={18} fill="white" />;
+    } else if (localVolume < 0.33) {
+      return <Volume size={18} fill="white" />;
+    } else if (localVolume < 0.67) {
+      return <Volume1 size={18} fill="white" />;
+    } else {
+      return <Volume2 size={18} fill="white" />;
+    }
+  })();
+
   return (
-    <div className={cn("flex items-center gap-2", className)}>
+    <div className={cn("relative flex items-center gap-1", className)}>
       <button
         type="button"
-        onClick={toggleMute}
-        className="text-white text-xs"
+        onClick={() => toggleMute(!localMuted)}
+        className="text-white hover:cursor-pointer"
         {...props}
       >
-        Mute
+        {iconToDisplay}
       </button>
-      <input
-        aria-label="Volume"
-        type="range"
-        min={0}
-        max={100}
-        step={1}
-        value={volume}
-        onChange={handleVolumeChange}
-        className="h-20 w-2"
-        style={{ writingMode: "vertical-rl" }}
-      />
+      <button
+        type="button"
+        onClick={() => setShowVolumeSlider((prev) => !prev)}
+        className="text-white hover:cursor-pointer"
+        aria-label={showVolumeSlider ? "Hide volume" : "Show volume"}
+      >
+        {showVolumeSlider ? <ChevronDown size={16} /> : <ChevronUp size={16} />}
+      </button>
+      <div
+        className={cn(
+          "absolute -top-22 left-[27px] h-20 w-1 transition-opacity duration-150",
+          showVolumeSlider
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
+        )}
+      >
+        <div
+          ref={sliderRef}
+          className="relative h-full w-full rounded-full bg-neutral-600"
+          onPointerDown={handleSliderPointerDown}
+        >
+          <div
+            className="pointer-events-none absolute bottom-0 left-0 w-full rounded-full bg-white"
+            style={{ height: `${localVolume * 100}%` }}
+          />
+        </div>
+      </div>
     </div>
   );
 }
@@ -271,7 +356,7 @@ export function VideoProgressBar({
   className = "",
   ...props
 }: VideoProgressBarProps): React.ReactElement {
-  const { videoProgress, videoDuration, videoRef } = useVideo();
+  const { videoProgress, videoDuration } = useVideo();
 
   return (
     <div

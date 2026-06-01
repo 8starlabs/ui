@@ -17,13 +17,12 @@ interface VideoContextType {
   isFullscreen: boolean;
   togglePlay: () => void;
   toggleFullscreen: () => void;
-  // Setters for the native video events to update context
   setIsPlaying: (playing: boolean) => void;
   setVideoProgress: (progress: number) => void;
   setVideoDuration: (videoDuration: number) => void;
   setShowControls: (show: boolean) => void;
   setVolume: (x: number) => void;
-  toggleMute: () => void;
+  toggleMute: (x: boolean) => void;
 }
 
 const VideoContext = createContext<VideoContextType | null>(null);
@@ -47,7 +46,6 @@ export function VideoProvider({
   const [videoDuration, setVideoDuration] = useState(0);
   const [showControls, setShowControls] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const lastVolume = useRef<number>(1);
 
   const togglePlay = () => {
     if (videoRef.current) {
@@ -75,20 +73,12 @@ export function VideoProvider({
   const setVolume = (volume: number) => {
     if (videoRef.current) {
       videoRef.current.volume = volume;
-      lastVolume.current = volume;
     }
   };
 
-  const toggleMute = () => {
+  const toggleMute = (muted: boolean) => {
     if (!videoRef.current) return;
-
-    if (videoRef.current.muted) {
-      videoRef.current.muted = false;
-      videoRef.current.volume = lastVolume.current;
-    } else {
-      videoRef.current.muted = true;
-      lastVolume.current = videoRef.current.volume;
-    }
+    videoRef.current.muted = muted;
   };
 
   useEffect(() => {

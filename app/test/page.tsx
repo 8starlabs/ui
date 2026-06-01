@@ -14,7 +14,7 @@ export default function TestPage() {
       <VideoRoot className="rounded-xl shadow-lg aspect-video">
         <VideoViewport src="/sample.mp4" />
 
-        <VideoControls className="flex gap-3 items-center justify-between">
+        <VideoControls className="flex gap-4 items-center justify-between">
           <VideoPlayTrigger />
           <VideoSoundControl />
           <VideoProgressBar />
