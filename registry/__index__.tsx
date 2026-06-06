@@ -10,6 +10,7 @@ import status_indicator_component from "@/registry/8starlabs-ui/blocks/status-in
 import system_banner_component from "@/registry/8starlabs-ui/blocks/system-banner";
 import timeline_component from "@/registry/8starlabs-ui/blocks/timeline";
 import transport_badge_component from "@/registry/8starlabs-ui/blocks/transport-badge";
+import video_player_component from "@/registry/8starlabs-ui/blocks/video-player";
 import button_demo_component from "@/registry/8starlabs-ui/examples/button-demo";
 import flip_clock_countdown_demo_component from "@/registry/8starlabs-ui/examples/flip-clock-countdown-demo";
 import flip_clock_demo_component from "@/registry/8starlabs-ui/examples/flip-clock-demo";
@@ -48,6 +49,7 @@ import transport_badge_demo_single_station_component from "@/registry/8starlabs-
 import transport_badge_demo_sizes_component from "@/registry/8starlabs-ui/examples/transport-badge-demo-sizes";
 import transport_badge_demo_station_name_component from "@/registry/8starlabs-ui/examples/transport-badge-demo-station-name";
 import transport_badge_demo_component from "@/registry/8starlabs-ui/examples/transport-badge-demo";
+import video_player_demo_component from "@/registry/8starlabs-ui/examples/video-player-demo";
 
 export const Index: Record<string, any> = {
   "8starlabs-ui": {
@@ -160,6 +162,16 @@ export const Index: Record<string, any> = {
         target: "components/8starlabs-ui/transport-badge.tsx"
       }],
       component: transport_badge_component
+    },
+    "video-player": {
+      name: "video-player",
+      type: "registry:block",
+      files: [{
+        path: "registry/8starlabs-ui/blocks/video-player.tsx",
+        type: "registry:block",
+        target: "components/8starlabs-ui/video-player.tsx"
+      }],
+      component: video_player_component
     },
     "button-demo": {
       name: "button-demo",
@@ -540,6 +552,16 @@ export const Index: Record<string, any> = {
         target: "components/8starlabs-ui/examples/transport-badge-demo.tsx"
       }],
       component: transport_badge_demo_component
+    },
+    "video-player-demo": {
+      name: "video-player-demo",
+      type: "registry:example",
+      files: [{
+        path: "registry/8starlabs-ui/examples/video-player-demo.tsx",
+        type: "registry:example",
+        target: "components/8starlabs-ui/examples/video-player-demo.tsx"
+      }],
+      component: video_player_demo_component
     },
   }
 };
