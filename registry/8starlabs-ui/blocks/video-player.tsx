@@ -11,8 +11,10 @@ import React, {
 import {
   ChevronDown,
   ChevronUp,
+  AlertCircle,
   Maximize2,
   Minimize2,
+  Loader2,
   Pause,
   PictureInPicture2,
   Play,
@@ -22,11 +24,13 @@ import {
   VolumeOff
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Button } from "@/registry/8starlabs-ui/blocks/button";
 
-// todo: error handling: show some alternative UI in the video viewport.
 interface VideoContextType {
   videoRef: React.RefObject<HTMLVideoElement | null>;
   isPlaying: boolean;
+  isBuffering: boolean;
+  hasError: boolean;
   videoProgress: number;
   videoDuration: number;
   showControls: boolean;
@@ -34,9 +38,11 @@ interface VideoContextType {
   isMouseOverControls: boolean;
   isPip: boolean;
   isVolumeControlOpen: boolean;
-  togglePlay: () => void;
+  attemptTogglePlay: () => void;
   toggleFullscreen: () => void;
   setIsPlaying: (playing: boolean) => void;
+  setIsBuffering: (buffering: boolean) => void;
+  setHasError: (hasError: boolean) => void;
   setVideoProgress: (progress: number) => void;
   setVideoDuration: (videoDuration: number) => void;
   setShowControls: (show: boolean) => void;
@@ -64,6 +70,8 @@ export function VideoProvider({
 }): React.ReactElement {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isBuffering, setIsBuffering] = useState(false);
+  const [hasError, setHasError] = useState(false);
   const [videoProgress, setVideoProgress] = useState(0);
   const [videoDuration, setVideoDuration] = useState(0);
   const [showControls, setShowControls] = useState(false);
@@ -73,7 +81,8 @@ export function VideoProvider({
   const [isVolumeControlOpen, setIsVolumeControlOpen] = useState(false);
 
   // Toggle play/pause state of the video
-  const togglePlay = async () => {
+  const attemptTogglePlay = async () => {
+    if (isBuffering || hasError) return;
     if (videoRef.current) {
       if (videoRef.current.paused) {
         try {
@@ -144,14 +153,14 @@ export function VideoProvider({
     }
   };
 
+  const handleFullscreenChange = () => {
+    const container = videoRef.current?.parentElement;
+    setIsFullscreen(!!container && document.fullscreenElement === container);
+    setIsVolumeControlOpen(false);
+  };
+
   // Listen for fullscreen changes to update the isFullscreen state accordingly
   useEffect(() => {
-    const handleFullscreenChange = () => {
-      const container = videoRef.current?.parentElement;
-      setIsFullscreen(!!container && document.fullscreenElement === container);
-      setIsVolumeControlOpen(false);
-    };
-
     handleFullscreenChange();
     document.addEventListener("fullscreenchange", handleFullscreenChange);
 
@@ -165,6 +174,8 @@ export function VideoProvider({
       value={{
         videoRef,
         isPlaying,
+        isBuffering,
+        hasError,
         videoProgress,
         videoDuration,
         showControls,
@@ -172,9 +183,11 @@ export function VideoProvider({
         isMouseOverControls,
         isPip,
         isVolumeControlOpen,
-        togglePlay,
+        attemptTogglePlay,
         toggleFullscreen,
         setIsPlaying,
+        setIsBuffering,
+        setHasError,
         setVideoProgress,
         setVideoDuration,
         setShowControls,
@@ -250,9 +263,9 @@ function VideoContainer({
 // -----------------------------------------------------------------------------
 // VideoViewport: The actual HTML5 Video Tag
 // -----------------------------------------------------------------------------
-// todo: Add a loading / buffering state with poster support for slow public video sources.
+
 export interface VideoViewportProps
-  extends React.ComponentPropsWithoutRef<"video"> {}
+  extends Omit<React.ComponentPropsWithoutRef<"video">, "controls"> {}
 
 export function VideoViewport({
   src,
@@ -262,12 +275,18 @@ export function VideoViewport({
   const {
     videoRef,
     setIsPlaying,
+    setIsBuffering,
+    setHasError,
     setVideoProgress,
     setVideoDuration,
     isPlaying,
-    setIsVolumeControlOpen
+    isBuffering,
+    hasError,
+    setIsVolumeControlOpen,
+    attemptTogglePlay
   } = useVideo();
   const rafRef = useRef<number | null>(null);
+  const shouldResumeAfterBufferRef = useRef(false);
 
   // function to sync duration metadata to context state
   const syncDuration = useCallback(
@@ -310,29 +329,109 @@ export function VideoViewport({
     };
   }, [isPlaying, setVideoProgress, videoRef]);
 
+  const handleBufferingStart = useCallback(() => {
+    const videoElement = videoRef.current;
+    if (!videoElement) return;
+
+    shouldResumeAfterBufferRef.current = true;
+    setIsBuffering(true);
+  }, [videoRef, setIsBuffering]);
+
+  const handleBufferingEnd = useCallback(() => {
+    const videoElement = videoRef.current;
+    if (!videoElement) return;
+    if (shouldResumeAfterBufferRef.current) {
+      shouldResumeAfterBufferRef.current = false;
+      videoElement.play().catch((error) => {
+        console.warn("Video playback could not resume after buffering:", error);
+      });
+    }
+    setIsBuffering(false);
+  }, [videoRef, setIsBuffering]);
+
+  const handleRetry = () => {
+    const videoElement = videoRef.current;
+    if (!videoElement) return;
+
+    setHasError(false);
+    setIsBuffering(true);
+    shouldResumeAfterBufferRef.current = false;
+    videoElement.load();
+  };
+
   return (
-    <video
-      ref={videoRef}
-      src={src}
-      className={`w-full h-full object-cover ${className}`}
-      onPlay={() => {
-        setIsPlaying(true);
-        setIsVolumeControlOpen(false);
-      }}
-      onPause={() => {
-        setIsPlaying(false);
-        setIsVolumeControlOpen(false);
-      }}
-      onLoadedMetadata={(e) => syncDuration(e.currentTarget)}
-      onClick={() => {
-        if (videoRef.current?.paused) videoRef.current.play();
-        else videoRef.current?.pause();
-      }}
-      onError={(e) => {
-        console.error("Video element failed to stream source asset:", e);
-      }}
-      {...props}
-    />
+    <div className="relative h-full w-full">
+      <video
+        ref={videoRef}
+        src={src}
+        className={`w-full h-full object-cover ${className}`}
+        // fires when the video transitions from pause to active state
+        // when .play() is successfully invoked
+        onPlay={() => {
+          setIsPlaying(true);
+          setIsVolumeControlOpen(false);
+        }}
+        // fires when playback is halted
+        // when .pause() is successfully invoked
+        onPause={() => {
+          setIsPlaying(false);
+          setIsVolumeControlOpen(false);
+        }}
+        // fires when the browser begins looking for the media resource
+        // when `src` is resolved or updated
+        onLoadStart={() => setIsBuffering(true)}
+        // fires when the basic structural properties of the video are parsed
+        // when browser resolved duration, dimensions and text/audio tracks
+        onLoadedMetadata={(e) => syncDuration(e.currentTarget)}
+        // fires when first frame of video is downloaded and decoded
+        onLoadedData={handleBufferingEnd}
+        // fires when browser believes it can begin playing video
+        onCanPlay={handleBufferingEnd}
+        // fires when browser believes it can begin playing entire video from start to finish without pausing to buffer.
+        onCanPlayThrough={handleBufferingEnd}
+        // fires when playback unexpectedly stops because next frame is not available
+        onWaiting={handleBufferingStart}
+        // fires when browser is trying to fetch media data but server stopped sending it
+        onStalled={handleBufferingStart}
+        // fires when user clicks inside boundary of video element canvas
+        onClick={attemptTogglePlay}
+        // fires on fatal breakdown that prevents video from loading or playing:
+        // CORS, 403, etc
+        onError={(e) => {
+          setIsBuffering(false);
+          setIsPlaying(false);
+          setHasError(true);
+          shouldResumeAfterBufferRef.current = false;
+          console.error("Video element failed to stream source asset:", e);
+        }}
+        // explicitly tell browser to not render its own video controls UI
+        controls={false}
+        {...props}
+      />
+
+      {hasError && (
+        <div className="absolute inset-0 z-20 flex flex-col gap-2 items-center justify-center bg-black/80 text-center cursor-default">
+          <AlertCircle className="mx-auto text-red-300" size={20} />
+          <p className="text-sm text-white font-medium">Video failed to load</p>
+          <p className="text-sm text-white/70">
+            The video source could not be found or the browser could not play
+            it.
+          </p>
+          <Button variant="secondary" size="sm" onClick={handleRetry}>
+            Retry
+          </Button>
+        </div>
+      )}
+
+      {isBuffering && (
+        <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center bg-radial from-black/80 to-black/30">
+          <div className="flex items-center gap-3 text-sm text-white">
+            <Loader2 className="animate-spin" size={16} />
+            Loading video...
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -535,18 +634,22 @@ export function VideoPlayTrigger({
   className = "",
   ...props
 }: VideoPlayTriggerProps): React.ReactElement {
-  const { isPlaying, togglePlay } = useVideo();
+  const { isPlaying, isBuffering, attemptTogglePlay } = useVideo();
 
   return (
     <button
-      onClick={togglePlay}
-      className={`relative group/button text-white hover:cursor-pointer ${className}`}
+      onClick={attemptTogglePlay}
+      disabled={isBuffering}
+      aria-busy={isBuffering}
+      className={`relative group/button text-white hover:cursor-pointer disabled:cursor-wait disabled:opacity-60 ${className}`}
       {...props}
     >
       <span className="pointer-events-none absolute -top-7 left-1/2 -translate-x-1/2 text-xs text-white opacity-0 transition-opacity duration-150 group-hover/button:opacity-100">
-        {isPlaying ? "Pause" : "Play"}
+        {isBuffering ? "" : isPlaying ? "Pause" : "Play"}
       </span>
-      {isPlaying ? (
+      {isBuffering ? (
+        <Loader2 className="animate-spin" size={18} />
+      ) : isPlaying ? (
         <Pause fill="white" size={18} />
       ) : (
         <Play fill="white" size={18} />
@@ -690,9 +793,10 @@ function VideoSeekSlider({
   const handlePointerUp = useCallback(() => {
     setIsDragging(false);
     setIsHovering(false);
-    if (!videoRef.current) return;
-    if (wasPlayingRef.current) {
-      videoRef.current.play();
+    if (videoRef.current && wasPlayingRef.current) {
+      videoRef.current.play().catch((error) => {
+        console.warn("Video playback could not resume after seeking:", error);
+      });
     }
     wasPlayingRef.current = false;
   }, [videoRef]);

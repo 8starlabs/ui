@@ -11,7 +11,7 @@ import VideoRoot, {
 export default function VideoPlayerDemo() {
   return (
     <VideoRoot className="rounded-lg">
-      <VideoViewport src="/sample_scenery.mp4" />
+      <VideoViewport src="https://vjs.zencdn.net/v/oceans.mp4" />
 
       <VideoControls className="flex gap-4 items-center justify-between">
         <VideoPlayTrigger />

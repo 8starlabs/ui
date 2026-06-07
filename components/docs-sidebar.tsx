@@ -31,8 +31,6 @@ const TOP_LEVEL_SECTIONS = [
 const EXCLUDED_SECTIONS = ["(root)"];
 const EXCLUDED_PAGES = ["/docs", "/docs/changelog"];
 
-const NEW_COMPONENTS = [];
-
 export function DocsSidebar({
   tree,
   ...props
