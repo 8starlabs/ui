@@ -44,3 +44,9 @@ next-env.d.ts
 
 # generated content
 .source
+
+# gemini-cli settings
+.gemini/
+
+# GitHub Action credentials
+gha-creds-*.json

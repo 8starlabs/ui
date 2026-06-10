@@ -159,6 +159,40 @@ detail into nearby `references/` files.
    - Include screenshots for UI changes
    - Describe your changes and the rationale behind them
 
+## AI-assisted PR review
+
+This repository includes an open-source, free-tier-friendly Gemini CLI review
+workflow for pull requests. Maintainers should add a `GEMINI_API_KEY`
+repository secret from Google AI Studio before the workflow can run with Gemini
+API free quotas. Optional repository variables such as `GEMINI_MODEL`,
+`GEMINI_CLI_VERSION`, `GOOGLE_GENAI_USE_VERTEXAI`, and `GOOGLE_GENAI_USE_GCA`
+can be used to tune the runtime without editing the workflow.
+
+The workflow reviews same-repository pull requests automatically when they are
+opened or reopened. Fork pull requests do not run automatically, so repository
+secrets are not exposed to untrusted forks. An `OWNER`, `MEMBER`, or
+`COLLABORATOR` can request a review manually by starting a pull request comment,
+pull request review, or review-thread comment with:
+
+```text
+@gemini-cli /review
+```
+
+Anything after the command is passed to the reviewer as additional context, for
+example:
+
+```text
+@gemini-cli /review focus on accessibility and registry installability
+```
+
+The reviewer posts GitHub review comments only. It does not run shell commands
+against pull request code because the Gemini CLI core tools are disabled in the
+workflow settings. When changing these workflows, run:
+
+```bash
+pnpm test:workflows
+```
+
 ## Documentation Standards
 
 - Be Clear: Use simple, clear language

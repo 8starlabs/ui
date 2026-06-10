@@ -8,9 +8,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
+    "test": "node --test scripts/validate-gemini-workflows.test.mjs && node scripts/validate-gemini-workflows.mjs",
     "registry:build": "shadcn build && prettier --write \"public/r/*.json\" --cache",
     "registry:generate-index": "tsx ./scripts/generate-index.mts && prettier --write \"registry/**/*.{ts,tsx,json,mdx}\" --cache",
     "prepare": "husky",
+    "test:workflows": "node scripts/validate-gemini-workflows.mjs",
     "tscheck": "tsc --noEmit"
   },
   "lint-staged": {

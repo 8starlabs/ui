@@ -1,0 +1,107 @@
+name: Gemini Dispatch
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+  pull_request_review_comment:
+    types:
+      - created
+  pull_request_review:
+    types:
+      - submitted
+  issue_comment:
+    types:
+      - created
+  workflow_dispatch:
+    inputs:
+      pull_request_number:
+        description: Pull request number to review
+        required: true
+        type: string
+      additional_context:
+        description: Optional review focus or instructions
+        required: false
+        type: string
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  dispatch:
+    if: |-
+      github.event_name == 'workflow_dispatch' || (
+        github.event_name == 'pull_request' &&
+        github.event.pull_request.head.repo.fork == false
+      ) || (
+        github.event_name == 'issue_comment' &&
+        github.event.issue.pull_request &&
+        github.event.sender.type == 'User' &&
+        startsWith((github.event.comment.body || ''), '@gemini-cli /review') &&
+        contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.comment.author_association)
+      ) || (
+        github.event_name == 'pull_request_review' &&
+        github.event.sender.type == 'User' &&
+        startsWith((github.event.review.body || ''), '@gemini-cli /review') &&
+        contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.review.author_association)
+      ) || (
+        github.event_name == 'pull_request_review_comment' &&
+        github.event.sender.type == 'User' &&
+        startsWith((github.event.comment.body || ''), '@gemini-cli /review') &&
+        contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.comment.author_association)
+      )
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      additional_context: ${{ steps.request.outputs.additional_context }}
+      pull_request_number: ${{ steps.request.outputs.pull_request_number }}
+    steps:
+      - name: Extract review request
+        id: request
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          MANUAL_CONTEXT: ${{ inputs.additional_context || '' }}
+          MANUAL_PULL_REQUEST_NUMBER: ${{ inputs.pull_request_number || '' }}
+          PULL_REQUEST_NUMBER: ${{ github.event.pull_request.number || github.event.issue.number || '' }}
+          REQUEST_BODY: ${{ github.event.comment.body || github.event.review.body || '' }}
+        with:
+          script: |
+            const eventName = process.env.EVENT_NAME;
+            const trigger = /^@gemini-cli\s+\/review\b/i;
+            const requestBody = process.env.REQUEST_BODY ?? "";
+            const manualPullRequestNumber = process.env.MANUAL_PULL_REQUEST_NUMBER ?? "";
+            const eventPullRequestNumber = process.env.PULL_REQUEST_NUMBER ?? "";
+            const pullRequestNumber =
+              eventName === "workflow_dispatch"
+                ? manualPullRequestNumber
+                : eventPullRequestNumber;
+
+            if (!pullRequestNumber) {
+              core.setFailed("Unable to resolve a pull request number for Gemini review.");
+              return;
+            }
+
+            const additionalContext =
+              eventName === "workflow_dispatch"
+                ? process.env.MANUAL_CONTEXT ?? ""
+                : requestBody.replace(trigger, "").trim();
+
+            core.setOutput("additional_context", additionalContext);
+            core.setOutput("pull_request_number", pullRequestNumber);
+
+  review:
+    needs: dispatch
+    uses: ./.github/workflows/gemini-review.yml
+    permissions:
+      contents: read
+      id-token: write
+      issues: write
+      pull-requests: write
+    with:
+      additional_context: ${{ needs.dispatch.outputs.additional_context }}
+      pull_request_number: ${{ needs.dispatch.outputs.pull_request_number }}
+    secrets: inherit
