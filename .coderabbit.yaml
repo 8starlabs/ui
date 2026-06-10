@@ -1,0 +1,91 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: "en-US"
+early_access: false
+enable_free_tier: true
+
+reviews:
+  profile: "chill"
+  request_changes_workflow: false
+  high_level_summary: true
+  high_level_summary_in_walkthrough: true
+  review_status: true
+  review_details: true
+  commit_status: true
+  fail_commit_status: false
+  collapse_walkthrough: true
+  changed_files_summary: true
+  sequence_diagrams: false
+  estimate_code_review_effort: true
+  assess_linked_issues: true
+  related_issues: true
+  related_prs: true
+  suggested_labels: true
+  auto_apply_labels: false
+  suggested_reviewers: false
+  auto_assign_reviewers: false
+  in_progress_fortune: false
+  poem: false
+  enable_prompt_for_ai_agents: true
+  abort_on_close: true
+  path_filters:
+    - "!pnpm-lock.yaml"
+    - "!public/r/**"
+    - "!registry/__index__.tsx"
+  path_instructions:
+    - path: "registry/8starlabs-ui/blocks/**/*.{ts,tsx}"
+      instructions: >-
+        Review component changes for stable public APIs, accessible interaction
+        states, shadcn-compatible import paths, Tailwind class merging, and
+        backwards-compatible defaults. Flag stale examples, docs, or registry
+        metadata whenever component behavior changes.
+    - path: "registry/8starlabs-ui/examples/**/*.{ts,tsx}"
+      instructions: >-
+        Review examples as public documentation. Confirm they compile, remain
+        copy-paste friendly, and demonstrate the current component API without
+        hidden local assumptions.
+    - path: "lib/docs/**/*.mdx"
+      instructions: >-
+        Review docs for installation accuracy, working component preview names,
+        current prop tables, and plain contributor-friendly language.
+    - path: ".github/**/*"
+      instructions: >-
+        Review GitHub configuration for least-privilege permissions, safe
+        external-service triggers, and clear maintainer ownership.
+  auto_review:
+    enabled: false
+    auto_incremental_review: false
+    auto_pause_after_reviewed_commits: 3
+    drafts: false
+    labels:
+      - "review-ready"
+    ignore_title_keywords:
+      - "WIP"
+      - "DO NOT MERGE"
+      - "[skip review]"
+    ignore_usernames:
+      - "dependabot[bot]"
+      - "github-actions[bot]"
+
+chat:
+  art: false
+  allow_non_org_members: false
+  auto_reply: false
+
+knowledge_base:
+  opt_out: false
+  web_search:
+    enabled: true
+  code_guidelines:
+    enabled: true
+    filePatterns:
+      - "AGENTS.md"
+      - "CONTRIBUTING.md"
+      - "skills/**/*.md"
+  learnings:
+    scope: "local"
+  issues:
+    scope: "local"
+  pull_requests:
+    scope: "local"
+  mcp:
+    usage: "auto"

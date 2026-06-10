@@ -123,6 +123,29 @@ Please include:
 - A closing keyword in the PR description, such as `Closes #123`, `Fixes #123`, or `Resolves #123`, when the PR should automatically close an issue after merge. See GitHub's guide on [linking a pull request to an issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue).
 - The reason or context behind the change
 
+### AI-assisted PR review
+
+This repository is prepared for free, maintainer-triggered AI review on pull
+requests.
+
+- CodeRabbit: install the
+  [CodeRabbit GitHub App](https://docs.coderabbit.ai/platforms/github-com) for
+  the public `8starlabs/ui` repository. Open-source repositories are eligible
+  for CodeRabbit's OSS plan, and this repo's `.coderabbit.yaml` keeps automatic
+  reviews off so review quota is used only when maintainers opt in.
+- Maintainer trigger: comment `@coderabbitai full review` on a pull request for
+  a complete first pass, then use `@coderabbitai review` after follow-up commits
+  for incremental review. Maintainers can also apply the `review-ready` label to
+  request a CodeRabbit review without leaving a command comment.
+- Optional Codex trigger: if
+  [Codex code review](https://developers.openai.com/codex/integrations/github)
+  is enabled for this repository in ChatGPT/Codex settings, comment
+  `@codex review` on the pull request.
+- AI review is advisory. Human maintainers still own final approval, merge
+  decisions, and any requested changes.
+- Review guidance lives in `AGENTS.md`, which Codex reads directly and
+  CodeRabbit includes through its code-guidelines configuration.
+
 ## Project Structure
 
 ```
