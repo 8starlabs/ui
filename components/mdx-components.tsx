@@ -127,9 +127,11 @@ export const mdxComponents = {
       {...props}
     />
   ),
-  img: ({ className, alt, ...props }: React.ComponentProps<"img">) => (
-    <img className={cn("rounded-md", className)} alt={alt} {...props} />
-  ),
+  img: ({ className, alt, ...props }: React.ComponentProps<"img">) => {
+    // MDX markdown images may not provide dimensions, so keep the native element.
+    // eslint-disable-next-line @next/next/no-img-element
+    return <img className={cn("rounded-md", className)} alt={alt} {...props} />;
+  },
   hr: ({ ...props }: React.ComponentProps<"hr">) => (
     <hr className="my-4 md:my-8" {...props} />
   ),

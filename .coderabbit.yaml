@@ -1,0 +1,72 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: "en-US"
+early_access: false
+
+reviews:
+  profile: "chill"
+  request_changes_workflow: false
+  high_level_summary: true
+  poem: false
+  review_status: true
+  review_details: false
+  enable_prompt_for_ai_agents: true
+
+  auto_review:
+    enabled: false
+    description_keyword: ""
+    auto_incremental_review: false
+    auto_pause_after_reviewed_commits: 5
+    drafts: false
+    ignore_title_keywords:
+      - "WIP"
+      - "[skip review]"
+    ignore_usernames:
+      - "dependabot[bot]"
+      - "renovate[bot]"
+      - "github-actions[bot]"
+
+  path_filters:
+    - "!public/r/**"
+    - "!registry/__index__.tsx"
+    - "!pnpm-lock.yaml"
+    - "!**/*.png"
+    - "!**/*.jpg"
+    - "!**/*.jpeg"
+    - "!**/*.gif"
+    - "!**/*.ico"
+    - "!**/*.svg"
+
+  path_instructions:
+    - path: "registry/8starlabs-ui/blocks/**"
+      instructions: |
+        Review registry blocks as public API. Flag broken TypeScript props,
+        hydration risks, inaccessible interactions, unstable layouts, and
+        Tailwind class combinations that break documented variants. If a block
+        API changes, verify that matching examples, docs, registry metadata,
+        and generated output expectations are updated.
+    - path: "registry/8starlabs-ui/examples/**"
+      instructions: |
+        Examples should compile as standalone shadcn registry examples, import
+        from the local registry paths, and demonstrate realistic usage without
+        relying on hidden app state. Flag stale examples when component props or
+        behavior change.
+    - path: "lib/docs/**"
+      instructions: |
+        Documentation must stay accurate for install commands, import paths,
+        prop descriptions, accessibility notes, and examples. Flag docs that
+        drift from the component API or omit required setup details.
+    - path: ".github/**"
+      instructions: |
+        Review GitHub automation with least privilege in mind. Flag workflows
+        that expose secrets to forked pull requests, use pull_request_target
+        with untrusted checkout, omit pinned permissions, or skip repository
+        validation commands.
+
+  tools:
+    eslint:
+      enabled: true
+    yamllint:
+      enabled: true
+
+chat:
+  auto_reply: true

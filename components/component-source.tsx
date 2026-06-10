@@ -38,7 +38,10 @@ export async function ComponentSource({
   }
 
   if (src) {
-    const file = await fs.readFile(path.join(process.cwd(), src), "utf-8");
+    const file = await fs.readFile(
+      path.join(/*turbopackIgnore: true*/ process.cwd(), src),
+      "utf-8"
+    );
     code = file;
   }
 

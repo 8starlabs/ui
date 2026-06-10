@@ -29,7 +29,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
-    "scripts/generate-index.mts"
+    "scripts/*.mts"
   ],
   "exclude": ["node_modules"]
 }

@@ -123,6 +123,52 @@ Please include:
 - A closing keyword in the PR description, such as `Closes #123`, `Fixes #123`, or `Resolves #123`, when the PR should automatically close an issue after merge. See GitHub's guide on [linking a pull request to an issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue).
 - The reason or context behind the change
 
+## Pull Request Review Automation
+
+This repository is configured for free, opt-in AI-assisted pull request review
+on public open-source work through CodeRabbit. Automatic reviews are disabled
+in `.coderabbit.yaml` so the project does not spend review allowance on every
+push; request a review only when the PR is ready for feedback.
+
+To request a review, leave a top-level pull request comment:
+
+```text
+@coderabbitai review
+```
+
+Use a full re-review after large rebases or broad rewrites:
+
+```text
+@coderabbitai full review
+```
+
+Maintainers still need to install the CodeRabbit GitHub app for
+`8starlabs/ui` before these commands can run. CodeRabbit's open-source plan
+supports unlimited public repositories with no credit card, subject to OSS
+rate limits.
+
+If maintainers enable OpenAI Codex code review later, the same review guidance
+in `AGENTS.md` applies. Codex can be requested with:
+
+```text
+@codex review
+```
+
+AI review is an additional signal, not a replacement for human maintainer
+review or CI.
+
+Before asking for review, run the same local checks used by CI when practical:
+
+```bash
+npm test
+pnpm review:validate
+pnpm lint
+pnpm tscheck
+pnpm registry:generate-index
+pnpm registry:build
+pnpm build
+```
+
 ## Project Structure
 
 ```
