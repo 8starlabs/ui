@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "video-player-minimal-controls-demo",
+  "type": "registry:example",
+  "title": "Video Player Minimal Controls",
+  "description": "A video player demo with only play and seek controls",
+  "registryDependencies": ["https://ui.8starlabs.com/r/video-player.json"],
+  "files": [
+    {
+      "path": "registry/8starlabs-ui/examples/video-player-minimal-controls-demo.tsx",
+      "content": "import VideoRoot, {\n  VideoViewport,\n  VideoControls,\n  VideoPlayTrigger,\n  VideoProgressBar\n} from \"@/registry/8starlabs-ui/blocks/video-player\";\n\nexport default function VideoPlayerMinimalControlsDemo() {\n  return (\n    <VideoRoot className=\"rounded-lg\">\n      <VideoViewport src=\"https://vjs.zencdn.net/v/oceans.mp4\" />\n      <VideoControls className=\"flex gap-4 items-center justify-between\">\n        <VideoPlayTrigger />\n        <VideoProgressBar />\n      </VideoControls>\n    </VideoRoot>\n  );\n}\n",
+      "type": "registry:example",
+      "target": "components/8starlabs-ui/examples/video-player-minimal-controls-demo.tsx"
+    }
+  ]
+}

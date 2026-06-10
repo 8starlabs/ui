@@ -660,6 +660,62 @@
           "target": "components/8starlabs-ui/examples/json-viewer-features-demo.tsx"
         }
       ]
+    },
+    {
+      "name": "video-player",
+      "type": "registry:ui",
+      "title": "Video Player",
+      "description": "A compound video player with custom playback, seek, volume, Picture-in-Picture, and fullscreen controls",
+      "dependencies": ["lucide-react"],
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/blocks/video-player.tsx",
+          "type": "registry:ui",
+          "target": "components/8starlabs-ui/video-player.tsx"
+        }
+      ]
+    },
+    {
+      "name": "video-player-demo",
+      "type": "registry:example",
+      "title": "Video Player",
+      "description": "A video player demo with playback, seeking, volume, Picture-in-Picture, and fullscreen controls",
+      "registryDependencies": ["https://ui.8starlabs.com/r/video-player.json"],
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/video-player-demo.tsx",
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/video-player-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "video-player-minimal-controls-demo",
+      "type": "registry:example",
+      "title": "Video Player Minimal Controls",
+      "description": "A video player demo with only play and seek controls",
+      "registryDependencies": ["https://ui.8starlabs.com/r/video-player.json"],
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/video-player-minimal-controls-demo.tsx",
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/video-player-minimal-controls-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "video-player-hosted-mp4-demo",
+      "type": "registry:example",
+      "title": "Video Player Hosted MP4",
+      "description": "A video player demo using a hosted MP4 source",
+      "registryDependencies": ["https://ui.8starlabs.com/r/video-player.json"],
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/video-player-hosted-mp4-demo.tsx",
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/video-player-hosted-mp4-demo.tsx"
+        }
+      ]
     }
   ]
 }

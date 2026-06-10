@@ -1,8 +1,16 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
 import { createMDX } from "fumadocs-mdx/next";
+
+const projectRoot = path.dirname(fileURLToPath(import.meta.url));
 
 /** @type {import('next').NextConfig} */
 const config = {
   reactStrictMode: false,
+  turbopack: {
+    root: projectRoot
+  },
   headers: async () => [
     {
       source: "/favicon.ico",

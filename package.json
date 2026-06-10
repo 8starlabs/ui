@@ -7,6 +7,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
+    "test": "tsx --test \"registry/**/*.test.ts\"",
     "lint": "eslint .",
     "registry:build": "shadcn build && prettier --write \"public/r/*.json\" --cache",
     "registry:generate-index": "tsx ./scripts/generate-index.mts && prettier --write \"registry/**/*.{ts,tsx,json,mdx}\" --cache",
