@@ -1,0 +1,23 @@
+{
+  "skill_name": "8sl-component-ship",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Add a new 8StarLabs UI component called `metric-pill` to this repo. I need the block, at least one demo, docs under the components docs section, and the registry output kept in sync.",
+      "expected_output": "Uses the maintainer workflow across block, example, docs, registry metadata or generated output, and validation commands instead of treating this as a single-file edit.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I changed the props on `transport-badge` in `registry/8starlabs-ui/blocks`, but I haven't touched anything else yet. What else in this repo should be updated before shipping?",
+      "expected_output": "Calls out demos, docs, registry sync, and validation work tied to the API change, with exact repo paths and commands.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "The generated registry output looks stale after I edited a block and example. Walk me through the 8StarLabs UI maintainer flow to get this back into a shippable state.",
+      "expected_output": "Focuses on repo-specific inspection, generation, and validation steps instead of generic React debugging.",
+      "files": []
+    }
+  ]
+}

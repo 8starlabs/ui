@@ -1,0 +1,23 @@
+{
+  "skill_name": "8sl-consume-registry",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I'm in a Next.js app with shadcn already set up. Install the 8StarLabs heatmap component and show me the right registry command plus any setup details I should double-check.",
+      "expected_output": "Provides the direct registry install flow, keeps the answer grounded in Next.js plus shadcn assumptions, and avoids maintainer-only repo internals.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Which 8StarLabs component should I use for a compact transit line plus station label in a dashboard card? I also want the MCP-friendly registry name if there's one.",
+      "expected_output": "Recommends `transport-badge`, explains why, and includes the `@8starlabs/...` registry path or equivalent MCP-oriented guidance.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "My assistant can talk to the shadcn MCP server. How should I configure my project so it can install 8StarLabs components by name instead of raw URLs?",
+      "expected_output": "Explains the `components.json` registry entry and keeps MCP as an accelerator rather than the only supported path.",
+      "files": []
+    }
+  ]
+}
