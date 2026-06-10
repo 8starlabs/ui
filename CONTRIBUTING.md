@@ -123,6 +123,22 @@ Please include:
 - A closing keyword in the PR description, such as `Closes #123`, `Fixes #123`, or `Resolves #123`, when the PR should automatically close an issue after merge. See GitHub's guide on [linking a pull request to an issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue).
 - The reason or context behind the change
 
+### AI-assisted review
+
+Maintainers can request an AI review on pull requests after the repository's
+CodeRabbit GitHub App is installed. The repository keeps its settings in
+[`.coderabbit.yaml`](.coderabbit.yaml) and documents the full workflow in
+[`.github/AI_CODE_REVIEW.md`](.github/AI_CODE_REVIEW.md).
+
+Use these PR comments when an extra automated review pass is useful:
+
+- `@coderabbitai review` for an incremental review of new changes.
+- `@coderabbitai full review` for a complete review of the full PR diff.
+
+Automatic reviews are disabled by default to keep feedback intentional. A PR can
+also opt in with the `ai-review` label or by adding `coderabbit:review` to the
+PR description.
+
 ## Project Structure
 
 ```

@@ -3,15 +3,21 @@
   "version": "0.0.1",
   "private": true,
   "packageManager": "pnpm@11.0.9",
+  "engines": {
+    "node": ">=20.9.0"
+  },
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
+    "test": "node --test scripts/*.test.mjs",
     "lint": "eslint .",
     "registry:build": "shadcn build && prettier --write \"public/r/*.json\" --cache",
     "registry:generate-index": "tsx ./scripts/generate-index.mts && prettier --write \"registry/**/*.{ts,tsx,json,mdx}\" --cache",
+    "ai-review:validate": "node scripts/validate-ai-review-config.mjs",
+    "docs:generate": "fumadocs-mdx",
     "prepare": "husky",
-    "tscheck": "tsc --noEmit"
+    "tscheck": "pnpm docs:generate && tsc --noEmit"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx,json,md,mdx}": [
@@ -80,6 +86,7 @@
     "lint-staged": "^16.2.6",
     "prettier": "^3.6.2",
     "tailwindcss": "^4.1.11",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "yaml": "^2.8.2"
   }
 }

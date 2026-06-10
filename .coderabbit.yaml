@@ -1,0 +1,83 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: "en-US"
+early_access: false
+enable_free_tier: true
+
+reviews:
+  profile: "chill"
+  request_changes_workflow: false
+  high_level_summary: true
+  high_level_summary_in_walkthrough: true
+  review_status: true
+  review_details: true
+  commit_status: true
+  fail_commit_status: false
+  collapse_walkthrough: true
+  changed_files_summary: true
+  sequence_diagrams: false
+  estimate_code_review_effort: true
+  assess_linked_issues: true
+  related_issues: true
+  related_prs: true
+  suggested_labels: true
+  auto_apply_labels: false
+  suggested_reviewers: true
+  auto_assign_reviewers: false
+  poem: false
+  in_progress_fortune: false
+  enable_prompt_for_ai_agents: true
+  abort_on_close: true
+  path_filters:
+    - "!public/r/**"
+    - "!registry/__index__.tsx"
+  path_instructions:
+    - path: "registry/8starlabs-ui/blocks/**/*.{ts,tsx}"
+      instructions: |
+        Review as source for installable registry components. Check accessibility,
+        client/server boundaries, controlled and uncontrolled behavior,
+        composability, TypeScript public API shape, and compatibility with
+        shadcn-style consumption.
+    - path: "registry/8starlabs-ui/examples/**/*.{ts,tsx}"
+      instructions: |
+        Verify examples are minimal, copyable, and aligned with the documented
+        component API. Flag examples that require undeclared dependencies,
+        hidden local state, or imports that will not work for consumers.
+    - path: "lib/docs/**/*.{md,mdx}"
+      instructions: |
+        Treat docs as user-facing API. Check commands, component names, prop
+        descriptions, installation steps, and accessibility notes against the
+        registry source.
+    - path: ".github/**/*"
+      instructions: |
+        Review automation and repository policy changes for least privilege,
+        untrusted input handling, token exposure, and maintainer handoff clarity.
+  auto_review:
+    enabled: false
+    drafts: false
+    description_keyword: "coderabbit:review"
+    labels:
+      - "ai-review"
+    ignore_title_keywords:
+      - "WIP"
+      - "DO NOT MERGE"
+      - "[skip review]"
+    ignore_usernames:
+      - "dependabot[bot]"
+      - "renovate[bot]"
+      - "github-actions[bot]"
+
+knowledge_base:
+  code_guidelines:
+    enabled: true
+  learnings:
+    scope: "local"
+  issues:
+    scope: "local"
+  pull_requests:
+    scope: "local"
+  web_search:
+    enabled: true
+
+chat:
+  auto_reply: false
+  art: false
