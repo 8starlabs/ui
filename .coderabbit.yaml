@@ -1,0 +1,70 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: "en-US"
+tone_instructions: "Be concise, direct, and high-signal. Prioritize correctness, regressions, accessibility, security, maintainability, documentation drift, and missing validation. Avoid style-only comments unless they prevent real confusion."
+early_access: false
+enable_free_tier: true
+
+reviews:
+  profile: "assertive"
+  request_changes_workflow: false
+  high_level_summary: true
+  review_status: true
+  review_details: false
+  commit_status: true
+  fail_commit_status: false
+  collapse_walkthrough: true
+  changed_files_summary: true
+  sequence_diagrams: false
+  estimate_code_review_effort: true
+  assess_linked_issues: true
+  related_issues: true
+  related_prs: true
+  suggested_labels: true
+  auto_apply_labels: false
+  suggested_reviewers: true
+  auto_assign_reviewers: false
+  poem: false
+  enable_prompt_for_ai_agents: true
+  abort_on_close: true
+  path_filters:
+    - "!public/r/**"
+    - "!registry/__index__.tsx"
+    - "!pnpm-lock.yaml"
+    - "!**/*.tsbuildinfo"
+  path_instructions:
+    - path: "registry/8starlabs-ui/blocks/**/*.tsx"
+      instructions: |
+        Review these as public registry components. Flag public API changes without matching examples and docs, accessibility regressions, broken client/server boundaries, unstable class composition, missing TypeScript coverage, and behavior that would make shadcn installs harder to maintain.
+    - path: "registry/8starlabs-ui/examples/**/*.tsx"
+      instructions: |
+        Check that examples are realistic, compile independently, use the exported component APIs correctly, and remain small enough for docs readers to copy. Flag examples that depend on private app-only helpers.
+    - path: "lib/docs/**/*.mdx"
+      instructions: |
+        Treat documentation drift as a functional issue. Flag missing installation steps, stale props, unclear usage examples, inaccessible language, and docs that no longer match registry component behavior.
+    - path: "app/**/*.{ts,tsx}"
+      instructions: |
+        Review Next.js App Router code for server/client boundary mistakes, metadata and routing regressions, unstable generated content, and user-visible performance or accessibility issues.
+    - path: "components/**/*.{ts,tsx}"
+      instructions: |
+        Check shared UI for reusable, accessible, typed APIs. Flag layout shifts, keyboard navigation gaps, hydration risks, and coupling to one documentation page when a general component is expected.
+    - path: "hooks/**/*.{ts,tsx}"
+      instructions: |
+        Check hooks for stable dependencies, browser-only API guards, cleanup of listeners/observers, and behavior under React Strict Mode.
+    - path: "lib/**/*.{ts,tsx}"
+      instructions: |
+        Review shared utilities for deterministic behavior, safe parsing, explicit error cases, and compatibility with both build-time and runtime execution.
+    - path: ".github/**"
+      instructions: |
+        Treat secret exposure, broad token permissions, unpinned third-party actions, pull_request_target usage, and any workflow that writes to untrusted pull request code as high-priority risks.
+  auto_review:
+    enabled: false
+    auto_incremental_review: false
+    auto_pause_after_reviewed_commits: 3
+    drafts: false
+    ignore_title_keywords:
+      - "WIP"
+      - "DO NOT MERGE"
+      - "[skip review]"
+
+chat:
+  auto_reply: true

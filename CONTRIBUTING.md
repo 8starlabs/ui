@@ -159,6 +159,23 @@ detail into nearby `references/` files.
    - Include screenshots for UI changes
    - Describe your changes and the rationale behind them
 
+### AI code review
+
+This repository includes a CodeRabbit configuration for free/open-source AI
+pull request review. Maintainers need to install the CodeRabbit GitHub App for
+`8starlabs/ui` once, then the committed `.coderabbit.yaml` controls the review
+behavior.
+
+Automatic reviews are disabled by default so reviews run only when requested.
+After opening a pull request, comment `@coderabbitai review` to request an
+incremental review of new changes, or comment `@coderabbitai full review` for a
+complete fresh pass over the pull request.
+
+The maintainer setup and command reference live in
+[`.github/AI_REVIEW.md`](.github/AI_REVIEW.md). If maintainers also enable Codex
+code review externally, `@codex review` should follow the repository-specific
+review guidelines in [`AGENTS.md`](AGENTS.md).
+
 ## Documentation Standards
 
 - Be Clear: Use simple, clear language
