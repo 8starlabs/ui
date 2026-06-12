@@ -660,6 +660,24 @@
           "target": "components/8starlabs-ui/examples/json-viewer-features-demo.tsx"
         }
       ]
+    },
+    {
+      "name": "video-player",
+      "type": "registry:ui",
+      "title": "Video Player",
+      "description": "A video player component",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/blocks/video-player.tsx",
+          "type": "registry:ui",
+          "target": "components/8starlabs-ui/video-player.tsx"
+        },
+        {
+          "path": "registry/8starlabs-ui/ui/apple-glass-effect.tsx",
+          "type": "registry:ui",
+          "target": "components/8starlabs-ui/ui/apple-glass-effect.tsx"
+        }
+      ]
     }
   ]
 }

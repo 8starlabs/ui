@@ -25,6 +25,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/registry/8starlabs-ui/blocks/button";
+import GlassContainer from "../ui/apple-glass-effect";
 
 interface VideoContextType {
   videoRef: React.RefObject<HTMLVideoElement | null>;
@@ -283,7 +284,8 @@ export function VideoViewport({
     isBuffering,
     hasError,
     setIsVolumeControlOpen,
-    attemptTogglePlay
+    attemptTogglePlay,
+    showControls
   } = useVideo();
   const rafRef = useRef<number | null>(null);
   const shouldResumeAfterBufferRef = useRef(false);
@@ -409,6 +411,45 @@ export function VideoViewport({
         {...props}
       />
 
+      <div
+        className={cn(
+          "absolute inset-0 flex items-center justify-center transition-opacity",
+          isBuffering || showControls ? "opacity-100" : "opacity-0"
+        )}
+        onClick={attemptTogglePlay}
+      >
+        <GlassContainer
+          className="inline-flex items-center justify-center"
+          variant="regular"
+          tint="cool"
+          blur={3}
+          opacity={0.1}
+          edgeBlur={false}
+        >
+          {isBuffering ? (
+            <Loader2
+              className="animate-spin"
+              size={70}
+              color="rgba(255, 255, 255, 0.78)"
+            />
+          ) : isPlaying ? (
+            <Pause
+              size={70}
+              color="rgba(255, 255, 255, 0.78)"
+              fill="transparent"
+              strokeWidth={2}
+            />
+          ) : (
+            <Play
+              size={70}
+              color="rgba(255, 255, 255, 0.78)"
+              fill="transparent"
+              strokeWidth={2}
+            />
+          )}
+        </GlassContainer>
+      </div>
+
       {hasError && (
         <div className="absolute inset-0 z-20 flex flex-col gap-2 items-center justify-center bg-black/80 text-center cursor-default">
           <AlertCircle className="mx-auto text-red-300" size={20} />
@@ -420,15 +461,6 @@ export function VideoViewport({
           <Button variant="secondary" size="sm" onClick={handleRetry}>
             Retry
           </Button>
-        </div>
-      )}
-
-      {isBuffering && (
-        <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center bg-radial from-black/80 to-black/30">
-          <div className="flex items-center gap-3 text-sm text-white">
-            <Loader2 className="animate-spin" size={16} />
-            Loading video...
-          </div>
         </div>
       )}
     </div>
