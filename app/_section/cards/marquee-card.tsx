@@ -1,6 +1,4 @@
-import Link from "next/link";
 import Marquee from "@/registry/8starlabs-ui/blocks/marquee";
-import { Card } from "@/registry/8starlabs-ui/ui/card";
 import {
   BigCommerceIcon,
   OikovaLightIcon,
@@ -8,21 +6,22 @@ import {
   SupabaseIcon,
   TheWeatherCompanyIcon
 } from "@/components/icons";
+import HomepageDemoCard from "./homepage-demo-card";
 
 const MarqueeCard = () => {
   return (
-    <Link prefetch={false} href="/docs/components/marquee">
-      <Card className="size-full px-6 group relative overflow-hidden hover:bg-muted/20 transition-colors">
-        <div className="flex flex-col gap-2">
-          <h3 className="font-semibold text-lg">Marquee</h3>
-          <p className="text-sm text-muted-foreground">
-            Scrolling marquee component with grayscale and direction options.
-          </p>
-        </div>
-
-        <div className="flex flex-col gap-2 overflow-hidden justify-center h-full">
+    <HomepageDemoCard
+      href="/docs/components/marquee"
+      title="Marquee"
+      description={
+        <p className="text-sm text-muted-foreground">
+          Scrolling marquee component with grayscale and direction options.
+        </p>
+      }
+      demo={
+        <div className="flex h-full flex-col justify-center gap-2 overflow-hidden">
           <Marquee direction="right">
-            <div className="w-30 h-20">
+            <div className="h-20 w-30">
               <OikovaLightIcon
                 style={{
                   width: "100%",
@@ -31,7 +30,7 @@ const MarqueeCard = () => {
                 }}
               />
             </div>
-            <div className="w-30 h-20">
+            <div className="h-20 w-30">
               <SupabaseIcon
                 style={{
                   width: "100%",
@@ -40,7 +39,7 @@ const MarqueeCard = () => {
                 }}
               />
             </div>
-            <div className="w-30 h-20">
+            <div className="h-20 w-30">
               <BigCommerceIcon
                 style={{
                   width: "100%",
@@ -49,7 +48,7 @@ const MarqueeCard = () => {
                 }}
               />
             </div>
-            <div className="w-30 h-14">
+            <div className="h-14 w-30">
               <SingaporeAirlinesIcon
                 style={{
                   width: "100%",
@@ -58,7 +57,7 @@ const MarqueeCard = () => {
                 }}
               />
             </div>
-            <div className="w-30 h-14">
+            <div className="h-14 w-30">
               <TheWeatherCompanyIcon
                 style={{
                   width: "100%",
@@ -69,30 +68,8 @@ const MarqueeCard = () => {
             </div>
           </Marquee>
         </div>
-
-        <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-          <svg
-            className="w-4 h-4"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-          >
-            <path
-              d="M7 17L17 7"
-              strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M7 7h10v10"
-              strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </div>
-      </Card>
-    </Link>
+      }
+    />
   );
 };
 

@@ -29,6 +29,7 @@ import { Button } from "@/registry/8starlabs-ui/blocks/button";
 
 interface VideoContextType {
   videoRef: React.RefObject<HTMLVideoElement | null>;
+  containerRef: React.RefObject<HTMLDivElement | null>;
   isPlaying: boolean;
   isBuffering: boolean;
   hasError: boolean;
@@ -72,6 +73,7 @@ export function VideoProvider({
 }): React.ReactElement {
   // Shared video element ref and UI state consumed by viewport and control components.
   const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isBuffering, setIsBuffering] = useState(false);
   const [hasError, setHasError] = useState(false);
@@ -105,7 +107,7 @@ export function VideoProvider({
 
   // Toggles fullscreen on the video wrapper
   const toggleFullscreen = () => {
-    const container = videoRef.current?.parentElement;
+    const container = containerRef.current;
     if (container) {
       if (!document.fullscreenElement) {
         container.requestFullscreen().catch((err) => console.error(err));
@@ -158,7 +160,7 @@ export function VideoProvider({
 
   // Mirrors the browser fullscreen state back into React state.
   const handleFullscreenChange = () => {
-    const container = videoRef.current?.parentElement;
+    const container = containerRef.current;
     setIsFullscreen(!!container && document.fullscreenElement === container);
     setIsVolumeControlOpen(false);
   };
@@ -177,6 +179,7 @@ export function VideoProvider({
     <VideoContext.Provider
       value={{
         videoRef,
+        containerRef,
         isPlaying,
         isBuffering,
         hasError,
@@ -234,7 +237,7 @@ function VideoContainer({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
-  const { setShowControls, isMouseOverControls } = useVideo();
+  const { containerRef, setShowControls, isMouseOverControls } = useVideo();
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Shows controls on movement and schedules auto-hide when the controls are not hovered.
@@ -257,6 +260,7 @@ function VideoContainer({
 
   return (
     <div
+      ref={containerRef}
       className={cn(
         "relative aspect-video w-full overflow-hidden bg-black [container-type:inline-size] hover:cursor-pointer",
         className
@@ -289,7 +293,7 @@ const videoViewportVariants = cva("h-full w-full", {
   }
 });
 
-const centerControlIconClassName = "h-[min(70px,16cqw)] w-[min(70px,16cqw)]";
+const centerControlIconClassName = "h-[min(60px,16cqw)] w-[min(60px,16cqw)]";
 
 export interface VideoViewportProps
   extends Omit<React.ComponentPropsWithoutRef<"video">, "controls">,
@@ -444,36 +448,32 @@ export function VideoViewport({
       />
 
       <div
-        className={cn(
-          "absolute inset-0 flex items-center justify-center p-[min(1rem,3cqw)] transition-opacity duration-300",
-          isBuffering || showControls ? "opacity-100" : "opacity-0"
-        )}
+        className={
+          "absolute inset-0 flex items-center justify-center p-[min(1rem,3cqw)]"
+        }
         onClick={attemptTogglePlay}
       >
-        {isBuffering ? (
-          <Loader2
-            className={cn("animate-spin", centerControlIconClassName)}
-            color="rgba(255, 255, 255, 0.78)"
-          />
-        ) : isPlaying ? (
-          <Pause
-            className={centerControlIconClassName}
-            color="rgba(255, 255, 255, 0.78)"
-            fill="transparent"
-            strokeWidth={2}
-          />
-        ) : (
-          <Play
-            className={centerControlIconClassName}
-            color="rgba(255, 255, 255, 0.78)"
-            fill="transparent"
-            strokeWidth={2}
-          />
-        )}
+        <div
+          className={cn(
+            "flex aspect-square items-center justify-center rounded-2xl bg-white/10 p-[min(1rem,3cqw)] backdrop-blur-xs transition-[opacity,transform] duration-300",
+            isBuffering || showControls ? "opacity-100" : "opacity-0"
+          )}
+        >
+          {isBuffering ? (
+            <Loader2
+              className={cn("animate-spin", centerControlIconClassName)}
+              color="rgba(255, 255, 255, 0.78)"
+            />
+          ) : isPlaying ? (
+            <Pause className={cn(centerControlIconClassName)} fill="white" />
+          ) : (
+            <Play className={cn(centerControlIconClassName)} fill="white" />
+          )}
+        </div>
       </div>
 
       {hasError && (
-        <div className="absolute inset-0 z-20 flex flex-col gap-2 items-center justify-center bg-black/80 text-center cursor-default">
+        <div className="absolute inset-0 z-20 flex flex-col gap-2 items-center justify-center bg-black/80 text-center cursor-default select-none">
           <AlertCircle className="mx-auto text-red-300" size={20} />
           <p className="text-sm text-white font-medium">Video failed to load</p>
           <p className="text-sm text-white/70">
@@ -626,7 +626,7 @@ export function VideoSoundControl({
         className="relative group/button text-white hover:cursor-pointer"
         {...props}
       >
-        <span className="pointer-events-none absolute -top-7 left-1/2 -translate-x-1/2 text-xs text-white opacity-0 transition-opacity duration-300 group-hover/button:opacity-100">
+        <span className="pointer-events-none absolute -top-7 left-1/2 -translate-x-1/2 text-xs text-white opacity-0 transition-opacity duration-300 select-none group-hover/button:opacity-100">
           {localMuted ? "Unmute" : "Mute"}
         </span>
         {iconToDisplay}
@@ -682,7 +682,7 @@ export function VideoPipTrigger({
       className={`relative group/button text-white hover:cursor-pointer ${className}`}
       {...props}
     >
-      <span className="pointer-events-none absolute -top-7 left-1/2 -translate-x-1/2 text-xs text-white opacity-0 transition-opacity duration-300 group-hover/button:opacity-100 whitespace-nowrap">
+      <span className="pointer-events-none absolute -top-7 left-1/2 -translate-x-1/2 text-xs text-white opacity-0 transition-opacity duration-300 select-none group-hover/button:opacity-100 whitespace-nowrap">
         {isPip ? "Disable PiP" : "Enable PiP"}
       </span>
       <PictureInPicture2 size={18} />
@@ -708,7 +708,7 @@ export function VideoPlayTrigger({
       className={`relative group/button text-white hover:cursor-pointer disabled:cursor-wait disabled:opacity-60 ${className}`}
       {...props}
     >
-      <span className="pointer-events-none absolute -top-7 left-1/2 -translate-x-1/2 text-xs text-white opacity-0 transition-opacity duration-300 group-hover/button:opacity-100">
+      <span className="pointer-events-none absolute -top-7 left-1/2 -translate-x-1/2 text-xs text-white opacity-0 transition-opacity duration-300 select-none group-hover/button:opacity-100">
         {isBuffering ? "" : isPlaying ? "Pause" : "Play"}
       </span>
       {isBuffering ? (
@@ -738,7 +738,7 @@ export function VideoFullscreenTrigger({
       className={`relative group/button text-white hover:cursor-pointer ${className}`}
       {...props}
     >
-      <span className="pointer-events-none absolute -top-7 -translate-x-1/2 -left-3 text-xs text-white opacity-0 transition-opacity duration-300 group-hover/button:opacity-100 whitespace-nowrap">
+      <span className="pointer-events-none absolute -top-7 -translate-x-1/2 -left-3 text-xs text-white opacity-0 transition-opacity duration-300 select-none group-hover/button:opacity-100 whitespace-nowrap">
         {isFullscreen ? "Exit Full Screen" : "Full Screen"}
       </span>
       {isFullscreen ? <Minimize2 size={18} /> : <Maximize2 size={18} />}
@@ -760,9 +760,13 @@ export function VideoProgressBar({
     <div
       className={`flex-1 ${className} flex items-center justify-center gap-2`}
     >
-      <span className="text-white text-sm">{formatTime(videoProgress)}</span>
+      <span className="text-sm text-white select-none">
+        {formatTime(videoProgress)}
+      </span>
       <VideoSeekSlider {...props} />
-      <span className="text-white text-sm">{formatTime(videoDuration)}</span>
+      <span className="text-sm text-white select-none">
+        {formatTime(videoDuration)}
+      </span>
     </div>
   );
 }
@@ -784,7 +788,7 @@ function VideoSeekSlider({
 
   const frac = videoDuration > 0 ? videoProgress / videoDuration : 0;
 
-  const containerRef = useRef<HTMLDivElement | null>(null);
+  const progressBarContainerRef = useRef<HTMLDivElement | null>(null);
   // Hover stores x pixels from the slider edge and the matching video timestamp.
   const [hover, setHover] = useState<{ x: number; time: number } | null>(null);
   const [isHovering, setIsHovering] = useState(false);
@@ -793,8 +797,8 @@ function VideoSeekSlider({
   // Converts a pointer X position into a clamped slider offset and progress fraction.
   const getXOffsetandFraction = useCallback(
     (clientX: number): { x: number; frac: number } | undefined => {
-      if (!containerRef.current || videoDuration === 0) return;
-      const rect = containerRef.current.getBoundingClientRect();
+      if (!progressBarContainerRef.current || videoDuration === 0) return;
+      const rect = progressBarContainerRef.current.getBoundingClientRect();
       const x = Math.min(Math.max(clientX - rect.left, 0), rect.width);
       const frac = rect.width ? x / rect.width : 0;
       return { x, frac };
@@ -897,7 +901,7 @@ function VideoSeekSlider({
   return (
     <div
       id="video-progress-bar"
-      ref={containerRef}
+      ref={progressBarContainerRef}
       className={cn(
         "relative flex-1 h-4 translate-y-[0.4px] flex items-center",
         className
@@ -921,7 +925,7 @@ function VideoSeekSlider({
         <div
           id="video-progress-bar-hover-time"
           className={cn(
-            "pointer-events-none absolute -top-13 z-10 rounded text-sm text-white transition-opacity duration-300 flex flex-col items-center gap-[3px]",
+            "pointer-events-none absolute -top-13 z-10 rounded text-sm text-white transition-opacity duration-300 flex flex-col items-center gap-[3px] select-none",
             isHovering ? "opacity-100" : "opacity-0"
           )}
           style={{ left: hover.x, transform: "translateX(-50%)" }}

@@ -5,10 +5,7 @@ import Timeline, {
   TimelineItemDescription,
   TimelineItemTitle
 } from "@/registry/8starlabs-ui/blocks/timeline";
-import { Card } from "@/registry/8starlabs-ui/ui/card";
-import Link from "next/link";
-
-type Props = {};
+import HomepageDemoCard from "./homepage-demo-card";
 
 const timelineData = [
   {
@@ -51,59 +48,34 @@ const timelineData = [
   }
 ];
 
-const TimelineCard = (props: Props) => {
+const TimelineCard = () => {
   return (
-    <Link href="/docs/components/timeline">
-      <Card className="size-full px-6 group relative overflow-hidden hover:bg-muted/20 transition-colors">
-        <div className="flex flex-col gap-4">
-          <div>
-            <h3 className="text-lg font-semibold">Timeline</h3>
-            <p className="text-muted-foreground text-sm">
-              A component to display chronological events.
-              <br />
-              Shift + Scroll to navigate horizontally (on desktop).
-            </p>
-          </div>
-
-          <ScrollFade axis="horizontal">
-            <Timeline orientation="horizontal" className="flex justify-center">
-              {timelineData.map((item, idx) => (
-                <TimelineItem key={idx} variant={item.variant}>
-                  <TimelineItemDate>
-                    {item.date.toDateString()}
-                  </TimelineItemDate>
-                  <TimelineItemTitle>{item.title}</TimelineItemTitle>
-                  <TimelineItemDescription>
-                    {item.description}
-                  </TimelineItemDescription>
-                </TimelineItem>
-              ))}
-            </Timeline>
-          </ScrollFade>
-        </div>
-        <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-          <svg
-            className="w-4 h-4"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-          >
-            <path
-              d="M7 17L17 7"
-              strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M7 7h10v10"
-              strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </div>
-      </Card>
-    </Link>
+    <HomepageDemoCard
+      href="/docs/components/timeline"
+      title="Timeline"
+      description={
+        <p className="text-sm text-muted-foreground">
+          A component to display chronological events.
+          <br />
+          Shift + Scroll to navigate horizontally (on desktop).
+        </p>
+      }
+      demo={
+        <ScrollFade axis="horizontal">
+          <Timeline orientation="horizontal" className="flex justify-center">
+            {timelineData.map((item, idx) => (
+              <TimelineItem key={idx} variant={item.variant}>
+                <TimelineItemDate>{item.date.toDateString()}</TimelineItemDate>
+                <TimelineItemTitle>{item.title}</TimelineItemTitle>
+                <TimelineItemDescription>
+                  {item.description}
+                </TimelineItemDescription>
+              </TimelineItem>
+            ))}
+          </Timeline>
+        </ScrollFade>
+      }
+    />
   );
 };
 
