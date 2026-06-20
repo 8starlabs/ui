@@ -8,7 +8,6 @@ import {
   HTMLAttributes,
   ReactElement,
   useContext,
-  useEffect,
   useLayoutEffect,
   useRef,
   useState

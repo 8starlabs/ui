@@ -13,7 +13,7 @@ export default function VideoPlayerDemo() {
     <VideoRoot className="rounded-lg">
       <VideoViewport src="/sample_scenery.mp4" />
 
-      <VideoControls className="flex gap-4 items-center justify-between">
+      <VideoControls className="flex items-center justify-between gap-4">
         <VideoPlayTrigger />
         <VideoSoundControl />
         <VideoProgressBar />

@@ -23,9 +23,9 @@ import {
   Volume2,
   VolumeOff
 } from "lucide-react";
+import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 import { Button } from "@/registry/8starlabs-ui/blocks/button";
-import GlassContainer from "../ui/apple-glass-effect";
 
 interface VideoContextType {
   videoRef: React.RefObject<HTMLVideoElement | null>;
@@ -56,6 +56,7 @@ interface VideoContextType {
 
 const VideoContext = createContext<VideoContextType | null>(null);
 
+// Reads the shared video context and guards against using controls outside VideoRoot.
 export function useVideo(): VideoContextType {
   const context = useContext(VideoContext);
   if (!context) {
@@ -69,6 +70,7 @@ export function VideoProvider({
 }: {
   children: React.ReactNode;
 }): React.ReactElement {
+  // Shared video element ref and UI state consumed by viewport and control components.
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isBuffering, setIsBuffering] = useState(false);
@@ -81,7 +83,7 @@ export function VideoProvider({
   const [isPip, setIsPip] = useState(false);
   const [isVolumeControlOpen, setIsVolumeControlOpen] = useState(false);
 
-  // Toggle play/pause state of the video
+  // Attempts to toggle playback, ignoring clicks while buffering or in an error state.
   const attemptTogglePlay = async () => {
     if (isBuffering || hasError) return;
     if (videoRef.current) {
@@ -101,7 +103,7 @@ export function VideoProvider({
     setIsVolumeControlOpen(false);
   };
 
-  // Toggle fullscreen mode for the video container
+  // Toggles fullscreen on the video wrapper
   const toggleFullscreen = () => {
     const container = videoRef.current?.parentElement;
     if (container) {
@@ -114,25 +116,25 @@ export function VideoProvider({
     setIsVolumeControlOpen(false);
   };
 
-  // Set the volume of the video element
+  // Writes the volume value directly to the underlying video element.
   const setVolume = (volume: number) => {
     if (videoRef.current) {
       videoRef.current.volume = volume;
     }
   };
 
-  // Toggle mute state of the video element
+  // Writes the muted state directly to the underlying video element.
   const toggleMute = (muted: boolean) => {
     if (!videoRef.current) return;
     videoRef.current.muted = muted;
   };
 
-  // Toggle picture-in-picture mode
+  // Enters or exits browser picture-in-picture mode when supported.
   const togglePip = async () => {
     const videoElement = videoRef.current;
     if (!videoElement) return;
 
-    // Check if the browser actually supports PiP (some older versions or configurations don't)
+    // Some browsers or browser settings do not expose the PiP API.
     if (!document.pictureInPictureEnabled) {
       console.warn("Picture-in-Picture is not supported by this browser.");
       return;
@@ -140,10 +142,10 @@ export function VideoProvider({
 
     try {
       if (document.pictureInPictureElement === videoElement) {
-        // If this video is already in PiP, exit it
+        // If this video is already in PiP, exit it.
         await document.exitPictureInPicture();
       } else {
-        // Otherwise, request the video to enter PiP mode
+        // Otherwise, request the video to enter PiP mode.
         await videoElement.requestPictureInPicture();
       }
       setIsPip(!isPip);
@@ -154,13 +156,14 @@ export function VideoProvider({
     }
   };
 
+  // Mirrors the browser fullscreen state back into React state.
   const handleFullscreenChange = () => {
     const container = videoRef.current?.parentElement;
     setIsFullscreen(!!container && document.fullscreenElement === container);
     setIsVolumeControlOpen(false);
   };
 
-  // Listen for fullscreen changes to update the isFullscreen state accordingly
+  // Registers the fullscreen listener and syncs immediately for initial state.
   useEffect(() => {
     handleFullscreenChange();
     document.addEventListener("fullscreenchange", handleFullscreenChange);
@@ -215,6 +218,7 @@ export default function VideoRoot({
   className = "",
   ...props
 }: VideoRootProps) {
+  // Composes provider state with the interactive container shell.
   return (
     <VideoProvider>
       <VideoContainer className={className} {...props}>
@@ -233,6 +237,7 @@ function VideoContainer({
   const { setShowControls, isMouseOverControls } = useVideo();
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Shows controls on movement and schedules auto-hide when the controls are not hovered.
   const handleMouseMove = () => {
     setShowControls(true);
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -244,6 +249,7 @@ function VideoContainer({
     }
   };
 
+  // Clears pending auto-hide and hides controls when leaving the video area.
   const handleMouseLeave = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     setShowControls(false);
@@ -251,7 +257,10 @@ function VideoContainer({
 
   return (
     <div
-      className={`relative overflow-hidden bg-black hover:cursor-pointer ${className}`}
+      className={cn(
+        "relative aspect-video w-full overflow-hidden bg-black [container-type:inline-size] hover:cursor-pointer",
+        className
+      )}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       {...props}
@@ -265,11 +274,30 @@ function VideoContainer({
 // VideoViewport: The actual HTML5 Video Tag
 // -----------------------------------------------------------------------------
 
+const videoViewportVariants = cva("h-full w-full", {
+  variants: {
+    fit: {
+      cover: "object-cover",
+      contain: "object-contain",
+      fill: "object-fill",
+      none: "object-none",
+      scaleDown: "object-scale-down"
+    }
+  },
+  defaultVariants: {
+    fit: "cover"
+  }
+});
+
+const centerControlIconClassName = "h-[min(70px,16cqw)] w-[min(70px,16cqw)]";
+
 export interface VideoViewportProps
-  extends Omit<React.ComponentPropsWithoutRef<"video">, "controls"> {}
+  extends Omit<React.ComponentPropsWithoutRef<"video">, "controls">,
+    VariantProps<typeof videoViewportVariants> {}
 
 export function VideoViewport({
   src,
+  fit,
   className = "",
   ...props
 }: VideoViewportProps) {
@@ -288,9 +316,10 @@ export function VideoViewport({
     showControls
   } = useVideo();
   const rafRef = useRef<number | null>(null);
+  const lastSyncedProgressRef = useRef(0);
   const shouldResumeAfterBufferRef = useRef(false);
 
-  // function to sync duration metadata to context state
+  // Copies duration metadata from the video element into shared context.
   const syncDuration = useCallback(
     (videoEl: HTMLVideoElement) => {
       if (videoEl && videoEl.duration) {
@@ -300,7 +329,7 @@ export function VideoViewport({
     [setVideoDuration]
   );
 
-  // Sync duration metadata when source or video element changes (e.g. on initial load)
+  // Syncs duration when the source changes and metadata is already available.
   useEffect(() => {
     const videoElement = videoRef.current;
     if (!videoElement) return;
@@ -309,17 +338,19 @@ export function VideoViewport({
     }
   }, [src, videoRef, syncDuration]);
 
-  // Use requestAnimationFrame to sync the video progress with the UI for smooth updates
+  // Polls currentTime on animation frames so progress UI stays smooth.
   useEffect(() => {
     const videoElement = videoRef.current;
-    if (!videoElement) return;
+    if (!videoElement || !isPlaying) return;
 
     const updateLoop = () => {
-      if (videoElement) {
-        setVideoProgress(videoElement.currentTime);
-        // Recursively poll on the browser's next animation frame repaint paint timeline
-        rafRef.current = requestAnimationFrame(updateLoop);
+      const currentTime = videoElement.currentTime;
+      if (Math.abs(currentTime - lastSyncedProgressRef.current) >= 0.05) {
+        lastSyncedProgressRef.current = currentTime;
+        setVideoProgress(currentTime);
       }
+      // Continue polling on the browser's next repaint.
+      rafRef.current = requestAnimationFrame(updateLoop);
     };
 
     rafRef.current = requestAnimationFrame(updateLoop);
@@ -331,6 +362,7 @@ export function VideoViewport({
     };
   }, [isPlaying, setVideoProgress, videoRef]);
 
+  // Marks buffering and remembers that playback should resume afterward.
   const handleBufferingStart = useCallback(() => {
     const videoElement = videoRef.current;
     if (!videoElement) return;
@@ -339,6 +371,7 @@ export function VideoViewport({
     setIsBuffering(true);
   }, [videoRef, setIsBuffering]);
 
+  // Clears buffering and resumes playback if buffering interrupted active playback.
   const handleBufferingEnd = useCallback(() => {
     const videoElement = videoRef.current;
     if (!videoElement) return;
@@ -351,6 +384,7 @@ export function VideoViewport({
     setIsBuffering(false);
   }, [videoRef, setIsBuffering]);
 
+  // Resets the error state and asks the video element to reload the current source.
   const handleRetry = () => {
     const videoElement = videoRef.current;
     if (!videoElement) return;
@@ -366,39 +400,37 @@ export function VideoViewport({
       <video
         ref={videoRef}
         src={src}
-        className={`w-full h-full object-cover ${className}`}
-        // fires when the video transitions from pause to active state
-        // when .play() is successfully invoked
+        className={cn(videoViewportVariants({ fit }), className)}
+        // Fires when .play() succeeds and the video transitions to active playback.
         onPlay={() => {
           setIsPlaying(true);
           setIsVolumeControlOpen(false);
         }}
-        // fires when playback is halted
-        // when .pause() is successfully invoked
+        // Fires when playback is halted by user action or the media element.
         onPause={() => {
+          const currentTime = videoRef.current?.currentTime ?? 0;
           setIsPlaying(false);
+          lastSyncedProgressRef.current = currentTime;
+          setVideoProgress(currentTime);
           setIsVolumeControlOpen(false);
         }}
-        // fires when the browser begins looking for the media resource
-        // when `src` is resolved or updated
+        // Fires when the browser starts resolving or loading the media source.
         onLoadStart={() => setIsBuffering(true)}
-        // fires when the basic structural properties of the video are parsed
-        // when browser resolved duration, dimensions and text/audio tracks
+        // Fires when duration, dimensions, and track metadata are available.
         onLoadedMetadata={(e) => syncDuration(e.currentTarget)}
-        // fires when first frame of video is downloaded and decoded
+        // Fires when the first frame is downloaded and decoded.
         onLoadedData={handleBufferingEnd}
-        // fires when browser believes it can begin playing video
+        // Fires when the browser believes playback can begin.
         onCanPlay={handleBufferingEnd}
-        // fires when browser believes it can begin playing entire video from start to finish without pausing to buffer.
+        // Fires when the browser estimates playback can continue without buffering.
         onCanPlayThrough={handleBufferingEnd}
-        // fires when playback unexpectedly stops because next frame is not available
+        // Fires when playback stalls because the next frame is unavailable.
         onWaiting={handleBufferingStart}
-        // fires when browser is trying to fetch media data but server stopped sending it
+        // Fires when the browser is fetching but the server stops sending data.
         onStalled={handleBufferingStart}
-        // fires when user clicks inside boundary of video element canvas
+        // Toggles playback when the user clicks the video canvas.
         onClick={attemptTogglePlay}
-        // fires on fatal breakdown that prevents video from loading or playing:
-        // CORS, 403, etc
+        // Handles fatal media failures like CORS, 403s, or unsupported codecs.
         onError={(e) => {
           setIsBuffering(false);
           setIsPlaying(false);
@@ -406,48 +438,38 @@ export function VideoViewport({
           shouldResumeAfterBufferRef.current = false;
           console.error("Video element failed to stream source asset:", e);
         }}
-        // explicitly tell browser to not render its own video controls UI
+        // Disables native controls so this component owns the full UI.
         controls={false}
         {...props}
       />
 
       <div
         className={cn(
-          "absolute inset-0 flex items-center justify-center transition-opacity",
+          "absolute inset-0 flex items-center justify-center p-[min(1rem,3cqw)] transition-opacity duration-300",
           isBuffering || showControls ? "opacity-100" : "opacity-0"
         )}
         onClick={attemptTogglePlay}
       >
-        <GlassContainer
-          className="inline-flex items-center justify-center"
-          variant="regular"
-          tint="cool"
-          blur={3}
-          opacity={0.1}
-          edgeBlur={false}
-        >
-          {isBuffering ? (
-            <Loader2
-              className="animate-spin"
-              size={70}
-              color="rgba(255, 255, 255, 0.78)"
-            />
-          ) : isPlaying ? (
-            <Pause
-              size={70}
-              color="rgba(255, 255, 255, 0.78)"
-              fill="transparent"
-              strokeWidth={2}
-            />
-          ) : (
-            <Play
-              size={70}
-              color="rgba(255, 255, 255, 0.78)"
-              fill="transparent"
-              strokeWidth={2}
-            />
-          )}
-        </GlassContainer>
+        {isBuffering ? (
+          <Loader2
+            className={cn("animate-spin", centerControlIconClassName)}
+            color="rgba(255, 255, 255, 0.78)"
+          />
+        ) : isPlaying ? (
+          <Pause
+            className={centerControlIconClassName}
+            color="rgba(255, 255, 255, 0.78)"
+            fill="transparent"
+            strokeWidth={2}
+          />
+        ) : (
+          <Play
+            className={centerControlIconClassName}
+            color="rgba(255, 255, 255, 0.78)"
+            fill="transparent"
+            strokeWidth={2}
+          />
+        )}
       </div>
 
       {hasError && (
@@ -481,13 +503,14 @@ export function VideoControls({
 }: VideoControlsProps): React.ReactElement {
   const { showControls, setIsMouseOverControls } = useVideo();
 
+  // Tracks hover state so the container does not auto-hide controls mid-interaction.
   return (
     <div
       onMouseEnter={() => setIsMouseOverControls(true)}
       onMouseLeave={() => setIsMouseOverControls(false)}
       id="video-controls"
       className={cn(
-        "absolute bottom-0 left-0 right-0 px-3 pb-3 pt-3 transition-opacity",
+        "absolute bottom-0 left-0 right-0 px-3 pb-3 pt-3 transition-opacity duration-300",
         "bg-gradient-to-t from-black/95 to-transparent to-90%",
         showControls ? "opacity-100" : "opacity-0 pointer-events-none",
         className
@@ -518,12 +541,15 @@ export function VideoSoundControl({
     setIsVolumeControlOpen
   } = useVideo();
 
+  // Local state mirrors native video volume/mute events for instant UI feedback.
   const [localVolume, setLocalVolume] = useState<number>(1);
   const [localMuted, setLocalMuted] = useState<boolean>(false);
 
+  // Drag state and slider ref let pointer movement update volume globally.
   const [isVolumeDragging, setIsVolumeDragging] = useState(false);
   const sliderRef = useRef<HTMLDivElement | null>(null);
 
+  // Converts a pointer Y position within the vertical slider into a volume fraction.
   const setVolumeFromClientY = useCallback(
     (clientY: number) => {
       if (!sliderRef.current) return;
@@ -536,6 +562,7 @@ export function VideoSoundControl({
     [setVolume, toggleMute]
   );
 
+  // Starts a volume drag and applies the first volume value immediately.
   const handleSliderPointerDown = (
     event: React.PointerEvent<HTMLDivElement>
   ) => {
@@ -544,6 +571,7 @@ export function VideoSoundControl({
     setVolumeFromClientY(event.clientY);
   };
 
+  // Registers global pointer listeners while dragging outside the slider bounds.
   useEffect(() => {
     if (!isVolumeDragging) return;
 
@@ -564,6 +592,7 @@ export function VideoSoundControl({
     };
   }, [isVolumeDragging, setVolumeFromClientY]);
 
+  // Keeps local mute and volume state synced with native media element changes.
   useEffect(() => {
     const videoElement = videoRef.current;
     if (!videoElement) return;
@@ -576,6 +605,7 @@ export function VideoSoundControl({
     return () => videoElement.removeEventListener("volumechange", sync);
   }, [videoRef]);
 
+  // Chooses the volume icon that best matches the current mute/volume state.
   const iconToDisplay = (() => {
     if (localMuted) {
       return <VolumeOff size={18} fill="white" />;
@@ -596,7 +626,7 @@ export function VideoSoundControl({
         className="relative group/button text-white hover:cursor-pointer"
         {...props}
       >
-        <span className="pointer-events-none absolute -top-7 left-1/2 -translate-x-1/2 text-xs text-white opacity-0 transition-opacity duration-150 group-hover/button:opacity-100">
+        <span className="pointer-events-none absolute -top-7 left-1/2 -translate-x-1/2 text-xs text-white opacity-0 transition-opacity duration-300 group-hover/button:opacity-100">
           {localMuted ? "Unmute" : "Mute"}
         </span>
         {iconToDisplay}
@@ -615,7 +645,7 @@ export function VideoSoundControl({
       </button>
       <div
         className={cn(
-          "absolute -top-22 left-[27px] h-20 w-1 transition-opacity duration-150",
+          "absolute -top-22 left-[27px] h-20 w-1 transition-opacity duration-300",
           isVolumeControlOpen
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
@@ -645,13 +675,14 @@ export function VideoPipTrigger({
 }: VideoPipTriggerProps): React.ReactElement {
   const { isPip, togglePip } = useVideo();
 
+  // Renders the PiP toggle and tooltip using the shared PiP state.
   return (
     <button
       onClick={togglePip}
       className={`relative group/button text-white hover:cursor-pointer ${className}`}
       {...props}
     >
-      <span className="pointer-events-none absolute -top-7 left-1/2 -translate-x-1/2 text-xs text-white opacity-0 transition-opacity duration-150 group-hover/button:opacity-100 whitespace-nowrap">
+      <span className="pointer-events-none absolute -top-7 left-1/2 -translate-x-1/2 text-xs text-white opacity-0 transition-opacity duration-300 group-hover/button:opacity-100 whitespace-nowrap">
         {isPip ? "Disable PiP" : "Enable PiP"}
       </span>
       <PictureInPicture2 size={18} />
@@ -668,6 +699,7 @@ export function VideoPlayTrigger({
 }: VideoPlayTriggerProps): React.ReactElement {
   const { isPlaying, isBuffering, attemptTogglePlay } = useVideo();
 
+  // Renders play, pause, or loading buttons based on playback state.
   return (
     <button
       onClick={attemptTogglePlay}
@@ -676,7 +708,7 @@ export function VideoPlayTrigger({
       className={`relative group/button text-white hover:cursor-pointer disabled:cursor-wait disabled:opacity-60 ${className}`}
       {...props}
     >
-      <span className="pointer-events-none absolute -top-7 left-1/2 -translate-x-1/2 text-xs text-white opacity-0 transition-opacity duration-150 group-hover/button:opacity-100">
+      <span className="pointer-events-none absolute -top-7 left-1/2 -translate-x-1/2 text-xs text-white opacity-0 transition-opacity duration-300 group-hover/button:opacity-100">
         {isBuffering ? "" : isPlaying ? "Pause" : "Play"}
       </span>
       {isBuffering ? (
@@ -699,13 +731,14 @@ export function VideoFullscreenTrigger({
 }: VideoFullscreenTriggerProps): React.ReactElement {
   const { toggleFullscreen, isFullscreen } = useVideo();
 
+  // Renders fullscreen enter/exit buttons based on browser fullscreen state.
   return (
     <button
       onClick={toggleFullscreen}
       className={`relative group/button text-white hover:cursor-pointer ${className}`}
       {...props}
     >
-      <span className="pointer-events-none absolute -top-7 -translate-x-1/2 -left-3 text-xs text-white opacity-0 transition-opacity duration-150 group-hover/button:opacity-100 whitespace-nowrap">
+      <span className="pointer-events-none absolute -top-7 -translate-x-1/2 -left-3 text-xs text-white opacity-0 transition-opacity duration-300 group-hover/button:opacity-100 whitespace-nowrap">
         {isFullscreen ? "Exit Full Screen" : "Full Screen"}
       </span>
       {isFullscreen ? <Minimize2 size={18} /> : <Maximize2 size={18} />}
@@ -722,6 +755,7 @@ export function VideoProgressBar({
 }: VideoProgressBarProps): React.ReactElement {
   const { videoProgress, videoDuration } = useVideo();
 
+  // Displays elapsed time, seek slider, and total duration as one control group.
   return (
     <div
       className={`flex-1 ${className} flex items-center justify-center gap-2`}
@@ -737,20 +771,26 @@ function VideoSeekSlider({
   className = "",
   ...props
 }: React.ComponentPropsWithoutRef<"div">): React.ReactElement {
+  // Remembers whether playback should resume after the user finishes seeking.
   const wasPlayingRef = useRef<boolean>(false);
 
-  const { videoDuration, videoProgress, videoRef, setIsVolumeControlOpen } =
-    useVideo();
+  const {
+    videoDuration,
+    videoProgress,
+    videoRef,
+    setVideoProgress,
+    setIsVolumeControlOpen
+  } = useVideo();
 
   const frac = videoDuration > 0 ? videoProgress / videoDuration : 0;
 
   const containerRef = useRef<HTMLDivElement | null>(null);
-  // x: pixels from left edge of slider container
+  // Hover stores x pixels from the slider edge and the matching video timestamp.
   const [hover, setHover] = useState<{ x: number; time: number } | null>(null);
   const [isHovering, setIsHovering] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
 
-  // Helper function to calculate the x offset and corresponding time fraction based on clientX position
+  // Converts a pointer X position into a clamped slider offset and progress fraction.
   const getXOffsetandFraction = useCallback(
     (clientX: number): { x: number; frac: number } | undefined => {
       if (!containerRef.current || videoDuration === 0) return;
@@ -762,18 +802,19 @@ function VideoSeekSlider({
     [videoDuration]
   );
 
-  // Seek video to a specific time based on fraction (0 to 1) of total duration
+  // Seeks the video to a fraction of total duration and closes the volume control.
   const handleSeekVideo = useCallback(
     (newFrac: number) => {
       if (!videoRef.current || videoDuration === 0) return;
       const newTime = newFrac * videoDuration;
       videoRef.current.currentTime = newTime;
+      setVideoProgress(newTime);
       setIsVolumeControlOpen(false);
     },
-    [videoDuration, videoRef, setIsVolumeControlOpen]
+    [videoDuration, videoRef, setVideoProgress, setIsVolumeControlOpen]
   );
 
-  // Update hover state based on clientX position, used for displaying hover time tooltip
+  // Updates the tooltip position and preview time from a pointer X position.
   const updateHoverFromClientX = useCallback(
     (clientX: number) => {
       const val = getXOffsetandFraction(clientX);
@@ -783,13 +824,13 @@ function VideoSeekSlider({
     [videoDuration, getXOffsetandFraction]
   );
 
-  // Handle mouse move over the progress bar to update hover state and show tooltip
+  // Shows and updates the hover tooltip while the pointer moves over the slider.
   const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
     updateHoverFromClientX(event.clientX);
     setIsHovering(true);
   };
 
-  // Handle pointer down event to start seeking the video, pause if currently playing, and set dragging state
+  // Starts seeking, pauses playback during drag, and applies the first seek value.
   const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
     const val = getXOffsetandFraction(event.clientX);
     if (!val) return;
@@ -802,15 +843,14 @@ function VideoSeekSlider({
     handleSeekVideo(val.frac);
   };
 
-  // Handle mouse leaving the progress bar area, hide tooltip if not dragging
-  // If dragging, dont do anything so user can still see progress bar and tooltip
+  // Hides the tooltip on leave unless an active drag still needs feedback.
   const handleMouseLeave = () => {
     if (!isDragging) {
       setIsHovering(false);
     }
   };
 
-  // Handle pointer move event during dragging to update video seek position and hover tooltip
+  // Updates both the seek position and tooltip while dragging globally.
   const handlePointerMove = useCallback(
     (event: PointerEvent) => {
       updateHoverFromClientX(event.clientX);
@@ -821,7 +861,7 @@ function VideoSeekSlider({
     [updateHoverFromClientX, getXOffsetandFraction, handleSeekVideo]
   );
 
-  // Handle pointer up event to end dragging, hide tooltip, and resume playing if it was playing before
+  // Ends seeking and resumes playback if the video was playing before the drag.
   const handlePointerUp = useCallback(() => {
     setIsDragging(false);
     setIsHovering(false);
@@ -833,7 +873,7 @@ function VideoSeekSlider({
     wasPlayingRef.current = false;
   }, [videoRef]);
 
-  // Add global event listeners for pointer move and pointer up when dragging starts, and clean up when dragging ends
+  // Registers global drag listeners so seeking continues outside the slider bounds.
   useEffect(() => {
     if (!isDragging) return;
 
@@ -881,7 +921,7 @@ function VideoSeekSlider({
         <div
           id="video-progress-bar-hover-time"
           className={cn(
-            "pointer-events-none absolute -top-13 z-10 rounded text-sm text-white transition-opacity videoDuration-200 flex flex-col items-center gap-[3px]",
+            "pointer-events-none absolute -top-13 z-10 rounded text-sm text-white transition-opacity duration-300 flex flex-col items-center gap-[3px]",
             isHovering ? "opacity-100" : "opacity-0"
           )}
           style={{ left: hover.x, transform: "translateX(-50%)" }}
@@ -897,7 +937,7 @@ function VideoSeekSlider({
   );
 }
 
-// Helper function to format time in seconds to "minutes:seconds"
+// Formats seconds into the m:ss timestamp used by the player controls.
 function formatTime(seconds: number): string {
   const mins = Math.floor(seconds / 60);
   const secs = Math.floor(seconds % 60);

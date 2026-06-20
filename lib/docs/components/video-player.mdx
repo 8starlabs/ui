@@ -48,8 +48,8 @@ import VideoRoot, {
 
 export function MyVideoPlayer() {
   return (
-    <VideoRoot className="overflow-hidden rounded-xl">
-      <VideoViewport src="https://vjs.zencdn.net/v/oceans.mp4" />
+    <VideoRoot className="aspect-video overflow-hidden rounded-xl">
+      <VideoViewport src="https://vjs.zencdn.net/v/oceans.mp4" fit="cover" />
 
       <VideoControls className="flex items-center justify-between gap-4">
         <VideoPlayTrigger />
@@ -76,16 +76,40 @@ Wraps the player in context and handles the control overlay visibility logic.
 
 Also accepts standard `div` props.
 
+`VideoRoot` controls the rendered player size. The component includes a default
+`aspect-video w-full` container, and you can override that with Tailwind sizing
+classes such as `aspect-square`, `h-64`, `h-[420px]`, `max-w-3xl`, or `w-full`.
+
+```tsx
+<VideoRoot className="aspect-square rounded-xl">
+  <VideoViewport src="/sample_scenery.mp4" />
+</VideoRoot>
+
+<VideoRoot className="h-[420px] rounded-xl">
+  <VideoViewport src="/sample_scenery.mp4" />
+</VideoRoot>
+```
+
 ### VideoViewport
 
 Renders the underlying HTML5 `<video>` element and syncs playback state into the player context.
 
-| Prop        | Type     | Default  | Description                               |
-| ----------- | -------- | -------- | ----------------------------------------- |
-| `src`       | `string` | Required | Video source URL.                         |
-| `className` | `string` | -        | Additional classes for the video element. |
+| Prop        | Type                                                      | Default   | Description                                     |
+| ----------- | --------------------------------------------------------- | --------- | ----------------------------------------------- |
+| `src`       | `string`                                                  | Required  | Video source URL.                               |
+| `fit`       | `"cover" \| "contain" \| "fill" \| "none" \| "scaleDown"` | `"cover"` | Controls how the video fits inside `VideoRoot`. |
+| `className` | `string`                                                  | -         | Additional classes for the video element.       |
 
 Also accepts standard `video` props such as `poster`, `loop`, `muted`, `autoPlay`, and `controlsList`.
+
+`fit` maps to CSS `object-fit` classes through `cva`. Use `cover` when the video
+should fill the player and crop overflow, or `contain` when the whole video
+should remain visible with letterboxing.
+
+```tsx
+<VideoViewport src="/sample_scenery.mp4" fit="cover" />
+<VideoViewport src="/sample_scenery.mp4" fit="contain" />
+```
 
 ### VideoControls
 
@@ -148,6 +172,21 @@ Use the existing demo as the baseline example for the default control set:
   name="video-player-minimal-controls-demo"
   noPaddingOnComponentSource
 />
+
+### Fit and Cropping
+
+Use `fit` on `VideoViewport` to choose how the media is drawn inside the player
+box. The player size still comes from `VideoRoot`; `fit` only controls the
+video's rendering inside that box.
+
+<ComponentPreview name="video-player-fit-demo" noPaddingOnComponentSource />
+
+### Player Sizing
+
+Use sizing classes on `VideoRoot` to define the player viewport. The video then
+fills that viewport according to the `fit` value on `VideoViewport`.
+
+<ComponentPreview name="video-player-sizing-demo" noPaddingOnComponentSource />
 
 ### Using Hosted MP4 files
 
