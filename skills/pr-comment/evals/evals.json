@@ -1,0 +1,23 @@
+{
+  "skill_name": "pr-comment",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Write the PR description for the change that adds four repo-local agent skills to 8StarLabs UI and closes issue #43.",
+      "expected_output": "Outputs only one fenced markdown block with `## Summary`, `## Key Changes`, and a closing line such as `Closes #43`.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Summarize this diff for reviewers: we added a maintainer skill, a consumer install skill, and contributor docs, and we kept each SKILL.md under 220 lines.",
+      "expected_output": "Produces a concise reviewer-facing PR body with root-cause framing and grouped key changes rather than a file-by-file changelog.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Draft a PR body for a small fix where the docs examples were stale after a component prop rename. No linked issue number.",
+      "expected_output": "Uses the same strict markdown-only format but omits issue-closing language because no issue is known.",
+      "files": []
+    }
+  ]
+}

@@ -131,6 +131,22 @@ registry/8starlabs-ui/
 └── ui/              # Components that are installed via `pnpm dlx shadcn@latest` command
 ```
 
+## Agent Skills
+
+This repository includes repo-local agent skills for common 8StarLabs UI
+workflows. Start at [`AGENTS.md`](AGENTS.md), which indexes the available
+skills and links to the corresponding `skills/<name>/SKILL.md` entrypoint.
+
+Current skills cover:
+
+- shipping or updating components in this repository
+- consuming 8StarLabs UI components in downstream apps
+- reviewing or debugging existing 8StarLabs UI usage
+- drafting PR descriptions and change summaries
+
+When adding or refining skills, keep each `SKILL.md` concise and move overflow
+detail into nearby `references/` files.
+
 ## Pull Request Process
 
 1. Update your fork to the latest upstream changes

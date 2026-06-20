@@ -7,5 +7,5 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function absoluteUrl(path: string) {
-  return `${siteConfig.url}/${path}`;
+  return `${siteConfig.url.replace(/\/$/, "")}/${path.replace(/^\//, "")}`;
 }

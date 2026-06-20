@@ -1,0 +1,23 @@
+{
+  "skill_name": "8sl-pattern-review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Review this 8StarLabs integration and tell me what's actually wrong before suggesting cleanup. The component renders, but the generated imports and usage may be off.",
+      "expected_output": "Uses a findings-first review format, prioritizes correctness and integration issues, and avoids generic style commentary.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I copied an 8StarLabs example into my app and now the imports are broken. Debug it like a library-aware reviewer, not just a React linter.",
+      "expected_output": "Checks alias and generated-path assumptions first, then recommends the smallest fix that restores aligned usage.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Is this custom rewrite actually justified, or should we keep using the installed 8StarLabs component? Give me review findings, not a full rewrite yet.",
+      "expected_output": "Evaluates rewrite skepticism, stays grounded in registry usage, and keeps the response in review mode unless a rewrite is explicitly requested.",
+      "files": []
+    }
+  ]
+}

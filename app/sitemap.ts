@@ -15,7 +15,7 @@ function toAbsoluteUrl(path: string) {
 }
 
 function getPriority(path: string): number {
-  if (path === "/llms.txt") {
+  if (path === "/llms.txt" || path === "/design.md") {
     return LLM_PRIORITY;
   }
 
@@ -41,7 +41,7 @@ function getPriority(path: string): number {
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
   const seen = new Set<string>();
-  const staticPaths = ["/llms.txt"];
+  const staticPaths = ["/llms.txt", "/design.md"];
 
   const nonHomePaths = [
     ...staticPaths,
