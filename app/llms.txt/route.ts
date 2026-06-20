@@ -94,6 +94,7 @@ export async function GET() {
     "",
     ...sectionBlocks,
     "## Machine-Readable Sources",
+    `- [Design System](${toAbsoluteUrl("/design.md")}): tokens, colors, typography, and component index.`,
     `- [Markdown Index](${toAbsoluteUrl("/llm")})`,
     "- Raw markdown is available at `/llm/*` using the same path as `/docs/*` (replace `/docs` with `/llm`).",
     `- Example: ${toAbsoluteUrl("/docs/setup")} -> ${toAbsoluteUrl("/llm/setup")}`,
