@@ -660,6 +660,86 @@
           "target": "components/8starlabs-ui/examples/json-viewer-features-demo.tsx"
         }
       ]
+    },
+    {
+      "name": "video-player",
+      "type": "registry:ui",
+      "title": "Video Player",
+      "description": "A video player component",
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["https://ui.8starlabs.com/r/button.json"],
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/blocks/video-player.tsx",
+          "type": "registry:ui",
+          "target": "components/8starlabs-ui/video-player.tsx"
+        }
+      ]
+    },
+    {
+      "name": "video-player-demo",
+      "type": "registry:example",
+      "title": "Video Player",
+      "description": "A video player demo component",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/video-player-demo.tsx",
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/video-player-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "video-player-minimal-controls-demo",
+      "type": "registry:example",
+      "title": "Video Player Minimal Controls",
+      "description": "A video player demo component with minimal controls",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/video-player-minimal-controls-demo.tsx",
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/video-player-minimal-controls-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "video-player-fit-demo",
+      "type": "registry:example",
+      "title": "Video Player Fit",
+      "description": "A video player demo showing fit behavior",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/video-player-fit-demo.tsx",
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/video-player-fit-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "video-player-sizing-demo",
+      "type": "registry:example",
+      "title": "Video Player Sizing",
+      "description": "A video player demo showing viewport sizing",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/video-player-sizing-demo.tsx",
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/video-player-sizing-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "video-player-hosted-mp4-demo",
+      "type": "registry:example",
+      "title": "Video Player Hosted MP4",
+      "description": "A video player demo using a hosted MP4 file",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/video-player-hosted-mp4-demo.tsx",
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/video-player-hosted-mp4-demo.tsx"
+        }
+      ]
     }
   ]
 }

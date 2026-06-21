@@ -1,0 +1,205 @@
+---
+title: Video Player
+description: A compound video player component with custom controls for playback, seeking, volume, Picture-in-Picture, and fullscreen.
+---
+
+<ComponentPreview name="video-player-demo" noPaddingOnComponentSource />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+pnpm dlx shadcn@latest add https://ui.8starlabs.com/r/video-player.json
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<ComponentSource
+  name="video-player"
+  title="components/8starlabs-ui/video-player.tsx"
+/>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx showLineNumbers
+import VideoRoot, {
+  VideoViewport,
+  VideoControls,
+  VideoPlayTrigger,
+  VideoSoundControl,
+  VideoProgressBar,
+  VideoPipTrigger,
+  VideoFullscreenTrigger
+} from "@/components/8starlabs-ui/video-player";
+
+export function MyVideoPlayer() {
+  return (
+    <VideoRoot className="aspect-video overflow-hidden rounded-xl">
+      <VideoViewport src="https://vjs.zencdn.net/v/oceans.mp4" fit="cover" />
+
+      <VideoControls className="flex items-center justify-between gap-4">
+        <VideoPlayTrigger />
+        <VideoSoundControl />
+        <VideoProgressBar />
+        <VideoPipTrigger />
+        <VideoFullscreenTrigger />
+      </VideoControls>
+    </VideoRoot>
+  );
+}
+```
+
+## API Reference
+
+### VideoRoot
+
+Wraps the player in context and handles the control overlay visibility logic.
+
+| Prop        | Type        | Default  | Description                                                    |
+| ----------- | ----------- | -------- | -------------------------------------------------------------- |
+| `className` | `string`    | -        | Additional classes for the outer player container.             |
+| `children`  | `ReactNode` | Required | Player content, typically `VideoViewport` and `VideoControls`. |
+
+Also accepts standard `div` props.
+
+`VideoRoot` controls the rendered player size. The component includes a default
+`aspect-video w-full` container, and you can override that with Tailwind sizing
+classes such as `aspect-square`, `h-64`, `h-[420px]`, `max-w-3xl`, or `w-full`.
+
+```tsx
+<VideoRoot className="aspect-square rounded-xl">
+  <VideoViewport src="/sample_scenery.mp4" />
+</VideoRoot>
+
+<VideoRoot className="h-[420px] rounded-xl">
+  <VideoViewport src="/sample_scenery.mp4" />
+</VideoRoot>
+```
+
+### VideoViewport
+
+Renders the underlying HTML5 `<video>` element and syncs playback state into the player context.
+
+| Prop        | Type                                                      | Default   | Description                                     |
+| ----------- | --------------------------------------------------------- | --------- | ----------------------------------------------- |
+| `src`       | `string`                                                  | Required  | Video source URL.                               |
+| `fit`       | `"cover" \| "contain" \| "fill" \| "none" \| "scaleDown"` | `"cover"` | Controls how the video fits inside `VideoRoot`. |
+| `className` | `string`                                                  | -         | Additional classes for the video element.       |
+
+Also accepts standard `video` props such as `poster`, `loop`, `muted`, `autoPlay`, and `controlsList`.
+
+`fit` maps to CSS `object-fit` classes through `cva`. Use `cover` when the video
+should fill the player and crop overflow, or `contain` when the whole video
+should remain visible with letterboxing.
+
+```tsx
+<VideoViewport src="/sample_scenery.mp4" fit="cover" />
+<VideoViewport src="/sample_scenery.mp4" fit="contain" />
+```
+
+### VideoControls
+
+Positions the custom controls in a bottom overlay that fades in on pointer movement.
+
+| Prop        | Type        | Default  | Description                                    |
+| ----------- | ----------- | -------- | ---------------------------------------------- |
+| `className` | `string`    | -        | Additional classes for the controls wrapper.   |
+| `children`  | `ReactNode` | Required | Control elements to render inside the overlay. |
+
+Also accepts standard `div` props.
+
+### VideoPlayTrigger
+
+Play/pause button wired to the shared player state.
+
+Accepts standard `button` props.
+
+### VideoSoundControl
+
+Mute toggle plus expandable vertical volume slider.
+
+Accepts standard `button` props on the mute trigger.
+
+### VideoProgressBar
+
+Displays the current time, seek bar, and total duration. The seek bar supports hover preview and drag-to-seek interactions.
+
+Accepts standard `div` props.
+
+### VideoPipTrigger
+
+Toggles Picture-in-Picture mode when supported by the browser.
+
+Accepts standard `button` props.
+
+### VideoFullscreenTrigger
+
+Toggles fullscreen mode for the player container.
+
+Accepts standard `button` props.
+
+## Examples
+
+### Basic Player
+
+Use the existing demo as the baseline example for the default control set:
+
+- Play/pause
+- Volume and mute
+- Seek bar with timestamps
+- Picture-in-Picture
+- Fullscreen
+
+<ComponentPreview name="video-player-demo" noPaddingOnComponentSource />
+
+### Minimal Controls
+
+<ComponentPreview
+  name="video-player-minimal-controls-demo"
+  noPaddingOnComponentSource
+/>
+
+### Fit and Cropping
+
+Use `fit` on `VideoViewport` to choose how the media is drawn inside the player
+box. The player size still comes from `VideoRoot`; `fit` only controls the
+video's rendering inside that box.
+
+<ComponentPreview name="video-player-fit-demo" noPaddingOnComponentSource />
+
+### Player Sizing
+
+Use sizing classes on `VideoRoot` to define the player viewport. The video then
+fills that viewport according to the `fit` value on `VideoViewport`.
+
+<ComponentPreview name="video-player-sizing-demo" noPaddingOnComponentSource />
+
+### Using Hosted MP4 files
+
+<ComponentPreview
+  name="video-player-hosted-mp4-demo"
+  noPaddingOnComponentSource
+/>
+
+## Notes
+
+- `VideoRoot` uses context internally, so all subcomponents must be rendered inside it.
+- Controls appear on mouse movement and hide automatically after a short delay when the pointer is not over the controls.
+- Clicking directly on the video toggles play and pause.
+- The progress bar pauses playback while dragging and resumes playback afterward if the video was already playing.
+- Picture-in-Picture support depends on the browser and platform.
+- All components support standard HTML attributes and `className` overrides.
