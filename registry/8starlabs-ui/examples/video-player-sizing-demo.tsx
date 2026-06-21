@@ -16,15 +16,15 @@ function CompactPlayer({
   wrapperClassName?: string;
 }) {
   return (
-    <div className={cn("space-y-2", wrapperClassName)}>
+    <div className={cn("min-w-0 space-y-2", wrapperClassName)}>
       <p className="text-center text-xs font-medium uppercase tracking-wider text-muted-foreground">
         {label}
       </p>
       <VideoRoot className={className}>
         <VideoViewport src="/sample_scenery.mp4" fit="cover" />
-        <VideoControls className="flex items-center justify-between gap-4">
+        <VideoControls className="flex min-w-0 items-center justify-between gap-2">
           <VideoPlayTrigger />
-          <VideoProgressBar />
+          <VideoProgressBar className="min-w-0" />
         </VideoControls>
       </VideoRoot>
     </div>
@@ -33,7 +33,7 @@ function CompactPlayer({
 
 export default function VideoPlayerSizingDemo() {
   return (
-    <div className="grid w-full gap-6 p-4 md:grid-cols-2">
+    <div className="grid w-full min-w-0 max-w-full gap-6 p-4 md:grid-cols-2">
       <CompactPlayer
         label="aspect-video"
         className="aspect-video rounded-lg"
