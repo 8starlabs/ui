@@ -82,11 +82,11 @@ classes such as `aspect-square`, `h-64`, `h-[420px]`, `max-w-3xl`, or `w-full`.
 
 ```tsx
 <VideoRoot className="aspect-square rounded-xl">
-  <VideoViewport src="/sample_scenery.mp4" />
+  <VideoViewport src="/my_video.mp4" />
 </VideoRoot>
 
 <VideoRoot className="h-[420px] rounded-xl">
-  <VideoViewport src="/sample_scenery.mp4" />
+  <VideoViewport src="/my_video.mp4" />
 </VideoRoot>
 ```
 
@@ -107,8 +107,8 @@ should fill the player and crop overflow, or `contain` when the whole video
 should remain visible with letterboxing.
 
 ```tsx
-<VideoViewport src="/sample_scenery.mp4" fit="cover" />
-<VideoViewport src="/sample_scenery.mp4" fit="contain" />
+<VideoViewport src="/my_video.mp4" fit="cover" />
+<VideoViewport src="/my_video.mp4" fit="contain" />
 ```
 
 ### VideoControls
@@ -187,13 +187,6 @@ Use sizing classes on `VideoRoot` to define the player viewport. The video then
 fills that viewport according to the `fit` value on `VideoViewport`.
 
 <ComponentPreview name="video-player-sizing-demo" noPaddingOnComponentSource />
-
-### Using Hosted MP4 files
-
-<ComponentPreview
-  name="video-player-hosted-mp4-demo"
-  noPaddingOnComponentSource
-/>
 
 ## Notes
 

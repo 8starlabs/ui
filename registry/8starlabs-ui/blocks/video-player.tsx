@@ -480,14 +480,14 @@ export function VideoViewport({
             />
           ) : isPlaying ? (
             <Pause
-              className={cn(centerControlIconClassName)}
-              fill="white"
+              className={cn(centerControlIconClassName, "text-white/60")}
+              fill="currentColor"
               strokeWidth={0}
             />
           ) : (
             <Play
-              className={cn(centerControlIconClassName)}
-              fill="white"
+              className={cn(centerControlIconClassName, "text-white/60")}
+              fill="currentColor"
               strokeWidth={0}
             />
           )}

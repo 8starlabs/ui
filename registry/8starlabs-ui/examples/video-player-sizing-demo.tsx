@@ -21,7 +21,7 @@ function CompactPlayer({
         {label}
       </p>
       <VideoRoot className={className}>
-        <VideoViewport src="/sample_scenery.mp4" fit="cover" />
+        <VideoViewport src="https://vjs.zencdn.net/v/oceans.mp4" fit="cover" />
         <VideoControls className="flex min-w-0 items-center justify-between gap-2">
           <VideoPlayTrigger />
           <VideoProgressBar className="min-w-0" />

@@ -14,7 +14,10 @@ export default function VideoPlayerFitDemo() {
           fit: cover
         </p>
         <VideoRoot className="aspect-square rounded-lg">
-          <VideoViewport src="/sample_scenery.mp4" fit="cover" />
+          <VideoViewport
+            src="https://vjs.zencdn.net/v/oceans.mp4"
+            fit="cover"
+          />
           <VideoControls className="flex items-center justify-between gap-4">
             <VideoPlayTrigger />
             <VideoProgressBar />
@@ -28,7 +31,10 @@ export default function VideoPlayerFitDemo() {
           fit: contain
         </p>
         <VideoRoot className="aspect-square rounded-lg">
-          <VideoViewport src="/sample_scenery.mp4" fit="contain" />
+          <VideoViewport
+            src="https://vjs.zencdn.net/v/oceans.mp4"
+            fit="contain"
+          />
           <VideoControls className="flex items-center justify-between gap-4">
             <VideoPlayTrigger />
             <VideoProgressBar />
