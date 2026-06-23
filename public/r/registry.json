@@ -727,19 +727,6 @@
           "target": "components/8starlabs-ui/examples/video-player-sizing-demo.tsx"
         }
       ]
-    },
-    {
-      "name": "video-player-hosted-mp4-demo",
-      "type": "registry:example",
-      "title": "Video Player Hosted MP4",
-      "description": "A video player demo using a hosted MP4 file",
-      "files": [
-        {
-          "path": "registry/8starlabs-ui/examples/video-player-hosted-mp4-demo.tsx",
-          "type": "registry:example",
-          "target": "components/8starlabs-ui/examples/video-player-hosted-mp4-demo.tsx"
-        }
-      ]
     }
   ]
 }

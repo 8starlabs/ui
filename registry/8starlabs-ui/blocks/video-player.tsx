@@ -316,6 +316,7 @@ export function VideoViewport({
     isBuffering,
     hasError,
     setIsVolumeControlOpen,
+    setShowControls,
     attemptTogglePlay,
     showControls
   } = useVideo();
@@ -399,6 +400,19 @@ export function VideoViewport({
     videoElement.load();
   };
 
+  // Reveals controls on the first tap while playing, then toggles playback after.
+  const handleViewportPointerUp = (
+    event: React.PointerEvent<HTMLVideoElement | HTMLDivElement>
+  ) => {
+    if (!showControls && event.pointerType === "touch") {
+      setShowControls(true);
+      return;
+    }
+
+    setShowControls(true);
+    attemptTogglePlay();
+  };
+
   return (
     <div className="relative h-full w-full">
       <video
@@ -433,7 +447,7 @@ export function VideoViewport({
         // Fires when the browser is fetching but the server stops sending data.
         onStalled={handleBufferingStart}
         // Toggles playback when the user clicks the video canvas.
-        onClick={attemptTogglePlay}
+        onPointerUp={handleViewportPointerUp}
         // Handles fatal media failures like CORS, 403s, or unsupported codecs.
         onError={(e) => {
           setIsBuffering(false);
@@ -451,7 +465,7 @@ export function VideoViewport({
         className={
           "absolute inset-0 flex items-center justify-center p-[min(1rem,3cqw)]"
         }
-        onClick={attemptTogglePlay}
+        onPointerUp={handleViewportPointerUp}
       >
         <div
           className={cn(
@@ -465,9 +479,17 @@ export function VideoViewport({
               color="rgba(255, 255, 255, 0.78)"
             />
           ) : isPlaying ? (
-            <Pause className={cn(centerControlIconClassName)} fill="white" />
+            <Pause
+              className={cn(centerControlIconClassName, "text-white/60")}
+              fill="currentColor"
+              strokeWidth={0}
+            />
           ) : (
-            <Play className={cn(centerControlIconClassName)} fill="white" />
+            <Play
+              className={cn(centerControlIconClassName, "text-white/60")}
+              fill="currentColor"
+              strokeWidth={0}
+            />
           )}
         </div>
       </div>

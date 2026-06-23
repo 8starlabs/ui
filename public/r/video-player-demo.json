@@ -7,7 +7,7 @@
   "files": [
     {
       "path": "registry/8starlabs-ui/examples/video-player-demo.tsx",
-      "content": "import VideoRoot, {\n  VideoViewport,\n  VideoControls,\n  VideoPlayTrigger,\n  VideoFullscreenTrigger,\n  VideoProgressBar,\n  VideoSoundControl,\n  VideoPipTrigger\n} from \"@/registry/8starlabs-ui/blocks/video-player\";\n\nexport default function VideoPlayerDemo() {\n  return (\n    <VideoRoot className=\"rounded-lg\">\n      <VideoViewport src=\"/sample_scenery.mp4\" />\n\n      <VideoControls className=\"flex items-center justify-between gap-4\">\n        <VideoPlayTrigger />\n        <VideoSoundControl />\n        <VideoProgressBar />\n        <VideoPipTrigger />\n        <VideoFullscreenTrigger />\n      </VideoControls>\n    </VideoRoot>\n  );\n}\n",
+      "content": "import VideoRoot, {\n  VideoViewport,\n  VideoControls,\n  VideoPlayTrigger,\n  VideoFullscreenTrigger,\n  VideoProgressBar,\n  VideoSoundControl,\n  VideoPipTrigger\n} from \"@/registry/8starlabs-ui/blocks/video-player\";\n\nexport default function VideoPlayerDemo() {\n  return (\n    <VideoRoot className=\"rounded-lg\">\n      <VideoViewport src=\"https://vjs.zencdn.net/v/oceans.mp4\" />\n\n      <VideoControls className=\"flex items-center justify-between gap-4\">\n        <VideoPlayTrigger />\n        <VideoSoundControl />\n        <VideoProgressBar />\n        <VideoPipTrigger />\n        <VideoFullscreenTrigger />\n      </VideoControls>\n    </VideoRoot>\n  );\n}\n",
       "type": "registry:example",
       "target": "components/8starlabs-ui/examples/video-player-demo.tsx"
     }

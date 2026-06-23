@@ -51,7 +51,6 @@ import transport_badge_demo_station_name_component from "@/registry/8starlabs-ui
 import transport_badge_demo_component from "@/registry/8starlabs-ui/examples/transport-badge-demo";
 import video_player_demo_component from "@/registry/8starlabs-ui/examples/video-player-demo";
 import video_player_fit_demo_component from "@/registry/8starlabs-ui/examples/video-player-fit-demo";
-import video_player_hosted_mp4_demo_component from "@/registry/8starlabs-ui/examples/video-player-hosted-mp4-demo";
 import video_player_minimal_controls_demo_component from "@/registry/8starlabs-ui/examples/video-player-minimal-controls-demo";
 import video_player_sizing_demo_component from "@/registry/8starlabs-ui/examples/video-player-sizing-demo";
 
@@ -576,16 +575,6 @@ export const Index: Record<string, any> = {
         target: "components/8starlabs-ui/examples/video-player-fit-demo.tsx"
       }],
       component: video_player_fit_demo_component
-    },
-    "video-player-hosted-mp4-demo": {
-      name: "video-player-hosted-mp4-demo",
-      type: "registry:example",
-      files: [{
-        path: "registry/8starlabs-ui/examples/video-player-hosted-mp4-demo.tsx",
-        type: "registry:example",
-        target: "components/8starlabs-ui/examples/video-player-hosted-mp4-demo.tsx"
-      }],
-      component: video_player_hosted_mp4_demo_component
     },
     "video-player-minimal-controls-demo": {
       name: "video-player-minimal-controls-demo",
