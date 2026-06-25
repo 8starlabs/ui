@@ -18,6 +18,8 @@ import {
   Pause,
   PictureInPicture2,
   Play,
+  RotateCcw,
+  RotateCw,
   Volume,
   Volume1,
   Volume2,
@@ -36,6 +38,7 @@ interface VideoContextType {
   videoProgress: number;
   videoDuration: number;
   showControls: boolean;
+  controlsTimeoutRef: React.MutableRefObject<NodeJS.Timeout | null>;
   isFullscreen: boolean;
   isMouseOverControls: boolean;
   isPip: boolean;
@@ -48,6 +51,7 @@ interface VideoContextType {
   setVideoProgress: (progress: number) => void;
   setVideoDuration: (videoDuration: number) => void;
   setShowControls: (show: boolean) => void;
+  showControlsTemporarily: () => void;
   setVolume: (x: number) => void;
   setIsMouseOverControls: (x: boolean) => void;
   toggleMute: (x: boolean) => void;
@@ -81,6 +85,7 @@ export function VideoProvider({
   const [videoProgress, setVideoProgress] = useState(0);
   const [videoDuration, setVideoDuration] = useState(0);
   const [showControls, setShowControls] = useState(false);
+  const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isMouseOverControls, setIsMouseOverControls] = useState(false);
   const [isPip, setIsPip] = useState(false);
@@ -147,6 +152,18 @@ export function VideoProvider({
     }
   };
 
+  // Shows controls and refreshes the shared auto-hide timer.
+  const showControlsTemporarily = () => {
+    setShowControls(true);
+    if (controlsTimeoutRef.current) clearTimeout(controlsTimeoutRef.current);
+
+    if (!isMouseOverControls) {
+      controlsTimeoutRef.current = setTimeout(() => {
+        setShowControls(false);
+      }, 2500);
+    }
+  };
+
   // Enters or exits browser picture-in-picture mode when supported.
   const togglePip = async () => {
     const videoElement = videoRef.current;
@@ -202,6 +219,7 @@ export function VideoProvider({
         videoProgress,
         videoDuration,
         showControls,
+        controlsTimeoutRef,
         isFullscreen,
         isMouseOverControls,
         isPip,
@@ -214,6 +232,7 @@ export function VideoProvider({
         setVideoProgress,
         setVideoDuration,
         setShowControls,
+        showControlsTemporarily,
         setVolume,
         toggleMute,
         setIsMouseOverControls,
@@ -253,24 +272,21 @@ function VideoContainer({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
-  const { containerRef, setShowControls, isMouseOverControls } = useVideo();
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const {
+    containerRef,
+    controlsTimeoutRef,
+    setShowControls,
+    showControlsTemporarily
+  } = useVideo();
 
   // Shows controls on movement and schedules auto-hide when the controls are not hovered.
   const handleMouseMove = () => {
-    setShowControls(true);
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-
-    if (!isMouseOverControls) {
-      timeoutRef.current = setTimeout(() => {
-        setShowControls(false);
-      }, 2500);
-    }
+    showControlsTemporarily();
   };
 
   // Clears pending auto-hide and hides controls when leaving the video area.
   const handleMouseLeave = () => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    if (controlsTimeoutRef.current) clearTimeout(controlsTimeoutRef.current);
     setShowControls(false);
   };
 
@@ -278,7 +294,7 @@ function VideoContainer({
     <div
       ref={containerRef}
       className={cn(
-        "relative aspect-video w-full overflow-hidden bg-black [container-type:inline-size] hover:cursor-pointer",
+        "relative aspect-video w-full overflow-hidden bg-black [container-type:inline-size]",
         className
       )}
       onMouseMove={handleMouseMove}
@@ -328,13 +344,14 @@ export function VideoViewport({
     setHasError,
     setVideoProgress,
     setVideoDuration,
+    videoDuration,
     isPlaying,
     isBuffering,
     hasError,
     setIsVolumeControlOpen,
-    setShowControls,
-    attemptTogglePlay,
-    showControls
+    showControlsTemporarily,
+    showControls,
+    attemptTogglePlay
   } = useVideo();
   const rafRef = useRef<number | null>(null);
   const lastSyncedProgressRef = useRef(0);
@@ -416,18 +433,21 @@ export function VideoViewport({
     videoElement.load();
   };
 
-  // Reveals controls on the first tap while playing, then toggles playback after.
-  const handleViewportPointerUp = (
-    event: React.PointerEvent<HTMLVideoElement | HTMLDivElement>
-  ) => {
-    if (!showControls && event.pointerType === "touch") {
-      setShowControls(true);
-      return;
-    }
+  // Skips within the loaded media bounds and keeps shared progress in sync.
+  const skipVideoBy = useCallback(
+    (seconds: number) => {
+      const videoElement = videoRef.current;
+      if (!videoElement) return;
 
-    setShowControls(true);
-    attemptTogglePlay();
-  };
+      const nextTime = Math.min(
+        Math.max(videoElement.currentTime + seconds, 0),
+        videoDuration
+      );
+      videoElement.currentTime = nextTime;
+      setVideoProgress(nextTime);
+    },
+    [videoDuration, videoRef, setVideoProgress]
+  );
 
   return (
     <div className="relative h-full w-full">
@@ -462,8 +482,6 @@ export function VideoViewport({
         onWaiting={handleBufferingStart}
         // Fires when the browser is fetching but the server stops sending data.
         onStalled={handleBufferingStart}
-        // Toggles playback when the user clicks the video canvas.
-        onPointerUp={handleViewportPointerUp}
         // Handles fatal media failures like CORS, 403s, or unsupported codecs.
         onError={(e) => {
           setIsBuffering(false);
@@ -481,31 +499,66 @@ export function VideoViewport({
         className={
           "absolute inset-0 flex items-center justify-center p-[min(1rem,3cqw)]"
         }
-        onPointerUp={handleViewportPointerUp}
+        onPointerDown={showControlsTemporarily}
       >
-        <div
-          className={cn(
-            "flex aspect-square items-center justify-center rounded-2xl bg-white/10 p-[min(1rem,3cqw)] backdrop-blur-xs transition-[opacity,transform] duration-300",
-            isBuffering || showControls ? "opacity-100" : "opacity-0"
+        <div className="flex items-center gap-[min(0.75rem,2.5cqw)]">
+          {!isBuffering && showControls && (
+            <button
+              className={cn(
+                "flex aspect-square items-center justify-center rounded-xl bg-white/10 p-[min(0.75rem,2.5cqw)] backdrop-blur-xs transition-[opacity,transform] duration-300 hover:cursor-pointer"
+              )}
+              onPointerUp={(event) => event.stopPropagation()}
+              onClick={(event) => {
+                event.stopPropagation();
+                skipVideoBy(-10);
+              }}
+            >
+              <RotateCcw className="h-[min(34px,9cqw)] w-[min(34px,9cqw)] text-white/60" />
+            </button>
           )}
-        >
-          {isBuffering ? (
-            <Loader2
-              className={cn("animate-spin", centerControlIconClassName)}
-              color="rgba(255, 255, 255, 0.78)"
-            />
-          ) : isPlaying ? (
-            <Pause
-              className={cn(centerControlIconClassName, "text-white/60")}
-              fill="currentColor"
-              strokeWidth={0}
-            />
-          ) : (
-            <Play
-              className={cn(centerControlIconClassName, "text-white/60")}
-              fill="currentColor"
-              strokeWidth={0}
-            />
+
+          {showControls && (
+            <div
+              className={cn(
+                "flex aspect-square items-center justify-center rounded-2xl bg-white/10 p-[min(1rem,3cqw)] backdrop-blur-xs transition-[opacity,transform] duration-300",
+                !isBuffering && "hover:cursor-pointer"
+              )}
+              onClick={attemptTogglePlay}
+            >
+              {isBuffering ? (
+                <Loader2
+                  className={cn("animate-spin", centerControlIconClassName)}
+                  color="rgba(255, 255, 255, 0.78)"
+                />
+              ) : isPlaying ? (
+                <Pause
+                  className={cn(centerControlIconClassName, "text-white/60")}
+                  fill="currentColor"
+                  strokeWidth={0}
+                />
+              ) : (
+                <Play
+                  className={cn(centerControlIconClassName, "text-white/60")}
+                  fill="currentColor"
+                  strokeWidth={0}
+                />
+              )}
+            </div>
+          )}
+
+          {!isBuffering && showControls && (
+            <button
+              className={cn(
+                "flex aspect-square items-center justify-center rounded-xl bg-white/10 p-[min(0.75rem,2.5cqw)] backdrop-blur-xs transition-[opacity,transform] duration-300 hover:cursor-pointer"
+              )}
+              onPointerUp={(event) => event.stopPropagation()}
+              onClick={(event) => {
+                event.stopPropagation();
+                skipVideoBy(10);
+              }}
+            >
+              <RotateCw className="h-[min(34px,9cqw)] w-[min(34px,9cqw)] text-white/60" />
+            </button>
           )}
         </div>
       </div>
