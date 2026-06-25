@@ -74,6 +74,7 @@ export function VideoProvider({
   // Shared video element ref and UI state consumed by viewport and control components.
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const lastVolumeRef = useRef<number | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isBuffering, setIsBuffering] = useState(false);
   const [hasError, setHasError] = useState(false);
@@ -120,15 +121,30 @@ export function VideoProvider({
 
   // Writes the volume value directly to the underlying video element.
   const setVolume = (volume: number) => {
-    if (videoRef.current) {
-      videoRef.current.volume = volume;
+    if (!videoRef.current) return;
+    videoRef.current.volume = volume;
+    if (volume > 0) {
+      lastVolumeRef.current = null;
     }
   };
 
   // Writes the muted state directly to the underlying video element.
   const toggleMute = (muted: boolean) => {
-    if (!videoRef.current) return;
-    videoRef.current.muted = muted;
+    const videoElement = videoRef.current;
+    if (!videoElement) return;
+
+    if (muted) {
+      lastVolumeRef.current = videoElement.volume;
+      videoElement.muted = true;
+      setVolume(0);
+      return;
+    }
+
+    videoElement.muted = false;
+    if (lastVolumeRef.current !== null) {
+      setVolume(lastVolumeRef.current);
+      lastVolumeRef.current = null;
+    }
   };
 
   // Enters or exits browser picture-in-picture mode when supported.
