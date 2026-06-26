@@ -7,6 +7,7 @@ import MarqueeCard from "./marquee-card";
 import VideoPlayerCard from "./video-player-card";
 import TransportBadgeCard from "./transport-badge-card";
 import StatusIndicatorCard from "./status-indicator-card";
+import ShakeCard from "./shake-card";
 
 interface CardsProps {
   className?: string;
@@ -43,6 +44,9 @@ const Cards = ({ className }: CardsProps) => {
       </div>
       <div className="sm:col-span-2 xl:col-span-4 xl:col-start-2">
         <VideoPlayerCard />
+      </div>
+      <div className="sm:col-span-2 xl:col-span-4 xl:col-start-2">
+        <ShakeCard />
       </div>
     </div>
   );

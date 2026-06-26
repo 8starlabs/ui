@@ -6,6 +6,7 @@ import json_viewer_component from "@/registry/8starlabs-ui/blocks/json-viewer";
 import marquee_component from "@/registry/8starlabs-ui/blocks/marquee";
 import partition_bar_component from "@/registry/8starlabs-ui/blocks/partition-bar";
 import scroll_fade_component from "@/registry/8starlabs-ui/blocks/scroll-fade";
+import shake_component from "@/registry/8starlabs-ui/blocks/shake";
 import status_indicator_component from "@/registry/8starlabs-ui/blocks/status-indicator";
 import system_banner_component from "@/registry/8starlabs-ui/blocks/system-banner";
 import timeline_component from "@/registry/8starlabs-ui/blocks/timeline";
@@ -37,6 +38,7 @@ import partition_bar_size_demo_component from "@/registry/8starlabs-ui/examples/
 import partition_bar_variants_demo_component from "@/registry/8starlabs-ui/examples/partition-bar-variants-demo";
 import partition_bar_width_demo_component from "@/registry/8starlabs-ui/examples/partition-bar-width-demo";
 import scroll_fade_demo_component from "@/registry/8starlabs-ui/examples/scroll-fade-demo";
+import shake_demo_component from "@/registry/8starlabs-ui/examples/shake-demo";
 import status_indicator_demo_component from "@/registry/8starlabs-ui/examples/status-indicator-demo";
 import timeline_demo_component from "@/registry/8starlabs-ui/examples/timeline-demo";
 import timeline_hollow_demo_component from "@/registry/8starlabs-ui/examples/timeline-hollow-demo";
@@ -125,6 +127,16 @@ export const Index: Record<string, any> = {
         target: "components/8starlabs-ui/scroll-fade.tsx"
       }],
       component: scroll_fade_component
+    },
+    "shake": {
+      name: "shake",
+      type: "registry:block",
+      files: [{
+        path: "registry/8starlabs-ui/blocks/shake.tsx",
+        type: "registry:block",
+        target: "components/8starlabs-ui/shake.tsx"
+      }],
+      component: shake_component
     },
     "status-indicator": {
       name: "status-indicator",
@@ -435,6 +447,16 @@ export const Index: Record<string, any> = {
         target: "components/8starlabs-ui/examples/scroll-fade-demo.tsx"
       }],
       component: scroll_fade_demo_component
+    },
+    "shake-demo": {
+      name: "shake-demo",
+      type: "registry:example",
+      files: [{
+        path: "registry/8starlabs-ui/examples/shake-demo.tsx",
+        type: "registry:example",
+        target: "components/8starlabs-ui/examples/shake-demo.tsx"
+      }],
+      component: shake_demo_component
     },
     "status-indicator-demo": {
       name: "status-indicator-demo",

@@ -1,0 +1,99 @@
+---
+title: Shake
+description: A Stripe-style perspective "error shake" for form fields and inputs. Replays a subtle 3D wobble whenever an error occurs, with a declarative wrapper and an imperative hook. Respects prefers-reduced-motion.
+---
+
+<ComponentPreview name="shake-demo" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+pnpm dlx shadcn@latest add https://ui.8starlabs.com/r/shake.json
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<ComponentSource name="shake" title="components/8starlabs-ui/shake.tsx" />
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx showLineNumbers
+import Shake, { useShake } from "@/components/8starlabs-ui/shake";
+```
+
+### Declarative
+
+Wrap the content you want to shake and pass a `signal` that changes to a new
+truthy value whenever an error happens (an error message or an incrementing
+counter both work).
+
+```tsx showLineNumbers
+<Shake signal={errors}>
+  <input placeholder="Enter code" />
+  <button type="submit">Verify</button>
+</Shake>
+```
+
+### Imperative
+
+Use the hook when you want to trigger the shake yourself. Render `<ShakeStyles />`
+once if you are not also rendering the `Shake` component.
+
+```tsx showLineNumbers
+import { useShake, ShakeStyles } from "@/components/8starlabs-ui/shake";
+
+function LoginForm() {
+  const { ref, shake } = useShake<HTMLFormElement>();
+
+  return (
+    <form
+      ref={ref}
+      onSubmit={(e) => {
+        if (invalid) {
+          e.preventDefault();
+          shake();
+        }
+      }}
+    >
+      <ShakeStyles />
+      {/** fields */}
+    </form>
+  );
+}
+```
+
+## API Reference
+
+### Shake
+
+| Prop        | Type              | Default | Description                                                    |
+| ----------- | ----------------- | ------- | -------------------------------------------------------------- |
+| `signal`    | `unknown`         | -       | **Required.** Change to a new truthy value to trigger a shake. |
+| `children`  | `React.ReactNode` | -       | **Required.** The content to wrap and shake.                   |
+| `className` | `string`          | -       | Optional. Additional classes applied to the wrapper element.   |
+
+### useShake
+
+Returns `{ ref, shake }`. Attach `ref` to the element you want to shake and call
+`shake()` to replay the animation. Generic over the element type, e.g.
+`useShake<HTMLFormElement>()`.
+
+### ShakeStyles
+
+Injects the `shake-error` keyframes. Rendered automatically by `Shake`; render it
+once yourself when driving the animation through `useShake` alone.
