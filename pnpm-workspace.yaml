@@ -1,3 +1,8 @@
+# Supply-chain hardening: delay installing freshly published versions (7 days)
+# so malware caught and unpublished within hours never lands, and fail installs
+# when a package's trust signals (provenance/signatures) weaken between releases.
+minimumReleaseAge: 10080
+trustPolicy: no-downgrade
 overrides:
   esbuild: ">=0.28.1"
 allowBuilds:
