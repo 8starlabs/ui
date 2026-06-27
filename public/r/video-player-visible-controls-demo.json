@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "video-player-visible-controls-demo",
+  "type": "registry:example",
+  "title": "Video Player Visible Controls",
+  "description": "A video player demo showing always-visible controls",
+  "files": [
+    {
+      "path": "registry/8starlabs-ui/examples/video-player-visible-controls-demo.tsx",
+      "content": "\"use client\";\n\nimport VideoRoot, {\n  VideoControls,\n  VideoFullscreenTrigger,\n  VideoPipTrigger,\n  VideoPlayTrigger,\n  VideoProgressBar,\n  VideoSoundControl,\n  VideoViewport\n} from \"@/registry/8starlabs-ui/blocks/video-player\";\n\nexport default function VideoPlayerVisibleControlsDemo() {\n  return (\n    <VideoRoot className=\"rounded-lg\" autoHideControls={false}>\n      <VideoViewport src=\"https://vjs.zencdn.net/v/oceans.mp4\" />\n\n      <VideoControls className=\"flex items-center justify-between gap-4\">\n        <VideoPlayTrigger />\n        <VideoSoundControl />\n        <VideoProgressBar />\n        <VideoPipTrigger />\n        <VideoFullscreenTrigger />\n      </VideoControls>\n    </VideoRoot>\n  );\n}\n",
+      "type": "registry:example",
+      "target": "components/8starlabs-ui/examples/video-player-visible-controls-demo.tsx"
+    }
+  ]
+}

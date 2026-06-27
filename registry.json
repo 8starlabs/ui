@@ -729,6 +729,58 @@
       ]
     },
     {
+      "name": "video-player-repeat-demo",
+      "type": "registry:example",
+      "title": "Video Player Repeat",
+      "description": "A video player demo showing repeat playback",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/video-player-repeat-demo.tsx",
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/video-player-repeat-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "video-player-auto-demo",
+      "type": "registry:example",
+      "title": "Video Player Autoplay",
+      "description": "A video player demo showing autoplay",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/video-player-auto-demo.tsx",
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/video-player-auto-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "video-player-visible-controls-demo",
+      "type": "registry:example",
+      "title": "Video Player Visible Controls",
+      "description": "A video player demo showing always-visible controls",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/video-player-visible-controls-demo.tsx",
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/video-player-visible-controls-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "video-player-hide-center-controls-demo",
+      "type": "registry:example",
+      "title": "Video Player Hidden Center Controls",
+      "description": "A video player demo without center controls.",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/video-player-hide-center-controls-demo.tsx",
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/video-player-hide-center-controls-demo.tsx"
+        }
+      ]
+    },
+    {
       "name": "shake",
       "type": "registry:ui",
       "title": "Shake",

@@ -37,16 +37,14 @@ interface VideoContextType {
   hasError: boolean;
   videoProgress: number;
   videoDuration: number;
-  showControls: boolean;
-  controlsTimeoutRef: React.MutableRefObject<NodeJS.Timeout | null>;
+  areControlsShown: boolean;
   isFullscreen: boolean;
-  isMouseOverControls: boolean;
   isPip: boolean;
   isVolumeControlOpen: boolean;
-  repeat: boolean;
-  auto: boolean;
-  hideIcons: boolean;
-  hideControls: boolean;
+  repeatVideoAutomatically: boolean;
+  autoPlayVideoUponVisible: boolean;
+  autoHideControls: boolean;
+  showCenterControls: boolean;
   attemptTogglePlay: () => void;
   toggleFullscreen: () => void;
   setIsPlaying: (playing: boolean) => void;
@@ -61,6 +59,7 @@ interface VideoContextType {
   toggleMute: (x: boolean) => void;
   togglePip: () => void;
   setIsVolumeControlOpen: (x: boolean) => void;
+  clearControlsTimeout: () => void;
 }
 
 const VideoContext = createContext<VideoContextType | null>(null);
@@ -77,14 +76,14 @@ export function useVideo(): VideoContextType {
 export function VideoProvider({
   repeat,
   auto,
-  hideIcons,
-  hideControls,
+  autoHideControls = true,
+  showCenterControls = true,
   children
 }: {
-  repeat?: boolean;
-  auto?: boolean;
-  hideIcons?: boolean;
-  hideControls?: boolean;
+  repeat: boolean;
+  auto: boolean;
+  autoHideControls: boolean;
+  showCenterControls?: boolean;
   children: React.ReactNode;
 }): React.ReactElement {
   // Shared video element ref and UI state consumed by viewport and control components.
@@ -96,16 +95,16 @@ export function VideoProvider({
   const [hasError, setHasError] = useState(false);
   const [videoProgress, setVideoProgress] = useState(0);
   const [videoDuration, setVideoDuration] = useState(0);
-  const [showControls, setShowControls] = useState(false);
+  const [areControlsShown, setShowControls] = useState(false);
   const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [isMouseOverControls, setIsMouseOverControls] = useState(false);
+  const isMouseOverControlsRef = useRef<boolean>(false);
   const [isPip, setIsPip] = useState(false);
   const [isVolumeControlOpen, setIsVolumeControlOpen] = useState(false);
-  const resolvedRepeat = repeat ?? !!hideIcons;
-  const resolvedAuto = auto ?? !!hideIcons;
-  const resolvedHideIcons = !!hideIcons;
-  const resolvedHideControls = hideControls ?? true;
+
+  const setIsMouseOverControls = (value: boolean) => {
+    isMouseOverControlsRef.current = value;
+  };
 
   // Attempts to toggle playback, ignoring clicks while buffering or in an error state.
   const attemptTogglePlay = async () => {
@@ -168,16 +167,22 @@ export function VideoProvider({
     }
   };
 
+  const clearControlsTimeout = () => {
+    if (controlsTimeoutRef.current) {
+      clearTimeout(controlsTimeoutRef.current);
+    }
+  };
+
   // Shows controls and refreshes the shared auto-hide timer.
   const showControlsTemporarily = () => {
     setShowControls(true);
-    if (controlsTimeoutRef.current) clearTimeout(controlsTimeoutRef.current);
+    clearControlsTimeout();
 
-    if (!resolvedHideControls) {
+    if (!autoHideControls) {
       return;
     }
 
-    if (!isMouseOverControls) {
+    if (!isMouseOverControlsRef.current) {
       controlsTimeoutRef.current = setTimeout(() => {
         setShowControls(false);
       }, 2500);
@@ -218,13 +223,6 @@ export function VideoProvider({
     setIsVolumeControlOpen(false);
   };
 
-  // Keeps controls visible whenever auto-hide behavior is disabled.
-  useEffect(() => {
-    if (resolvedHideControls) return;
-    setShowControls(true);
-    if (controlsTimeoutRef.current) clearTimeout(controlsTimeoutRef.current);
-  }, [resolvedHideControls]);
-
   // Registers the fullscreen listener and syncs immediately for initial state.
   useEffect(() => {
     handleFullscreenChange();
@@ -245,16 +243,14 @@ export function VideoProvider({
         hasError,
         videoProgress,
         videoDuration,
-        showControls,
-        controlsTimeoutRef,
+        areControlsShown,
         isFullscreen,
-        isMouseOverControls,
         isPip,
         isVolumeControlOpen,
-        repeat: resolvedRepeat,
-        auto: resolvedAuto,
-        hideIcons: resolvedHideIcons,
-        hideControls: resolvedHideControls,
+        repeatVideoAutomatically: repeat,
+        autoPlayVideoUponVisible: auto,
+        autoHideControls,
+        showCenterControls,
         attemptTogglePlay,
         toggleFullscreen,
         setIsPlaying,
@@ -266,9 +262,10 @@ export function VideoProvider({
         showControlsTemporarily,
         setVolume,
         toggleMute,
-        setIsMouseOverControls,
         togglePip,
-        setIsVolumeControlOpen
+        setIsVolumeControlOpen,
+        clearControlsTimeout,
+        setIsMouseOverControls
       }}
     >
       {children}
@@ -283,17 +280,17 @@ export function VideoProvider({
 export interface VideoRootProps extends React.ComponentPropsWithoutRef<"div"> {
   repeat?: boolean;
   auto?: boolean;
-  hideIcons?: boolean;
-  hideControls?: boolean;
+  autoHideControls?: boolean;
+  showCenterControls?: boolean;
 }
 
 export default function VideoRoot({
   children,
   className = "",
-  repeat,
-  auto,
-  hideIcons,
-  hideControls,
+  repeat = false,
+  auto = false,
+  autoHideControls = true,
+  showCenterControls = true,
   ...props
 }: VideoRootProps) {
   // Composes provider state with the interactive container shell.
@@ -301,8 +298,8 @@ export default function VideoRoot({
     <VideoProvider
       repeat={repeat}
       auto={auto}
-      hideIcons={hideIcons}
-      hideControls={hideControls}
+      autoHideControls={autoHideControls}
+      showCenterControls={showCenterControls}
     >
       <VideoContainer className={className} {...props}>
         {children}
@@ -319,10 +316,10 @@ function VideoContainer({
 }: React.ComponentPropsWithoutRef<"div">) {
   const {
     containerRef,
-    controlsTimeoutRef,
-    hideControls,
+    autoHideControls,
     setShowControls,
-    showControlsTemporarily
+    showControlsTemporarily,
+    clearControlsTimeout
   } = useVideo();
 
   // Shows controls on movement and schedules auto-hide when the controls are not hovered.
@@ -332,8 +329,8 @@ function VideoContainer({
 
   // Clears pending auto-hide and hides controls when leaving the video area.
   const handleMouseLeave = () => {
-    if (!hideControls) return;
-    if (controlsTimeoutRef.current) clearTimeout(controlsTimeoutRef.current);
+    if (!autoHideControls) return;
+    clearControlsTimeout();
     setShowControls(false);
   };
 
@@ -395,19 +392,19 @@ export function VideoViewport({
     isPlaying,
     isBuffering,
     hasError,
-    repeat,
-    auto,
-    hideIcons,
-    hideControls,
+    repeatVideoAutomatically,
+    autoPlayVideoUponVisible,
+    autoHideControls,
+    showCenterControls,
     setIsVolumeControlOpen,
     showControlsTemporarily,
-    showControls,
+    areControlsShown,
     attemptTogglePlay
   } = useVideo();
   const rafRef = useRef<number | null>(null);
   const lastSyncedProgressRef = useRef(0);
   const shouldResumeAfterBufferRef = useRef(false);
-  const areControlsVisible = !hideControls || showControls;
+  const areControlsVisible = !autoHideControls || areControlsShown;
 
   // Copies duration metadata from the video element into shared context.
   const syncDuration = useCallback(
@@ -431,7 +428,7 @@ export function VideoViewport({
   // Starts playback once the video enters the viewport when auto playback is enabled.
   useEffect(() => {
     const videoElement = videoRef.current;
-    if (!videoElement || !auto) return;
+    if (!videoElement || !autoPlayVideoUponVisible) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -447,7 +444,7 @@ export function VideoViewport({
     observer.observe(videoElement);
 
     return () => observer.disconnect();
-  }, [auto, videoRef]);
+  }, [autoPlayVideoUponVisible, videoRef]);
 
   // Polls currentTime on animation frames so progress UI stays smooth.
   useEffect(() => {
@@ -527,7 +524,7 @@ export function VideoViewport({
       <video
         ref={videoRef}
         src={src}
-        loop={repeat}
+        loop={repeatVideoAutomatically}
         className={cn(videoViewportVariants({ fit }), className)}
         // Fires when .play() succeeds and the video transitions to active playback.
         onPlay={() => {
@@ -575,12 +572,15 @@ export function VideoViewport({
         }
         onPointerDown={showControlsTemporarily}
       >
-        {!hideIcons && (
+        {showCenterControls && (
           <div className="flex items-center gap-[min(0.75rem,2.5cqw)]">
-            {!isBuffering && showControls && (
+            {!isBuffering && (
               <button
                 className={cn(
-                  "flex aspect-square items-center justify-center rounded-xl bg-white/10 p-[min(0.75rem,2.5cqw)] backdrop-blur-xs transition-[opacity,transform] duration-300 hover:cursor-pointer"
+                  "flex aspect-square items-center justify-center rounded-xl bg-white/10 p-[min(0.75rem,2.5cqw)] backdrop-blur-xs transition-[opacity,transform] duration-300 hover:cursor-pointer",
+                  areControlsVisible
+                    ? "opacity-100"
+                    : "opacity-0 pointer-events-none"
                 )}
                 onPointerUp={(event) => event.stopPropagation()}
                 onClick={(event) => {
@@ -592,39 +592,43 @@ export function VideoViewport({
               </button>
             )}
 
-            {showControls && (
-              <div
-                className={cn(
-                  "flex aspect-square items-center justify-center rounded-2xl bg-white/10 p-[min(1rem,3cqw)] backdrop-blur-xs transition-[opacity,transform] duration-300",
-                  !isBuffering && "hover:cursor-pointer"
-                )}
-                onClick={attemptTogglePlay}
-              >
-                {isBuffering ? (
-                  <Loader2
-                    className={cn("animate-spin", centerControlIconClassName)}
-                    color="rgba(255, 255, 255, 0.78)"
-                  />
-                ) : isPlaying ? (
-                  <Pause
-                    className={cn(centerControlIconClassName, "text-white/60")}
-                    fill="currentColor"
-                    strokeWidth={0}
-                  />
-                ) : (
-                  <Play
-                    className={cn(centerControlIconClassName, "text-white/60")}
-                    fill="currentColor"
-                    strokeWidth={0}
-                  />
-                )}
-              </div>
-            )}
+            <div
+              className={cn(
+                "flex aspect-square items-center justify-center rounded-2xl bg-white/10 p-[min(1rem,3cqw)] backdrop-blur-xs transition-[opacity,transform] duration-300",
+                !isBuffering && "hover:cursor-pointer",
+                isBuffering || areControlsVisible
+                  ? "opacity-100"
+                  : "opacity-0 pointer-events-none"
+              )}
+              onClick={attemptTogglePlay}
+            >
+              {isBuffering ? (
+                <Loader2
+                  className={cn("animate-spin", centerControlIconClassName)}
+                  color="rgba(255, 255, 255, 0.78)"
+                />
+              ) : isPlaying ? (
+                <Pause
+                  className={cn(centerControlIconClassName, "text-white/60")}
+                  fill="currentColor"
+                  strokeWidth={0}
+                />
+              ) : (
+                <Play
+                  className={cn(centerControlIconClassName, "text-white/60")}
+                  fill="currentColor"
+                  strokeWidth={0}
+                />
+              )}
+            </div>
 
-            {!isBuffering && showControls && (
+            {!isBuffering && (
               <button
                 className={cn(
-                  "flex aspect-square items-center justify-center rounded-xl bg-white/10 p-[min(0.75rem,2.5cqw)] backdrop-blur-xs transition-[opacity,transform] duration-300 hover:cursor-pointer"
+                  "flex aspect-square items-center justify-center rounded-xl bg-white/10 p-[min(0.75rem,2.5cqw)] backdrop-blur-xs transition-[opacity,transform] duration-300 hover:cursor-pointer",
+                  areControlsVisible
+                    ? "opacity-100"
+                    : "opacity-0 pointer-events-none"
                 )}
                 onPointerUp={(event) => event.stopPropagation()}
                 onClick={(event) => {
@@ -641,9 +645,7 @@ export function VideoViewport({
 
       {hasError && (
         <div className="absolute inset-0 z-20 flex flex-col gap-2 items-center justify-center bg-black/80 text-center cursor-default select-none">
-          {!hideIcons && (
-            <AlertCircle className="mx-auto text-red-300" size={20} />
-          )}
+          <AlertCircle className="mx-auto text-red-300" size={20} />
           <p className="text-sm text-white font-medium">Video failed to load</p>
           <p className="text-sm text-white/70">
             The video source could not be found or the browser could not play
@@ -670,8 +672,9 @@ export function VideoControls({
   className = "",
   ...props
 }: VideoControlsProps): React.ReactElement {
-  const { showControls, hideControls, setIsMouseOverControls } = useVideo();
-  const areControlsVisible = !hideControls || showControls;
+  const { areControlsShown, autoHideControls, setIsMouseOverControls } =
+    useVideo();
+  const areControlsVisible = !autoHideControls || areControlsShown;
 
   // Tracks hover state so the container does not auto-hide controls mid-interaction.
   return (
@@ -708,8 +711,7 @@ export function VideoSoundControl({
     toggleMute,
     setVolume,
     isVolumeControlOpen,
-    setIsVolumeControlOpen,
-    hideIcons
+    setIsVolumeControlOpen
   } = useVideo();
 
   // Local state mirrors native video volume/mute events for instant UI feedback.
@@ -789,10 +791,6 @@ export function VideoSoundControl({
     }
   })();
 
-  if (hideIcons) {
-    return null;
-  }
-
   return (
     <div className={cn("relative flex items-center gap-1", className)}>
       <button
@@ -847,12 +845,8 @@ export interface VideoPipTriggerProps
 export function VideoPipTrigger({
   className = "",
   ...props
-}: VideoPipTriggerProps): React.ReactElement | null {
-  const { isPip, togglePip, hideIcons } = useVideo();
-
-  if (hideIcons) {
-    return null;
-  }
+}: VideoPipTriggerProps): React.ReactElement {
+  const { isPip, togglePip } = useVideo();
 
   // Renders the PiP toggle and tooltip using the shared PiP state.
   return (
@@ -875,12 +869,8 @@ export interface VideoPlayTriggerProps
 export function VideoPlayTrigger({
   className = "",
   ...props
-}: VideoPlayTriggerProps): React.ReactElement | null {
-  const { isPlaying, isBuffering, attemptTogglePlay, hideIcons } = useVideo();
-
-  if (hideIcons) {
-    return null;
-  }
+}: VideoPlayTriggerProps): React.ReactElement {
+  const { isPlaying, isBuffering, attemptTogglePlay } = useVideo();
 
   // Renders play, pause, or loading buttons based on playback state.
   return (
@@ -911,12 +901,8 @@ export interface VideoFullscreenTriggerProps
 export function VideoFullscreenTrigger({
   className = "",
   ...props
-}: VideoFullscreenTriggerProps): React.ReactElement | null {
-  const { toggleFullscreen, isFullscreen, hideIcons } = useVideo();
-
-  if (hideIcons) {
-    return null;
-  }
+}: VideoFullscreenTriggerProps): React.ReactElement {
+  const { toggleFullscreen, isFullscreen } = useVideo();
 
   // Renders fullscreen enter/exit buttons based on browser fullscreen state.
   return (

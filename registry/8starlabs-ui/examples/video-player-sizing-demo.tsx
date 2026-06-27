@@ -6,7 +6,7 @@ import VideoRoot, {
 } from "@/registry/8starlabs-ui/blocks/video-player";
 import { cn } from "@/lib/utils";
 
-function CompactPlayer({
+function MyCustomPlayer({
   label,
   className,
   wrapperClassName
@@ -34,16 +34,16 @@ function CompactPlayer({
 export default function VideoPlayerSizingDemo() {
   return (
     <div className="grid w-full min-w-0 max-w-full gap-6 p-4 md:grid-cols-2">
-      <CompactPlayer
+      <MyCustomPlayer
         label="aspect-video"
         className="aspect-video rounded-lg"
         wrapperClassName="md:col-span-2"
       />
-      <CompactPlayer
+      <MyCustomPlayer
         label="aspect-square"
         className="aspect-square rounded-lg"
       />
-      <CompactPlayer label="fixed height" className="h-120 rounded-lg" />
+      <MyCustomPlayer label="fixed height" className="h-120 rounded-lg" />
     </div>
   );
 }

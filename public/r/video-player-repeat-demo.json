@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "video-player-repeat-demo",
+  "type": "registry:example",
+  "title": "Video Player Repeat",
+  "description": "A video player demo showing repeat playback",
+  "files": [
+    {
+      "path": "registry/8starlabs-ui/examples/video-player-repeat-demo.tsx",
+      "content": "\"use client\";\n\nimport VideoRoot, {\n  VideoControls,\n  VideoFullscreenTrigger,\n  VideoPipTrigger,\n  VideoPlayTrigger,\n  VideoProgressBar,\n  VideoSoundControl,\n  VideoViewport\n} from \"@/registry/8starlabs-ui/blocks/video-player\";\n\nexport default function VideoPlayerRepeatDemo() {\n  return (\n    <VideoRoot className=\"rounded-lg\" repeat>\n      <VideoViewport src=\"https://vjs.zencdn.net/v/oceans.mp4\" />\n\n      <VideoControls className=\"flex items-center justify-between gap-4\">\n        <VideoPlayTrigger />\n        <VideoSoundControl />\n        <VideoProgressBar />\n        <VideoPipTrigger />\n        <VideoFullscreenTrigger />\n      </VideoControls>\n    </VideoRoot>\n  );\n}\n",
+      "type": "registry:example",
+      "target": "components/8starlabs-ui/examples/video-player-repeat-demo.tsx"
+    }
+  ]
+}
