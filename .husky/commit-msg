@@ -1,0 +1,30 @@
+#!/usr/bin/env sh
+
+# Enforce the conventional commit format documented in CONTRIBUTING.md.
+# Allowed types: feat, fix, docs, refactor, chore (with an optional scope).
+
+msg_file="$1"
+
+# First non-empty, non-comment line of the commit message.
+header=$(grep -v '^#' "$msg_file" | sed '/^[[:space:]]*$/d' | head -n1)
+
+# Let merge / revert / fixup / squash commits through untouched.
+case "$header" in
+  "Merge "* | "Revert "* | "fixup! "* | "squash! "*) exit 0 ;;
+esac
+
+pattern='^(feat|fix|docs|refactor|chore)(\([a-z0-9./_-]+\))?!?: .+'
+
+if printf '%s' "$header" | grep -Eq "$pattern"; then
+  exit 0
+fi
+
+echo "✖ Invalid commit message:"
+echo "    $header"
+echo ""
+echo "Commit messages must follow the conventional format (see CONTRIBUTING.md):"
+echo "    <type>: <description>"
+echo ""
+echo "Allowed types: feat, fix, docs, refactor, chore"
+echo "Example: feat: add new Button variant"
+exit 1

@@ -106,6 +106,8 @@ This repository is a monorepo.
 
 Example: `git commit -m 'feat: add new Button variant'`
 
+This format is enforced automatically by a `commit-msg` git hook — commits whose subject does not start with one of the types above (with an optional scope) are rejected.
+
 6. **Push your branch**
 
    ```bash

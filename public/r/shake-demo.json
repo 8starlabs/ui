@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "shake-demo",
+  "type": "registry:example",
+  "title": "Shake Demo",
+  "description": "A shake demo component",
+  "files": [
+    {
+      "path": "registry/8starlabs-ui/examples/shake-demo.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport Shake from \"../blocks/shake\";\n\nexport default function ShakeDemo() {\n  const [code, setCode] = useState(\"\");\n  const [errors, setErrors] = useState(0);\n\n  return (\n    <form\n      onSubmit={(e) => {\n        e.preventDefault();\n        if (code !== \"1234\") {\n          setErrors((n) => n + 1);\n          setCode(\"\");\n        }\n      }}\n    >\n      <Shake signal={errors} className=\"flex flex-col items-center gap-3\">\n        <input\n          value={code}\n          onChange={(e) => setCode(e.target.value)}\n          inputMode=\"numeric\"\n          placeholder=\"Enter 1234\"\n          className=\"h-10 w-40 rounded-md border bg-background px-3 text-center text-sm tracking-[0.3em] outline-none focus-visible:ring-2 focus-visible:ring-ring\"\n        />\n        <button\n          type=\"submit\"\n          className=\"h-9 rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90\"\n        >\n          Verify\n        </button>\n      </Shake>\n    </form>\n  );\n}\n",
+      "type": "registry:example",
+      "target": "components/8starlabs-ui/examples/shake-demo.tsx"
+    }
+  ]
+}
