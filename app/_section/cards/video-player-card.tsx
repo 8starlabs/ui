@@ -29,7 +29,7 @@ const VideoPlayerCard = () => {
           </p>
         </div>
 
-        <VideoRoot className="relative z-20 rounded-lg">
+        <VideoRoot className="relative z-20 rounded-lg" auto>
           <VideoViewport src="https://vjs.zencdn.net/v/oceans.mp4" />
           <VideoControls className="flex items-center justify-between gap-4">
             <VideoPlayTrigger />

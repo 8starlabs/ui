@@ -67,15 +67,18 @@ export function MyVideoPlayer() {
 
 ### VideoRoot
 
-Wraps the player in context and handles the control overlay visibility logic.
+#### Props
 
-| Prop        | Type        | Default  | Description                                                    |
-| ----------- | ----------- | -------- | -------------------------------------------------------------- |
-| `className` | `string`    | -        | Additional classes for the outer player container.             |
-| `children`  | `ReactNode` | Required | Player content, typically `VideoViewport` and `VideoControls`. |
+| Prop                 | Type        | Default  | Description                                                                                                             |
+| -------------------- | ----------- | -------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `repeat`             | `boolean`   | `false`  | Repeats the video automatically when playback reaches the end.                                                          |
+| `auto`               | `boolean`   | `false`  | Attempts to play the video once it enters the viewport. For reliable browser autoplay, pass `muted` to `VideoViewport`. |
+| `showCenterControls` | `boolean`   | `true`   | Shows the skip backward, play/pause and skip forward icons in the center of the viewport.                               |
+| `autoHideControls`   | `boolean`   | `true`   | Controls whether controls auto-hide. Set to `false` to keep controls visible.                                           |
+| `className`          | `string`    | -        | Additional classes for the outer player container.                                                                      |
+| `children`           | `ReactNode` | Required | Player content, typically `VideoViewport` and `VideoControls`.                                                          |
 
-Also accepts standard `div` props.
-
+Wraps the player in context and handles the control overlay visibility logic. Also accepts standard `div` props.
 `VideoRoot` controls the rendered player size. The component includes a default
 `aspect-video w-full` container, and you can override that with Tailwind sizing
 classes such as `aspect-square`, `h-64`, `h-[420px]`, `max-w-3xl`, or `w-full`.
@@ -188,11 +191,42 @@ fills that viewport according to the `fit` value on `VideoViewport`.
 
 <ComponentPreview name="video-player-sizing-demo" noPaddingOnComponentSource />
 
+### Repeat Playback
+
+Use `repeat` when the video should loop automatically after it reaches the end.
+
+<ComponentPreview name="video-player-repeat-demo" noPaddingOnComponentSource />
+
+### In-View Autoplay
+
+Use `auto` to start playback when the player enters the viewport.
+
+<ComponentPreview name="video-player-auto-demo" noPaddingOnComponentSource />
+
+### Always Visible Controls
+
+Set `autoHideControls` to `false` when the control bar should remain visible instead
+of fading out after pointer inactivity.
+
+<ComponentPreview
+  name="video-player-visible-controls-demo"
+  noPaddingOnComponentSource
+/>
+
+### Hidden Icons
+
+Set `showCenterControls` to `false` if you decide the center controls should not be shown.
+
+<ComponentPreview
+  name="video-player-hide-center-controls-demo"
+  noPaddingOnComponentSource
+/>
+
 ## Notes
 
 - `VideoRoot` uses context internally, so all subcomponents must be rendered inside it.
 - Controls appear on mouse movement and hide automatically after a short delay when the pointer is not over the controls.
-- Clicking directly on the video toggles play and pause.
+- Clicking directly on the video shows the controls.
 - The progress bar pauses playback while dragging and resumes playback afterward if the video was already playing.
 - Picture-in-Picture support depends on the browser and platform.
 - All components support standard HTML attributes and `className` overrides.
