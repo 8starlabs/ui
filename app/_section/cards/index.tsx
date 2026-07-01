@@ -17,36 +17,43 @@ const Cards = ({ className }: CardsProps) => {
   return (
     <div
       className={cn(
-        "grid grid-cols-1 xl:grid-cols-6 sm:grid-cols-2 grid-rows-1 gap-4",
+        "mx-auto grid w-full max-w-6xl grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-6",
         className
       )}
     >
-      <div className="xl:col-start-2 xl:col-span-2">
+      {/* Row 1 — three columns */}
+      <div className="sm:col-span-1 xl:col-span-2">
         <StatusIndicatorCard />
       </div>
-      <div className="xl:col-start-4 xl:col-span-2">
+      <div className="sm:col-span-1 xl:col-span-2">
         <TransportBadgeCard />
       </div>
-      <div className="sm:col-span-2 xl:col-span-4 xl:col-start-2">
+      <div className="sm:col-span-2 xl:col-span-2">
+        <ShakeCard />
+      </div>
+
+      {/* Row 2 — asymmetric two columns (wide + narrow) */}
+      <div className="sm:col-span-2 xl:col-span-4">
         <TimelineCard />
       </div>
-      <div className="sm:col-span-2 xl:col-span-4 xl:col-start-2">
+      <div className="sm:col-span-2 xl:col-span-2">
         <FlipClockCard />
       </div>
-      <div className="sm:col-span-2 xl:col-span-4 xl:col-start-2">
-        <PartitionBarCard />
-      </div>
-      <div className="sm:col-span-2 xl:col-span-2 xl:col-start-2">
+
+      {/* Row 3 — asymmetric two columns (narrow + wide) */}
+      <div className="sm:col-span-1 xl:col-span-2">
         <HeatmapCard />
       </div>
-      <div className="sm:col-span-2 xl:col-span-2 xl:col-start-4">
+      <div className="sm:col-span-2 xl:col-span-4">
         <MarqueeCard />
       </div>
-      <div className="sm:col-span-2 xl:col-span-4 xl:col-start-2">
+
+      {/* Row 4 — asymmetric two columns (wide + narrow) */}
+      <div className="sm:col-span-2 xl:col-span-4">
         <VideoPlayerCard />
       </div>
-      <div className="sm:col-span-2 xl:col-span-4 xl:col-start-2">
-        <ShakeCard />
+      <div className="sm:col-span-2 xl:col-span-2">
+        <PartitionBarCard />
       </div>
     </div>
   );
