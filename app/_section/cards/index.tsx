@@ -4,7 +4,7 @@ import FlipClockCard from "./flip-clock-card";
 import PartitionBarCard from "./partition-bar-card";
 import HeatmapCard from "./heatmap-card";
 import MarqueeCard from "./marquee-card";
-import VideoPlayerCard from "./video-player-card";
+import JsonViewerCard from "./json-viewer-card";
 import TransportBadgeCard from "./transport-badge-card";
 import StatusIndicatorCard from "./status-indicator-card";
 import ShakeCard from "./shake-card";
@@ -17,36 +17,43 @@ const Cards = ({ className }: CardsProps) => {
   return (
     <div
       className={cn(
-        "grid grid-cols-1 xl:grid-cols-6 sm:grid-cols-2 grid-rows-1 gap-4",
+        "mx-auto grid w-full max-w-6xl grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-6",
         className
       )}
     >
-      <div className="xl:col-start-2 xl:col-span-2">
-        <StatusIndicatorCard />
-      </div>
-      <div className="xl:col-start-4 xl:col-span-2">
-        <TransportBadgeCard />
-      </div>
-      <div className="sm:col-span-2 xl:col-span-4 xl:col-start-2">
+      {/* Row 1 — tall feature tile on the LEFT, two stacked short cards on the right */}
+      <div className="h-full sm:col-span-2 xl:col-start-1 xl:col-span-4 xl:row-start-1 xl:row-span-2">
         <TimelineCard />
       </div>
-      <div className="sm:col-span-2 xl:col-span-4 xl:col-start-2">
+      <div className="h-full sm:col-span-1 xl:col-start-5 xl:col-span-2 xl:row-start-1">
+        <StatusIndicatorCard />
+      </div>
+      <div className="h-full sm:col-span-1 xl:col-start-5 xl:col-span-2 xl:row-start-2">
+        <TransportBadgeCard />
+      </div>
+
+      {/* Row 2 — reverse of row 1: two stacked short cards on the left, tall tile on the right */}
+      <div className="h-full sm:col-span-1 xl:col-start-1 xl:col-span-2 xl:row-start-3">
         <FlipClockCard />
       </div>
-      <div className="sm:col-span-2 xl:col-span-4 xl:col-start-2">
-        <PartitionBarCard />
+      <div className="h-full sm:col-span-1 xl:col-start-1 xl:col-span-2 xl:row-start-4">
+        <ShakeCard />
       </div>
-      <div className="sm:col-span-2 xl:col-span-2 xl:col-start-2">
-        <HeatmapCard />
+      <div className="h-full sm:col-span-2 xl:col-start-3 xl:col-span-4 xl:row-start-3 xl:row-span-2">
+        <JsonViewerCard />
       </div>
-      <div className="sm:col-span-2 xl:col-span-2 xl:col-start-4">
+
+      {/* Row 3 — asymmetric two-column row (wide Marquee left, narrow Heatmap right) */}
+      <div className="h-full sm:col-span-2 xl:col-start-1 xl:col-span-4 xl:row-start-5">
         <MarqueeCard />
       </div>
-      <div className="sm:col-span-2 xl:col-span-4 xl:col-start-2">
-        <VideoPlayerCard />
+      <div className="h-full sm:col-span-1 xl:col-start-5 xl:col-span-2 xl:row-start-5">
+        <HeatmapCard />
       </div>
-      <div className="sm:col-span-2 xl:col-span-4 xl:col-start-2">
-        <ShakeCard />
+
+      {/* Full-width closer */}
+      <div className="h-full sm:col-span-2 xl:col-start-1 xl:col-span-6 xl:row-start-6">
+        <PartitionBarCard />
       </div>
     </div>
   );

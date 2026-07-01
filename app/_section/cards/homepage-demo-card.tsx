@@ -18,21 +18,20 @@ export default function HomepageDemoCard({
   href
 }: HomepageDemoCardProps) {
   return (
-    <Link prefetch={false} href={href}>
+    <Link prefetch={false} href={href} className="block h-full">
       <Card
         className={cn(
-          "group relative size-full overflow-hidden px-6 transition-colors hover:bg-muted/20",
+          "group relative flex size-full flex-col overflow-hidden px-6 transition-colors hover:bg-muted/20",
           className
         )}
       >
-        <div className="flex flex-col gap-4">
-          <div className="flex flex-col gap-2">
-            <h3 className="text-lg font-semibold">{title}</h3>
-            {description}
-          </div>
-
-          {demo}
+        <div className="flex flex-col gap-2">
+          <h3 className="text-lg font-semibold">{title}</h3>
+          {description}
         </div>
+
+        {/* Demo grows to fill the card so it can center within the tile */}
+        <div className="mt-4 flex flex-1 flex-col">{demo}</div>
 
         <div className="absolute top-4 right-4 opacity-0 transition-opacity group-hover:opacity-100">
           <svg

@@ -13,27 +13,34 @@ const TransportBadgeCard = () => {
         </p>
       }
       demo={
-        <>
-          <TransportBadge system="SG" stationCode={["CE19", "DT9"]} />
-          <TransportBadge
-            system="SG"
-            stationCode="EW5"
-            stationName="Bedok"
-            showStationName
-          />
-          <TransportBadge
-            system="HK"
-            stationCode={["TW", "TM"]}
-            stationName="Mei Foo"
-            showStationName
-          />
-          <TransportBadge
-            system="HK"
-            stationCode="AE"
-            stationName="Airport"
-            showStationName
-          />
-        </>
+        <div className="flex h-full flex-col items-center justify-center">
+          <div className="flex flex-col gap-2.5">
+            <TransportBadge
+              system="SG"
+              stationCode={["CE19", "DT9"]}
+              stationName="Promenade"
+              showStationName
+            />
+            <TransportBadge
+              system="SG"
+              stationCode="EW5"
+              stationName="Bedok"
+              showStationName
+            />
+            <TransportBadge
+              system="HK"
+              stationCode={["TW", "TM"]}
+              stationName="Mei Foo"
+              showStationName
+            />
+            <TransportBadge
+              system="HK"
+              stationCode="AE"
+              stationName="Airport"
+              showStationName
+            />
+          </div>
+        </div>
       }
     />
   );
