@@ -7,7 +7,9 @@ export default function ButtonDemo() {
       <Button variant="secondary" withArrow>
         View components
       </Button>
-      <Button variant="outline">Default action</Button>
+      <Button variant="outline" disableHoverPop>
+        Default action
+      </Button>
     </div>
   );
 }

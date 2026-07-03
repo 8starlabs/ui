@@ -36,6 +36,9 @@ const buttonVariants = cva(
   }
 );
 
+const buttonHoverPop =
+  "hover:shadow-md focus-visible:shadow-md active:shadow-inner active:scale-[0.98] motion-safe:hover:-translate-y-0.5 motion-safe:focus-visible:-translate-y-0.5 motion-safe:active:translate-y-px";
+
 function ButtonArrow({ className }: { className?: string }) {
   return (
     <svg
@@ -46,7 +49,7 @@ function ButtonArrow({ className }: { className?: string }) {
       height="10"
       viewBox="0 0 10 10"
       className={cn(
-        "ml-2 -mr-1 mt-0.5 size-2.5 overflow-visible stroke-current stroke-2",
+        "ml-2 -mr-1 size-2.5 overflow-visible stroke-current stroke-2",
         className
       )}
     >
@@ -68,6 +71,7 @@ function Button({
   size,
   asChild = false,
   withArrow = false,
+  disableHoverPop = false,
   arrowClassName,
   children,
   ...props
@@ -75,6 +79,7 @@ function Button({
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean;
     withArrow?: boolean;
+    disableHoverPop?: boolean;
     arrowClassName?: string;
   }) {
   const Comp = asChild ? Slot : "button";
@@ -82,7 +87,11 @@ function Button({
   return (
     <Comp
       data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
+      className={cn(
+        buttonVariants({ variant, size }),
+        !disableHoverPop && buttonHoverPop,
+        className
+      )}
       {...props}
     >
       <Slottable>{children}</Slottable>
