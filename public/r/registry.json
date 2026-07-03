@@ -805,6 +805,25 @@
           "target": "components/8starlabs-ui/examples/shake-demo.tsx"
         }
       ]
+    },
+    {
+      "name": "open-in-chat",
+      "type": "registry:ui",
+      "title": "Open In Chat",
+      "description": "A component that opens an LLM chat with a pre-filled prompt.",
+      "dependencies": ["lucide-react", "simple-icons"],
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/blocks/open-in-chat.tsx",
+          "type": "registry:ui",
+          "target": "components/8starlabs-ui/open-in-chat.tsx"
+        },
+        {
+          "path": "registry/8starlabs-ui/ui/ai-icons.tsx",
+          "type": "registry:ui",
+          "target": "components/8starlabs-ui/ai-icons.tsx"
+        }
+      ]
     }
   ]
 }

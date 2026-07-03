@@ -1,0 +1,155 @@
+---
+title: Open In Chat
+description: A dropdown component that opens AI chat tools with a pre-filled prompt.
+---
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+pnpm dlx shadcn@latest add https://ui.8starlabs.com/r/open-in-chat.json
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<ComponentSource
+  name="open-in-chat"
+  title="components/8starlabs-ui/open-in-chat.tsx"
+/>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx showLineNumbers
+import OpenInChat from "@/components/8starlabs-ui/open-in-chat";
+```
+
+```tsx showLineNumbers
+export function MyComponent() {
+  return (
+    <OpenInChat prompt="Summarize this page and list the key decisions." />
+  );
+}
+```
+
+## Examples
+
+### Default Providers
+
+By default, `OpenInChat` renders menu items for ChatGPT, Claude, Perplexity,
+Gemini, and Grok. Each item opens the selected provider in a new tab with the
+component prompt encoded into the provider's prompt query parameter.
+
+```tsx showLineNumbers
+<OpenInChat prompt="Explain this pull request like I am joining the project today." />
+```
+
+### Custom Providers
+
+Pass provider-specific link components as children when you only want to expose
+some chat tools or control their order.
+
+```tsx showLineNumbers
+import OpenInChat, {
+  OpenInChatGPT,
+  OpenInClaude,
+  OpenInPerplexity
+} from "@/components/8starlabs-ui/open-in-chat";
+
+export function ReviewActions() {
+  return (
+    <OpenInChat prompt="Review this implementation for correctness and edge cases.">
+      <OpenInChatGPT />
+      <OpenInClaude />
+      <OpenInPerplexity />
+    </OpenInChat>
+  );
+}
+```
+
+### Prompt Overrides
+
+Child links inherit the parent prompt. Pass `prompt` to an individual link when a
+provider should receive a different instruction.
+
+```tsx showLineNumbers
+import OpenInChat, {
+  OpenInChatGPT,
+  OpenInGemini
+} from "@/components/8starlabs-ui/open-in-chat";
+
+export function PromptVariants() {
+  return (
+    <OpenInChat prompt="Summarize this customer conversation.">
+      <OpenInChatGPT />
+      <OpenInGemini prompt="Extract action items from this customer conversation." />
+    </OpenInChat>
+  );
+}
+```
+
+### Positioning And Styling
+
+Use `align` and `side` to position the dropdown content, and use
+`triggerClassName` or `contentClassName` to adjust the trigger and menu.
+
+```tsx showLineNumbers
+<OpenInChat
+  prompt="Turn this changelog into release notes."
+  triggerLabel="Ask AI"
+  align="start"
+  side="bottom"
+  triggerClassName="w-full justify-between"
+  contentClassName="w-64"
+/>
+```
+
+## API Reference
+
+### OpenInChat
+
+| Prop               | Type                                        | Default          | Description                                                                 |
+| ------------------ | ------------------------------------------- | ---------------- | --------------------------------------------------------------------------- |
+| `prompt`           | `string`                                    | -                | **Required.** The prompt sent to each generated chat link.                  |
+| `children`         | `React.ReactNode`                           | -                | Optional. Custom provider links to render instead of the default list.      |
+| `triggerLabel`     | `React.ReactNode`                           | `"Open in chat"` | Optional. Content rendered before the chevron in the trigger button.        |
+| `triggerClassName` | `string`                                    | -                | Optional. Additional classes applied to the button trigger.                 |
+| `contentClassName` | `string`                                    | -                | Optional. Additional classes applied to the dropdown content.               |
+| `align`            | `DropdownMenuContent["align"]`              | `"end"`          | Optional. Aligns the dropdown content relative to the trigger.              |
+| `side`             | `DropdownMenuContent["side"]`               | -                | Optional. Controls which side of the trigger the dropdown opens from.       |
+| `...props`         | `React.ComponentProps<typeof DropdownMenu>` | -                | Optional. Additional props passed to the underlying `DropdownMenu` element. |
+
+### Provider Links
+
+The package exports provider-specific link components for composing a custom
+menu:
+
+- `OpenInChatGPT`
+- `OpenInClaude`
+- `OpenInPerplexity`
+- `OpenInGemini`
+- `OpenInGrok`
+
+| Prop        | Type     | Default                    | Description                                                   |
+| ----------- | -------- | -------------------------- | ------------------------------------------------------------- |
+| `prompt`    | `string` | Parent `OpenInChat` prompt | Optional. Overrides the parent prompt for this provider link. |
+| `className` | `string` | -                          | Optional. Additional classes applied to the dropdown item.    |
+
+### aiLinks
+
+`aiLinks` is exported for consumers who need the built-in provider metadata. It
+contains each provider's base URL, optional prompt parameter name, and icon
+component.

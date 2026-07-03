@@ -1,5 +1,4 @@
-import {
-  OpenInChat,
+import OpenInChat, {
   OpenInChatGPT,
   OpenInClaude,
   OpenInGemini

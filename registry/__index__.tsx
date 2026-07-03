@@ -4,6 +4,7 @@ import flip_clock_component from "@/registry/8starlabs-ui/blocks/flip-clock";
 import heatmap_component from "@/registry/8starlabs-ui/blocks/heatmap";
 import json_viewer_component from "@/registry/8starlabs-ui/blocks/json-viewer";
 import marquee_component from "@/registry/8starlabs-ui/blocks/marquee";
+import open_in_chat_component from "@/registry/8starlabs-ui/blocks/open-in-chat";
 import partition_bar_component from "@/registry/8starlabs-ui/blocks/partition-bar";
 import scroll_fade_component from "@/registry/8starlabs-ui/blocks/scroll-fade";
 import shake_component from "@/registry/8starlabs-ui/blocks/shake";
@@ -111,6 +112,16 @@ export const Index: Record<string, any> = {
         target: "components/8starlabs-ui/marquee.tsx"
       }],
       component: marquee_component
+    },
+    "open-in-chat": {
+      name: "open-in-chat",
+      type: "registry:block",
+      files: [{
+        path: "registry/8starlabs-ui/blocks/open-in-chat.tsx",
+        type: "registry:block",
+        target: "components/8starlabs-ui/open-in-chat.tsx"
+      }],
+      component: open_in_chat_component
     },
     "partition-bar": {
       name: "partition-bar",

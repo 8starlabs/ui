@@ -9,7 +9,7 @@ import {
   GrokIcon,
   OpenAIIcon,
   PerplexityIcon
-} from "@/components/icons";
+} from "@/registry/8starlabs-ui/ui/ai-icons";
 import { cn } from "@/lib/utils";
 import { Button } from "@/registry/8starlabs-ui/blocks/button";
 import {
@@ -31,10 +31,11 @@ type OpenInChatContextValue = {
   prompt: string;
 };
 
-type OpenInChatProps = {
+type OpenInChatProps = React.ComponentProps<typeof DropdownMenu> & {
   prompt: string;
   children?: React.ReactNode;
-  className?: string;
+  triggerLabel?: React.ReactNode;
+  triggerClassName?: string;
   contentClassName?: string;
   align?: React.ComponentProps<typeof DropdownMenuContent>["align"];
   side?: React.ComponentProps<typeof DropdownMenuContent>["side"];
@@ -94,10 +95,12 @@ function useOpenInChat() {
 function OpenInChat({
   prompt,
   children,
-  className,
+  triggerLabel = "Open in chat",
+  triggerClassName,
   contentClassName,
   align = "end",
-  side
+  side,
+  ...props
 }: OpenInChatProps) {
   const contextValue = React.useMemo(() => ({ prompt }), [prompt]);
   const items =
@@ -109,14 +112,14 @@ function OpenInChat({
 
   return (
     <OpenInChatContext.Provider value={contextValue}>
-      <DropdownMenu>
+      <DropdownMenu {...props}>
         <DropdownMenuTrigger asChild>
           <Button
             type="button"
             variant="outline"
-            className={cn("gap-2", className)}
+            className={cn("gap-2", triggerClassName)}
           >
-            Open in chat
+            {triggerLabel}
             <ChevronDown className="size-4 opacity-70" aria-hidden="true" />
           </Button>
         </DropdownMenuTrigger>
@@ -181,11 +184,20 @@ function OpenInGrok(props: OpenInChatLinkProps) {
 }
 
 export {
-  OpenInChat,
   OpenInChatGPT,
   OpenInClaude,
   OpenInPerplexity,
   OpenInGemini,
   OpenInGrok,
   aiLinks
+};
+
+export default OpenInChat;
+
+export type {
+  AiLinkName,
+  AiLink,
+  OpenInChatContextValue,
+  OpenInChatProps,
+  OpenInChatLinkProps
 };
