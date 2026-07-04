@@ -4,6 +4,10 @@
   "title": "Open In Chat",
   "description": "A component that opens an LLM chat with a pre-filled prompt.",
   "dependencies": ["lucide-react", "simple-icons"],
+  "registryDependencies": [
+    "https://ui.8starlabs.com/r/button.json",
+    "dropdown-menu"
+  ],
   "files": [
     {
       "path": "registry/8starlabs-ui/blocks/open-in-chat.tsx",

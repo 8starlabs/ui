@@ -625,7 +625,7 @@
         "https://ui.8starlabs.com/r/button.json",
         "input",
         "label",
-        "dropdown"
+        "dropdown-menu"
       ],
       "files": [
         {
@@ -786,6 +786,10 @@
       "title": "Open In Chat",
       "description": "A component that opens an LLM chat with a pre-filled prompt.",
       "dependencies": ["lucide-react", "simple-icons"],
+      "registryDependencies": [
+        "https://ui.8starlabs.com/r/button.json",
+        "dropdown-menu"
+      ],
       "files": [
         {
           "path": "registry/8starlabs-ui/blocks/open-in-chat.tsx",
@@ -842,7 +846,7 @@
       "name": "open-in-chat-positioning-demo",
       "type": "registry:example",
       "title": "Open In Chat Positioning Demo",
-      "description": "An open in chat demo showing dropdown alignment and side positioning.",
+      "description": "An open in chat demo showing dropdown-menu alignment and side positioning.",
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/open-in-chat-positioning-demo.tsx",

@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "open-in-chat-positioning-demo",
   "title": "Open In Chat Positioning Demo",
-  "description": "An open in chat demo showing dropdown alignment and side positioning.",
+  "description": "An open in chat demo showing dropdown-menu alignment and side positioning.",
   "files": [
     {
       "path": "registry/8starlabs-ui/examples/open-in-chat-positioning-demo.tsx",
