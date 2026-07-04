@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "json-viewer",
-  "type": "registry:ui",
   "title": "JSON Viewer",
   "description": "A JSON viewer component",
   "dependencies": ["@tabler/icons-react"],
@@ -30,5 +29,6 @@
       "type": "registry:hook",
       "target": "components/8starlabs-ui/hooks/use-mobile.ts"
     }
-  ]
+  ],
+  "type": "registry:ui"
 }

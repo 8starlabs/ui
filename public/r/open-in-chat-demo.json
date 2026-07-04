@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "open-in-chat-demo",
-  "type": "registry:example",
   "title": "Open In Chat Demo",
   "description": "An open in chat demo with the default providers.",
   "files": [
@@ -11,5 +10,6 @@
       "type": "registry:example",
       "target": "components/8starlabs-ui/examples/open-in-chat-demo.tsx"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

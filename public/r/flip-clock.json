@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "flip-clock",
-  "type": "registry:ui",
   "title": "Flip clock",
   "description": "A flip clock component",
   "files": [
@@ -11,5 +10,6 @@
       "type": "registry:ui",
       "target": "components/8starlabs-ui/flip-clock.tsx"
     }
-  ]
+  ],
+  "type": "registry:ui"
 }

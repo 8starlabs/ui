@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "open-in-chat",
-  "type": "registry:ui",
   "title": "Open In Chat",
   "description": "A component that opens an LLM chat with a pre-filled prompt.",
   "dependencies": ["lucide-react", "simple-icons"],
@@ -18,5 +17,6 @@
       "type": "registry:ui",
       "target": "components/8starlabs-ui/ai-icons.tsx"
     }
-  ]
+  ],
+  "type": "registry:ui"
 }

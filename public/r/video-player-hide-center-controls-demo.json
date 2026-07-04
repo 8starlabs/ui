@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "video-player-hide-center-controls-demo",
-  "type": "registry:example",
   "title": "Video Player Hidden Center Controls",
   "description": "A video player demo without center controls.",
   "files": [
@@ -11,5 +10,6 @@
       "type": "registry:example",
       "target": "components/8starlabs-ui/examples/video-player-hide-center-controls-demo.tsx"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "marquee-grayscale-demo",
-  "type": "registry:example",
   "title": "Marquee Grayscale Demo",
   "description": "A marquee grayscale demo component",
   "files": [
@@ -11,5 +10,6 @@
       "type": "registry:example",
       "target": "components/8starlabs-ui/examples/marquee-grayscale-demo.tsx"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

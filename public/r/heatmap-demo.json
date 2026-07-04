@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "heatmap-demo",
-  "type": "registry:example",
   "title": "Heatmap",
   "description": "A heatmap demo component",
   "files": [
@@ -11,5 +10,6 @@
       "type": "registry:example",
       "target": "components/8starlabs-ui/examples/heatmap-demo.tsx"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

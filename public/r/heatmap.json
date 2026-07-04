@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "heatmap",
-  "type": "registry:ui",
   "title": "Heatmap",
   "description": "A heatmap component",
   "registryDependencies": ["tooltip"],
@@ -20,5 +19,6 @@
     "dark": {
       "heatmap-zero": "rgb(51, 51, 51)"
     }
-  }
+  },
+  "type": "registry:ui"
 }

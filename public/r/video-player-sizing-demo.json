@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "video-player-sizing-demo",
-  "type": "registry:example",
   "title": "Video Player Sizing",
   "description": "A video player demo showing viewport sizing",
   "files": [
@@ -11,5 +10,6 @@
       "type": "registry:example",
       "target": "components/8starlabs-ui/examples/video-player-sizing-demo.tsx"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

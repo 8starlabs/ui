@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "video-player",
-  "type": "registry:ui",
   "title": "Video Player",
   "description": "A video player component",
   "dependencies": ["class-variance-authority"],
@@ -13,5 +12,6 @@
       "type": "registry:ui",
       "target": "components/8starlabs-ui/video-player.tsx"
     }
-  ]
+  ],
+  "type": "registry:ui"
 }
