@@ -17,10 +17,11 @@ export default function NotFound() {
         <p className="mb-4 text-sm text-gray-500">
           This page could not be found.
         </p>
-        <Button asChild>
-          <Link prefetch={false} href="/">
-            Go home
-          </Link>
+        <Button
+          render={<Link prefetch={false} href="/" />}
+          nativeButton={false}
+        >
+          Go home
         </Button>
       </div>
     </div>

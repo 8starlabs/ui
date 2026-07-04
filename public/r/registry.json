@@ -8,7 +8,7 @@
       "type": "registry:ui",
       "title": "Button",
       "description": "A shadcn-compatible button with an optional Stripe-style arrow animation",
-      "dependencies": ["@radix-ui/react-slot", "class-variance-authority"],
+      "dependencies": ["@base-ui/react", "class-variance-authority"],
       "files": [
         {
           "path": "registry/8starlabs-ui/blocks/button.tsx",

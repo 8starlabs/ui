@@ -12,7 +12,6 @@ import {
 } from "@/registry/8starlabs-ui/ui/dropdown-menu";
 import {
   Popover,
-  PopoverAnchor,
   PopoverContent,
   PopoverTrigger
 } from "@/registry/8starlabs-ui/ui/popover";
@@ -115,14 +114,10 @@ export function DocsCopyPage({ page, url }: { page: string; url: string }) {
           Copy Page
         </Button>
         <DropdownMenu>
-          <DropdownMenuTrigger asChild className="hidden sm:flex">
-            {trigger}
-          </DropdownMenuTrigger>
+          <DropdownMenuTrigger className="hidden sm:flex" render={trigger} />
           <DropdownMenuContent align="end" className="shadow-none">
             {Object.entries(menuItems).map(([key, value]) => (
-              <DropdownMenuItem key={key} asChild>
-                {value(url)}
-              </DropdownMenuItem>
+              <DropdownMenuItem key={key} render={value(url)} />
             ))}
           </DropdownMenuContent>
         </DropdownMenu>
@@ -130,9 +125,7 @@ export function DocsCopyPage({ page, url }: { page: string; url: string }) {
           orientation="vertical"
           className="!bg-foreground/10 absolute top-0 right-8 z-0 !h-8 peer-focus-visible:opacity-0 sm:right-7 sm:!h-7"
         />
-        <PopoverTrigger asChild className="flex sm:hidden">
-          {trigger}
-        </PopoverTrigger>
+        <PopoverTrigger className="flex sm:hidden" render={trigger} />
         <PopoverContent
           className="bg-background/70 dark:bg-background/60 w-52 !origin-center rounded-lg p-1 shadow-sm backdrop-blur-sm"
           side="top"
@@ -143,12 +136,11 @@ export function DocsCopyPage({ page, url }: { page: string; url: string }) {
             <Button
               variant="ghost"
               size="lg"
-              asChild
               key={key}
+              nativeButton={false}
               className="*:[svg]:text-muted-foreground w-full justify-start text-base font-normal"
-            >
-              {value(url)}
-            </Button>
+              render={value(url)}
+            />
           ))}
         </PopoverContent>
       </div>

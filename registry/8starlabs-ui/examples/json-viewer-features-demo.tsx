@@ -119,19 +119,21 @@ const JsonViewerFeaturesDemo = () => {
               Initial Expansion:
             </Label>
             <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="h-8 text-xs font-normal justify-between w-[140px]"
-                >
-                  {defaultExpanded === true
-                    ? "Expand All"
-                    : defaultExpanded === false
-                      ? "Collapsed"
-                      : `Depth ${defaultExpanded}`}
-                  <ChevronDown className="h-3.5 w-3.5 opacity-50" />
-                </Button>
+              <DropdownMenuTrigger
+                render={
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="h-8 text-xs font-normal justify-between w-[140px]"
+                  />
+                }
+              >
+                {defaultExpanded === true
+                  ? "Expand All"
+                  : defaultExpanded === false
+                    ? "Collapsed"
+                    : `Depth ${defaultExpanded}`}
+                <ChevronDown className="h-3.5 w-3.5 opacity-50" />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-[140px]">
                 <DropdownMenuRadioGroup

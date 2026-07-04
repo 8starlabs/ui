@@ -25,8 +25,8 @@ export default function Error({
           <p className="mb-4 text-sm text-gray-500">
             Oops, Something went wrong, try again later.
           </p>
-          <Button asChild>
-            <Link href="/">Go home</Link>
+          <Button render={<Link href="/" />} nativeButton={false}>
+            Go home
           </Button>
         </div>
       </div>

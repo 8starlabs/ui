@@ -9,16 +9,22 @@ import { Skeleton } from "@/registry/8starlabs-ui/ui/skeleton";
 
 export function GitHubLink() {
   return (
-    <Button asChild size="sm" variant="ghost" className="h-8 shadow-none">
-      <Link
-        prefetch={false}
-        href={siteConfig.links.github}
-        target="_blank"
-        rel="noreferrer"
-      >
-        <GitHubIcon />
-        <StarsCountClient />
-      </Link>
+    <Button
+      size="sm"
+      variant="ghost"
+      className="h-8 shadow-none"
+      nativeButton={false}
+      render={
+        <Link
+          prefetch={false}
+          href={siteConfig.links.github}
+          target="_blank"
+          rel="noreferrer"
+        />
+      }
+    >
+      <GitHubIcon />
+      <StarsCountClient />
     </Button>
   );
 }

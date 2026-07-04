@@ -19,25 +19,37 @@ export function MainNav({
     <nav className={cn("items-center gap-0.5", className)} {...props}>
       {items.map((item) =>
         item.external ? (
-          <Button key={item.href} variant="ghost" asChild size="sm">
-            <a
-              href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(pathname === item.href && "text-primary")}
-            >
-              {item.label}
-            </a>
+          <Button
+            key={item.href}
+            variant="ghost"
+            size="sm"
+            nativeButton={false}
+            render={
+              <a
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn(pathname === item.href && "text-primary")}
+              />
+            }
+          >
+            {item.label}
           </Button>
         ) : (
-          <Button key={item.href} variant="ghost" asChild size="sm">
-            <Link
-              prefetch={false}
-              href={item.href}
-              className={cn(pathname === item.href && "text-primary")}
-            >
-              {item.label}
-            </Link>
+          <Button
+            key={item.href}
+            variant="ghost"
+            size="sm"
+            nativeButton={false}
+            render={
+              <Link
+                prefetch={false}
+                href={item.href}
+                className={cn(pathname === item.href && "text-primary")}
+              />
+            }
+          >
+            {item.label}
           </Button>
         )
       )}
