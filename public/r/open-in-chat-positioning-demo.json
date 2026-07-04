@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "open-in-chat-positioning-demo",
+  "type": "registry:example",
+  "title": "Open In Chat Positioning Demo",
+  "description": "An open in chat demo showing dropdown alignment and side positioning.",
+  "files": [
+    {
+      "path": "registry/8starlabs-ui/examples/open-in-chat-positioning-demo.tsx",
+      "content": "import OpenInChat from \"@/registry/8starlabs-ui/blocks/open-in-chat\";\n\nexport default function OpenInChatPositioningDemo() {\n  return (\n    <div className=\"flex min-h-52 w-full flex-wrap items-center justify-center gap-4\">\n      <OpenInChat\n        prompt=\"Turn this changelog into release notes.\"\n        triggerLabel=\"Bottom start\"\n        align=\"start\"\n        side=\"bottom\"\n      />\n      <OpenInChat\n        prompt=\"Summarize this design review for the product team.\"\n        triggerLabel=\"Top end\"\n        align=\"end\"\n        side=\"top\"\n      />\n      <OpenInChat\n        prompt=\"List the follow-up questions for this implementation.\"\n        triggerLabel=\"Right center\"\n        align=\"center\"\n        side=\"right\"\n      />\n    </div>\n  );\n}\n",
+      "type": "registry:example",
+      "target": "components/8starlabs-ui/examples/open-in-chat-positioning-demo.tsx"
+    }
+  ]
+}

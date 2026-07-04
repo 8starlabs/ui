@@ -35,6 +35,7 @@ import marquee_reverse_demo_component from "@/registry/8starlabs-ui/examples/mar
 import open_in_chat_custom_link_demo_component from "@/registry/8starlabs-ui/examples/open-in-chat-custom-link-demo";
 import open_in_chat_custom_providers_demo_component from "@/registry/8starlabs-ui/examples/open-in-chat-custom-providers-demo";
 import open_in_chat_demo_component from "@/registry/8starlabs-ui/examples/open-in-chat-demo";
+import open_in_chat_positioning_demo_component from "@/registry/8starlabs-ui/examples/open-in-chat-positioning-demo";
 import partition_bar_alignment_demo_component from "@/registry/8starlabs-ui/examples/partition-bar-alignment-demo";
 import partition_bar_custom_colours_demo_component from "@/registry/8starlabs-ui/examples/partition-bar-custom-colours-demo";
 import partition_bar_demo_component from "@/registry/8starlabs-ui/examples/partition-bar-demo";
@@ -425,6 +426,16 @@ export const Index: Record<string, any> = {
         target: "components/8starlabs-ui/examples/open-in-chat-demo.tsx"
       }],
       component: open_in_chat_demo_component
+    },
+    "open-in-chat-positioning-demo": {
+      name: "open-in-chat-positioning-demo",
+      type: "registry:example",
+      files: [{
+        path: "registry/8starlabs-ui/examples/open-in-chat-positioning-demo.tsx",
+        type: "registry:example",
+        target: "components/8starlabs-ui/examples/open-in-chat-positioning-demo.tsx"
+      }],
+      component: open_in_chat_positioning_demo_component
     },
     "partition-bar-alignment-demo": {
       name: "partition-bar-alignment-demo",

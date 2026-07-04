@@ -863,6 +863,19 @@
           "target": "components/8starlabs-ui/examples/open-in-chat-custom-link-demo.tsx"
         }
       ]
+    },
+    {
+      "name": "open-in-chat-positioning-demo",
+      "type": "registry:example",
+      "title": "Open In Chat Positioning Demo",
+      "description": "An open in chat demo showing dropdown alignment and side positioning.",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/open-in-chat-positioning-demo.tsx",
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/open-in-chat-positioning-demo.tsx"
+        }
+      ]
     }
   ]
 }
