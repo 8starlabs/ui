@@ -21,17 +21,18 @@ export default function HomepageDemoCard({
     <Link prefetch={false} href={href} className="block h-full">
       <Card
         className={cn(
-          "group relative flex size-full flex-col overflow-hidden px-6 transition-colors hover:bg-muted/20",
+          "group relative flex size-full flex-col gap-0 overflow-hidden px-5 py-5 transition-colors hover:bg-muted/20 sm:px-6 sm:py-6",
           className
         )}
       >
-        <div className="flex flex-col gap-2">
+        <div className="flex shrink-0 flex-col gap-2 pr-6">
           <h3 className="text-lg font-semibold">{title}</h3>
           {description}
         </div>
 
-        {/* Demo grows to fill the card so it can center within the tile */}
-        <div className="mt-4 flex flex-1 flex-col">{demo}</div>
+        <div className="mt-4 flex min-h-0 flex-1 flex-col overflow-hidden">
+          {demo}
+        </div>
 
         <div className="absolute top-4 right-4 opacity-0 transition-opacity group-hover:opacity-100">
           <svg

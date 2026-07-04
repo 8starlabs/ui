@@ -33,12 +33,13 @@ installation output.
 
 ## Skills
 
-| Skill | Use when | Primary audience |
-| --- | --- | --- |
-| [`8sl-component-ship`](./8sl-component-ship/SKILL.md) | Adding, updating, documenting, or validating a component in this repo | Maintainers |
-| [`8sl-consume-registry`](./8sl-consume-registry/SKILL.md) | Installing or integrating 8StarLabs UI into an app | Downstream consumers |
-| [`8sl-pattern-review`](./8sl-pattern-review/SKILL.md) | Reviewing or debugging existing 8StarLabs UI usage | Maintainers and consumers |
-| [`pr-comment`](./pr-comment/SKILL.md) | Drafting a PR description or change summary | Contributors writing PRs |
+| Skill                                                     | Use when                                                                                         | Primary audience          |
+| --------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------- |
+| [`8sl-component-ship`](./8sl-component-ship/SKILL.md)     | Adding, updating, documenting, or validating a component in this repo                            | Maintainers               |
+| [`8sl-consume-registry`](./8sl-consume-registry/SKILL.md) | Installing or integrating 8StarLabs UI into an app                                               | Downstream consumers      |
+| [`8sl-pattern-review`](./8sl-pattern-review/SKILL.md)     | Reviewing or debugging existing 8StarLabs UI usage                                               | Maintainers and consumers |
+| [`frontend-design`](./frontend-design/SKILL.md)           | Reviewing or improving frontend visual design, responsive layout, spacing, hierarchy, and polish | Maintainers               |
+| [`pr-comment`](./pr-comment/SKILL.md)                     | Drafting a PR description or change summary                                                      | Contributors writing PRs  |
 
 ## Using These Skills In Claude
 

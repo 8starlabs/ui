@@ -17,7 +17,7 @@ const PartitionBarCard = () => {
         </p>
       }
       demo={
-        <div className="scroll-fade-x my-3 w-full overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="scroll-fade-e my-3 w-full overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <PartitionBar size="md" className="mx-auto w-[700px]">
             <PartitionBarSegment num={3} className="bg-red-600">
               <PartitionBarSegmentTitle className="text-red-600">
