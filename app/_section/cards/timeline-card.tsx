@@ -1,4 +1,3 @@
-import ScrollFade from "@/registry/8starlabs-ui/blocks/scroll-fade";
 import Timeline, {
   TimelineItem,
   TimelineItemDate,
@@ -61,7 +60,7 @@ const TimelineCard = () => {
         </p>
       }
       demo={
-        <ScrollFade axis="horizontal">
+        <div className="scroll-fade-x w-full overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <Timeline orientation="horizontal" className="flex justify-center">
             {timelineData.map((item, idx) => (
               <TimelineItem key={idx} variant={item.variant}>
@@ -73,7 +72,7 @@ const TimelineCard = () => {
               </TimelineItem>
             ))}
           </Timeline>
-        </ScrollFade>
+        </div>
       }
     />
   );

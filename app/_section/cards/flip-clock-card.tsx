@@ -1,5 +1,4 @@
 import FlipClock from "@/registry/8starlabs-ui/blocks/flip-clock";
-import ScrollFade from "@/registry/8starlabs-ui/blocks/scroll-fade";
 import HomepageDemoCard from "./homepage-demo-card";
 
 const FlipClockCard = () => {
@@ -13,9 +12,9 @@ const FlipClockCard = () => {
         </p>
       }
       demo={
-        <ScrollFade axis="horizontal" className="my-3">
+        <div className="scroll-fade-x my-3 w-full overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <FlipClock size="md" variant="secondary" />
-        </ScrollFade>
+        </div>
       }
     />
   );

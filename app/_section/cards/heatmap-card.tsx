@@ -1,4 +1,3 @@
-import ScrollFade from "@/registry/8starlabs-ui/blocks/scroll-fade";
 import Heatmap, { HeatmapData } from "@/registry/8starlabs-ui/blocks/heatmap";
 import { useMemo } from "react";
 import HomepageDemoCard from "./homepage-demo-card";
@@ -46,7 +45,7 @@ const HeatmapCard = () => {
         </p>
       }
       demo={
-        <ScrollFade axis="horizontal" className="my-3">
+        <div className="scroll-fade-x my-3 w-full overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <Heatmap
             data={data}
             startDate={new Date("2025-01-01")}
@@ -54,7 +53,7 @@ const HeatmapCard = () => {
             colorMode="interpolate"
             className="justify-center"
           />
-        </ScrollFade>
+        </div>
       }
     />
   );

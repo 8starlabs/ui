@@ -3,6 +3,11 @@
 # when a package's trust signals (provenance/signatures) weaken between releases.
 minimumReleaseAge: 10080
 trustPolicy: no-downgrade
+# Narrow exclusions: transitive deps of shadcn v4's babel toolchain whose older
+# pinned versions predate provenance attestation. Excluded intentionally so the
+# no-downgrade policy still guards everything else.
+trustPolicyExclude:
+  - "semver@6.3.1"
 overrides:
   esbuild: ">=0.28.1"
 allowBuilds:

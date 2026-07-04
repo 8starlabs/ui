@@ -3,7 +3,6 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
-import ScrollFade from "@/registry/8starlabs-ui/blocks/scroll-fade";
 
 export function ComponentPreviewTabs({
   className,
@@ -31,7 +30,7 @@ export function ComponentPreviewTabs({
       {...props}
     >
       <div data-slot="preview">
-        <ScrollFade axis="both">
+        <div className="scroll-fade-x scroll-fade-y overflow-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <div
             data-align={align}
             className={cn(
@@ -42,7 +41,7 @@ export function ComponentPreviewTabs({
           >
             {component}
           </div>
-        </ScrollFade>
+        </div>
 
         {!hideCode && (
           <div

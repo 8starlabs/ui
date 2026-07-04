@@ -522,32 +522,6 @@
       ]
     },
     {
-      "name": "scroll-fade",
-      "type": "registry:ui",
-      "title": "Scroll Fade component",
-      "description": "A scroll fade component",
-      "files": [
-        {
-          "path": "registry/8starlabs-ui/blocks/scroll-fade.tsx",
-          "type": "registry:ui",
-          "target": "components/8starlabs-ui/scroll-fade.tsx"
-        }
-      ]
-    },
-    {
-      "name": "scroll-fade-demo",
-      "type": "registry:example",
-      "title": "Scroll Fade Demo",
-      "description": "A scroll fade demo component",
-      "files": [
-        {
-          "path": "registry/8starlabs-ui/examples/scroll-fade-demo.tsx",
-          "type": "registry:example",
-          "target": "components/8starlabs-ui/examples/scroll-fade-demo.tsx"
-        }
-      ]
-    },
-    {
       "name": "marquee",
       "type": "registry:ui",
       "title": "Marquee component",
