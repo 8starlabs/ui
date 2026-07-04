@@ -1,4 +1,3 @@
-import ScrollFade from "@/registry/8starlabs-ui/blocks/scroll-fade";
 import PartitionBar, {
   PartitionBarSegment,
   PartitionBarSegmentTitle,
@@ -18,7 +17,7 @@ const PartitionBarCard = () => {
         </p>
       }
       demo={
-        <ScrollFade axis="horizontal" className="my-3">
+        <div className="scroll-fade-x my-3 w-full overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <PartitionBar size="md" className="mx-auto w-[700px]">
             <PartitionBarSegment num={3} className="bg-red-600">
               <PartitionBarSegmentTitle className="text-red-600">
@@ -60,7 +59,7 @@ const PartitionBarCard = () => {
               <PartitionBarSegmentValue>30%</PartitionBarSegmentValue>
             </PartitionBarSegment>
           </PartitionBar>
-        </ScrollFade>
+        </div>
       }
     />
   );
