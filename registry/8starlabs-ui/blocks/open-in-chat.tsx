@@ -19,19 +19,26 @@ import {
   DropdownMenuTrigger
 } from "@/registry/8starlabs-ui/ui/dropdown-menu";
 
-type AiLinkName = "ChatGPT" | "Claude" | "Perplexity" | "Gemini" | "Grok";
+export type AiLinkName =
+  | "ChatGPT"
+  | "Claude"
+  | "Perplexity"
+  | "Gemini"
+  | "Grok";
 
-type AiLink = {
+export type OpenInChatIcon = React.ElementType<React.ComponentProps<"svg">>;
+
+export type AiLinkData = {
   baseUrl: string;
   paramName?: string;
-  icon: React.ElementType<{ className?: string }>;
+  icon: OpenInChatIcon;
 };
 
-type OpenInChatContextValue = {
+export type OpenInChatContextValue = {
   prompt: string;
 };
 
-type OpenInChatProps = React.ComponentProps<typeof DropdownMenu> & {
+export type OpenInChatProps = React.ComponentProps<typeof DropdownMenu> & {
   prompt: string;
   children?: React.ReactNode;
   triggerLabel?: React.ReactNode;
@@ -41,7 +48,11 @@ type OpenInChatProps = React.ComponentProps<typeof DropdownMenu> & {
   side?: React.ComponentProps<typeof DropdownMenuContent>["side"];
 };
 
-type OpenInChatLinkProps = {
+export type OpenInChatLinkProps = {
+  baseUrl: string;
+  paramName?: string;
+  icon: OpenInChatIcon;
+  label: string;
   prompt?: string;
   className?: string;
 };
@@ -50,7 +61,7 @@ const OpenInChatContext = React.createContext<OpenInChatContextValue | null>(
   null
 );
 
-const aiLinks: Record<AiLinkName, AiLink> = {
+export const aiLinksDataMap: Record<AiLinkName, AiLinkData> = {
   ChatGPT: {
     baseUrl: "https://chatgpt.com/",
     icon: OpenAIIcon
@@ -74,15 +85,17 @@ const aiLinks: Record<AiLinkName, AiLink> = {
   }
 };
 
-function getPromptUrl(baseUrl: string, prompt: string, paramName = "q") {
+export function getPromptUrl(
+  baseUrl: string,
+  prompt: string,
+  paramName: string = "q"
+) {
   const url = new URL(baseUrl);
-
   url.searchParams.set(paramName, prompt);
-
   return url.toString();
 }
 
-function useOpenInChat() {
+export function useOpenInChat() {
   const context = React.useContext(OpenInChatContext);
 
   if (!context) {
@@ -92,7 +105,7 @@ function useOpenInChat() {
   return context;
 }
 
-function OpenInChat({
+export default function OpenInChat({
   prompt,
   children,
   triggerLabel = "Open in chat",
@@ -106,23 +119,33 @@ function OpenInChat({
   const items =
     React.Children.count(children) > 0
       ? children
-      : (Object.keys(aiLinks) as AiLinkName[]).map((name) => (
-          <OpenInChatLink key={name} name={name} />
-        ));
+      : (Object.entries(aiLinksDataMap) as [AiLinkName, AiLinkData][]).map(
+          ([label, dat], idx) => (
+            <OpenInChatLink
+              label={label}
+              baseUrl={dat.baseUrl}
+              icon={dat.icon}
+              paramName={dat.paramName}
+              key={idx}
+            />
+          )
+        );
 
   return (
     <OpenInChatContext.Provider value={contextValue}>
       <DropdownMenu {...props}>
-        <DropdownMenuTrigger asChild>
-          <Button
-            type="button"
-            variant="outline"
-            className={cn("gap-2", triggerClassName)}
-          >
-            {triggerLabel}
-            <ChevronDown className="size-4 opacity-70" aria-hidden="true" />
-          </Button>
-        </DropdownMenuTrigger>
+        <DropdownMenuTrigger
+          render={
+            <Button
+              type="button"
+              variant="outline"
+              className={cn("gap-2", triggerClassName)}
+            >
+              {triggerLabel}
+              <ChevronDown className="size-4 opacity-70" aria-hidden="true" />
+            </Button>
+          }
+        ></DropdownMenuTrigger>
         <DropdownMenuContent
           align={align}
           side={side}
@@ -135,69 +158,105 @@ function OpenInChat({
   );
 }
 
-function OpenInChatLink({
-  name,
+export function OpenInChatLink({
+  label,
   prompt,
-  className
-}: OpenInChatLinkProps & {
-  name: AiLinkName;
-}) {
+  className,
+  baseUrl,
+  paramName = "q",
+  icon
+}: OpenInChatLinkProps) {
   const { prompt: contextPrompt } = useOpenInChat();
-  const link = aiLinks[name];
 
-  const Icon = link.icon;
-  const href = getPromptUrl(
-    link.baseUrl,
-    prompt ?? contextPrompt,
-    link.paramName
-  );
+  const href = getPromptUrl(baseUrl, prompt ?? contextPrompt, paramName);
+
+  const Icon = icon;
 
   return (
-    <DropdownMenuItem asChild className={cn("cursor-pointer", className)}>
-      <a href={href} target="_blank" rel="noreferrer">
-        <Icon className="size-4" aria-hidden="true" />
-        <span className="flex-1">Open in {name}</span>
-        <ExternalLink className="size-4 opacity-60" aria-hidden="true" />
-      </a>
-    </DropdownMenuItem>
+    <DropdownMenuItem
+      className={cn("cursor-pointer", className)}
+      render={
+        <a href={href} target="_blank" rel="noreferrer">
+          <Icon className="size-4" aria-hidden="true" />
+          <span className="flex-1">Open in {label}</span>
+          <ExternalLink className="size-4 opacity-60" aria-hidden="true" />
+        </a>
+      }
+    />
   );
 }
 
-function OpenInChatGPT(props: OpenInChatLinkProps) {
-  return <OpenInChatLink name="ChatGPT" {...props} />;
+export type OpenInChatProviderLinkProps = Pick<
+  OpenInChatLinkProps,
+  "prompt" | "className"
+>;
+
+export function OpenInChatGPT(params: OpenInChatProviderLinkProps) {
+  const dat = aiLinksDataMap.ChatGPT;
+
+  return (
+    <OpenInChatLink
+      label="ChatGPT"
+      baseUrl={dat.baseUrl}
+      icon={dat.icon}
+      paramName={dat.paramName}
+      {...params}
+    />
+  );
 }
 
-function OpenInClaude(props: OpenInChatLinkProps) {
-  return <OpenInChatLink name="Claude" {...props} />;
+export function OpenInClaude(params: OpenInChatProviderLinkProps) {
+  const dat = aiLinksDataMap.Claude;
+
+  return (
+    <OpenInChatLink
+      label="Claude"
+      baseUrl={dat.baseUrl}
+      icon={dat.icon}
+      paramName={dat.paramName}
+      {...params}
+    />
+  );
 }
 
-function OpenInPerplexity(props: OpenInChatLinkProps) {
-  return <OpenInChatLink name="Perplexity" {...props} />;
+export function OpenInPerplexity(params: OpenInChatProviderLinkProps) {
+  const dat = aiLinksDataMap.Perplexity;
+
+  return (
+    <OpenInChatLink
+      label="Perplexity"
+      baseUrl={dat.baseUrl}
+      icon={dat.icon}
+      paramName={dat.paramName}
+      {...params}
+    />
+  );
 }
 
-function OpenInGemini(props: OpenInChatLinkProps) {
-  return <OpenInChatLink name="Gemini" {...props} />;
+export function OpenInGemini(params: OpenInChatProviderLinkProps) {
+  const dat = aiLinksDataMap.Gemini;
+
+  return (
+    <OpenInChatLink
+      label="Gemini"
+      baseUrl={dat.baseUrl}
+      icon={dat.icon}
+      paramName={dat.paramName}
+      {...params}
+    />
+  );
 }
 
-function OpenInGrok(props: OpenInChatLinkProps) {
-  return <OpenInChatLink name="Grok" {...props} />;
+export function OpenInGrok(params: OpenInChatProviderLinkProps) {
+  const dat = aiLinksDataMap.Grok;
+
+  return (
+    <OpenInChatLink
+      label="Grok"
+      baseUrl={dat.baseUrl}
+      icon={dat.icon}
+      paramName={dat.paramName}
+      {...params}
+    />
+  );
 }
-
-export {
-  OpenInChatGPT,
-  OpenInClaude,
-  OpenInPerplexity,
-  OpenInGemini,
-  OpenInGrok,
-  aiLinks
-};
-
-export default OpenInChat;
-
-export type {
-  AiLinkName,
-  AiLink,
-  OpenInChatContextValue,
-  OpenInChatProps,
-  OpenInChatLinkProps
-};

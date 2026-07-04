@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "open-in-chat-custom-providers-demo",
+  "type": "registry:example",
+  "title": "Open In Chat Custom Providers Demo",
+  "description": "An open in chat demo with selected provider links.",
+  "files": [
+    {
+      "path": "registry/8starlabs-ui/examples/open-in-chat-custom-providers-demo.tsx",
+      "content": "import OpenInChat, {\n  OpenInChatGPT,\n  OpenInClaude,\n  OpenInPerplexity\n} from \"@/registry/8starlabs-ui/blocks/open-in-chat\";\n\nexport default function OpenInChatCustomProvidersDemo() {\n  return (\n    <OpenInChat prompt=\"Review this implementation for correctness and edge cases.\">\n      <OpenInChatGPT />\n      <OpenInClaude prompt=\"Review this with extra attention to UX tradeoffs.\" />\n      <OpenInPerplexity />\n    </OpenInChat>\n  );\n}\n",
+      "type": "registry:example",
+      "target": "components/8starlabs-ui/examples/open-in-chat-custom-providers-demo.tsx"
+    }
+  ]
+}

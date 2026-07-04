@@ -3,6 +3,8 @@ title: Open In Chat
 description: A dropdown component that opens AI chat tools with a pre-filled prompt.
 ---
 
+<ComponentPreview name="open-in-chat-demo" />
+
 ## Installation
 
 <CodeTabs>
@@ -53,53 +55,23 @@ By default, `OpenInChat` renders menu items for ChatGPT, Claude, Perplexity,
 Gemini, and Grok. Each item opens the selected provider in a new tab with the
 component prompt encoded into the provider's prompt query parameter.
 
-```tsx showLineNumbers
-<OpenInChat prompt="Explain this pull request like I am joining the project today." />
-```
+<ComponentPreview name="open-in-chat-demo" />
 
 ### Custom Providers
 
 Pass provider-specific link components as children when you only want to expose
-some chat tools or control their order.
+some chat tools or control their order. Child links inherit the parent prompt,
+and can override it with their own `prompt` prop.
 
-```tsx showLineNumbers
-import OpenInChat, {
-  OpenInChatGPT,
-  OpenInClaude,
-  OpenInPerplexity
-} from "@/components/8starlabs-ui/open-in-chat";
+<ComponentPreview name="open-in-chat-custom-providers-demo" />
 
-export function ReviewActions() {
-  return (
-    <OpenInChat prompt="Review this implementation for correctness and edge cases.">
-      <OpenInChatGPT />
-      <OpenInClaude />
-      <OpenInPerplexity />
-    </OpenInChat>
-  );
-}
-```
+### Custom Link
 
-### Prompt Overrides
+Use `OpenInChatLink` when you need to add a provider that is not included in the
+default list. It accepts a label, base URL, prompt parameter name, icon, and
+optional per-link prompt override.
 
-Child links inherit the parent prompt. Pass `prompt` to an individual link when a
-provider should receive a different instruction.
-
-```tsx showLineNumbers
-import OpenInChat, {
-  OpenInChatGPT,
-  OpenInGemini
-} from "@/components/8starlabs-ui/open-in-chat";
-
-export function PromptVariants() {
-  return (
-    <OpenInChat prompt="Summarize this customer conversation.">
-      <OpenInChatGPT />
-      <OpenInGemini prompt="Extract action items from this customer conversation." />
-    </OpenInChat>
-  );
-}
-```
+<ComponentPreview name="open-in-chat-custom-link-demo" />
 
 ### Positioning And Styling
 
@@ -148,8 +120,19 @@ menu:
 | `prompt`    | `string` | Parent `OpenInChat` prompt | Optional. Overrides the parent prompt for this provider link. |
 | `className` | `string` | -                          | Optional. Additional classes applied to the dropdown item.    |
 
-### aiLinks
+### OpenInChatLink
 
-`aiLinks` is exported for consumers who need the built-in provider metadata. It
-contains each provider's base URL, optional prompt parameter name, and icon
+| Prop        | Type                | Default                    | Description                                                 |
+| ----------- | ------------------- | -------------------------- | ----------------------------------------------------------- |
+| `baseUrl`   | `string`            | -                          | **Required.** Base URL for the custom chat destination.     |
+| `paramName` | `string`            | `"q"`                      | Optional. Query parameter used for the prompt.              |
+| `icon`      | `React.ElementType` | -                          | **Required.** Icon component rendered before the label.     |
+| `label`     | `string`            | -                          | **Required.** Label rendered as `Open in {label}`.          |
+| `prompt`    | `string`            | Parent `OpenInChat` prompt | Optional. Overrides the parent prompt for this custom link. |
+| `className` | `string`            | -                          | Optional. Additional classes applied to the dropdown item.  |
+
+### aiLinksDataMap
+
+`aiLinksDataMap` is exported for consumers who need the built-in provider
+metadata. It contains each provider's base URL, optional prompt parameter, and icon
 component.

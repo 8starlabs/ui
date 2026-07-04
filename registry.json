@@ -824,6 +824,45 @@
           "target": "components/8starlabs-ui/ai-icons.tsx"
         }
       ]
+    },
+    {
+      "name": "open-in-chat-demo",
+      "type": "registry:example",
+      "title": "Open In Chat Demo",
+      "description": "An open in chat demo with the default providers.",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/open-in-chat-demo.tsx",
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/open-in-chat-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "open-in-chat-custom-providers-demo",
+      "type": "registry:example",
+      "title": "Open In Chat Custom Providers Demo",
+      "description": "An open in chat demo with selected provider links.",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/open-in-chat-custom-providers-demo.tsx",
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/open-in-chat-custom-providers-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "open-in-chat-custom-link-demo",
+      "type": "registry:example",
+      "title": "Open In Chat Custom Link Demo",
+      "description": "An open in chat demo with a custom provider link.",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/open-in-chat-custom-link-demo.tsx",
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/open-in-chat-custom-link-demo.tsx"
+        }
+      ]
     }
   ]
 }

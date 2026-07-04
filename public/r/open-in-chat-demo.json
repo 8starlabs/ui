@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "open-in-chat-demo",
+  "type": "registry:example",
+  "title": "Open In Chat Demo",
+  "description": "An open in chat demo with the default providers.",
+  "files": [
+    {
+      "path": "registry/8starlabs-ui/examples/open-in-chat-demo.tsx",
+      "content": "import OpenInChat from \"@/registry/8starlabs-ui/blocks/open-in-chat\";\n\nexport default function OpenInChatDemo() {\n  return (\n    <OpenInChat prompt=\"Summarize this page and list the key decisions.\" />\n  );\n}\n",
+      "type": "registry:example",
+      "target": "components/8starlabs-ui/examples/open-in-chat-demo.tsx"
+    }
+  ]
+}
