@@ -1,5 +1,4 @@
-import * as React from "react";
-import { Slot, Slottable } from "@radix-ui/react-slot";
+import { Button as ButtonPrimitive } from "@base-ui/react/button";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
@@ -69,23 +68,19 @@ function Button({
   className,
   variant,
   size,
-  asChild = false,
   withArrow = false,
   disableHoverPop = false,
   arrowClassName,
   children,
   ...props
-}: React.ComponentProps<"button"> &
+}: ButtonPrimitive.Props &
   VariantProps<typeof buttonVariants> & {
-    asChild?: boolean;
     withArrow?: boolean;
     disableHoverPop?: boolean;
     arrowClassName?: string;
   }) {
-  const Comp = asChild ? Slot : "button";
-
   return (
-    <Comp
+    <ButtonPrimitive
       data-slot="button"
       className={cn(
         buttonVariants({ variant, size }),
@@ -94,9 +89,9 @@ function Button({
       )}
       {...props}
     >
-      <Slottable>{children}</Slottable>
+      {children}
       {withArrow && <ButtonArrow className={arrowClassName} />}
-    </Comp>
+    </ButtonPrimitive>
   );
 }
 

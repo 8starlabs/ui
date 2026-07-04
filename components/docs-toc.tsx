@@ -74,15 +74,17 @@ export function DocsTableOfContents({
   if (variant === "dropdown") {
     return (
       <DropdownMenu open={open} onOpenChange={setOpen}>
-        <DropdownMenuTrigger asChild>
-          <Button
-            variant="outline"
-            size="sm"
-            className={cn("h-8 md:h-7", className)}
-          >
-            <IconMenu3 /> On This Page
-          </Button>
-        </DropdownMenuTrigger>
+        <DropdownMenuTrigger
+          render={
+            <Button
+              variant="outline"
+              size="sm"
+              className={cn("h-8 md:h-7", className)}
+            >
+              <IconMenu3 /> On This Page
+            </Button>
+          }
+        />
         <DropdownMenuContent
           align="start"
           className="no-scrollbar max-h-[70svh]"
@@ -90,15 +92,13 @@ export function DocsTableOfContents({
           {toc.map((item) => (
             <DropdownMenuItem
               key={item.url}
-              asChild
               onClick={() => {
                 setOpen(false);
               }}
               data-depth={item.depth}
               className="data-[depth=3]:pl-6 data-[depth=4]:pl-8"
-            >
-              <a href={item.url}>{item.title}</a>
-            </DropdownMenuItem>
+              render={<a href={item.url}>{item.title}</a>}
+            />
           ))}
         </DropdownMenuContent>
       </DropdownMenu>

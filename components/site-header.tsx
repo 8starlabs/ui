@@ -25,22 +25,21 @@ export function SiteHeader({ tree }: { tree: typeof source.pageTree }) {
           className="flex lg:hidden"
         />
         <Button
-          asChild
           variant="ghost"
           size="icon"
           className="hidden size-12 lg:flex"
+          nativeButton={false}
+          render={<Link prefetch={false} href="/" />}
         >
-          <Link prefetch={false} href="/">
-            <Image
-              src={HEADER_LOGO_SRC}
-              alt=""
-              width={48}
-              height={48}
-              className="object-contain"
-              style={{ width: 48, height: 48 }}
-            />
-            <span className="sr-only">{siteConfig.name}</span>
-          </Link>
+          <Image
+            src={HEADER_LOGO_SRC}
+            alt=""
+            width={48}
+            height={48}
+            className="object-contain"
+            style={{ width: 48, height: 48 }}
+          />
+          <span className="sr-only">{siteConfig.name}</span>
         </Button>
         <MainNav items={siteConfig.navLinks} className="hidden lg:flex ml-4" />
         <div className="ml-auto flex items-center gap-2 md:flex-1 md:justify-end">

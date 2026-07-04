@@ -60,15 +60,22 @@ const Hero = ({ className }: HeroProps) => {
         standard libraries.
       </p>
       <div className="flex gap-2">
-        <Button asChild size="sm" withArrow>
-          <Link prefetch={false} href="/docs">
-            Get Started
-          </Link>
+        <Button
+          size="sm"
+          withArrow
+          nativeButton={false}
+          render={<Link prefetch={false} href="/docs" />}
+        >
+          Get Started
         </Button>
-        <Button asChild size="sm" variant="ghost" withArrow>
-          <Link prefetch={false} href="/docs/components">
-            View Components
-          </Link>
+        <Button
+          size="sm"
+          variant="ghost"
+          withArrow
+          nativeButton={false}
+          render={<Link prefetch={false} href="/docs/components" />}
+        >
+          View Components
         </Button>
       </div>
     </div>

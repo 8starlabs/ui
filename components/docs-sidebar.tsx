@@ -58,18 +58,16 @@ export function DocsSidebar({
                 return (
                   <SidebarMenuItem key={name}>
                     <SidebarMenuButton
-                      asChild
                       isActive={
                         href === "/docs" || href === "/docs/components"
                           ? pathname === href
                           : pathname.startsWith(href)
                       }
                       className="data-[active=true]:bg-accent data-[active=true]:border-accent 3xl:fixed:w-full 3xl:fixed:max-w-48 relative h-[30px] w-fit overflow-visible border border-transparent text-[0.8rem] font-medium after:absolute after:inset-x-0 after:-inset-y-1 after:z-0 after:rounded-md"
+                      render={<Link prefetch={false} href={href} />}
                     >
-                      <Link prefetch={false} href={href}>
-                        <span className="absolute inset-0 flex w-(--sidebar-width) bg-transparent" />
-                        {name}
-                      </Link>
+                      <span className="absolute inset-0 flex w-(--sidebar-width) bg-transparent" />
+                      {name}
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 );
@@ -106,20 +104,18 @@ export function DocsSidebar({
                         !EXCLUDED_PAGES.includes(item.url) && (
                           <SidebarMenuItem key={item.url}>
                             <SidebarMenuButton
-                              asChild
                               isActive={item.url === pathname}
                               className="data-[active=true]:bg-accent data-[active=true]:border-accent 3xl:fixed:w-full 3xl:fixed:max-w-48 relative h-[30px] w-fit overflow-visible border border-transparent text-[0.8rem] font-medium after:absolute after:inset-x-0 after:-inset-y-1 after:z-0 after:rounded-md"
+                              render={<Link prefetch={false} href={item.url} />}
                             >
-                              <Link prefetch={false} href={item.url}>
-                                <span className="absolute inset-0 flex w-(--sidebar-width) bg-transparent" />
-                                {item.name}
-                                {PAGES_NEW.includes(item.url) && (
-                                  <span
-                                    className="flex size-2 rounded-full bg-blue-500"
-                                    title="New"
-                                  />
-                                )}
-                              </Link>
+                              <span className="absolute inset-0 flex w-(--sidebar-width) bg-transparent" />
+                              {item.name}
+                              {PAGES_NEW.includes(item.url) && (
+                                <span
+                                  className="flex size-2 rounded-full bg-blue-500"
+                                  title="New"
+                                />
+                              )}
                             </SidebarMenuButton>
                           </SidebarMenuItem>
                         )

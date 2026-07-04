@@ -98,25 +98,29 @@ const CommandMenu = ({ tree, ...props }: { tree: typeof source.pageTree }) => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button
-          variant="secondary"
-          className={cn(
-            "bg-surface text-surface-foreground/60 dark:bg-card relative h-8 w-full justify-start pl-2.5 font-normal shadow-none sm:pr-12 md:w-40 lg:w-56 xl:w-64"
-          )}
-          onClick={() => setOpen(true)}
-          {...props}
-        >
-          <span className="hidden lg:inline-flex">Search documentation...</span>
-          <span className="inline-flex lg:hidden">Search...</span>
-          <div className="absolute top-1.5 right-1.5 hidden gap-1 sm:flex">
-            <KbdGroup>
-              <Kbd className="border">{isMac ? "⌘" : "Ctrl"}</Kbd>
-              <Kbd className="border">K</Kbd>
-            </KbdGroup>
-          </div>
-        </Button>
-      </DialogTrigger>
+      <DialogTrigger
+        render={
+          <Button
+            variant="secondary"
+            className={cn(
+              "bg-surface text-surface-foreground/60 dark:bg-card relative h-8 w-full justify-start pl-2.5 font-normal shadow-none sm:pr-12 md:w-40 lg:w-56 xl:w-64"
+            )}
+            onClick={() => setOpen(true)}
+            {...props}
+          >
+            <span className="hidden lg:inline-flex">
+              Search documentation...
+            </span>
+            <span className="inline-flex lg:hidden">Search...</span>
+            <div className="absolute top-1.5 right-1.5 hidden gap-1 sm:flex">
+              <KbdGroup>
+                <Kbd className="border">{isMac ? "⌘" : "Ctrl"}</Kbd>
+                <Kbd className="border">K</Kbd>
+              </KbdGroup>
+            </div>
+          </Button>
+        }
+      />
       <DialogContent
         showCloseButton={false}
         className="rounded-xl border-none bg-clip-padding p-2 pb-11 shadow-2xl ring-4 ring-neutral-200/80 dark:bg-neutral-900 dark:ring-neutral-800"

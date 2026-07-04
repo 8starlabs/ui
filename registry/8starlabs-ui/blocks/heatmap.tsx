@@ -386,19 +386,21 @@ export default function Heatmap(props: HeatmapProps) {
 
             return (
               <Tooltip key={dayIdx}>
-                <TooltipTrigger asChild>
-                  <ValueIndicator
-                    style={{ gridColumn: weekIdx + 2, gridRow: dayIdx + 2 }}
-                    tabIndex={0}
-                    aria-label={`${day}: ${safeValue} event${safeValue !== 1 ? "s" : ""}`}
-                    id={`heatmap-cell-${day}`}
-                    cellSize={cellSize}
-                    displayStyle={displayStyle}
-                    value={safeValue}
-                    maxValue={maxValue}
-                    color={thisColor}
-                  />
-                </TooltipTrigger>
+                <TooltipTrigger
+                  render={
+                    <ValueIndicator
+                      style={{ gridColumn: weekIdx + 2, gridRow: dayIdx + 2 }}
+                      tabIndex={0}
+                      aria-label={`${day}: ${safeValue} event${safeValue !== 1 ? "s" : ""}`}
+                      id={`heatmap-cell-${day}`}
+                      cellSize={cellSize}
+                      displayStyle={displayStyle}
+                      value={safeValue}
+                      maxValue={maxValue}
+                      color={thisColor}
+                    />
+                  }
+                />
                 <TooltipContent>
                   <div className="text-xs">
                     <div>

@@ -43,35 +43,37 @@ export default function CopyButtonTrackEvent({
 
   return (
     <Tooltip>
-      <TooltipTrigger asChild>
-        <Button
-          data-slot="copy-button"
-          size="icon"
-          variant={variant}
-          className={cn(
-            "absolute top-2 right-2 z-10 size-7 opacity-70 hover:opacity-100 focus-visible:opacity-100",
-            className
-          )}
-          onClick={() => {
-            copyToClipboardWithMeta(
-              value,
-              event
-                ? {
-                    name: event,
-                    properties: {
-                      code: value
+      <TooltipTrigger
+        render={
+          <Button
+            data-slot="copy-button"
+            size="icon"
+            variant={variant}
+            className={cn(
+              "absolute top-2 right-2 z-10 size-7 opacity-70 hover:opacity-100 focus-visible:opacity-100",
+              className
+            )}
+            onClick={() => {
+              copyToClipboardWithMeta(
+                value,
+                event
+                  ? {
+                      name: event,
+                      properties: {
+                        code: value
+                      }
                     }
-                  }
-                : undefined
-            );
-            setHasCopied(true);
-          }}
-          {...props}
-        >
-          <span className="sr-only">Copy</span>
-          {hasCopied ? <IconCheck /> : <IconCopy />}
-        </Button>
-      </TooltipTrigger>
+                  : undefined
+              );
+              setHasCopied(true);
+            }}
+            {...props}
+          >
+            <span className="sr-only">Copy</span>
+            {hasCopied ? <IconCheck /> : <IconCopy />}
+          </Button>
+        }
+      />
       <TooltipContent>
         {hasCopied ? "Copied" : "Copy to Clipboard"}
       </TooltipContent>

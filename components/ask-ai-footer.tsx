@@ -74,18 +74,20 @@ export function AskAiFooter() {
       <span>Ask AI:</span>
       {aiLinks.map(({ name, href, icon: Icon }) => (
         <Tooltip key={name}>
-          <TooltipTrigger asChild>
-            <a
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`Ask ${name} about 8StarLabs UI`}
-              onClick={copyPrompt}
-              className="text-muted-foreground hover:text-foreground focus-visible:ring-ring inline-flex size-6 shrink-0 items-center justify-center rounded-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
-            >
-              <Icon aria-hidden="true" className="size-4" />
-            </a>
-          </TooltipTrigger>
+          <TooltipTrigger
+            render={
+              <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Ask ${name} about 8StarLabs UI`}
+                onClick={copyPrompt}
+                className="text-muted-foreground hover:text-foreground focus-visible:ring-ring inline-flex size-6 shrink-0 items-center justify-center rounded-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+              >
+                <Icon aria-hidden="true" className="size-4" />
+              </a>
+            }
+          />
           <TooltipContent sideOffset={6}>
             Ask {name} about 8StarLabs UI
           </TooltipContent>
