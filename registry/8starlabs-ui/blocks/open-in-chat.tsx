@@ -5,7 +5,6 @@ import { ChevronDown, ExternalLink } from "lucide-react";
 
 import {
   ClaudeIcon,
-  GeminiIcon,
   GrokIcon,
   OpenAIIcon,
   PerplexityIcon
@@ -19,12 +18,7 @@ import {
   DropdownMenuTrigger
 } from "@/registry/8starlabs-ui/ui/dropdown-menu";
 
-export type AiLinkName =
-  | "ChatGPT"
-  | "Claude"
-  | "Perplexity"
-  | "Gemini"
-  | "Grok";
+export type AiLinkName = "ChatGPT" | "Claude" | "Perplexity" | "Grok";
 
 export type OpenInChatIcon = React.ElementType<React.ComponentProps<"svg">>;
 
@@ -73,11 +67,6 @@ export const aiLinksDataMap: Record<AiLinkName, AiLinkData> = {
   Perplexity: {
     baseUrl: "https://www.perplexity.ai/search/new",
     icon: PerplexityIcon
-  },
-  Gemini: {
-    baseUrl: "https://gemini.google.com/app",
-    paramName: "prompt",
-    icon: GeminiIcon
   },
   Grok: {
     baseUrl: "https://grok.com/",
@@ -225,20 +214,6 @@ export function OpenInPerplexity(params: OpenInChatProviderLinkProps) {
   return (
     <OpenInChatLink
       label="Perplexity"
-      baseUrl={dat.baseUrl}
-      icon={dat.icon}
-      paramName={dat.paramName}
-      {...params}
-    />
-  );
-}
-
-export function OpenInGemini(params: OpenInChatProviderLinkProps) {
-  const dat = aiLinksDataMap.Gemini;
-
-  return (
-    <OpenInChatLink
-      label="Gemini"
       baseUrl={dat.baseUrl}
       icon={dat.icon}
       paramName={dat.paramName}

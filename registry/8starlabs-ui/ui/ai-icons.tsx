@@ -1,17 +1,19 @@
 import { forwardRef } from "react";
-import { siClaude, siGooglegemini, siPerplexity } from "simple-icons/icons";
+import { siClaude, siPerplexity } from "simple-icons/icons";
 
 type BrandIconProps = React.ComponentProps<"svg">;
 type SimpleIconData = {
   path: string;
 };
 
-function createSimpleIcon(icon: SimpleIconData) {
-  return forwardRef<SVGSVGElement, BrandIconProps>((props, ref) => (
+function createSimpleIcon(icon: SimpleIconData, displayName: string) {
+  const Component = forwardRef<SVGSVGElement, BrandIconProps>((props, ref) => (
     <svg ref={ref} viewBox="0 0 24 24" fill="currentColor" {...props}>
       <path d={icon.path} />
     </svg>
   ));
+  Component.displayName = displayName;
+  return Component;
 }
 
 export const OpenAIIcon = forwardRef<SVGSVGElement, BrandIconProps>(
@@ -25,9 +27,8 @@ export const OpenAIIcon = forwardRef<SVGSVGElement, BrandIconProps>(
   )
 );
 
-export const ClaudeIcon = createSimpleIcon(siClaude);
-export const GeminiIcon = createSimpleIcon(siGooglegemini);
-export const PerplexityIcon = createSimpleIcon(siPerplexity);
+export const ClaudeIcon = createSimpleIcon(siClaude, "Claude Icon");
+export const PerplexityIcon = createSimpleIcon(siPerplexity, "Perplexity Icon");
 
 export const GrokIcon = forwardRef<SVGSVGElement, BrandIconProps>(
   (props, ref) => (
