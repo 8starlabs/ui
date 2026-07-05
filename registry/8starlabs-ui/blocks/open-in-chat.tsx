@@ -134,7 +134,7 @@ export default function OpenInChat({
               <ChevronDown className="size-4 opacity-70" aria-hidden="true" />
             </Button>
           }
-        ></DropdownMenuTrigger>
+        />
         <DropdownMenuContent
           align={align}
           side={side}
