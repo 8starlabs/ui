@@ -1,0 +1,10 @@
+[
+  {
+    "prompt": "Review the landing page bento grid on mobile and desktop and make the smallest coherent design update.",
+    "expected_skill": "frontend-design"
+  },
+  {
+    "prompt": "Tighten the visual design of a component showcase without changing the component APIs.",
+    "expected_skill": "frontend-design"
+  }
+]

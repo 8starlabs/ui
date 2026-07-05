@@ -91,15 +91,20 @@ function Tooltip({
 }
 
 function TooltipTrigger({
+  nativeButton,
   render,
   ...props
-}: React.ComponentProps<"button"> & { render?: React.ReactElement }) {
+}: React.ComponentProps<"button"> & {
+  render?: React.ReactElement;
+  nativeButton?: boolean;
+}) {
   const mode = React.useContext(TooltipModeContext);
 
   if (mode === "popover") {
     return (
       <PopoverPrimitive.Trigger
         data-slot="tooltip-trigger"
+        nativeButton={nativeButton}
         render={render}
         {...props}
       />

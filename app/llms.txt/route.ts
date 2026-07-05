@@ -31,6 +31,10 @@ function toSectionTitle(url: string) {
   return "Get Started";
 }
 
+function toMarkdownUrl(docsUrl: string) {
+  return toAbsoluteUrl(docsUrl.replace(/^\/docs/, "/llm"));
+}
+
 function titleSort(a: string, b: string) {
   return a.localeCompare(b, undefined, { sensitivity: "base" });
 }
@@ -52,7 +56,8 @@ export async function GET() {
 
     const pageTitle = toSingleLine(page.data.title) || page.url;
     const pageDescription = toSingleLine(page.data.description);
-    const pageUrl = toAbsoluteUrl(page.url);
+    const docsUrl = toAbsoluteUrl(page.url);
+    const markdownUrl = toMarkdownUrl(page.url);
     const sectionTitle = toSectionTitle(page.url);
 
     if (!sections.has(sectionTitle)) {
@@ -60,8 +65,8 @@ export async function GET() {
     }
 
     const entry = pageDescription
-      ? `- [${pageTitle}](${pageUrl}): ${pageDescription}`
-      : `- [${pageTitle}](${pageUrl})`;
+      ? `- [${pageTitle}](${markdownUrl}) ([docs](${docsUrl})): ${pageDescription}`
+      : `- [${pageTitle}](${markdownUrl}) ([docs](${docsUrl}))`;
 
     sections.get(sectionTitle)?.entries.push(entry);
   }
@@ -96,8 +101,8 @@ export async function GET() {
     "## Machine-Readable Sources",
     `- [Design System](${toAbsoluteUrl("/design.md")}): tokens, colors, typography, and component index.`,
     `- [Full Docs (single file)](${toAbsoluteUrl("/llms-full.txt")}): every page concatenated for LLM consumption.`,
-    `- [Markdown Index](${toAbsoluteUrl("/llm")})`,
-    "- Raw markdown is available at `/llm/*` using the same path as `/docs/*` (replace `/docs` with `/llm`).",
+    `- [Markdown Docs Home](${toAbsoluteUrl("/llm")})`,
+    "- Raw markdown pages are available at `/llm/*` using the same path as `/docs/*` (replace `/docs` with `/llm`).",
     `- Example: ${toAbsoluteUrl("/docs/setup")} -> ${toAbsoluteUrl("/llm/setup")}`,
     `- Example: ${toAbsoluteUrl("/docs/components/heatmap")} -> ${toAbsoluteUrl("/llm/components/heatmap")}`,
     "- Component install manifests are available under `/r/*.json`."

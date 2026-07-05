@@ -75,6 +75,7 @@ export function AskAiFooter() {
       {aiLinks.map(({ name, href, icon: Icon }) => (
         <Tooltip key={name}>
           <TooltipTrigger
+            nativeButton={false}
             render={
               <a
                 href={href}

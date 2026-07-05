@@ -55,13 +55,15 @@ const TimelineCard = () => {
       description={
         <p className="text-sm text-muted-foreground">
           A component to display chronological events.
-          <br />
-          Shift + Scroll to navigate horizontally (on desktop).
+          <span className="hidden sm:inline">
+            <br />
+            Shift + Scroll to navigate horizontally (on desktop).
+          </span>
         </p>
       }
       demo={
-        <div className="scroll-fade-x w-full overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          <Timeline orientation="horizontal" className="flex justify-center">
+        <div className="scroll-fade-e w-full overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <Timeline orientation="horizontal" className="justify-start">
             {timelineData.map((item, idx) => (
               <TimelineItem key={idx} variant={item.variant}>
                 <TimelineItemDate>{item.date.toDateString()}</TimelineItemDate>

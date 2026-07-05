@@ -38,7 +38,7 @@ const JsonViewerCard = () => {
         <div className="pointer-events-none flex-1 overflow-hidden rounded-lg border">
           <JsonViewer
             data={data}
-            className="h-full border-0"
+            className="h-full border-0 text-[12px] [&>div:first-child]:gap-1 [&>div:first-child]:p-1.5 [&>div:first-child>div:first-child]:hidden [&_button]:h-6 [&_button]:px-1.5 [&_button]:text-[10px] sm:text-[13px] sm:[&>div:first-child]:gap-2 sm:[&>div:first-child]:p-2 sm:[&>div:first-child>div:first-child]:block sm:[&_button]:h-7 sm:[&_button]:px-2 sm:[&_button]:text-xs"
             title="Response Data"
           />
         </div>

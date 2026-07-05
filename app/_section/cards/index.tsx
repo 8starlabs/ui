@@ -18,7 +18,7 @@ const Cards = ({ className }: CardsProps) => {
   return (
     <div
       className={cn(
-        "mx-auto grid w-full max-w-6xl grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-6",
+        "mx-auto grid w-full max-w-6xl auto-rows-[20rem] grid-cols-1 gap-4 sm:auto-rows-auto sm:grid-cols-2 xl:grid-cols-6",
         className
       )}
     >

@@ -1,7 +1,13 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { CornerDownLeftIcon, ExternalLink } from "lucide-react";
+import {
+  CornerDownLeftIcon,
+  ExternalLink,
+  MonitorIcon,
+  MoonIcon,
+  SunIcon
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
   Command,
@@ -12,6 +18,7 @@ import {
   CommandList,
   CommandSeparator
 } from "@/registry/8starlabs-ui/ui/command";
+import { useTheme } from "@/providers/ThemeProvider";
 import { useIsMac } from "@/hooks/use-is-mac";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/lib/config";
@@ -32,9 +39,16 @@ import { Button } from "@/registry/8starlabs-ui/blocks/button";
 import { Separator } from "@/registry/8starlabs-ui/ui/separator";
 import { Kbd, KbdGroup } from "@/registry/8starlabs-ui/ui/kbd";
 
+const THEMES = [
+  { value: "light", label: "Light", Icon: SunIcon },
+  { value: "dark", label: "Dark", Icon: MoonIcon },
+  { value: "system", label: "System", Icon: MonitorIcon }
+] as const;
+
 const CommandMenu = ({ tree, ...props }: { tree: typeof source.pageTree }) => {
   const router = useRouter();
   const isMac = useIsMac();
+  const { setTheme } = useTheme();
   const [config] = useConfig();
   const [open, setOpen] = useState(false);
   const [selectedType, setSelectedType] = useState<"page" | "component" | null>(
@@ -173,6 +187,29 @@ const CommandMenu = ({ tree, ...props }: { tree: typeof source.pageTree }) => {
                     <IconArrowRight />
                   )}
                   {navItem.label}
+                </CommandMenuItem>
+              ))}
+            </CommandGroup>
+            <CommandSeparator />
+            <CommandGroup
+              heading="Theme"
+              className="!p-0 [&_[cmdk-group-heading]]:scroll-mt-16 [&_[cmdk-group-heading]]:!p-3 [&_[cmdk-group-heading]]:!pb-1"
+            >
+              {THEMES.map(({ value, label, Icon }) => (
+                <CommandMenuItem
+                  key={value}
+                  value={`Theme ${label}`}
+                  keywords={["theme", "mode", "appearance", value]}
+                  onHighlight={() => {
+                    setSelectedType(null);
+                    setCopyPayload("");
+                  }}
+                  onSelect={() => {
+                    runCommand(() => setTheme(value));
+                  }}
+                >
+                  <Icon />
+                  {label}
                 </CommandMenuItem>
               ))}
             </CommandGroup>

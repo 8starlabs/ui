@@ -18,6 +18,10 @@ function toSingleLine(value: string | undefined) {
   return value.replace(/\s+/g, " ").trim();
 }
 
+function toMarkdownUrl(docsUrl: string) {
+  return toAbsoluteUrl(docsUrl.replace(/^\/docs/, "/llm"));
+}
+
 // Get Started pages first, then Components, mirroring /llms.txt ordering.
 function sectionRank(url: string) {
   return url.startsWith("/docs/components") ? 1 : 0;
@@ -68,6 +72,7 @@ export async function GET() {
       return [
         `# ${title}`,
         `Source: ${toAbsoluteUrl(page.url)}`,
+        `Markdown: ${toMarkdownUrl(page.url)}`,
         description ? `\n> ${description}` : "",
         "",
         text

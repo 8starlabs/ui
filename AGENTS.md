@@ -1,17 +1,19 @@
 # 8StarLabs UI Agent Skills
 
 Repo-local skills for working with 8StarLabs UI as both:
+
 - maintainers shipping registry components in this repository
 - consumers integrating `@8starlabs/*` into app projects
 
 ## Skills
 
-| Skill | Use when | Path |
-| --- | --- | --- |
-| `8sl-component-ship` | Adding, updating, documenting, or validating a component in this repo | `skills/8sl-component-ship/SKILL.md` |
-| `8sl-consume-registry` | Installing or integrating 8StarLabs UI into an app | `skills/8sl-consume-registry/SKILL.md` |
-| `8sl-pattern-review` | Reviewing or debugging 8StarLabs UI usage | `skills/8sl-pattern-review/SKILL.md` |
-| `pr-comment` | Drafting a PR description or change summary | `skills/pr-comment/SKILL.md` |
+| Skill                  | Use when                                                                                         | Path                                   |
+| ---------------------- | ------------------------------------------------------------------------------------------------ | -------------------------------------- |
+| `8sl-component-ship`   | Adding, updating, documenting, or validating a component in this repo                            | `skills/8sl-component-ship/SKILL.md`   |
+| `8sl-consume-registry` | Installing or integrating 8StarLabs UI into an app                                               | `skills/8sl-consume-registry/SKILL.md` |
+| `8sl-pattern-review`   | Reviewing or debugging 8StarLabs UI usage                                                        | `skills/8sl-pattern-review/SKILL.md`   |
+| `frontend-design`      | Reviewing or improving frontend visual design, responsive layout, spacing, hierarchy, and polish | `skills/frontend-design/SKILL.md`      |
+| `pr-comment`           | Drafting a PR description or change summary                                                      | `skills/pr-comment/SKILL.md`           |
 
 ## Notes
 

@@ -45,13 +45,13 @@ const HeatmapCard = () => {
         </p>
       }
       demo={
-        <div className="scroll-fade-x my-3 w-full overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="scroll-fade-e my-3 w-full overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <Heatmap
             data={data}
             startDate={new Date("2025-01-01")}
             endDate={new Date("2025-06-30")}
             colorMode="interpolate"
-            className="justify-center"
+            className="justify-start"
           />
         </div>
       }

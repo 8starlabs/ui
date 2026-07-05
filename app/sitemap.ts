@@ -18,7 +18,9 @@ function getPriority(path: string): number {
   if (
     path === "/llms.txt" ||
     path === "/llms-full.txt" ||
-    path === "/design.md"
+    path === "/design.md" ||
+    path === "/llm" ||
+    path.startsWith("/llm/")
   ) {
     return LLM_PRIORITY;
   }
@@ -46,16 +48,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
   const seen = new Set<string>();
   const staticPaths = ["/llms.txt", "/llms-full.txt", "/design.md"];
+  const docsPages = source
+    .generateParams()
+    .map((param) => source.getPage(param.slug ?? []))
+    .filter((page): page is NonNullable<ReturnType<typeof source.getPage>> =>
+      Boolean(page)
+    );
 
   const nonHomePaths = [
     ...staticPaths,
-    ...source
-      .generateParams()
-      .map((param) => source.getPage(param.slug ?? []))
-      .filter((page): page is NonNullable<ReturnType<typeof source.getPage>> =>
-        Boolean(page)
-      )
-      .map((page) => page.url)
+    ...docsPages.map((page) => page.url),
+    ...docsPages.map((page) => page.url.replace(/^\/docs/, "/llm"))
   ].filter((path) => {
     if (path === "/") {
       return false;
