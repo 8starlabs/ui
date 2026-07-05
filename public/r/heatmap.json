@@ -3,7 +3,7 @@
   "name": "heatmap",
   "title": "Heatmap",
   "description": "A heatmap component",
-  "registryDependencies": ["tooltip"],
+  "registryDependencies": ["https://ui.8starlabs.com/r/tooltip.json"],
   "files": [
     {
       "path": "registry/8starlabs-ui/blocks/heatmap.tsx",

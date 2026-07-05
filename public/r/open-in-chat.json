@@ -6,7 +6,7 @@
   "dependencies": ["lucide-react", "simple-icons"],
   "registryDependencies": [
     "https://ui.8starlabs.com/r/button.json",
-    "dropdown-menu"
+    "https://ui.8starlabs.com/r/dropdown-menu.json"
   ],
   "files": [
     {

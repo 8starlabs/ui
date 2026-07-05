@@ -6,9 +6,9 @@
   "dependencies": ["@tabler/icons-react"],
   "registryDependencies": [
     "https://ui.8starlabs.com/r/button.json",
-    "collapsible",
-    "separator",
-    "tooltip"
+    "https://ui.8starlabs.com/r/collapsible.json",
+    "https://ui.8starlabs.com/r/separator.json",
+    "https://ui.8starlabs.com/r/tooltip.json"
   ],
   "files": [
     {

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "separator",
+  "title": "Separator",
+  "description": "A Base UI separator component",
+  "dependencies": ["@base-ui/react"],
+  "files": [
+    {
+      "path": "registry/8starlabs-ui/ui/separator.tsx",
+      "content": "\"use client\";\n\nimport { Separator as SeparatorPrimitive } from \"@base-ui/react/separator\";\n\nimport { cn } from \"@/lib/utils\";\n\nfunction Separator({\n  className,\n  orientation = \"horizontal\",\n  ...props\n}: SeparatorPrimitive.Props) {\n  return (\n    <SeparatorPrimitive\n      data-slot=\"separator\"\n      orientation={orientation}\n      className={cn(\n        \"bg-border shrink-0 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px\",\n        className\n      )}\n      {...props}\n    />\n  );\n}\n\nexport { Separator };\n",
+      "type": "registry:ui",
+      "target": "components/8starlabs-ui/ui/separator.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

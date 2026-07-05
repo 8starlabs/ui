@@ -5,9 +5,9 @@
   "description": "A JSON viewer demo showcasing features like line numbers, color indentation, and truncation",
   "registryDependencies": [
     "https://ui.8starlabs.com/r/button.json",
-    "input",
-    "label",
-    "dropdown-menu"
+    "https://ui.8starlabs.com/r/input.json",
+    "https://ui.8starlabs.com/r/label.json",
+    "https://ui.8starlabs.com/r/dropdown-menu.json"
   ],
   "files": [
     {

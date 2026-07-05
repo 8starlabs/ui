@@ -32,11 +32,93 @@
       ]
     },
     {
+      "name": "collapsible",
+      "type": "registry:ui",
+      "title": "Collapsible",
+      "description": "A Base UI collapsible component",
+      "dependencies": ["@base-ui/react"],
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/ui/collapsible.tsx",
+          "type": "registry:ui",
+          "target": "components/8starlabs-ui/ui/collapsible.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "title": "Dropdown Menu",
+      "description": "A Base UI dropdown menu component",
+      "dependencies": ["@base-ui/react", "lucide-react"],
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/ui/dropdown-menu.tsx",
+          "type": "registry:ui",
+          "target": "components/8starlabs-ui/ui/dropdown-menu.tsx"
+        }
+      ]
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "description": "A styled input component",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/ui/input.tsx",
+          "type": "registry:ui",
+          "target": "components/8starlabs-ui/ui/input.tsx"
+        }
+      ]
+    },
+    {
+      "name": "label",
+      "type": "registry:ui",
+      "title": "Label",
+      "description": "A styled label component",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/ui/label.tsx",
+          "type": "registry:ui",
+          "target": "components/8starlabs-ui/ui/label.tsx"
+        }
+      ]
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "Separator",
+      "description": "A Base UI separator component",
+      "dependencies": ["@base-ui/react"],
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/ui/separator.tsx",
+          "type": "registry:ui",
+          "target": "components/8starlabs-ui/ui/separator.tsx"
+        }
+      ]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "A Base UI tooltip component",
+      "dependencies": ["@base-ui/react"],
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/ui/tooltip.tsx",
+          "type": "registry:ui",
+          "target": "components/8starlabs-ui/ui/tooltip.tsx"
+        }
+      ]
+    },
+    {
       "name": "heatmap",
       "type": "registry:ui",
       "title": "Heatmap",
       "description": "A heatmap component",
-      "registryDependencies": ["tooltip"],
+      "registryDependencies": ["https://ui.8starlabs.com/r/tooltip.json"],
       "cssVars": {
         "light": {
           "heatmap-zero": "rgb(221, 221, 221)"
@@ -581,9 +663,9 @@
       "dependencies": ["@tabler/icons-react"],
       "registryDependencies": [
         "https://ui.8starlabs.com/r/button.json",
-        "collapsible",
-        "separator",
-        "tooltip"
+        "https://ui.8starlabs.com/r/collapsible.json",
+        "https://ui.8starlabs.com/r/separator.json",
+        "https://ui.8starlabs.com/r/tooltip.json"
       ],
       "files": [
         {
@@ -623,9 +705,9 @@
       "description": "A JSON viewer demo showcasing features like line numbers, color indentation, and truncation",
       "registryDependencies": [
         "https://ui.8starlabs.com/r/button.json",
-        "input",
-        "label",
-        "dropdown-menu"
+        "https://ui.8starlabs.com/r/input.json",
+        "https://ui.8starlabs.com/r/label.json",
+        "https://ui.8starlabs.com/r/dropdown-menu.json"
       ],
       "files": [
         {
@@ -788,7 +870,7 @@
       "dependencies": ["lucide-react", "simple-icons"],
       "registryDependencies": [
         "https://ui.8starlabs.com/r/button.json",
-        "dropdown-menu"
+        "https://ui.8starlabs.com/r/dropdown-menu.json"
       ],
       "files": [
         {
