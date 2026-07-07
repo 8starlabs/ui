@@ -33,7 +33,9 @@ import marquee_greyscale_demo_component from "@/registry/8starlabs-ui/examples/m
 import marquee_reverse_demo_component from "@/registry/8starlabs-ui/examples/marquee-reverse-demo";
 import open_in_chat_custom_link_demo_component from "@/registry/8starlabs-ui/examples/open-in-chat-custom-link-demo";
 import open_in_chat_custom_providers_demo_component from "@/registry/8starlabs-ui/examples/open-in-chat-custom-providers-demo";
+import open_in_chat_custom_trigger_demo_component from "@/registry/8starlabs-ui/examples/open-in-chat-custom-trigger-demo";
 import open_in_chat_demo_component from "@/registry/8starlabs-ui/examples/open-in-chat-demo";
+import open_in_chat_horizontal_demo_component from "@/registry/8starlabs-ui/examples/open-in-chat-horizontal-demo";
 import open_in_chat_positioning_demo_component from "@/registry/8starlabs-ui/examples/open-in-chat-positioning-demo";
 import partition_bar_alignment_demo_component from "@/registry/8starlabs-ui/examples/partition-bar-alignment-demo";
 import partition_bar_custom_colours_demo_component from "@/registry/8starlabs-ui/examples/partition-bar-custom-colours-demo";
@@ -405,6 +407,16 @@ export const Index: Record<string, any> = {
       }],
       component: open_in_chat_custom_providers_demo_component
     },
+    "open-in-chat-custom-trigger-demo": {
+      name: "open-in-chat-custom-trigger-demo",
+      type: "registry:example",
+      files: [{
+        path: "registry/8starlabs-ui/examples/open-in-chat-custom-trigger-demo.tsx",
+        type: "registry:example",
+        target: "components/8starlabs-ui/examples/open-in-chat-custom-trigger-demo.tsx"
+      }],
+      component: open_in_chat_custom_trigger_demo_component
+    },
     "open-in-chat-demo": {
       name: "open-in-chat-demo",
       type: "registry:example",
@@ -414,6 +426,16 @@ export const Index: Record<string, any> = {
         target: "components/8starlabs-ui/examples/open-in-chat-demo.tsx"
       }],
       component: open_in_chat_demo_component
+    },
+    "open-in-chat-horizontal-demo": {
+      name: "open-in-chat-horizontal-demo",
+      type: "registry:example",
+      files: [{
+        path: "registry/8starlabs-ui/examples/open-in-chat-horizontal-demo.tsx",
+        type: "registry:example",
+        target: "components/8starlabs-ui/examples/open-in-chat-horizontal-demo.tsx"
+      }],
+      component: open_in_chat_horizontal_demo_component
     },
     "open-in-chat-positioning-demo": {
       name: "open-in-chat-positioning-demo",

@@ -870,7 +870,8 @@
       "dependencies": ["lucide-react", "simple-icons"],
       "registryDependencies": [
         "https://ui.8starlabs.com/r/button.json",
-        "https://ui.8starlabs.com/r/dropdown-menu.json"
+        "https://ui.8starlabs.com/r/dropdown-menu.json",
+        "https://ui.8starlabs.com/r/tooltip.json"
       ],
       "files": [
         {
@@ -921,6 +922,32 @@
           "path": "registry/8starlabs-ui/examples/open-in-chat-custom-link-demo.tsx",
           "type": "registry:example",
           "target": "components/8starlabs-ui/examples/open-in-chat-custom-link-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "open-in-chat-custom-trigger-demo",
+      "type": "registry:example",
+      "title": "Open In Chat Custom Trigger Demo",
+      "description": "An open in chat demo with a custom trigger.",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/open-in-chat-custom-trigger-demo.tsx",
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/open-in-chat-custom-trigger-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "open-in-chat-horizontal-demo",
+      "type": "registry:example",
+      "title": "Open In Chat Horizontal Demo",
+      "description": "An open in chat demo with horizontal provider icons.",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/open-in-chat-horizontal-demo.tsx",
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/open-in-chat-horizontal-demo.tsx"
         }
       ]
     },

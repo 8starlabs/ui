@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { siClaude, siPerplexity } from "simple-icons/icons";
+import { siClaude, siPerplexity, siV0 } from "simple-icons/icons";
 
 type BrandIconProps = React.ComponentProps<"svg">;
 type SimpleIconData = {
@@ -29,6 +29,7 @@ export const OpenAIIcon = forwardRef<SVGSVGElement, BrandIconProps>(
 
 export const ClaudeIcon = createSimpleIcon(siClaude, "Claude Icon");
 export const PerplexityIcon = createSimpleIcon(siPerplexity, "Perplexity Icon");
+export const V0Icon = createSimpleIcon(siV0, "v0 Icon");
 
 export const GrokIcon = forwardRef<SVGSVGElement, BrandIconProps>(
   (props, ref) => (

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "open-in-chat-custom-trigger-demo",
+  "title": "Open In Chat Custom Trigger Demo",
+  "description": "An open in chat demo with a custom trigger.",
+  "files": [
+    {
+      "path": "registry/8starlabs-ui/examples/open-in-chat-custom-trigger-demo.tsx",
+      "content": "\"use client\";\n\nimport { MessageSquareText } from \"lucide-react\";\n\nimport OpenInChat from \"@/registry/8starlabs-ui/blocks/open-in-chat\";\nimport { Button } from \"@/registry/8starlabs-ui/blocks/button\";\n\nexport default function OpenInChatCustomTriggerDemo() {\n  return (\n    <OpenInChat\n      prompt=\"Turn this implementation note into a concise review comment.\"\n      trigger={\n        <Button type=\"button\" variant=\"secondary\" className=\"gap-2\">\n          <MessageSquareText className=\"size-4\" aria-hidden=\"true\" />\n          Ask AI\n        </Button>\n      }\n    />\n  );\n}\n",
+      "type": "registry:example",
+      "target": "components/8starlabs-ui/examples/open-in-chat-custom-trigger-demo.tsx"
+    }
+  ],
+  "type": "registry:example"
+}
