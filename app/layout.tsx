@@ -4,6 +4,7 @@ import "@/app/globals.css";
 import { META_THEME_COLORS, siteConfig } from "@/lib/config";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { AnnouncementBar } from "@/components/announcement-bar";
 import ProgressWrapper from "@/providers/ProgressWrapper";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import GoogleAnalytics from "@/providers/GoogleAnalytics";
@@ -78,7 +79,10 @@ export default function RootLayout({
         <GoogleAnalytics />
         <ThemeProvider defaultTheme="system" enableSystem>
           <div className="bg-background relative z-10 flex min-h-svh flex-col">
-            <SiteHeader tree={tree} />
+            <div className="sticky top-0 z-50 backdrop-blur-[20px] backdrop-saturate-180">
+              <AnnouncementBar />
+              <SiteHeader tree={tree} />
+            </div>
             <SystemBannerClientWrapper />
             <ProgressWrapper>
               <main className="flex flex-1 flex-col size-full">{children}</main>

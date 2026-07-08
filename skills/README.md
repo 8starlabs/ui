@@ -40,6 +40,7 @@ installation output.
 | [`8sl-pattern-review`](./8sl-pattern-review/SKILL.md)     | Reviewing or debugging existing 8StarLabs UI usage                                               | Maintainers and consumers |
 | [`frontend-design`](./frontend-design/SKILL.md)           | Reviewing or improving frontend visual design, responsive layout, spacing, hierarchy, and polish | Maintainers               |
 | [`pr-comment`](./pr-comment/SKILL.md)                     | Drafting a PR description or change summary                                                      | Contributors writing PRs  |
+| [`transitions-dev`](./transitions-dev/SKILL.md)           | Installing or refining production-ready CSS transitions and motion tokens                        | UI contributors           |
 
 ## Using These Skills In Claude
 
