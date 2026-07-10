@@ -35,9 +35,17 @@ const Hero = ({ className }: HeroProps) => {
   );
 
   return (
-    <div className={cn("flex flex-col w-full items-center gap-2", className)}>
+    <div
+      className={cn(
+        "t-stagger flex flex-col w-full items-center gap-2",
+        className
+      )}
+    >
       {/* <Snowfall snowflakeCount={67} /> */}
-      <Badge variant="secondary" className="bg-transparent">
+      <Badge
+        variant="secondary"
+        className="bg-transparent t-stagger-line t-stagger-line--1"
+      >
         <span
           className="flex size-2 rounded-full bg-blue-500"
           title="Coming soon"
@@ -53,13 +61,13 @@ const Hero = ({ className }: HeroProps) => {
           New: Timeline component launched!
         </Link>
       </Badge> */}
-      {logo}
-      <p className="text-md max-w-3xl text-center">
+      <div className="t-stagger-line t-stagger-line--2">{logo}</div>
+      <p className="text-md max-w-3xl text-center t-stagger-line t-stagger-line--3">
         A set of beautifully designed components designed for developers who
         want niche, high-utility UI elements that you won&apos;t find in
         standard libraries.
       </p>
-      <div className="flex gap-2">
+      <div className="flex gap-2 t-stagger-line t-stagger-line--4">
         <Button
           size="sm"
           withArrow

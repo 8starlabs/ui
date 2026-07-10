@@ -17,7 +17,7 @@ const HEADER_LOGO_SRC = "/images/8sl_logo_disco_transparent.png";
 
 export function SiteHeader({ tree }: { tree: typeof source.pageTree }) {
   return (
-    <header className="sticky left-0 top-0 z-50 h-20 w-full justify-center bg-[#ffffffb8] dark:bg-[#000000b8] backdrop-blur-[20px] backdrop-saturate-180">
+    <header className="h-20 w-full justify-center bg-[#ffffffb8] dark:bg-[#000000b8] backdrop-blur-[20px] backdrop-saturate-180">
       <div className="m-auto flex h-full w-full max-w-10xl justify-between px-6 md:px-16 items-center">
         <MobileNav
           tree={tree}
