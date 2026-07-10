@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "open-in-chat-custom-link-demo",
+  "title": "Open In Chat Custom Link Demo",
+  "description": "An open in chat demo with a custom provider link.",
+  "files": [
+    {
+      "path": "registry/8starlabs-ui/examples/open-in-chat-custom-link-demo.tsx",
+      "content": "\"use client\";\n\nimport { Sparkles } from \"lucide-react\";\n\nimport OpenInChat, {\n  OpenInChatGPT,\n  OpenInChatLink\n} from \"@/registry/8starlabs-ui/blocks/open-in-chat\";\n\nexport default function OpenInChatCustomLinkDemo() {\n  return (\n    <OpenInChat prompt=\"Rewrite this draft in a concise support tone.\">\n      <OpenInChatGPT />\n      <OpenInChatLink\n        label=\"Internal AI\"\n        baseUrl=\"https://example.com/chat\"\n        paramName=\"message\"\n        icon={Sparkles}\n      />\n    </OpenInChat>\n  );\n}\n",
+      "type": "registry:example",
+      "target": "components/8starlabs-ui/examples/open-in-chat-custom-link-demo.tsx"
+    }
+  ],
+  "type": "registry:example"
+}

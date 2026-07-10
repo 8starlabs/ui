@@ -8,6 +8,7 @@ import JsonViewerCard from "./json-viewer-card";
 import TransportBadgeCard from "./transport-badge-card";
 import StatusIndicatorCard from "./status-indicator-card";
 import ShakeCard from "./shake-card";
+import OpenInChatCard from "./open-in-chat-card";
 
 interface CardsProps {
   className?: string;
@@ -43,11 +44,14 @@ const Cards = ({ className }: CardsProps) => {
         <JsonViewerCard />
       </div>
 
-      {/* Row 3 — asymmetric two-column row (wide Marquee left, narrow Heatmap right) */}
-      <div className="h-full sm:col-span-2 xl:col-start-1 xl:col-span-4 xl:row-start-5">
+      {/* Row 3 */}
+      <div className="h-full sm:col-span-2 xl:col-start-1 xl:col-span-2 xl:row-start-5">
         <MarqueeCard />
       </div>
-      <div className="h-full sm:col-span-2 xl:col-start-5 xl:col-span-2 xl:row-start-5">
+      <div className="h-full sm:col-span-1 xl:col-start-3 xl:col-span-2 xl:row-start-5">
+        <OpenInChatCard />
+      </div>
+      <div className="h-full sm:col-span-1 xl:col-start-5 xl:col-span-2 xl:row-start-5">
         <HeatmapCard />
       </div>
 

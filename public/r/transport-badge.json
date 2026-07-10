@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "transport-badge",
-  "type": "registry:ui",
   "title": "Transport badge",
   "description": "A transport badge component",
   "files": [
@@ -11,5 +10,6 @@
       "type": "registry:ui",
       "target": "components/8starlabs-ui/transport-badge.tsx"
     }
-  ]
+  ],
+  "type": "registry:ui"
 }

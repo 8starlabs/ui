@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "video-player-fit-demo",
-  "type": "registry:example",
   "title": "Video Player Fit",
   "description": "A video player demo showing fit behavior",
   "files": [
@@ -11,5 +10,6 @@
       "type": "registry:example",
       "target": "components/8starlabs-ui/examples/video-player-fit-demo.tsx"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

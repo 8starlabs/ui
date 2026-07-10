@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "video-player-minimal-controls-demo",
-  "type": "registry:example",
   "title": "Video Player Minimal Controls",
   "description": "A video player demo component with minimal controls",
   "files": [
@@ -11,5 +10,6 @@
       "type": "registry:example",
       "target": "components/8starlabs-ui/examples/video-player-minimal-controls-demo.tsx"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

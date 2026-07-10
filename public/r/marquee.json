@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "marquee",
-  "type": "registry:ui",
   "title": "Marquee component",
   "description": "A marquee component",
   "files": [
@@ -11,5 +10,6 @@
       "type": "registry:ui",
       "target": "components/8starlabs-ui/marquee.tsx"
     }
-  ]
+  ],
+  "type": "registry:ui"
 }

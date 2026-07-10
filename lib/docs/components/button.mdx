@@ -40,6 +40,8 @@ import { Button } from "@/components/ui/button";
 ```
 
 ```tsx showLineNumbers
+import Link from "next/link";
+
 <Button>Save changes</Button>
 <Button withArrow>Start building</Button>
 <Button withArrow variant="secondary">
@@ -48,15 +50,20 @@ import { Button } from "@/components/ui/button";
 <Button variant="outline" disableHoverPop>
   Default action
 </Button>
+<Button nativeButton={false} render={<Link href="/docs" />}>
+  Open docs
+</Button>
 ```
 
 ## API Reference
 
-| Prop              | Type                                                                          | Default     | Description                                                 |
-| ----------------- | ----------------------------------------------------------------------------- | ----------- | ----------------------------------------------------------- |
-| `variant`         | `"default" \| "destructive" \| "outline" \| "secondary" \| "ghost" \| "link"` | `"default"` | Optional. Controls the visual style of the button.          |
-| `size`            | `"default" \| "sm" \| "lg" \| "icon" \| "icon-sm" \| "icon-lg"`               | `"default"` | Optional. Controls the button size.                         |
-| `withArrow`       | `boolean`                                                                     | `false`     | Optional. Adds the animated arrow.                          |
-| `disableHoverPop` | `boolean`                                                                     | `false`     | Optional. Disables the hover lift and press animation.      |
-| `arrowClassName`  | `string`                                                                      | -           | Optional. Adds classes to the arrow wrapper.                |
-| `asChild`         | `boolean`                                                                     | `false`     | Optional. Renders the button styles onto a child component. |
+| Prop                    | Type                                                                          | Default     | Description                                                             |
+| ----------------------- | ----------------------------------------------------------------------------- | ----------- | ----------------------------------------------------------------------- |
+| `variant`               | `"default" \| "destructive" \| "outline" \| "secondary" \| "ghost" \| "link"` | `"default"` | Optional. Controls the visual style of the button.                      |
+| `size`                  | `"default" \| "sm" \| "lg" \| "icon" \| "icon-sm" \| "icon-lg"`               | `"default"` | Optional. Controls the button size.                                     |
+| `withArrow`             | `boolean`                                                                     | `false`     | Optional. Adds the animated arrow.                                      |
+| `disableHoverPop`       | `boolean`                                                                     | `false`     | Optional. Disables the hover lift and press animation.                  |
+| `arrowClassName`        | `string`                                                                      | -           | Optional. Adds classes to the arrow wrapper.                            |
+| `render`                | `ReactElement \| function`                                                    | -           | Optional. Renders the button styles onto another element or component.  |
+| `nativeButton`          | `boolean`                                                                     | `true`      | Optional. Set to `false` when `render` does not render a native button. |
+| `focusableWhenDisabled` | `boolean`                                                                     | `false`     | Optional. Keeps the button focusable when disabled.                     |

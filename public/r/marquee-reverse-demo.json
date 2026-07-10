@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "marquee-reverse-demo",
-  "type": "registry:example",
   "title": "Marquee Reverse Demo",
   "description": "A marquee reverse demo component",
   "files": [
@@ -11,5 +10,6 @@
       "type": "registry:example",
       "target": "components/8starlabs-ui/examples/marquee-reverse-demo.tsx"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

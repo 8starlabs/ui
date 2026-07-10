@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "transport-badge-demo-multi-station",
-  "type": "registry:example",
   "title": "Transport badge demo multi station",
   "description": "A transport badge demo multi station component",
   "files": [
@@ -11,5 +10,6 @@
       "type": "registry:example",
       "target": "components/8starlabs-ui/examples/transport-badge-demo-multi-station.tsx"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

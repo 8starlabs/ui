@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "button-demo",
-  "type": "registry:example",
   "title": "Button",
   "description": "A button demo component",
   "registryDependencies": ["https://ui.8starlabs.com/r/button.json"],
@@ -12,5 +11,6 @@
       "type": "registry:example",
       "target": "components/8starlabs-ui/examples/button-demo.tsx"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

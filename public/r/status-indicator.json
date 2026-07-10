@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "status-indicator",
-  "type": "registry:ui",
   "title": "Status indicator",
   "description": "A status indicator component",
   "files": [
@@ -11,5 +10,6 @@
       "type": "registry:ui",
       "target": "components/8starlabs-ui/status-indicator.tsx"
     }
-  ]
+  ],
+  "type": "registry:ui"
 }

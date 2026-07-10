@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "timeline-demo",
-  "type": "registry:example",
   "title": "Timeline demo",
   "description": "A timeline demo component",
   "files": [
@@ -11,5 +10,6 @@
       "type": "registry:example",
       "target": "components/8starlabs-ui/examples/timeline-demo.tsx"
     }
-  ]
+  ],
+  "type": "registry:example"
 }
