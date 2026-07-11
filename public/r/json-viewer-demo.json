@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "json-viewer-demo",
-  "type": "registry:example",
   "title": "JSON Viewer",
   "description": "A JSON viewer demo component",
   "files": [
@@ -11,5 +10,6 @@
       "type": "registry:example",
       "target": "components/8starlabs-ui/examples/json-viewer-demo.tsx"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

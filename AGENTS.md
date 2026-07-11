@@ -14,6 +14,7 @@ Repo-local skills for working with 8StarLabs UI as both:
 | `8sl-pattern-review`   | Reviewing or debugging 8StarLabs UI usage                                                        | `skills/8sl-pattern-review/SKILL.md`   |
 | `frontend-design`      | Reviewing or improving frontend visual design, responsive layout, spacing, hierarchy, and polish | `skills/frontend-design/SKILL.md`      |
 | `pr-comment`           | Drafting a PR description or change summary                                                      | `skills/pr-comment/SKILL.md`           |
+| `transitions-dev`      | Installing or refining production-ready CSS transitions and motion tokens                        | `skills/transitions-dev/SKILL.md`      |
 
 ## Notes
 

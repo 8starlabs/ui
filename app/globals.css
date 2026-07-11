@@ -512,3 +512,103 @@
     font-size: 0.8rem;
   }
 }
+
+/* ─────────────────────────────────────────────────────────────
+   transitions.dev — Texts reveal (staggered blurred rise on load)
+   Motion tokens (--stagger-*) from the transitions-dev skill.
+   JS-free on-load variant; honours prefers-reduced-motion.
+   ───────────────────────────────────────────────────────────── */
+:root {
+  --stagger-dur: 500ms;
+  --stagger-distance: 12px;
+  --stagger-stagger: 40ms;
+  --stagger-blur: 3px;
+  --stagger-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes t-stagger-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--stagger-distance));
+    filter: blur(var(--stagger-blur));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+.t-stagger-line {
+  animation: t-stagger-in var(--stagger-dur) var(--stagger-ease) both;
+  will-change: transform, opacity, filter;
+}
+.t-stagger-line--1 {
+  animation-delay: 0ms;
+}
+.t-stagger-line--2 {
+  animation-delay: calc(var(--stagger-stagger) * 1);
+}
+.t-stagger-line--3 {
+  animation-delay: calc(var(--stagger-stagger) * 2);
+}
+.t-stagger-line--4 {
+  animation-delay: calc(var(--stagger-stagger) * 3);
+}
+.t-stagger-line--5 {
+  animation-delay: calc(var(--stagger-stagger) * 4);
+}
+@media (prefers-reduced-motion: reduce) {
+  .t-stagger-line {
+    animation: none;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   transitions.dev — Number pop-in (blurred per-digit rise)
+   Applied to the GitHub star counter. Honours reduced-motion.
+   ───────────────────────────────────────────────────────────── */
+:root {
+  --digit-dur: 500ms;
+  --digit-distance: 8px;
+  --digit-stagger: 70ms;
+  --digit-blur: 2px;
+  --digit-ease: cubic-bezier(0.34, 1.45, 0.64, 1);
+  --digit-dir-x: 0;
+  --digit-dir-y: 1;
+}
+@keyframes t-digit-pop-in {
+  0% {
+    transform: translate(
+      calc(var(--digit-distance) * var(--digit-dir-x)),
+      calc(var(--digit-distance) * var(--digit-dir-y))
+    );
+    opacity: 0;
+    filter: blur(var(--digit-blur));
+  }
+  100% {
+    transform: translate(0, 0);
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+.t-digit-group {
+  display: inline-flex;
+  align-items: baseline;
+}
+.t-digit {
+  display: inline-block;
+  will-change: transform, opacity, filter;
+}
+.t-digit-group.is-animating .t-digit {
+  animation: t-digit-pop-in var(--digit-dur) var(--digit-ease) both;
+}
+.t-digit-group.is-animating .t-digit[data-stagger="1"] {
+  animation-delay: var(--digit-stagger);
+}
+.t-digit-group.is-animating .t-digit[data-stagger="2"] {
+  animation-delay: calc(var(--digit-stagger) * 2);
+}
+@media (prefers-reduced-motion: reduce) {
+  .t-digit-group .t-digit {
+    animation: none !important;
+  }
+}

@@ -1,14 +1,13 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "json-viewer-features-demo",
-  "type": "registry:example",
   "title": "JSON Viewer Features",
   "description": "A JSON viewer demo showcasing features like line numbers, color indentation, and truncation",
   "registryDependencies": [
     "https://ui.8starlabs.com/r/button.json",
-    "input",
-    "label",
-    "dropdown"
+    "https://ui.8starlabs.com/r/input.json",
+    "https://ui.8starlabs.com/r/label.json",
+    "https://ui.8starlabs.com/r/dropdown-menu.json"
   ],
   "files": [
     {
@@ -17,5 +16,6 @@
       "type": "registry:example",
       "target": "components/8starlabs-ui/examples/json-viewer-features-demo.tsx"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

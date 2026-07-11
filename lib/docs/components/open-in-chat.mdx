@@ -1,0 +1,147 @@
+---
+title: Open In Chat
+description: A dropdown component that opens AI chat tools with a pre-filled prompt.
+---
+
+<ComponentPreview name="open-in-chat-demo" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+pnpm dlx shadcn@latest add https://ui.8starlabs.com/r/open-in-chat.json
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<ComponentSource
+  name="open-in-chat"
+  title="components/8starlabs-ui/open-in-chat.tsx"
+/>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx showLineNumbers
+import OpenInChat from "@/components/8starlabs-ui/open-in-chat";
+```
+
+```tsx showLineNumbers
+export function MyComponent() {
+  return (
+    <OpenInChat prompt="Summarize this page and list the key decisions." />
+  );
+}
+```
+
+## Examples
+
+### Default Providers
+
+By default, `OpenInChat` renders menu items for ChatGPT, Claude, Perplexity,
+Grok, and v0. Each item opens the selected provider in a new tab with the
+component prompt encoded into the provider's prompt query parameter.
+
+<ComponentPreview name="open-in-chat-demo" />
+
+### Custom Providers
+
+Pass provider-specific link components as children when you only want to expose
+some chat tools or control their order. Child links inherit the parent prompt,
+and can override it with their own `prompt` prop.
+
+<ComponentPreview name="open-in-chat-custom-providers-demo" />
+
+### Custom Link
+
+Use `OpenInChatLink` when you need to add a provider that is not included in the
+default list. It accepts a label, base URL, prompt parameter name, icon, and
+optional per-link prompt override.
+
+<ComponentPreview name="open-in-chat-custom-link-demo" />
+
+### Custom Trigger
+
+Pass a `trigger` element when you want to replace the default outline button.
+The element is rendered as the dropdown trigger.
+
+<ComponentPreview name="open-in-chat-custom-trigger-demo" />
+
+### Horizontal Layout
+
+Set `layout` to `"horizontal"` to render provider icons in a compact bordered
+row instead of a dropdown menu. Icons use muted foreground color by default and
+switch to foreground color on hover.
+
+<ComponentPreview name="open-in-chat-horizontal-demo" />
+
+### Positioning And Styling
+
+Use `align` and `side` to position the dropdown content, and use
+`triggerClassName` or `contentClassName` to adjust the trigger and menu.
+
+<ComponentPreview name="open-in-chat-positioning-demo" />
+
+## API Reference
+
+### OpenInChat
+
+| Prop               | Type                                    | Default          | Description                                                                     |
+| ------------------ | --------------------------------------- | ---------------- | ------------------------------------------------------------------------------- |
+| `prompt`           | `string`                                | -                | **Required.** The prompt sent to each generated chat link.                      |
+| `children`         | `React.ReactNode`                       | -                | Optional. Custom provider links to render instead of the default list.          |
+| `layout`           | `"dropdown" \| "horizontal"`            | `"dropdown"`     | Optional. Renders either the dropdown trigger or horizontal icon list.          |
+| `trigger`          | `React.ReactElement \| null`            | `null`           | Optional. Custom element rendered as the trigger when `layout` is `"dropdown"`. |
+| `triggerLabel`     | `React.ReactNode`                       | `"Open in chat"` | Optional. Content rendered before the chevron in the default trigger.           |
+| `className`        | `string`                                | -                | Optional. Additional classes applied to the root wrapper.                       |
+| `triggerClassName` | `string`                                | -                | Optional. Additional classes applied to the trigger or horizontal row.          |
+| `contentClassName` | `string`                                | -                | Optional. Additional classes applied to the dropdown content.                   |
+| `align`            | `DropdownMenuContent["align"]`          | `"end"`          | Optional. Aligns the dropdown content relative to the trigger.                  |
+| `side`             | `DropdownMenuContent["side"]`           | -                | Optional. Controls which side of the trigger the dropdown opens from.           |
+| `...props`         | `React.ComponentPropsWithoutRef<"div">` | -                | Optional. Additional props passed to the root wrapper.                          |
+
+### Provider Links
+
+The package exports provider-specific link components for composing a custom
+menu:
+
+- `OpenInChatGPT`
+- `OpenInClaude`
+- `OpenInPerplexity`
+- `OpenInGrok`
+- `OpenInV0`
+
+| Prop        | Type     | Default                    | Description                                                   |
+| ----------- | -------- | -------------------------- | ------------------------------------------------------------- |
+| `prompt`    | `string` | Parent `OpenInChat` prompt | Optional. Overrides the parent prompt for this provider link. |
+| `className` | `string` | -                          | Optional. Additional classes applied to the dropdown item.    |
+
+### OpenInChatLink
+
+| Prop        | Type                | Default                    | Description                                                 |
+| ----------- | ------------------- | -------------------------- | ----------------------------------------------------------- |
+| `baseUrl`   | `string`            | -                          | **Required.** Base URL for the custom chat destination.     |
+| `paramName` | `string`            | `"q"`                      | Optional. Query parameter used for the prompt.              |
+| `icon`      | `React.ElementType` | -                          | **Required.** Icon component rendered before the label.     |
+| `label`     | `string`            | -                          | **Required.** Label rendered as `Open in {label}`.          |
+| `prompt`    | `string`            | Parent `OpenInChat` prompt | Optional. Overrides the parent prompt for this custom link. |
+| `className` | `string`            | -                          | Optional. Additional classes applied to the dropdown item.  |
+
+### aiLinksDataMap
+
+`aiLinksDataMap` is exported for consumers who need the built-in provider
+metadata. It contains each provider's base URL, optional prompt parameter, and icon
+component.

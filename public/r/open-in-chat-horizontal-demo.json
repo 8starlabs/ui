@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "open-in-chat-horizontal-demo",
+  "title": "Open In Chat Horizontal Demo",
+  "description": "An open in chat demo with horizontal provider icons.",
+  "files": [
+    {
+      "path": "registry/8starlabs-ui/examples/open-in-chat-horizontal-demo.tsx",
+      "content": "\"use client\";\n\nimport OpenInChat from \"@/registry/8starlabs-ui/blocks/open-in-chat\";\n\nexport default function OpenInChatHorizontalDemo() {\n  return (\n    <OpenInChat\n      prompt=\"Summarize this page and list the key decisions.\"\n      layout=\"horizontal\"\n      triggerLabel=\"Ask AI:\"\n    />\n  );\n}\n",
+      "type": "registry:example",
+      "target": "components/8starlabs-ui/examples/open-in-chat-horizontal-demo.tsx"
+    }
+  ],
+  "type": "registry:example"
+}

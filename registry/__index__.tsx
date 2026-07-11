@@ -4,6 +4,7 @@ import flip_clock_component from "@/registry/8starlabs-ui/blocks/flip-clock";
 import heatmap_component from "@/registry/8starlabs-ui/blocks/heatmap";
 import json_viewer_component from "@/registry/8starlabs-ui/blocks/json-viewer";
 import marquee_component from "@/registry/8starlabs-ui/blocks/marquee";
+import open_in_chat_component from "@/registry/8starlabs-ui/blocks/open-in-chat";
 import partition_bar_component from "@/registry/8starlabs-ui/blocks/partition-bar";
 import shake_component from "@/registry/8starlabs-ui/blocks/shake";
 import status_indicator_component from "@/registry/8starlabs-ui/blocks/status-indicator";
@@ -30,6 +31,12 @@ import marquee_demo_component from "@/registry/8starlabs-ui/examples/marquee-dem
 import marquee_grayscale_demo_component from "@/registry/8starlabs-ui/examples/marquee-grayscale-demo";
 import marquee_greyscale_demo_component from "@/registry/8starlabs-ui/examples/marquee-greyscale-demo";
 import marquee_reverse_demo_component from "@/registry/8starlabs-ui/examples/marquee-reverse-demo";
+import open_in_chat_custom_link_demo_component from "@/registry/8starlabs-ui/examples/open-in-chat-custom-link-demo";
+import open_in_chat_custom_providers_demo_component from "@/registry/8starlabs-ui/examples/open-in-chat-custom-providers-demo";
+import open_in_chat_custom_trigger_demo_component from "@/registry/8starlabs-ui/examples/open-in-chat-custom-trigger-demo";
+import open_in_chat_demo_component from "@/registry/8starlabs-ui/examples/open-in-chat-demo";
+import open_in_chat_horizontal_demo_component from "@/registry/8starlabs-ui/examples/open-in-chat-horizontal-demo";
+import open_in_chat_positioning_demo_component from "@/registry/8starlabs-ui/examples/open-in-chat-positioning-demo";
 import partition_bar_alignment_demo_component from "@/registry/8starlabs-ui/examples/partition-bar-alignment-demo";
 import partition_bar_custom_colours_demo_component from "@/registry/8starlabs-ui/examples/partition-bar-custom-colours-demo";
 import partition_bar_demo_component from "@/registry/8starlabs-ui/examples/partition-bar-demo";
@@ -109,6 +116,16 @@ export const Index: Record<string, any> = {
         target: "components/8starlabs-ui/marquee.tsx"
       }],
       component: marquee_component
+    },
+    "open-in-chat": {
+      name: "open-in-chat",
+      type: "registry:block",
+      files: [{
+        path: "registry/8starlabs-ui/blocks/open-in-chat.tsx",
+        type: "registry:block",
+        target: "components/8starlabs-ui/open-in-chat.tsx"
+      }],
+      component: open_in_chat_component
     },
     "partition-bar": {
       name: "partition-bar",
@@ -369,6 +386,66 @@ export const Index: Record<string, any> = {
         target: "components/8starlabs-ui/examples/marquee-reverse-demo.tsx"
       }],
       component: marquee_reverse_demo_component
+    },
+    "open-in-chat-custom-link-demo": {
+      name: "open-in-chat-custom-link-demo",
+      type: "registry:example",
+      files: [{
+        path: "registry/8starlabs-ui/examples/open-in-chat-custom-link-demo.tsx",
+        type: "registry:example",
+        target: "components/8starlabs-ui/examples/open-in-chat-custom-link-demo.tsx"
+      }],
+      component: open_in_chat_custom_link_demo_component
+    },
+    "open-in-chat-custom-providers-demo": {
+      name: "open-in-chat-custom-providers-demo",
+      type: "registry:example",
+      files: [{
+        path: "registry/8starlabs-ui/examples/open-in-chat-custom-providers-demo.tsx",
+        type: "registry:example",
+        target: "components/8starlabs-ui/examples/open-in-chat-custom-providers-demo.tsx"
+      }],
+      component: open_in_chat_custom_providers_demo_component
+    },
+    "open-in-chat-custom-trigger-demo": {
+      name: "open-in-chat-custom-trigger-demo",
+      type: "registry:example",
+      files: [{
+        path: "registry/8starlabs-ui/examples/open-in-chat-custom-trigger-demo.tsx",
+        type: "registry:example",
+        target: "components/8starlabs-ui/examples/open-in-chat-custom-trigger-demo.tsx"
+      }],
+      component: open_in_chat_custom_trigger_demo_component
+    },
+    "open-in-chat-demo": {
+      name: "open-in-chat-demo",
+      type: "registry:example",
+      files: [{
+        path: "registry/8starlabs-ui/examples/open-in-chat-demo.tsx",
+        type: "registry:example",
+        target: "components/8starlabs-ui/examples/open-in-chat-demo.tsx"
+      }],
+      component: open_in_chat_demo_component
+    },
+    "open-in-chat-horizontal-demo": {
+      name: "open-in-chat-horizontal-demo",
+      type: "registry:example",
+      files: [{
+        path: "registry/8starlabs-ui/examples/open-in-chat-horizontal-demo.tsx",
+        type: "registry:example",
+        target: "components/8starlabs-ui/examples/open-in-chat-horizontal-demo.tsx"
+      }],
+      component: open_in_chat_horizontal_demo_component
+    },
+    "open-in-chat-positioning-demo": {
+      name: "open-in-chat-positioning-demo",
+      type: "registry:example",
+      files: [{
+        path: "registry/8starlabs-ui/examples/open-in-chat-positioning-demo.tsx",
+        type: "registry:example",
+        target: "components/8starlabs-ui/examples/open-in-chat-positioning-demo.tsx"
+      }],
+      component: open_in_chat_positioning_demo_component
     },
     "partition-bar-alignment-demo": {
       name: "partition-bar-alignment-demo",

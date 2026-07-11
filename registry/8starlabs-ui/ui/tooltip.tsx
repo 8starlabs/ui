@@ -124,7 +124,9 @@ type TooltipContentProps = React.ComponentProps<"div"> &
   Pick<
     TooltipPrimitive.Positioner.Props,
     "align" | "side" | "sideOffset" | "alignOffset"
-  >;
+  > & {
+    hideArrow?: boolean;
+  };
 
 function TooltipContent({
   className,
@@ -132,6 +134,7 @@ function TooltipContent({
   side,
   sideOffset = 0,
   alignOffset,
+  hideArrow = false,
   children,
   ...props
 }: TooltipContentProps) {
@@ -153,7 +156,9 @@ function TooltipContent({
             {...props}
           >
             {children}
-            <PopoverPrimitive.Arrow className={TOOLTIP_ARROW_CLASSNAME} />
+            {!hideArrow && (
+              <PopoverPrimitive.Arrow className={TOOLTIP_ARROW_CLASSNAME} />
+            )}
           </PopoverPrimitive.Popup>
         </PopoverPrimitive.Positioner>
       </PopoverPrimitive.Portal>
@@ -175,7 +180,9 @@ function TooltipContent({
           {...props}
         >
           {children}
-          <TooltipPrimitive.Arrow className={TOOLTIP_ARROW_CLASSNAME} />
+          {!hideArrow && (
+            <TooltipPrimitive.Arrow className={TOOLTIP_ARROW_CLASSNAME} />
+          )}
         </TooltipPrimitive.Popup>
       </TooltipPrimitive.Positioner>
     </TooltipPrimitive.Portal>

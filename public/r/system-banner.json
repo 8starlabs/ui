@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "system-banner",
-  "type": "registry:ui",
   "title": "System banner",
   "description": "A system banner component",
   "files": [
@@ -11,5 +10,6 @@
       "type": "registry:ui",
       "target": "components/8starlabs-ui/system-banner.tsx"
     }
-  ]
+  ],
+  "type": "registry:ui"
 }

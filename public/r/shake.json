@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "shake",
-  "type": "registry:ui",
   "title": "Shake",
   "description": "A Stripe-style perspective error shake for form fields, with a declarative wrapper and an imperative hook",
   "files": [
@@ -11,5 +10,6 @@
       "type": "registry:ui",
       "target": "components/8starlabs-ui/shake.tsx"
     }
-  ]
+  ],
+  "type": "registry:ui"
 }

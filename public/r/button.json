@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "button",
-  "type": "registry:ui",
   "title": "Button",
   "description": "A shadcn-compatible button with an optional Stripe-style arrow animation",
   "dependencies": ["@base-ui/react", "class-variance-authority"],
@@ -12,5 +11,6 @@
       "type": "registry:ui",
       "target": "components/8starlabs-ui/button.tsx"
     }
-  ]
+  ],
+  "type": "registry:ui"
 }

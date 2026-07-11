@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "partition-bar-alignment-demo",
-  "type": "registry:example",
   "title": "Partition Bar",
   "description": "A partition bar demo component",
   "files": [
@@ -11,5 +10,6 @@
       "type": "registry:example",
       "target": "components/8starlabs-ui/examples/partition-bar-alignment-demo.tsx"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "timeline-not-alternating-demo",
-  "type": "registry:example",
   "title": "Timeline not alternating demo",
   "description": "A timeline not alternating demo component",
   "files": [
@@ -11,5 +10,6 @@
       "type": "registry:example",
       "target": "components/8starlabs-ui/examples/timeline-not-alternating-demo.tsx"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

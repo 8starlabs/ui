@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "partition-bar",
-  "type": "registry:ui",
   "title": "Partition Bar",
   "description": "A partition bar component",
   "files": [
@@ -11,5 +10,6 @@
       "type": "registry:ui",
       "target": "components/8starlabs-ui/partition-bar.tsx"
     }
-  ]
+  ],
+  "type": "registry:ui"
 }

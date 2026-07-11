@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "video-player-repeat-demo",
-  "type": "registry:example",
   "title": "Video Player Repeat",
   "description": "A video player demo showing repeat playback",
   "files": [
@@ -11,5 +10,6 @@
       "type": "registry:example",
       "target": "components/8starlabs-ui/examples/video-player-repeat-demo.tsx"
     }
-  ]
+  ],
+  "type": "registry:example"
 }

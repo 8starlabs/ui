@@ -32,11 +32,93 @@
       ]
     },
     {
+      "name": "collapsible",
+      "type": "registry:ui",
+      "title": "Collapsible",
+      "description": "A Base UI collapsible component",
+      "dependencies": ["@base-ui/react"],
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/ui/collapsible.tsx",
+          "type": "registry:ui",
+          "target": "components/8starlabs-ui/ui/collapsible.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "title": "Dropdown Menu",
+      "description": "A Base UI dropdown menu component",
+      "dependencies": ["@base-ui/react", "lucide-react"],
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/ui/dropdown-menu.tsx",
+          "type": "registry:ui",
+          "target": "components/8starlabs-ui/ui/dropdown-menu.tsx"
+        }
+      ]
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "description": "A styled input component",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/ui/input.tsx",
+          "type": "registry:ui",
+          "target": "components/8starlabs-ui/ui/input.tsx"
+        }
+      ]
+    },
+    {
+      "name": "label",
+      "type": "registry:ui",
+      "title": "Label",
+      "description": "A styled label component",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/ui/label.tsx",
+          "type": "registry:ui",
+          "target": "components/8starlabs-ui/ui/label.tsx"
+        }
+      ]
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "Separator",
+      "description": "A Base UI separator component",
+      "dependencies": ["@base-ui/react"],
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/ui/separator.tsx",
+          "type": "registry:ui",
+          "target": "components/8starlabs-ui/ui/separator.tsx"
+        }
+      ]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "A Base UI tooltip component",
+      "dependencies": ["@base-ui/react"],
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/ui/tooltip.tsx",
+          "type": "registry:ui",
+          "target": "components/8starlabs-ui/ui/tooltip.tsx"
+        }
+      ]
+    },
+    {
       "name": "heatmap",
       "type": "registry:ui",
       "title": "Heatmap",
       "description": "A heatmap component",
-      "registryDependencies": ["tooltip"],
+      "registryDependencies": ["https://ui.8starlabs.com/r/tooltip.json"],
       "cssVars": {
         "light": {
           "heatmap-zero": "rgb(221, 221, 221)"
@@ -522,32 +604,6 @@
       ]
     },
     {
-      "name": "scroll-fade",
-      "type": "registry:ui",
-      "title": "Scroll Fade component",
-      "description": "A scroll fade component",
-      "files": [
-        {
-          "path": "registry/8starlabs-ui/blocks/scroll-fade.tsx",
-          "type": "registry:ui",
-          "target": "components/8starlabs-ui/scroll-fade.tsx"
-        }
-      ]
-    },
-    {
-      "name": "scroll-fade-demo",
-      "type": "registry:example",
-      "title": "Scroll Fade Demo",
-      "description": "A scroll fade demo component",
-      "files": [
-        {
-          "path": "registry/8starlabs-ui/examples/scroll-fade-demo.tsx",
-          "type": "registry:example",
-          "target": "components/8starlabs-ui/examples/scroll-fade-demo.tsx"
-        }
-      ]
-    },
-    {
       "name": "marquee",
       "type": "registry:ui",
       "title": "Marquee component",
@@ -607,9 +663,9 @@
       "dependencies": ["@tabler/icons-react"],
       "registryDependencies": [
         "https://ui.8starlabs.com/r/button.json",
-        "collapsible",
-        "separator",
-        "tooltip"
+        "https://ui.8starlabs.com/r/collapsible.json",
+        "https://ui.8starlabs.com/r/separator.json",
+        "https://ui.8starlabs.com/r/tooltip.json"
       ],
       "files": [
         {
@@ -649,9 +705,9 @@
       "description": "A JSON viewer demo showcasing features like line numbers, color indentation, and truncation",
       "registryDependencies": [
         "https://ui.8starlabs.com/r/button.json",
-        "input",
-        "label",
-        "dropdown"
+        "https://ui.8starlabs.com/r/input.json",
+        "https://ui.8starlabs.com/r/label.json",
+        "https://ui.8starlabs.com/r/dropdown-menu.json"
       ],
       "files": [
         {
@@ -803,6 +859,108 @@
           "path": "registry/8starlabs-ui/examples/shake-demo.tsx",
           "type": "registry:example",
           "target": "components/8starlabs-ui/examples/shake-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "open-in-chat",
+      "type": "registry:ui",
+      "title": "Open In Chat",
+      "description": "A component that opens an LLM chat with a pre-filled prompt.",
+      "dependencies": ["lucide-react", "simple-icons"],
+      "registryDependencies": [
+        "https://ui.8starlabs.com/r/button.json",
+        "https://ui.8starlabs.com/r/dropdown-menu.json",
+        "https://ui.8starlabs.com/r/tooltip.json"
+      ],
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/blocks/open-in-chat.tsx",
+          "type": "registry:ui",
+          "target": "components/8starlabs-ui/open-in-chat.tsx"
+        },
+        {
+          "path": "registry/8starlabs-ui/ui/ai-icons.tsx",
+          "type": "registry:ui",
+          "target": "components/8starlabs-ui/ai-icons.tsx"
+        }
+      ]
+    },
+    {
+      "name": "open-in-chat-demo",
+      "type": "registry:example",
+      "title": "Open In Chat Demo",
+      "description": "An open in chat demo with the default providers.",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/open-in-chat-demo.tsx",
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/open-in-chat-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "open-in-chat-custom-providers-demo",
+      "type": "registry:example",
+      "title": "Open In Chat Custom Providers Demo",
+      "description": "An open in chat demo with selected provider links.",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/open-in-chat-custom-providers-demo.tsx",
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/open-in-chat-custom-providers-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "open-in-chat-custom-link-demo",
+      "type": "registry:example",
+      "title": "Open In Chat Custom Link Demo",
+      "description": "An open in chat demo with a custom provider link.",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/open-in-chat-custom-link-demo.tsx",
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/open-in-chat-custom-link-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "open-in-chat-custom-trigger-demo",
+      "type": "registry:example",
+      "title": "Open In Chat Custom Trigger Demo",
+      "description": "An open in chat demo with a custom trigger.",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/open-in-chat-custom-trigger-demo.tsx",
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/open-in-chat-custom-trigger-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "open-in-chat-horizontal-demo",
+      "type": "registry:example",
+      "title": "Open In Chat Horizontal Demo",
+      "description": "An open in chat demo with horizontal provider icons.",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/open-in-chat-horizontal-demo.tsx",
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/open-in-chat-horizontal-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "open-in-chat-positioning-demo",
+      "type": "registry:example",
+      "title": "Open In Chat Positioning Demo",
+      "description": "An open in chat demo showing dropdown-menu alignment and side positioning.",
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/open-in-chat-positioning-demo.tsx",
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/open-in-chat-positioning-demo.tsx"
         }
       ]
     }

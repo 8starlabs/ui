@@ -1,0 +1,14 @@
+[
+  {
+    "prompt": "Add a polished open and close transition to this dropdown, using the best matching transitions.dev snippet and preserving reduced-motion support.",
+    "expected_skill": "transitions-dev"
+  },
+  {
+    "prompt": "Run transitions review and tell me where this app has ad-hoc motion that should use a transitions.dev pattern.",
+    "expected_skill": "transitions-dev"
+  },
+  {
+    "prompt": "Refine the hardcoded animation durations in this component so they use the shared transitions.dev motion tokens.",
+    "expected_skill": "transitions-dev"
+  }
+]

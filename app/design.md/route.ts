@@ -167,7 +167,7 @@ export async function GET() {
     "## Principles",
     "- Niche, high-utility components you won't find in standard libraries.",
     "- shadcn/ui-compatible: copy-paste ownership, not a runtime dependency.",
-    "- Built on Radix primitives, Tailwind CSS v4, and CSS custom properties.",
+    "- Built on Base UI primitives, Tailwind CSS v4, and CSS custom properties.",
     "- Tokens are semantic (role-based), not literal — theme via variables, never hard-coded hex.",
     "- Light and dark themes are first-class; every role defines both.",
     "",

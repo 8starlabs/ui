@@ -58,9 +58,27 @@ function StarsCountClient() {
   if (count === null)
     return <span className="text-muted-foreground text-xs">—</span>;
 
+  const formatted =
+    count >= 1000 ? `${(count / 1000).toFixed(1)}k` : count.toLocaleString();
+  const chars = formatted.split("");
+
   return (
-    <span className="text-muted-foreground w-2 text-xs tabular-nums">
-      {count >= 1000 ? `${(count / 1000).toFixed(1)}k` : count.toLocaleString()}
+    <span className="text-muted-foreground t-digit-group is-animating text-xs tabular-nums">
+      {chars.map((ch, i) => (
+        <span
+          key={`${i}-${ch}`}
+          className="t-digit"
+          data-stagger={
+            i === chars.length - 2
+              ? "1"
+              : i === chars.length - 1
+                ? "2"
+                : undefined
+          }
+        >
+          {ch}
+        </span>
+      ))}
     </span>
   );
 }
