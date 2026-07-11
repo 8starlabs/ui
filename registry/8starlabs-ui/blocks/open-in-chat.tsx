@@ -224,7 +224,6 @@ export function OpenInChatLink({
     return (
       <Tooltip>
         <TooltipTrigger
-          nativeButton={false}
           render={
             <a
               href={href}
@@ -240,9 +239,7 @@ export function OpenInChatLink({
             </a>
           }
         />
-        <TooltipContent sideOffset={6} hideArrow>
-          Open in {label}
-        </TooltipContent>
+        <TooltipContent sideOffset={6}>Open in {label}</TooltipContent>
       </Tooltip>
     );
   }

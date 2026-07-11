@@ -19,7 +19,7 @@ type AppStatusStatus = "normal" | "warning" | "error" | "empty";
 
 export type AppStatusData = {
   status: AppStatusStatus;
-  timestamp?: string;
+  timestamp?: string | Date;
   info?: string;
 };
 
@@ -40,58 +40,67 @@ const statusConfig = {
   normal: {
     label: "Normal",
     defaultInfo: "Systems are operating normally.",
-    barClassName: "bg-green-500",
-    textClassName: "text-green-400",
+    barClassName: "bg-green-600",
+    textClassName: "text-green-600",
     Icon: CheckCircle2Icon
   },
   warning: {
     label: "Warning",
     defaultInfo:
       "Systems are operating with elevated risk or degraded service.",
-    barClassName: "bg-amber-500",
-    textClassName: "text-amber-300",
+    barClassName: "bg-amber-600",
+    textClassName: "text-amber-600",
     Icon: AlertTriangleIcon
   },
   error: {
     label: "Error",
     defaultInfo: "A service-impacting incident is active.",
-    barClassName: "bg-red-500",
-    textClassName: "text-red-400",
+    barClassName: "bg-red-600",
+    textClassName: "text-red-600",
     Icon: XCircleIcon
   },
   empty: {
     label: "No data",
     defaultInfo: "No status data was recorded for this period.",
-    barClassName: "bg-gray-200",
+    barClassName: "bg-gray-300",
     textClassName: "text-gray-300",
     Icon: CircleOffIcon
   }
 } satisfies Record<AppStatusStatus, AppStatusConfigData>;
 
+function formatTimestamp(timestamp: AppStatusData["timestamp"]) {
+  if (!timestamp) return undefined;
+
+  if (timestamp instanceof Date) {
+    return new Intl.DateTimeFormat("en-US", {
+      month: "short",
+      day: "2-digit",
+      year: "numeric"
+    }).format(timestamp);
+  }
+
+  return timestamp;
+}
+
 export default function StatusMonitor({
   statuses,
   unit = "days"
 }: StatusMonitorProps) {
-  // 1. Calculate overall uptime percentage
   const uptimePercentage = useMemo(() => {
-    // Only count actual recorded statuses (ignore empty padding)
     const validStatuses = statuses.filter((s) => s.status !== "empty");
     if (validStatuses.length === 0) return 100;
 
     const normalCount = validStatuses.filter(
       (s) => s.status === "normal"
     ).length;
-    // Calculate and round to 2 decimal places, then drop trailing zeros
     return parseFloat(((normalCount / validStatuses.length) * 100).toFixed(2));
   }, [statuses]);
 
-  // 2. Ensure exactly 90 items for rendering, pad the front with 'empty' if necessary
   const paddedStatuses = useMemo(() => {
     const padCount = 90 - statuses.length;
     const padding: AppStatusData[] = Array(padCount > 0 ? padCount : 0).fill({
       status: "empty"
     });
-    // Combine and ensure we only ever take the latest 90 if more are provided
     return [...padding, ...statuses].slice(-90);
   }, [statuses]);
 
@@ -107,7 +116,7 @@ export default function StatusMonitor({
 
       {/* Status Bars Container */}
       <TooltipProvider>
-        <div className="flex items-center gap-[2px] h-8">
+        <div className="flex items-center gap-0.5 h-8">
           {paddedStatuses.map((item, index) => {
             // 3. Responsive Hiding Logic (Tailwind Breakpoints)
             // index 0-29 (Oldest 30): Hidden on mobile/tablet, shown on desktop (md)
@@ -121,23 +130,31 @@ export default function StatusMonitor({
 
             const config = statusConfig[item.status];
             const Icon = config.Icon;
-            const label = item.timestamp
-              ? `${item.timestamp}: ${config.label}`
+            const timestamp = formatTimestamp(item.timestamp);
+            const label = timestamp
+              ? `${timestamp}: ${config.label}`
               : config.label;
+            const edgeClassName = [
+              index === 0 ? "md:rounded-l-sm" : "",
+              index === 30 ? "sm:rounded-l-sm md:rounded-none" : "",
+              index === 60 ? "rounded-l-sm sm:rounded-none" : "",
+              index === paddedStatuses.length - 1 ? "rounded-r-sm" : ""
+            ]
+              .filter(Boolean)
+              .join(" ");
 
             return (
               <Tooltip key={index}>
                 <TooltipTrigger
                   render={
-                    <button
-                      type="button"
-                      className={`flex-1 h-full rounded-sm ${config.barClassName} ${displayClass} hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2 transition-opacity cursor-pointer`}
+                    <div
+                      className={`flex-1 h-full ${edgeClassName} ${config.barClassName} ${displayClass} hover:opacity-80 transition-opacity`}
                       aria-label={label}
                     />
                   }
                 />
-                <TooltipContent side="top" sideOffset={8}>
-                  <div className="min-w-44 space-y-1">
+                <TooltipContent side="bottom" sideOffset={8}>
+                  <div className="text-sm min-w-44 space-y-1 p-1">
                     <div className="flex items-center gap-2">
                       <Icon
                         className={`size-4 shrink-0 ${config.textClassName}`}
@@ -147,12 +164,10 @@ export default function StatusMonitor({
                         {config.label}
                       </span>
                     </div>
-                    {item.timestamp ? (
-                      <div className="text-[11px] text-background/70">
-                        {item.timestamp}
-                      </div>
+                    {timestamp ? (
+                      <div className="text-background/70">{timestamp}</div>
                     ) : null}
-                    <div className="text-[11px] leading-snug text-background/80">
+                    <div className="leading-snug text-background/80">
                       {item.info ?? config.defaultInfo}
                     </div>
                   </div>

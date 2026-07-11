@@ -8,6 +8,7 @@ import open_in_chat_component from "@/registry/8starlabs-ui/blocks/open-in-chat"
 import partition_bar_component from "@/registry/8starlabs-ui/blocks/partition-bar";
 import shake_component from "@/registry/8starlabs-ui/blocks/shake";
 import status_indicator_component from "@/registry/8starlabs-ui/blocks/status-indicator";
+import status_monitor_component from "@/registry/8starlabs-ui/blocks/status-monitor";
 import system_banner_component from "@/registry/8starlabs-ui/blocks/system-banner";
 import timeline_component from "@/registry/8starlabs-ui/blocks/timeline";
 import transport_badge_component from "@/registry/8starlabs-ui/blocks/transport-badge";
@@ -156,6 +157,16 @@ export const Index: Record<string, any> = {
         target: "components/8starlabs-ui/status-indicator.tsx"
       }],
       component: status_indicator_component
+    },
+    "status-monitor": {
+      name: "status-monitor",
+      type: "registry:block",
+      files: [{
+        path: "registry/8starlabs-ui/blocks/status-monitor.tsx",
+        type: "registry:block",
+        target: "components/8starlabs-ui/status-monitor.tsx"
+      }],
+      component: status_monitor_component
     },
     "system-banner": {
       name: "system-banner",

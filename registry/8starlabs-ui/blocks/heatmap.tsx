@@ -387,7 +387,6 @@ export default function Heatmap(props: HeatmapProps) {
             return (
               <Tooltip key={dayIdx}>
                 <TooltipTrigger
-                  nativeButton={false}
                   render={
                     <ValueIndicator
                       style={{ gridColumn: weekIdx + 2, gridRow: dayIdx + 2 }}
