@@ -21,6 +21,7 @@ import {
 import {
   Tooltip,
   TooltipContent,
+  TooltipProvider,
   TooltipTrigger
 } from "@/registry/8starlabs-ui/ui/tooltip";
 
@@ -156,19 +157,21 @@ export default function OpenInChat({
 
   if (layout === "horizontal") {
     return (
-      <OpenInChatContext.Provider value={contextValue}>
-        <div
-          {...props}
-          className={cn(
-            "border-border bg-card text-muted-foreground inline-flex w-fit items-center justify-center gap-1.5 rounded-md border px-2 py-1 text-sm shadow-xs",
-            triggerClassName,
-            className
-          )}
-        >
-          {triggerLabel ? <span>{triggerLabel}</span> : null}
-          {items}
-        </div>
-      </OpenInChatContext.Provider>
+      <TooltipProvider delay={0}>
+        <OpenInChatContext.Provider value={contextValue}>
+          <div
+            {...props}
+            className={cn(
+              "border-border bg-card text-muted-foreground inline-flex w-fit items-center justify-center gap-1.5 rounded-md border px-2 py-1 text-sm shadow-xs",
+              triggerClassName,
+              className
+            )}
+          >
+            {triggerLabel ? <span>{triggerLabel}</span> : null}
+            {items}
+          </div>
+        </OpenInChatContext.Provider>
+      </TooltipProvider>
     );
   }
 

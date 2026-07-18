@@ -39,7 +39,7 @@ export default function TestingPage() {
   return (
     <div>
       <div className="rounded-lg border bg-card p-6 shadow-sm">
-        <StatusMonitor statuses={dummyStatuses} unit="days" />
+        <StatusMonitor statuses={dummyStatuses} unit="days" title="Test" />
       </div>
     </div>
   );

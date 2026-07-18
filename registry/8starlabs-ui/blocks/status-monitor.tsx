@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   AlertTriangleIcon,
   CheckCircle2Icon,
@@ -14,21 +14,25 @@ import {
   TooltipProvider,
   TooltipTrigger
 } from "@/registry/8starlabs-ui/ui/tooltip";
+import { cn } from "@/lib/utils";
 
-type AppStatusStatus = "normal" | "warning" | "error" | "empty";
+type appStatusStatus = "normal" | "warning" | "error" | "empty";
 
 export type AppStatusData = {
-  status: AppStatusStatus;
+  status: appStatusStatus;
   timestamp?: string | Date;
   info?: string;
 };
 
-interface StatusMonitorProps {
+export interface StatusMonitorProps
+  extends React.HTMLAttributes<HTMLDivElement> {
   statuses: AppStatusData[];
   unit?: "days" | "hours";
+  title?: string;
+  showUptime?: boolean;
 }
 
-interface AppStatusConfigData {
+interface appStatusConfigData {
   label: string;
   defaultInfo: string;
   barClassName: string;
@@ -66,7 +70,20 @@ const statusConfig = {
     textClassName: "text-gray-300",
     Icon: CircleOffIcon
   }
-} satisfies Record<AppStatusStatus, AppStatusConfigData>;
+} satisfies Record<appStatusStatus, appStatusConfigData>;
+
+const BAR_WIDTH_PX = 5;
+const BAR_GAP_PX = 2;
+const MIN_VISIBLE_SLOTS = 30;
+const SLOT_COUNTS = [90, 60, MIN_VISIBLE_SLOTS] as const;
+
+function getTimelineWidth(numSlots: number) {
+  return numSlots * BAR_WIDTH_PX + (numSlots - 1) * BAR_GAP_PX;
+}
+
+function calculateNumDisplayableBars(width: number) {
+  return SLOT_COUNTS.find((slots) => width >= getTimelineWidth(slots)) ?? 30;
+}
 
 function formatTimestamp(timestamp: AppStatusData["timestamp"]) {
   if (!timestamp) return undefined;
@@ -84,8 +101,15 @@ function formatTimestamp(timestamp: AppStatusData["timestamp"]) {
 
 export default function StatusMonitor({
   statuses,
-  unit = "days"
+  unit = "days",
+  title,
+  showUptime = true,
+  className,
+  ...props
 }: StatusMonitorProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [visibleSlots, setVisibleSlots] = useState<number>(MIN_VISIBLE_SLOTS);
+
   const uptimePercentage = useMemo(() => {
     const validStatuses = statuses.filter((s) => s.status !== "empty");
     if (validStatuses.length === 0) return 100;
@@ -104,87 +128,125 @@ export default function StatusMonitor({
     return [...padding, ...statuses].slice(-90);
   }, [statuses]);
 
+  const visibleStatuses = useMemo(
+    () => paddedStatuses.slice(-visibleSlots),
+    [paddedStatuses, visibleSlots]
+  );
+  const timelineWidth = getTimelineWidth(visibleSlots);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const updateVisibleSlots = () => {
+      setVisibleSlots(
+        calculateNumDisplayableBars(container.getBoundingClientRect().width)
+      );
+    };
+
+    updateVisibleSlots();
+
+    const resizeObserver = new ResizeObserver(updateVisibleSlots);
+    resizeObserver.observe(container);
+
+    return () => resizeObserver.disconnect();
+  }, []);
+
   return (
-    <div className="w-full max-w-3xl mx-auto flex flex-col space-y-3 font-sans">
-      {/* Header: Title and Uptime Percentage */}
-      <div className="flex justify-between items-center text-sm">
-        <span className="font-semibold text-gray-800">Application Status</span>
-        <span className="font-medium text-gray-500">
-          {uptimePercentage}% uptime
-        </span>
-      </div>
-
-      {/* Status Bars Container */}
-      <TooltipProvider>
-        <div className="flex items-center gap-0.5 h-8">
-          {paddedStatuses.map((item, index) => {
-            // 3. Responsive Hiding Logic (Tailwind Breakpoints)
-            // index 0-29 (Oldest 30): Hidden on mobile/tablet, shown on desktop (md)
-            // index 30-59 (Middle 30): Hidden on mobile, shown on tablet (sm) and desktop
-            let displayClass = "block";
-            if (index < 30) {
-              displayClass = "hidden md:block";
-            } else if (index < 60) {
-              displayClass = "hidden sm:block";
-            }
-
-            const config = statusConfig[item.status];
-            const Icon = config.Icon;
-            const timestamp = formatTimestamp(item.timestamp);
-            const label = timestamp
-              ? `${timestamp}: ${config.label}`
-              : config.label;
-            const edgeClassName = [
-              index === 0 ? "md:rounded-l-sm" : "",
-              index === 30 ? "sm:rounded-l-sm md:rounded-none" : "",
-              index === 60 ? "rounded-l-sm sm:rounded-none" : "",
-              index === paddedStatuses.length - 1 ? "rounded-r-sm" : ""
-            ]
-              .filter(Boolean)
-              .join(" ");
-
-            return (
-              <Tooltip key={index}>
-                <TooltipTrigger
-                  render={
-                    <div
-                      className={`flex-1 h-full ${edgeClassName} ${config.barClassName} ${displayClass} hover:opacity-80 transition-opacity`}
-                      aria-label={label}
-                    />
-                  }
-                />
-                <TooltipContent side="bottom" sideOffset={8}>
-                  <div className="text-sm min-w-44 space-y-1 p-1">
-                    <div className="flex items-center gap-2">
-                      <Icon
-                        className={`size-4 shrink-0 ${config.textClassName}`}
-                        aria-hidden="true"
-                      />
-                      <span className={`font-medium ${config.textClassName}`}>
-                        {config.label}
-                      </span>
-                    </div>
-                    {timestamp ? (
-                      <div className="text-background/70">{timestamp}</div>
-                    ) : null}
-                    <div className="leading-snug text-background/80">
-                      {item.info ?? config.defaultInfo}
-                    </div>
-                  </div>
-                </TooltipContent>
-              </Tooltip>
-            );
-          })}
+    <div
+      ref={containerRef}
+      className={cn(
+        "mx-auto w-full max-w-3xl min-w-[208px] font-sans",
+        className
+      )}
+      id="status-monitor"
+      {...props}
+    >
+      <div
+        className="mx-auto flex flex-col space-y-3"
+        style={{ width: timelineWidth }}
+      >
+        {/* Header: Title and Uptime Percentage */}
+        <div className="flex justify-between items-center text-sm">
+          <span className="font-semibold text-gray-800">
+            {title ?? "Application Status"}
+          </span>
+          {showUptime ? (
+            <span className="font-medium text-gray-500">
+              {uptimePercentage}% uptime
+            </span>
+          ) : null}
         </div>
-      </TooltipProvider>
 
-      {/* Footer: Timeline Legend */}
-      <div className="flex justify-between text-xs text-gray-400">
-        {/* Dynamic "Ago" text based on viewport width */}
-        <span className="block sm:hidden">30 {unit} ago</span>
-        <span className="hidden sm:block md:hidden">60 {unit} ago</span>
-        <span className="hidden md:block">90 {unit} ago</span>
-        <span>Current</span>
+        {/* Status Bars Container */}
+        <TooltipProvider delay={0}>
+          <div
+            className="grid h-8 gap-0.5"
+            style={{
+              gridTemplateColumns: `repeat(${visibleSlots}, ${BAR_WIDTH_PX}px)`
+            }}
+          >
+            {visibleStatuses.map((item, index) => {
+              const config = statusConfig[item.status];
+              const Icon = config.Icon;
+              const timestamp = formatTimestamp(item.timestamp);
+              const label = timestamp
+                ? `${timestamp}: ${config.label}`
+                : config.label;
+              const edgeClassName = [
+                index === 0 ? "rounded-l-sm" : "",
+                index === visibleStatuses.length - 1 ? "rounded-r-sm" : ""
+              ]
+                .filter(Boolean)
+                .join(" ");
+
+              return (
+                <Tooltip key={index}>
+                  <TooltipTrigger
+                    delay={0}
+                    render={
+                      <div
+                        className={`h-full w-[5px] ${edgeClassName} ${config.barClassName} hover:opacity-80 transition-opacity`}
+                        aria-label={label}
+                      />
+                    }
+                  />
+                  <TooltipContent
+                    side="bottom"
+                    sideOffset={8}
+                    className="data-[state=delayed-open]:animate-none data-open:animate-none data-closed:animate-none"
+                  >
+                    <div className="text-sm w-100 space-y-1 p-1">
+                      <div className="flex items-center gap-2">
+                        <Icon
+                          className={`size-4 shrink-0 ${config.textClassName}`}
+                          aria-hidden="true"
+                        />
+                        <span className={`font-bold ${config.textClassName}`}>
+                          {config.label}
+                        </span>
+                      </div>
+                      {timestamp ? (
+                        <div className="text-background/70">{timestamp}</div>
+                      ) : null}
+                      <div className="leading-snug text-background/80">
+                        {item.info ?? config.defaultInfo}
+                      </div>
+                    </div>
+                  </TooltipContent>
+                </Tooltip>
+              );
+            })}
+          </div>
+        </TooltipProvider>
+
+        {/* Footer: Timeline Legend */}
+        <div className="flex justify-between text-xs text-gray-400">
+          <span>
+            {visibleSlots} {unit} ago
+          </span>
+          <span>Current</span>
+        </div>
       </div>
     </div>
   );

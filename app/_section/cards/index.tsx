@@ -9,6 +9,7 @@ import TransportBadgeCard from "./transport-badge-card";
 import StatusIndicatorCard from "./status-indicator-card";
 import ShakeCard from "./shake-card";
 import OpenInChatCard from "./open-in-chat-card";
+import StatusMonitorCard from "./status-monitor-card";
 
 interface CardsProps {
   className?: string;
@@ -58,6 +59,9 @@ const Cards = ({ className }: CardsProps) => {
       {/* Full-width closer */}
       <div className="h-full sm:col-span-2 xl:col-start-1 xl:col-span-6 xl:row-start-6">
         <PartitionBarCard />
+      </div>
+      <div className="h-full sm:col-span-2 xl:col-start-1 xl:col-span-6 xl:row-start-7">
+        <StatusMonitorCard />
       </div>
     </div>
   );
