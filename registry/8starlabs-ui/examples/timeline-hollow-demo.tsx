@@ -15,7 +15,7 @@ const timelineData = [
     title: "Research Phase",
     date: new Date("2023-01-15"),
     variant: "secondary" as const,
-    hollow: false
+    hollow: true
   },
   {
     title: "Prototype Approval",
@@ -27,7 +27,7 @@ const timelineData = [
     title: "Unexpected API Delays",
     date: new Date("2023-02-10"),
     variant: "destructive" as const,
-    hollow: false
+    hollow: true
   },
   {
     title: "Critical Database Failure",
@@ -39,7 +39,7 @@ const timelineData = [
     title: "Beta Launch",
     date: new Date("2023-03-01"),
     variant: "default" as const,
-    hollow: false
+    hollow: true
   }
 ];
 
