@@ -157,7 +157,7 @@ export default function OpenInChat({
 
   if (layout === "horizontal") {
     return (
-      <TooltipProvider delay={0}>
+      <TooltipProvider>
         <OpenInChatContext.Provider value={contextValue}>
           <div
             {...props}

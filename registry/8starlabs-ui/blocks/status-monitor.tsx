@@ -16,10 +16,10 @@ import {
 } from "@/registry/8starlabs-ui/ui/tooltip";
 import { cn } from "@/lib/utils";
 
-type appStatusStatus = "normal" | "warning" | "error" | "empty";
+type AppStatus = "normal" | "warning" | "error" | "empty";
 
 export type AppStatusData = {
-  status: appStatusStatus;
+  status: AppStatus;
   timestamp?: string | Date;
   info?: string;
 };
@@ -32,7 +32,7 @@ export interface StatusMonitorProps
   showUptime?: boolean;
 }
 
-interface appStatusConfigData {
+interface AppStatusConfigData {
   label: string;
   defaultInfo: string;
   barClassName: string;
@@ -66,11 +66,11 @@ const statusConfig = {
   empty: {
     label: "No data",
     defaultInfo: "No status data was recorded for this period.",
-    barClassName: "bg-gray-300",
-    textClassName: "text-gray-300",
+    barClassName: "bg-muted",
+    textClassName: "text-muted-foreground",
     Icon: CircleOffIcon
   }
-} satisfies Record<appStatusStatus, appStatusConfigData>;
+} satisfies Record<AppStatus, AppStatusConfigData>;
 
 const BAR_WIDTH_PX = 5;
 const BAR_GAP_PX = 2;
@@ -159,7 +159,6 @@ export default function StatusMonitor({
         "mx-auto w-full max-w-3xl min-w-[208px] font-sans",
         className
       )}
-      id="status-monitor"
       {...props}
     >
       <div
@@ -168,18 +167,18 @@ export default function StatusMonitor({
       >
         {/* Header: Title and Uptime Percentage */}
         <div className="flex justify-between items-center text-sm">
-          <span className="font-semibold text-gray-800">
+          <span className="font-semibold text-foreground">
             {title ?? "Application Status"}
           </span>
           {showUptime ? (
-            <span className="font-medium text-gray-500">
+            <span className="font-medium text-muted-foreground">
               {uptimePercentage}% uptime
             </span>
           ) : null}
         </div>
 
         {/* Status Bars Container */}
-        <TooltipProvider delay={0}>
+        <TooltipProvider>
           <div
             className="grid h-8 gap-0.5"
             style={{
@@ -203,10 +202,14 @@ export default function StatusMonitor({
               return (
                 <Tooltip key={index}>
                   <TooltipTrigger
-                    delay={0}
                     render={
                       <div
-                        className={`h-full w-[5px] ${edgeClassName} ${config.barClassName} hover:opacity-80 transition-opacity`}
+                        className={cn(
+                          "h-full w-[5px] transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                          edgeClassName,
+                          config.barClassName
+                        )}
+                        tabIndex={0}
                         aria-label={label}
                       />
                     }
@@ -216,7 +219,7 @@ export default function StatusMonitor({
                     sideOffset={8}
                     className="data-[state=delayed-open]:animate-none data-open:animate-none data-closed:animate-none"
                   >
-                    <div className="text-sm w-100 space-y-1 p-1">
+                    <div className="text-sm space-y-1 p-1">
                       <div className="flex items-center gap-2">
                         <Icon
                           className={`size-4 shrink-0 ${config.textClassName}`}
@@ -241,7 +244,7 @@ export default function StatusMonitor({
         </TooltipProvider>
 
         {/* Footer: Timeline Legend */}
-        <div className="flex justify-between text-xs text-gray-400">
+        <div className="flex justify-between text-xs text-muted-foreground">
           <span>
             {visibleSlots} {unit} ago
           </span>

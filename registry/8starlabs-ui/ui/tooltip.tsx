@@ -1,62 +1,188 @@
 "use client";
 
+import * as React from "react";
 import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip";
+import { Popover as PopoverPrimitive } from "@base-ui/react/popover";
 
 import { cn } from "@/lib/utils";
 
+type TooltipMode = "tooltip" | "popover";
+
+const DESKTOP_TOOLTIP_QUERY =
+  "(hover: hover) and (pointer: fine) and (min-width: 1024px)";
+
+const TOOLTIP_CONTENT_CLASSNAME =
+  "bg-foreground text-background z-50 w-fit origin-(--transform-origin) rounded-md px-3 py-1.5 text-xs text-balance transition-[transform,scale,opacity] data-[starting-style]:scale-95 data-[starting-style]:opacity-0 data-[ending-style]:scale-95 data-[ending-style]:opacity-0";
+
+const TOOLTIP_ARROW_CLASSNAME =
+  "bg-foreground z-50 size-2.5 translate-y-[calc(-50%_-_2px)] rotate-45 rounded-[2px]";
+
+const TooltipModeContext = React.createContext<TooltipMode>("tooltip");
+
+function getTooltipMode(query: MediaQueryList): TooltipMode {
+  return query.matches ? "tooltip" : "popover";
+}
+
+function useTooltipMode(): TooltipMode {
+  const [mode, setMode] = React.useState<TooltipMode>("tooltip");
+
+  React.useEffect(() => {
+    const query = window.matchMedia(DESKTOP_TOOLTIP_QUERY);
+    const updateMode = () => setMode(getTooltipMode(query));
+
+    updateMode();
+    query.addEventListener("change", updateMode);
+
+    return () => query.removeEventListener("change", updateMode);
+  }, []);
+
+  return mode;
+}
+
 function TooltipProvider({
-  delay = 0,
+  delayDuration = 0,
   ...props
-}: TooltipPrimitive.Provider.Props) {
+}: Omit<TooltipPrimitive.Provider.Props, "delay"> & {
+  delayDuration?: number;
+}) {
+  return <TooltipPrimitive.Provider delay={delayDuration} {...props} />;
+}
+
+function Tooltip({
+  children,
+  open,
+  defaultOpen,
+  onOpenChange,
+  delayDuration,
+  disableHoverableContent,
+  ...props
+}: Omit<TooltipPrimitive.Root.Props, "onOpenChange"> & {
+  onOpenChange?: (open: boolean) => void;
+  delayDuration?: number;
+  disableHoverableContent?: boolean;
+}) {
+  const mode = useTooltipMode();
+
   return (
-    <TooltipPrimitive.Provider
-      data-slot="tooltip-provider"
-      delay={delay}
+    <TooltipModeContext.Provider value={mode}>
+      {mode === "tooltip" ? (
+        <TooltipProvider delayDuration={delayDuration}>
+          <TooltipPrimitive.Root
+            open={open}
+            defaultOpen={defaultOpen}
+            onOpenChange={onOpenChange}
+            disableHoverablePopup={disableHoverableContent}
+            {...props}
+          >
+            {children}
+          </TooltipPrimitive.Root>
+        </TooltipProvider>
+      ) : (
+        <PopoverPrimitive.Root
+          open={open}
+          defaultOpen={defaultOpen}
+          onOpenChange={onOpenChange}
+        >
+          {children}
+        </PopoverPrimitive.Root>
+      )}
+    </TooltipModeContext.Provider>
+  );
+}
+
+function TooltipTrigger({
+  nativeButton,
+  render,
+  ...props
+}: React.ComponentProps<"button"> & {
+  render?: React.ReactElement;
+  nativeButton?: boolean;
+}) {
+  const mode = React.useContext(TooltipModeContext);
+
+  if (mode === "popover") {
+    return (
+      <PopoverPrimitive.Trigger
+        data-slot="tooltip-trigger"
+        nativeButton={nativeButton}
+        render={render}
+        {...props}
+      />
+    );
+  }
+
+  return (
+    <TooltipPrimitive.Trigger
+      data-slot="tooltip-trigger"
+      render={render}
       {...props}
     />
   );
 }
 
-function Tooltip({ ...props }: TooltipPrimitive.Root.Props) {
-  return <TooltipPrimitive.Root data-slot="tooltip" {...props} />;
-}
-
-function TooltipTrigger({ ...props }: TooltipPrimitive.Trigger.Props) {
-  return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props} />;
-}
+type TooltipContentProps = React.ComponentProps<"div"> &
+  Pick<
+    TooltipPrimitive.Positioner.Props,
+    "align" | "side" | "sideOffset" | "alignOffset"
+  > & {
+    hideArrow?: boolean;
+  };
 
 function TooltipContent({
   className,
-  side = "top",
-  sideOffset = 4,
   align = "center",
-  alignOffset = 0,
+  side,
+  sideOffset = 0,
+  alignOffset,
+  hideArrow = false,
   children,
   ...props
-}: TooltipPrimitive.Popup.Props &
-  Pick<
-    TooltipPrimitive.Positioner.Props,
-    "align" | "alignOffset" | "side" | "sideOffset"
-  >) {
+}: TooltipContentProps) {
+  const mode = React.useContext(TooltipModeContext);
+
+  if (mode === "popover") {
+    return (
+      <PopoverPrimitive.Portal>
+        <PopoverPrimitive.Positioner
+          align={align}
+          side={side}
+          sideOffset={sideOffset}
+          alignOffset={alignOffset}
+          className="isolate z-50"
+        >
+          <PopoverPrimitive.Popup
+            data-slot="tooltip-content"
+            className={cn(TOOLTIP_CONTENT_CLASSNAME, className)}
+            {...props}
+          >
+            {children}
+            {!hideArrow && (
+              <PopoverPrimitive.Arrow className={TOOLTIP_ARROW_CLASSNAME} />
+            )}
+          </PopoverPrimitive.Popup>
+        </PopoverPrimitive.Positioner>
+      </PopoverPrimitive.Portal>
+    );
+  }
+
   return (
     <TooltipPrimitive.Portal>
       <TooltipPrimitive.Positioner
         align={align}
-        alignOffset={alignOffset}
         side={side}
         sideOffset={sideOffset}
+        alignOffset={alignOffset}
         className="isolate z-50"
       >
         <TooltipPrimitive.Popup
           data-slot="tooltip-content"
-          className={cn(
-            "z-50 inline-flex w-fit max-w-xs origin-(--transform-origin) items-center gap-1.5 rounded-md bg-foreground px-3 py-1.5 text-xs text-background has-data-[slot=kbd]:pr-1.5 data-[side=bottom]:slide-in-from-top-2 data-[side=inline-end]:slide-in-from-left-2 data-[side=inline-start]:slide-in-from-right-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 **:data-[slot=kbd]:relative **:data-[slot=kbd]:isolate **:data-[slot=kbd]:z-50 **:data-[slot=kbd]:rounded-sm data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
-            className
-          )}
+          className={cn(TOOLTIP_CONTENT_CLASSNAME, className)}
           {...props}
         >
           {children}
-          <TooltipPrimitive.Arrow className="z-50 size-2.5 translate-y-[calc(-50%-2px)] rotate-45 rounded-[2px] bg-foreground fill-foreground data-[side=bottom]:top-1 data-[side=inline-end]:top-1/2! data-[side=inline-end]:-left-1 data-[side=inline-end]:-translate-y-1/2 data-[side=inline-start]:top-1/2! data-[side=inline-start]:-right-1 data-[side=inline-start]:-translate-y-1/2 data-[side=left]:top-1/2! data-[side=left]:-right-1 data-[side=left]:-translate-y-1/2 data-[side=right]:top-1/2! data-[side=right]:-left-1 data-[side=right]:-translate-y-1/2 data-[side=top]:-bottom-2.5" />
+          {!hideArrow && (
+            <TooltipPrimitive.Arrow className={TOOLTIP_ARROW_CLASSNAME} />
+          )}
         </TooltipPrimitive.Popup>
       </TooltipPrimitive.Positioner>
     </TooltipPrimitive.Portal>
