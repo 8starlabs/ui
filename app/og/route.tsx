@@ -128,7 +128,15 @@ export async function GET(request: Request) {
       fonts: [
         { name: "Geist", data: regular, weight: 400, style: "normal" },
         { name: "Geist", data: semibold, weight: 600, style: "normal" }
-      ]
+      ],
+      // Without this the card was re-rendered on every unfurl, and each render
+      // re-fetches the logo from our own origin plus two fonts from the CDN.
+      // The output is a pure function of the query string, so let the edge hold
+      // it: only the first request per title/description reaches the function.
+      headers: {
+        "Cache-Control":
+          "public, max-age=86400, s-maxage=31536000, stale-while-revalidate=604800"
+      }
     }
   );
 }
