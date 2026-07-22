@@ -1,0 +1,123 @@
+---
+title: Status Monitor
+description: A compact status history bar for showing service uptime across days or hours.
+---
+
+<ComponentPreview name="status-monitor-demo" noPaddingOnComponentSource />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+pnpm dlx shadcn@latest add https://ui.8starlabs.com/r/status-monitor.json
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<ComponentSource
+  name="status-monitor"
+  title="components/8starlabs-ui/status-monitor.tsx"
+/>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx showLineNumbers
+import StatusMonitor, {
+  type AppStatusData
+} from "@/components/8starlabs-ui/status-monitor";
+```
+
+```tsx showLineNumbers
+const statuses: AppStatusData[] = [
+  {
+    status: "normal",
+    timestamp: new Date("2026-07-01"),
+    info: "All checks completed within the expected threshold."
+  },
+  {
+    status: "warning",
+    timestamp: new Date("2026-07-02"),
+    info: "Latency was elevated, but requests continued to complete."
+  },
+  {
+    status: "error",
+    timestamp: new Date("2026-07-03"),
+    info: "API availability dropped while failover completed."
+  }
+];
+
+export function MyStatusMonitor() {
+  return (
+    <StatusMonitor statuses={statuses} title="API Status" showUptime={false} />
+  );
+}
+```
+
+## Examples
+
+### Daily Uptime
+
+Pass up to 90 status entries to render a day-by-day history. The component
+calculates uptime from non-empty entries and shows details in each tooltip. It
+may display 30, 60, or 90 time slots depending on the available width. Each bar
+uses a fixed 5px width, and the timeline is horizontally centered when there is
+extra space.
+
+If you are visiting on mobile and wish to see the component with 90 time slots, switch to browser or landscape view.
+
+<ComponentPreview name="status-monitor-demo" noPaddingOnComponentSource />
+
+### Hourly Incidents
+
+Set `unit` to `"hours"` when the same 90-slot timeline should represent recent
+hourly health instead of daily history.
+
+<ComponentPreview name="status-monitor-hours-demo" noPaddingOnComponentSource />
+
+### Sparse Data
+
+Short status arrays are left-padded with empty slots so new services can use the
+same timeline layout before they have a full history. The latest slots remain
+visible first as the layout steps down from 90 to 60 to 30 slots in narrower
+containers.
+
+<ComponentPreview
+  name="status-monitor-sparse-demo"
+  noPaddingOnComponentSource
+/>
+
+## API Reference
+
+### StatusMonitor
+
+| Prop         | Type                                   | Default                | Description                                                                                                                                 |
+| ------------ | -------------------------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `statuses`   | `AppStatusData[]`                      | Required               | Status entries to display. The component keeps the latest 90 entries and may show 30, 60, or 90 fixed-width slots based on available width. |
+| `unit`       | `"days" \| "hours"`                    | `"days"`               | Unit label shown in the timeline footer.                                                                                                    |
+| `title`      | `string`                               | `"Application Status"` | Heading shown above the status timeline.                                                                                                    |
+| `showUptime` | `boolean`                              | `true`                 | Whether to display the calculated uptime percentage.                                                                                        |
+| `...props`   | `React.HTMLAttributes<HTMLDivElement>` | —                      | Props forwarded to the outer status-monitor container.                                                                                      |
+
+### Types
+
+```tsx
+type AppStatusData = {
+  status: "normal" | "warning" | "error" | "empty";
+  timestamp?: string | Date;
+  info?: string;
+};
+```

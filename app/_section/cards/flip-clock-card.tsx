@@ -13,7 +13,7 @@ const FlipClockCard = () => {
       }
       demo={
         <div className="scroll-fade-e my-3 w-full overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          <FlipClock size="md" variant="secondary" className="justify-start" />
+          <FlipClock size="sm" variant="secondary" className="justify-start" />
         </div>
       }
     />

@@ -8,6 +8,7 @@ import open_in_chat_component from "@/registry/8starlabs-ui/blocks/open-in-chat"
 import partition_bar_component from "@/registry/8starlabs-ui/blocks/partition-bar";
 import shake_component from "@/registry/8starlabs-ui/blocks/shake";
 import status_indicator_component from "@/registry/8starlabs-ui/blocks/status-indicator";
+import status_monitor_component from "@/registry/8starlabs-ui/blocks/status-monitor";
 import system_banner_component from "@/registry/8starlabs-ui/blocks/system-banner";
 import timeline_component from "@/registry/8starlabs-ui/blocks/timeline";
 import transport_badge_component from "@/registry/8starlabs-ui/blocks/transport-badge";
@@ -45,6 +46,9 @@ import partition_bar_variants_demo_component from "@/registry/8starlabs-ui/examp
 import partition_bar_width_demo_component from "@/registry/8starlabs-ui/examples/partition-bar-width-demo";
 import shake_demo_component from "@/registry/8starlabs-ui/examples/shake-demo";
 import status_indicator_demo_component from "@/registry/8starlabs-ui/examples/status-indicator-demo";
+import status_monitor_demo_component from "@/registry/8starlabs-ui/examples/status-monitor-demo";
+import status_monitor_hours_demo_component from "@/registry/8starlabs-ui/examples/status-monitor-hours-demo";
+import status_monitor_sparse_demo_component from "@/registry/8starlabs-ui/examples/status-monitor-sparse-demo";
 import timeline_demo_component from "@/registry/8starlabs-ui/examples/timeline-demo";
 import timeline_hollow_demo_component from "@/registry/8starlabs-ui/examples/timeline-hollow-demo";
 import timeline_nocards_demo_component from "@/registry/8starlabs-ui/examples/timeline-nocards-demo";
@@ -156,6 +160,16 @@ export const Index: Record<string, any> = {
         target: "components/8starlabs-ui/status-indicator.tsx"
       }],
       component: status_indicator_component
+    },
+    "status-monitor": {
+      name: "status-monitor",
+      type: "registry:block",
+      files: [{
+        path: "registry/8starlabs-ui/blocks/status-monitor.tsx",
+        type: "registry:block",
+        target: "components/8starlabs-ui/status-monitor.tsx"
+      }],
+      component: status_monitor_component
     },
     "system-banner": {
       name: "system-banner",
@@ -526,6 +540,36 @@ export const Index: Record<string, any> = {
         target: "components/8starlabs-ui/examples/status-indicator-demo.tsx"
       }],
       component: status_indicator_demo_component
+    },
+    "status-monitor-demo": {
+      name: "status-monitor-demo",
+      type: "registry:example",
+      files: [{
+        path: "registry/8starlabs-ui/examples/status-monitor-demo.tsx",
+        type: "registry:example",
+        target: "components/8starlabs-ui/examples/status-monitor-demo.tsx"
+      }],
+      component: status_monitor_demo_component
+    },
+    "status-monitor-hours-demo": {
+      name: "status-monitor-hours-demo",
+      type: "registry:example",
+      files: [{
+        path: "registry/8starlabs-ui/examples/status-monitor-hours-demo.tsx",
+        type: "registry:example",
+        target: "components/8starlabs-ui/examples/status-monitor-hours-demo.tsx"
+      }],
+      component: status_monitor_hours_demo_component
+    },
+    "status-monitor-sparse-demo": {
+      name: "status-monitor-sparse-demo",
+      type: "registry:example",
+      files: [{
+        path: "registry/8starlabs-ui/examples/status-monitor-sparse-demo.tsx",
+        type: "registry:example",
+        target: "components/8starlabs-ui/examples/status-monitor-sparse-demo.tsx"
+      }],
+      component: status_monitor_sparse_demo_component
     },
     "timeline-demo": {
       name: "timeline-demo",

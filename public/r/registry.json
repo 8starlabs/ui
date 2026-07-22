@@ -409,6 +409,21 @@
       ]
     },
     {
+      "name": "status-monitor",
+      "type": "registry:ui",
+      "title": "Status Monitor",
+      "description": "A compact status history bar for showing service uptime across days or hours.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["https://ui.8starlabs.com/r/tooltip.json"],
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/blocks/status-monitor.tsx",
+          "type": "registry:ui",
+          "target": "components/8starlabs-ui/status-monitor.tsx"
+        }
+      ]
+    },
+    {
       "name": "transport-badge",
       "type": "registry:ui",
       "title": "Transport badge",
@@ -444,6 +459,54 @@
           "path": "registry/8starlabs-ui/examples/status-indicator-demo.tsx",
           "type": "registry:example",
           "target": "components/8starlabs-ui/examples/status-indicator-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "status-monitor-demo",
+      "type": "registry:example",
+      "title": "Status Monitor Demo",
+      "description": "A status monitor demo with daily uptime history.",
+      "registryDependencies": [
+        "https://ui.8starlabs.com/r/status-monitor.json"
+      ],
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/status-monitor-demo.tsx",
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/status-monitor-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "status-monitor-hours-demo",
+      "type": "registry:example",
+      "title": "Status Monitor Hours Demo",
+      "description": "A status monitor demo with hourly incident history.",
+      "registryDependencies": [
+        "https://ui.8starlabs.com/r/status-monitor.json"
+      ],
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/status-monitor-hours-demo.tsx",
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/status-monitor-hours-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "status-monitor-sparse-demo",
+      "type": "registry:example",
+      "title": "Status Monitor Sparse Demo",
+      "description": "A status monitor demo showing sparse data and empty states.",
+      "registryDependencies": [
+        "https://ui.8starlabs.com/r/status-monitor.json"
+      ],
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/status-monitor-sparse-demo.tsx",
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/status-monitor-sparse-demo.tsx"
         }
       ]
     },

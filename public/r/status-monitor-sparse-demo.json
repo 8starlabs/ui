@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "status-monitor-sparse-demo",
+  "title": "Status Monitor Sparse Demo",
+  "description": "A status monitor demo showing sparse data and empty states.",
+  "registryDependencies": ["https://ui.8starlabs.com/r/status-monitor.json"],
+  "files": [
+    {
+      "path": "registry/8starlabs-ui/examples/status-monitor-sparse-demo.tsx",
+      "content": "import StatusMonitor, {\n  type AppStatusData\n} from \"@/registry/8starlabs-ui/blocks/status-monitor\";\n\nconst statuses: AppStatusData[] = [\n  {\n    status: \"normal\",\n    timestamp: \"Jul 06, 2026\",\n    info: \"Monitoring started for the service.\"\n  },\n  {\n    status: \"warning\",\n    timestamp: \"Jul 07, 2026\",\n    info: \"A new deployment caused slower health checks.\"\n  },\n  {\n    status: \"normal\",\n    timestamp: \"Jul 08, 2026\",\n    info: \"Health checks returned to the expected baseline.\"\n  },\n  {\n    status: \"empty\",\n    timestamp: \"Jul 09, 2026\",\n    info: \"No synthetic check data was recorded.\"\n  },\n  {\n    status: \"error\",\n    timestamp: \"Jul 10, 2026\",\n    info: \"Synthetic checks failed from two regions.\"\n  },\n  {\n    status: \"normal\",\n    timestamp: \"Jul 11, 2026\",\n    info: \"Regional checks recovered.\"\n  }\n];\n\nexport default function StatusMonitorSparseDemo() {\n  return <StatusMonitor statuses={statuses} title=\"New Service Rollout\" />;\n}\n",
+      "type": "registry:example",
+      "target": "components/8starlabs-ui/examples/status-monitor-sparse-demo.tsx"
+    }
+  ],
+  "type": "registry:example"
+}
