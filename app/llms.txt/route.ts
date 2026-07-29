@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 
+import { STATIC_CONTENT_CACHE_CONTROL } from "@/lib/cache";
 import { siteConfig } from "@/lib/config";
 import { source } from "@/lib/source";
 
@@ -110,7 +111,8 @@ export async function GET() {
 
   return new NextResponse(content, {
     headers: {
-      "Content-Type": "text/plain; charset=utf-8"
+      "Content-Type": "text/plain; charset=utf-8",
+      "Cache-Control": STATIC_CONTENT_CACHE_CONTROL
     }
   });
 }
