@@ -8,10 +8,15 @@ trustPolicy: no-downgrade
 # no-downgrade policy still guards everything else.
 trustPolicyExclude:
   - "semver@6.3.1"
+# Exempt from the 7-day release-age quarantine: security patch we want
+# immediately. brace-expansion 1.1.17 fixes a HIGH DoS (OOM) advisory but was
+# published <7d ago; trusted maintainer + targeted CVE fix, so pull it now.
+minimumReleaseAgeExclude:
+  - "brace-expansion"
 overrides:
   "@babel/core": "7.29.7"
   "@hono/node-server": ">=2.0.5"
-  brace-expansion: "1.1.16"
+  brace-expansion: "1.1.17"
   diff: "8.0.3"
   esbuild: ">=0.28.1"
   fast-uri: ">=3.1.4"
