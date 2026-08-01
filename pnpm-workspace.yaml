@@ -23,7 +23,7 @@ overrides:
   path-to-regexp: "8.4.0"
   picomatch@^2.0.0: "2.3.2"
   picomatch@^4.0.3: "4.0.4"
-  postcss: "8.5.15"
+  postcss: "8.5.18"
   qs: "6.15.3"
   sharp: ">=0.35.0"
   yaml: "2.8.3"
