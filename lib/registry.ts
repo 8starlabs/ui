@@ -167,6 +167,12 @@ function fixFilePaths(files: z.infer<typeof registryItemSchema>["files"]) {
   });
 }
 
+// Escape every regex metacharacter so a value can be embedded literally inside
+// a dynamically-built RegExp.
+function escapeRegExp(value: string) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 export function fixImport(content: string, pathMappings: Map<string, string>) {
   // Convert registry imports to their target paths using the provided mappings
   // This ensures imports match the actual target locations
@@ -185,10 +191,12 @@ export function fixImport(content: string, pathMappings: Map<string, string>) {
       // Remove the file extension from targetPath
       const targetPathNoExt = targetPath.replace(/\.(tsx?|jsx?)$/, "");
 
-      // Create regex to match this specific import path
-      const escapedPath = sourcePathNoExt.replace(/\//g, "\\/");
+      // Create regex to match this specific import path. Escape ALL regex
+      // metacharacters in the path (not just "/") so segments like "." can't
+      // act as wildcards — fixes js/incomplete-sanitization.
+      const escapedPath = escapeRegExp(sourcePathNoExt);
       const importRegex = new RegExp(
-        `@\\/registry\\/8starlabs-ui\\/${escapedPath}`,
+        `@/registry/8starlabs-ui/${escapedPath}`,
         "g"
       );
 
