@@ -36,6 +36,10 @@ export function SiteHeader({ tree }: { tree: typeof source.pageTree }) {
             alt=""
             width={48}
             height={48}
+            // Tiny logo shown on every page. Skip the /_next/image optimizer
+            // (a per-request function hit) and serve the original straight from
+            // the edge — it's already cached a year via the /images/* header.
+            unoptimized
             className="object-contain"
             style={{ width: 48, height: 48 }}
           />

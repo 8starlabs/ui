@@ -60,6 +60,8 @@ export function MobileNav({
                 alt=""
                 width={40}
                 height={40}
+                // See site-header: skip the optimizer for the edge-cached logo.
+                unoptimized
                 className="object-contain"
                 style={{ width: 40, height: 40 }}
               />

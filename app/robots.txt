@@ -1,7 +1,42 @@
+# Default group: allow everyone. This intentionally covers search engines
+# (Googlebot, Bingbot, ...) AND on-demand AI assistant fetchers that pull a page
+# only when a user asks (ChatGPT-User, OAI-SearchBot, Claude-User, Perplexity-User,
+# facebookexternalhit, ...). Those are low-volume, high-value, and keep our SEO +
+# AI discoverability — including /llms.txt — intact.
 User-agent: *
 Disallow: /api/
 Disallow: /_next/
-
 Allow: /
+
+# Blocked group: bulk AI-training crawlers and SEO scrapers. These re-crawl every
+# URL from many regions on a schedule, which is the main driver of Vercel ISR
+# reads and Fast Origin Transfer on this project, with no benefit to us. Note the
+# "-Extended" / bulk variants are blocked while the search + on-demand variants
+# above are not (e.g. Google-Extended blocked, Googlebot allowed; Applebot-Extended
+# blocked, Applebot allowed; PerplexityBot blocked, Perplexity-User allowed).
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: anthropic-ai
+User-agent: Google-Extended
+User-agent: CCBot
+User-agent: PerplexityBot
+User-agent: Bytespider
+User-agent: Amazonbot
+User-agent: Applebot-Extended
+User-agent: Meta-ExternalAgent
+User-agent: cohere-ai
+User-agent: Diffbot
+User-agent: Omgilibot
+User-agent: ImagesiftBot
+User-agent: YouBot
+User-agent: Timpibot
+User-agent: AhrefsBot
+User-agent: SemrushBot
+User-agent: MJ12bot
+User-agent: DotBot
+User-agent: DataForSeoBot
+User-agent: BLEXBot
+User-agent: PetalBot
+Disallow: /
 
 Sitemap: https://ui.8starlabs.com/sitemap.xml
