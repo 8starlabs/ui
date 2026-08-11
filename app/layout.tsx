@@ -8,6 +8,7 @@ import { AnnouncementBar } from "@/components/announcement-bar";
 import ProgressWrapper from "@/providers/ProgressWrapper";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import GoogleAnalytics from "@/providers/GoogleAnalytics";
+import { Analytics } from "@vercel/analytics/next";
 import { source } from "@/lib/source";
 import SystemBannerClientWrapper from "@/providers/SystemBannerClientWrapper";
 
@@ -77,6 +78,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} group/body antialiased [--footer-height:calc(var(--spacing)*18)] [--header-height:calc(var(--spacing)*14)] xl:[--footer-height:calc(var(--spacing)*24)]`}
       >
         <GoogleAnalytics />
+        <Analytics />
         <ThemeProvider defaultTheme="system" enableSystem>
           <div className="bg-background relative z-10 flex min-h-svh flex-col">
             <div className="sticky top-0 z-50 backdrop-blur-[20px] backdrop-saturate-180">
