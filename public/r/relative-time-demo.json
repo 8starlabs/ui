@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "relative-time-demo",
+  "title": "Relative Time Demo",
+  "description": "A demo showing past and future relative dates.",
+  "registryDependencies": ["https://ui.8starlabs.com/r/relative-time.json"],
+  "files": [
+    {
+      "path": "registry/8starlabs-ui/examples/relative-time-demo.tsx",
+      "content": "import RelativeTime from \"@/registry/8starlabs-ui/blocks/relative-time\";\n\nconst now = Date.now();\n\nexport default function RelativeTimeDemo() {\n  return (\n    <div className=\"flex flex-col gap-3 text-sm\">\n      <RelativeTime date={now - 3 * 60 * 1000} />\n      <RelativeTime date={now + 2 * 60 * 60 * 1000} />\n      <RelativeTime date={now - 2 * 24 * 60 * 60 * 1000} />\n    </div>\n  );\n}\n",
+      "type": "registry:example",
+      "target": "components/8starlabs-ui/examples/relative-time-demo.tsx"
+    }
+  ],
+  "type": "registry:example"
+}

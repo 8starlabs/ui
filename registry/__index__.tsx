@@ -6,6 +6,7 @@ import json_viewer_component from "@/registry/8starlabs-ui/blocks/json-viewer";
 import marquee_component from "@/registry/8starlabs-ui/blocks/marquee";
 import open_in_chat_component from "@/registry/8starlabs-ui/blocks/open-in-chat";
 import partition_bar_component from "@/registry/8starlabs-ui/blocks/partition-bar";
+import relative_time_component from "@/registry/8starlabs-ui/blocks/relative-time";
 import shake_component from "@/registry/8starlabs-ui/blocks/shake";
 import status_indicator_component from "@/registry/8starlabs-ui/blocks/status-indicator";
 import status_monitor_component from "@/registry/8starlabs-ui/blocks/status-monitor";
@@ -44,6 +45,7 @@ import partition_bar_demo_component from "@/registry/8starlabs-ui/examples/parti
 import partition_bar_size_demo_component from "@/registry/8starlabs-ui/examples/partition-bar-size-demo";
 import partition_bar_variants_demo_component from "@/registry/8starlabs-ui/examples/partition-bar-variants-demo";
 import partition_bar_width_demo_component from "@/registry/8starlabs-ui/examples/partition-bar-width-demo";
+import relative_time_demo_component from "@/registry/8starlabs-ui/examples/relative-time-demo";
 import shake_demo_component from "@/registry/8starlabs-ui/examples/shake-demo";
 import status_indicator_demo_component from "@/registry/8starlabs-ui/examples/status-indicator-demo";
 import status_monitor_demo_component from "@/registry/8starlabs-ui/examples/status-monitor-demo";
@@ -140,6 +142,16 @@ export const Index: Record<string, any> = {
         target: "components/8starlabs-ui/partition-bar.tsx"
       }],
       component: partition_bar_component
+    },
+    "relative-time": {
+      name: "relative-time",
+      type: "registry:block",
+      files: [{
+        path: "registry/8starlabs-ui/blocks/relative-time.tsx",
+        type: "registry:block",
+        target: "components/8starlabs-ui/relative-time.tsx"
+      }],
+      component: relative_time_component
     },
     "shake": {
       name: "shake",
@@ -520,6 +532,16 @@ export const Index: Record<string, any> = {
         target: "components/8starlabs-ui/examples/partition-bar-width-demo.tsx"
       }],
       component: partition_bar_width_demo_component
+    },
+    "relative-time-demo": {
+      name: "relative-time-demo",
+      type: "registry:example",
+      files: [{
+        path: "registry/8starlabs-ui/examples/relative-time-demo.tsx",
+        type: "registry:example",
+        target: "components/8starlabs-ui/examples/relative-time-demo.tsx"
+      }],
+      component: relative_time_demo_component
     },
     "shake-demo": {
       name: "shake-demo",
