@@ -81,7 +81,7 @@ export default function RelativeTime({
     <time
       dateTime={date.toISOString()}
       className={cn("text-muted-foreground", className)}
-      tabIndex={0}
+      tabIndex={showTooltip ? 0 : undefined}
       {...props}
     >
       {children ?? relativeLabel}
