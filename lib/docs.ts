@@ -1,4 +1,5 @@
 export const PAGES_NEW = [
+  "/docs/components/relative-time",
   "/docs/components/video-player",
   "/docs/components/open-in-chat",
   "/docs/components/status-monitor"
