@@ -616,8 +616,8 @@
 /* transitions.dev — Skeleton loader and reveal */
 :root {
   --pulse-dur: 1000ms;
-  --pulse-count: 1;
-  --pulse-min: 0.5;
+  --pulse-count: infinite;
+  --pulse-min: 0.4;
   --reveal-dur: 400ms;
   --reveal-blur: 2px;
   --reveal-ease: ease-in-out;
