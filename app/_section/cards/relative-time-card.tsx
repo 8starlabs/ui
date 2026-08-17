@@ -25,7 +25,7 @@ const RelativeTimeCard = () => {
           {activities.map((activity) => (
             <div
               key={activity.label}
-              className="flex items-center justify-between gap-4 px-4 py-3 sm:flex-col sm:items-start sm:justify-center"
+              className="flex items-center justify-between gap-4 px-4 py-3 sm:flex-col sm:items-start sm:justify-center sm:gap-1"
             >
               <span className="text-sm font-medium">{activity.label}</span>
               <RelativeTime
