@@ -409,6 +409,20 @@
       ]
     },
     {
+      "name": "relative-time",
+      "type": "registry:ui",
+      "title": "Relative Time",
+      "description": "A compact date label that displays relative time with an optional UTC tooltip.",
+      "registryDependencies": ["https://ui.8starlabs.com/r/tooltip.json"],
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/blocks/relative-time.tsx",
+          "type": "registry:ui",
+          "target": "components/8starlabs-ui/relative-time.tsx"
+        }
+      ]
+    },
+    {
       "name": "status-monitor",
       "type": "registry:ui",
       "title": "Status Monitor",
@@ -459,6 +473,20 @@
           "path": "registry/8starlabs-ui/examples/status-indicator-demo.tsx",
           "type": "registry:example",
           "target": "components/8starlabs-ui/examples/status-indicator-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "relative-time-demo",
+      "type": "registry:example",
+      "title": "Relative Time Demo",
+      "description": "A demo showing past and future relative dates.",
+      "registryDependencies": ["https://ui.8starlabs.com/r/relative-time.json"],
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/relative-time-demo.tsx",
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/relative-time-demo.tsx"
         }
       ]
     },

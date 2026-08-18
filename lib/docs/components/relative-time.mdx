@@ -1,0 +1,66 @@
+---
+title: Relative Time
+description: A compact date label that displays relative time with an optional UTC tooltip.
+---
+
+<ComponentPreview name="relative-time-demo" align="start" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+pnpm dlx shadcn@latest add https://ui.8starlabs.com/r/relative-time.json
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<ComponentSource
+  name="relative-time"
+  title="components/8starlabs-ui/relative-time.tsx"
+/>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx showLineNumbers
+import RelativeTime from "@/components/8starlabs-ui/relative-time";
+
+export function ActivityItem() {
+  return <RelativeTime date="2026-08-12T07:30:00Z" />;
+}
+```
+
+By default, the relative label opens a tooltip containing the exact UTC/GMT
+timestamp. The tooltip works with hover, keyboard focus, and touch.
+
+```tsx showLineNumbers
+<RelativeTime date={new Date()} />
+<RelativeTime date={Date.now() + 2 * 60 * 60 * 1000} />
+<RelativeTime date="2026-08-12T07:30:00Z" showTooltip={false} />
+```
+
+## API Reference
+
+| Prop          | Type                       | Default  | Description                                                       |
+| ------------- | -------------------------- | -------- | ----------------------------------------------------------------- |
+| `date`        | `Date \| string \| number` | Required | The date to display. Numbers are Unix timestamps in milliseconds. |
+| `locale`      | `string \| string[]`       | `"en"`   | Locale passed to `Intl.RelativeTimeFormat`.                       |
+| `numeric`     | `"always" \| "auto"`       | `"auto"` | Uses natural wording such as `now` when set to `"auto"`.          |
+| `showTooltip` | `boolean`                  | `true`   | Shows the exact UTC/GMT timestamp on hover, focus, or touch.      |
+| `className`   | `string`                   | —        | Additional classes for the rendered `<time>` element.             |
+
+The component calculates the label when it renders. Re-render the parent when
+you need the displayed relative time to refresh.
