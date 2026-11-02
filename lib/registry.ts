@@ -2,17 +2,50 @@
 import { promises as fs } from "fs";
 import { tmpdir } from "os";
 import path from "path";
-import { registryItemFileSchema, registryItemSchema } from "shadcn/schema";
 import { Project, ScriptKind } from "ts-morph";
 import { z } from "zod";
 
 import { Index } from "@/registry/__index__";
 
+// Keep this helper independent from shadcn's CLI schema module. The CLI schema
+// is an internal implementation detail that has changed module locations
+// across releases, while this helper only needs this small stable subset.
+const registryItemSchema = z
+  .object({
+    type: z.string(),
+    files: z
+      .array(
+        z.object({
+          path: z.string(),
+          type: z.string().optional(),
+          target: z.string().optional(),
+          content: z.string().optional()
+        })
+      )
+      .optional()
+  })
+  .passthrough();
+
+type RegistryFile = {
+  path: string;
+  type: string;
+  target?: string;
+  content?: string;
+};
+
+type RegistryItemData = {
+  type: string;
+  files?: RegistryFile[];
+  [key: string]: unknown;
+};
+
 export function getRegistryComponent(name: string) {
   return Index["8starlabs-ui"][name]?.component;
 }
 
-export async function getRegistryItem(name: string) {
+export async function getRegistryItem(
+  name: string
+): Promise<RegistryItemData | null> {
   const item = Index["8starlabs-ui"][name];
 
   if (!item) {
@@ -31,10 +64,12 @@ export async function getRegistryItem(name: string) {
     return null;
   }
 
+  const parsedItem = result.data as RegistryItemData;
+
   // Build path mappings from all files for import rewriting
   const pathMappings = buildPathMappings(item.files);
 
-  let files: typeof result.data.files = [];
+  let files: RegistryFile[] = [];
   for (const file of item.files) {
     const content = await getFileContent(file, pathMappings);
     const relativePath = path.relative(process.cwd(), file.path);
@@ -50,7 +85,7 @@ export async function getRegistryItem(name: string) {
   files = fixFilePaths(files);
 
   const parsed = registryItemSchema.safeParse({
-    ...result.data,
+    ...parsedItem,
     files
   });
 
@@ -59,7 +94,7 @@ export async function getRegistryItem(name: string) {
     return null;
   }
 
-  return parsed.data;
+  return parsed.data as RegistryItemData;
 }
 
 function buildPathMappings(
@@ -81,7 +116,7 @@ function buildPathMappings(
 }
 
 async function getFileContent(
-  file: z.infer<typeof registryItemFileSchema>,
+  file: RegistryFile,
   pathMappings: Map<string, string>
 ) {
   const raw = await fs.readFile(file.path, "utf-8");
@@ -115,7 +150,7 @@ async function getFileContent(
   return code;
 }
 
-function getFileTarget(file: z.infer<typeof registryItemFileSchema>) {
+function getFileTarget(file: RegistryFile) {
   let target = file.target;
 
   if (!target || target === "") {
@@ -149,11 +184,7 @@ async function createTempSourceFile(filename: string) {
   return path.join(dir, filename);
 }
 
-function fixFilePaths(files: z.infer<typeof registryItemSchema>["files"]) {
-  if (!files) {
-    return [];
-  }
-
+function fixFilePaths(files: RegistryFile[]) {
   // Resolve all paths relative to the first file's directory.
   const firstFilePath = files[0].path;
   const firstFilePathDir = path.dirname(firstFilePath);
