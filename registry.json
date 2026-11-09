@@ -39,11 +39,8 @@
       "name": "empty-state-demo",
       "type": "registry:example",
       "title": "Empty State Demo",
-      "description": "An interactive file-search empty state with clear and create actions.",
-      "registryDependencies": [
-        "https://ui.8starlabs.com/r/empty-state.json",
-        "https://ui.8starlabs.com/r/input.json"
-      ],
+      "description": "An illustrated empty state with clear and create actions.",
+      "registryDependencies": ["https://ui.8starlabs.com/r/empty-state.json"],
       "files": [
         {
           "path": "registry/8starlabs-ui/examples/empty-state-demo.tsx",

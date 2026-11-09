@@ -5,6 +5,17 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { Bell, Calendar } from "lucide-react";
 
 import EmptyState from "../registry/8starlabs-ui/blocks/empty-state";
+import EmptyStateDemo from "../registry/8starlabs-ui/examples/empty-state-demo";
+
+test("main demo shows the empty state without a file-manager toolbar", () => {
+  const html = renderToStaticMarkup(<EmptyStateDemo />);
+
+  assert.match(html, /No files found/);
+  assert.match(html, /Clear search/);
+  assert.match(html, /New document/);
+  assert.doesNotMatch(html, /All files|<input/);
+  assert.equal((html.match(/<button/g) ?? []).length, 2);
+});
 
 test("labels and descriptions reference existing, unique elements", () => {
   const html = renderToStaticMarkup(
