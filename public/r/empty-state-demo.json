@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "empty-state-demo",
+  "title": "Empty State Demo",
+  "description": "An interactive file-search empty state with clear and create actions.",
+  "registryDependencies": [
+    "https://ui.8starlabs.com/r/empty-state.json",
+    "https://ui.8starlabs.com/r/input.json"
+  ],
+  "files": [
+    {
+      "path": "registry/8starlabs-ui/examples/empty-state-demo.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { FileText, Plus, Search } from \"lucide-react\";\n\nimport EmptyState from \"@/registry/8starlabs-ui/blocks/empty-state\";\nimport { Button } from \"@/registry/8starlabs-ui/blocks/button\";\nimport { Input } from \"@/registry/8starlabs-ui/ui/input\";\n\nexport default function EmptyStateDemo() {\n  const [query, setQuery] = React.useState(\"wireframe kit\");\n  const [documents, setDocuments] = React.useState([\n    \"Brand guidelines\",\n    \"Product brief\",\n    \"Launch checklist\"\n  ]);\n  const matches = documents.filter((name) =>\n    name.toLowerCase().includes(query.trim().toLowerCase())\n  );\n\n  function createDocument() {\n    setDocuments((current) => [\n      ...current,\n      `Untitled document ${current.length + 1}`\n    ]);\n    setQuery(\"\");\n  }\n\n  return (\n    <div className=\"w-full rounded-xl border p-4 sm:p-6\">\n      <div className=\"flex flex-wrap items-center justify-between gap-4\">\n        <h3 className=\"text-sm font-medium\">All files</h3>\n        <div className=\"flex w-full items-center gap-2 sm:w-auto\">\n          <Search\n            aria-hidden=\"true\"\n            className=\"text-muted-foreground size-4 shrink-0\"\n          />\n          <Input\n            aria-label=\"Search files\"\n            value={query}\n            onChange={(event) => setQuery(event.target.value)}\n            className=\"w-full sm:w-48\"\n          />\n        </div>\n      </div>\n      <div className=\"mt-6 flex min-h-96 items-center justify-center rounded-lg border\">\n        {matches.length === 0 ? (\n          <EmptyState\n            icon={FileText}\n            title=\"No files found\"\n            description={\n              <>\n                Your search for “{query}” didn’t match any files. Try another\n                term or create a document.\n              </>\n            }\n            secondaryAction={{\n              label: \"Clear search\",\n              onClick: () => setQuery(\"\")\n            }}\n            primaryAction={{\n              label: \"New document\",\n              icon: Plus,\n              onClick: createDocument\n            }}\n          />\n        ) : (\n          <div className=\"flex w-full flex-col items-start gap-4 p-6\">\n            <ul\n              className=\"flex w-full flex-col gap-3\"\n              aria-label=\"Matching files\"\n              aria-live=\"polite\"\n            >\n              {matches.map((name) => (\n                <li key={name} className=\"flex items-center gap-2 text-sm\">\n                  <FileText\n                    aria-hidden=\"true\"\n                    className=\"text-muted-foreground size-4\"\n                  />\n                  {name}\n                </li>\n              ))}\n            </ul>\n            <Button\n              variant=\"outline\"\n              size=\"sm\"\n              onClick={() => setQuery(\"wireframe kit\")}\n            >\n              Reset demo\n            </Button>\n          </div>\n        )}\n      </div>\n    </div>\n  );\n}\n",
+      "type": "registry:example",
+      "target": "components/8starlabs-ui/examples/empty-state-demo.tsx"
+    }
+  ],
+  "type": "registry:example"
+}

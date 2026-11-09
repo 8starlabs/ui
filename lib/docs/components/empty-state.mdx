@@ -1,0 +1,104 @@
+---
+title: Empty State
+description: An illustrated empty state with customizable SVG icons, helpful context, and optional action buttons.
+---
+
+<ComponentPreview name="empty-state-demo" chromeLessOnMobile />
+
+## Installation
+
+<CodeTabs>
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+pnpm dlx shadcn@latest add https://ui.8starlabs.com/r/empty-state.json
+```
+
+The registry installs the shared Button and Empty primitives as internal
+dependencies, along with `lucide-react` for the SVG icons.
+
+</TabsContent>
+<TabsContent value="manual">
+
+Install `lucide-react` and `class-variance-authority`. Add the
+[Button](/docs/components/button) component, and copy the following shared
+Empty primitive and illustrated component. Both use your project's `cn` utility.
+
+<ComponentSource
+  src="registry/8starlabs-ui/ui/empty.tsx"
+  title="components/8starlabs-ui/ui/empty.tsx"
+/>
+<ComponentSource
+  name="empty-state"
+  title="components/8starlabs-ui/empty-state.tsx"
+/>
+
+</TabsContent>
+</CodeTabs>
+
+## Usage
+
+```tsx showLineNumbers
+"use client";
+
+import { FileText, Plus } from "lucide-react";
+import EmptyState from "@/components/8starlabs-ui/empty-state";
+
+export function NoFiles({ onCreate }: { onCreate: () => void }) {
+  return (
+    <EmptyState
+      icon={FileText}
+      title="No files yet"
+      description="Create a document to get started."
+      primaryAction={{ label: "New document", icon: Plus, onClick: onCreate }}
+    />
+  );
+}
+```
+
+Render the component when your data is empty. Search, filtering, data fetching,
+and navigation stay in the parent application. Action handlers run only when
+the user activates a button; the component does not create or upload data itself.
+
+## Custom icons and actions
+
+Pass SVG icon components from `lucide-react` to change the illustration. Up to
+six surrounding icons are shown in fixed positions. Pass `surroundingIcons={[]}`
+for just the central icon and rings. Both actions are optional.
+
+<ComponentPreview name="empty-state-custom-demo" chromeLessOnMobile />
+
+## API reference
+
+| Prop               | Type               | Default                | Description                                         |
+| ------------------ | ------------------ | ---------------------- | --------------------------------------------------- |
+| `title`            | `ReactNode`        | Required               | Short explanation of the empty state.               |
+| `description`      | `ReactNode`        | —                      | Helpful context or a suggested next step.           |
+| `icon`             | `LucideIcon`       | `Files`                | Central SVG icon.                                   |
+| `surroundingIcons` | `LucideIcon[]`     | Six file-related icons | Decorative icons; only the first six are displayed. |
+| `primaryAction`    | `EmptyStateAction` | —                      | Primary button configuration.                       |
+| `secondaryAction`  | `EmptyStateAction` | —                      | Secondary button configuration, displayed first.    |
+| `className`        | `string`           | —                      | Additional layout classes on the root.              |
+
+`EmptyStateAction` accepts a required `label: ReactNode`, optional `icon: LucideIcon`,
+and the shared Button's props except `children`, including `onClick`, `disabled`,
+`size`, and `variant`. Primary actions default to the default button variant;
+secondary actions default to outline. Actions default to `type="button"`, so they
+do not accidentally submit a surrounding form. Other native `div` props are
+forwarded to the root. `EmptyStateProps` and `EmptyStateAction` are exported types.
+
+## Accessibility
+
+- The root is a named region linked to its title and optional description.
+- The title uses heading level 3; place it under an appropriate page or section heading.
+- The decorative SVG illustration is hidden from screen readers.
+- Actions use the shared Button's keyboard behavior and visible focus styles.
+- The illustration is static, with no continuous motion.
+- Colors use the existing theme tokens for light and dark mode.
+
+For results that change after a search, announce the result count in a live
+region in the parent application rather than automatically moving keyboard focus.
