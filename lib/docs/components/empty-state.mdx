@@ -31,10 +31,15 @@ Empty primitive and illustrated component. Both use your project's `cn` utility.
 <ComponentSource
   src="registry/8starlabs-ui/ui/empty.tsx"
   title="components/8starlabs-ui/ui/empty.tsx"
+  importMappings={{}}
 />
 <ComponentSource
-  name="empty-state"
+  src="registry/8starlabs-ui/blocks/empty-state.tsx"
   title="components/8starlabs-ui/empty-state.tsx"
+  importMappings={{
+    "@/registry/8starlabs-ui/blocks/button": "@/components/8starlabs-ui/button",
+    "@/registry/8starlabs-ui/ui/empty": "@/components/8starlabs-ui/ui/empty"
+  }}
 />
 
 </TabsContent>

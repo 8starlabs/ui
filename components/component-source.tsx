@@ -15,6 +15,7 @@ export async function ComponentSource({
   src,
   title,
   language,
+  importMappings,
   collapsible = true,
   className,
   styleName = "8starlabs-ui"
@@ -23,6 +24,7 @@ export async function ComponentSource({
   src?: string;
   title?: string;
   language?: string;
+  importMappings?: Record<string, string>;
   collapsible?: boolean;
   styleName?: Style["name"];
 }) {
@@ -46,12 +48,16 @@ export async function ComponentSource({
     return null;
   }
 
-  // Fix imports.
-  // Replace @/registry/${style}/ with @/components/.
-  code = code.replaceAll(`@/registry/${styleName}/`, "@/components/");
-
-  // Replace export default with export.
-  code = code.replaceAll("export default", "export");
+  if (src && importMappings) {
+    // Explicit targets for raw sources preserve their original exports.
+    for (const [source, target] of Object.entries(importMappings)) {
+      code = code.replaceAll(source, target);
+    }
+  } else {
+    // Preserve the existing transformation for other documentation pages.
+    code = code.replaceAll(`@/registry/${styleName}/`, "@/components/");
+    code = code.replaceAll("export default", "export");
+  }
   code = code.replaceAll("/* eslint-disable react/no-children-prop */\n", "");
 
   const lang = language ?? title?.split(".").pop() ?? "tsx";
