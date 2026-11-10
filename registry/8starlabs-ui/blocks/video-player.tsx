@@ -40,6 +40,7 @@ interface VideoContextType {
   areControlsShown: boolean;
   isFullscreen: boolean;
   isPip: boolean;
+  setIsPip: (isPip: boolean) => void;
   isVolumeControlOpen: boolean;
   repeatVideoAutomatically: boolean;
   autoPlayVideoUponVisible: boolean;
@@ -208,7 +209,6 @@ export function VideoProvider({
         // Otherwise, request the video to enter PiP mode.
         await videoElement.requestPictureInPicture();
       }
-      setIsPip(!isPip);
     } catch (error) {
       console.error("Failed to toggle Picture-in-Picture mode:", error);
     } finally {
@@ -246,6 +246,7 @@ export function VideoProvider({
         areControlsShown,
         isFullscreen,
         isPip,
+        setIsPip,
         isVolumeControlOpen,
         repeatVideoAutomatically: repeat,
         autoPlayVideoUponVisible: auto,
@@ -395,6 +396,7 @@ export function VideoViewport({
     repeatVideoAutomatically,
     autoPlayVideoUponVisible,
     autoHideControls,
+    setIsPip,
     showCenterControls,
     setIsVolumeControlOpen,
     showControlsTemporarily,
@@ -405,6 +407,35 @@ export function VideoViewport({
   const lastSyncedProgressRef = useRef(0);
   const shouldResumeAfterBufferRef = useRef(false);
   const areControlsVisible = !autoHideControls || areControlsShown;
+
+  // Tracks browser PiP state, including changes made outside this component.
+  useEffect(() => {
+    const videoElement = videoRef.current;
+    if (!videoElement) return;
+
+    const handleEnterPictureInPicture = () => setIsPip(true);
+    const handleLeavePictureInPicture = () => setIsPip(false);
+
+    videoElement.addEventListener(
+      "enterpictureinpicture",
+      handleEnterPictureInPicture
+    );
+    videoElement.addEventListener(
+      "leavepictureinpicture",
+      handleLeavePictureInPicture
+    );
+
+    return () => {
+      videoElement.removeEventListener(
+        "enterpictureinpicture",
+        handleEnterPictureInPicture
+      );
+      videoElement.removeEventListener(
+        "leavepictureinpicture",
+        handleLeavePictureInPicture
+      );
+    };
+  }, [setIsPip, videoRef]);
 
   // Copies duration metadata from the video element into shared context.
   const syncDuration = useCallback(
