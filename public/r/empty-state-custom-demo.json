@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "empty-state-custom-demo",
+  "title": "Empty State Custom Icons Demo",
+  "description": "A notification empty state with custom SVG icons and one action.",
+  "registryDependencies": ["https://ui.8starlabs.com/r/empty-state.json"],
+  "files": [
+    {
+      "path": "registry/8starlabs-ui/examples/empty-state-custom-demo.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { Bell, CircleCheck, MessageSquare, Calendar } from \"lucide-react\";\n\nimport EmptyState from \"@/registry/8starlabs-ui/blocks/empty-state\";\n\nexport default function EmptyStateCustomDemo() {\n  const [checked, setChecked] = React.useState(false);\n  return (\n    <div className=\"w-full rounded-xl border\">\n      <EmptyState\n        icon={Bell}\n        surroundingIcons={[CircleCheck, MessageSquare, Calendar]}\n        title=\"You’re all caught up\"\n        description=\"New notifications will appear here when there’s something to see.\"\n        primaryAction={{ label: \"Refresh\", onClick: () => setChecked(true) }}\n      />\n      <p\n        role=\"status\"\n        className=\"text-muted-foreground min-h-10 px-6 pb-4 text-center text-xs\"\n      >\n        {checked ? \"Checked just now. No new notifications.\" : \"\"}\n      </p>\n    </div>\n  );\n}\n",
+      "type": "registry:example",
+      "target": "components/8starlabs-ui/examples/empty-state-custom-demo.tsx"
+    }
+  ],
+  "type": "registry:example"
+}

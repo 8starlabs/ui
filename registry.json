@@ -4,6 +4,66 @@
   "homepage": "https://ui.8starlabs.com",
   "items": [
     {
+      "name": "empty",
+      "type": "registry:ui",
+      "title": "Empty",
+      "description": "The shadcn Empty primitive used by Empty State.",
+      "dependencies": ["class-variance-authority"],
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/ui/empty.tsx",
+          "type": "registry:ui",
+          "target": "components/8starlabs-ui/ui/empty.tsx"
+        }
+      ]
+    },
+    {
+      "name": "empty-state",
+      "type": "registry:ui",
+      "title": "Empty State",
+      "description": "An illustrated empty state with SVG icons and optional actions.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": [
+        "https://ui.8starlabs.com/r/button.json",
+        "https://ui.8starlabs.com/r/empty.json"
+      ],
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/blocks/empty-state.tsx",
+          "type": "registry:ui",
+          "target": "components/8starlabs-ui/empty-state.tsx"
+        }
+      ]
+    },
+    {
+      "name": "empty-state-demo",
+      "type": "registry:example",
+      "title": "Empty State Demo",
+      "description": "An illustrated empty state with clear and create actions.",
+      "registryDependencies": ["https://ui.8starlabs.com/r/empty-state.json"],
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/empty-state-demo.tsx",
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/empty-state-demo.tsx"
+        }
+      ]
+    },
+    {
+      "name": "empty-state-custom-demo",
+      "type": "registry:example",
+      "title": "Empty State Custom Icons Demo",
+      "description": "A notification empty state with custom SVG icons and one action.",
+      "registryDependencies": ["https://ui.8starlabs.com/r/empty-state.json"],
+      "files": [
+        {
+          "path": "registry/8starlabs-ui/examples/empty-state-custom-demo.tsx",
+          "type": "registry:example",
+          "target": "components/8starlabs-ui/examples/empty-state-custom-demo.tsx"
+        }
+      ]
+    },
+    {
       "name": "button",
       "type": "registry:ui",
       "title": "Button",

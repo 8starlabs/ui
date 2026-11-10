@@ -1,5 +1,6 @@
 // AUTO-GENERATED FILE. DO NOT EDIT MANUALLY.
 import { Button as button_component } from "@/registry/8starlabs-ui/blocks/button";
+import empty_state_component from "@/registry/8starlabs-ui/blocks/empty-state";
 import flip_clock_component from "@/registry/8starlabs-ui/blocks/flip-clock";
 import heatmap_component from "@/registry/8starlabs-ui/blocks/heatmap";
 import json_viewer_component from "@/registry/8starlabs-ui/blocks/json-viewer";
@@ -15,6 +16,8 @@ import timeline_component from "@/registry/8starlabs-ui/blocks/timeline";
 import transport_badge_component from "@/registry/8starlabs-ui/blocks/transport-badge";
 import video_player_component from "@/registry/8starlabs-ui/blocks/video-player";
 import button_demo_component from "@/registry/8starlabs-ui/examples/button-demo";
+import empty_state_custom_demo_component from "@/registry/8starlabs-ui/examples/empty-state-custom-demo";
+import empty_state_demo_component from "@/registry/8starlabs-ui/examples/empty-state-demo";
 import flip_clock_countdown_demo_component from "@/registry/8starlabs-ui/examples/flip-clock-countdown-demo";
 import flip_clock_demo_component from "@/registry/8starlabs-ui/examples/flip-clock-demo";
 import flip_clock_showdays_demo_component from "@/registry/8starlabs-ui/examples/flip-clock-showdays-demo";
@@ -82,6 +85,16 @@ export const Index: Record<string, any> = {
         target: "components/8starlabs-ui/button.tsx"
       }],
       component: button_component
+    },
+    "empty-state": {
+      name: "empty-state",
+      type: "registry:block",
+      files: [{
+        path: "registry/8starlabs-ui/blocks/empty-state.tsx",
+        type: "registry:block",
+        target: "components/8starlabs-ui/empty-state.tsx"
+      }],
+      component: empty_state_component
     },
     "flip-clock": {
       name: "flip-clock",
@@ -232,6 +245,26 @@ export const Index: Record<string, any> = {
         target: "components/8starlabs-ui/examples/button-demo.tsx"
       }],
       component: button_demo_component
+    },
+    "empty-state-custom-demo": {
+      name: "empty-state-custom-demo",
+      type: "registry:example",
+      files: [{
+        path: "registry/8starlabs-ui/examples/empty-state-custom-demo.tsx",
+        type: "registry:example",
+        target: "components/8starlabs-ui/examples/empty-state-custom-demo.tsx"
+      }],
+      component: empty_state_custom_demo_component
+    },
+    "empty-state-demo": {
+      name: "empty-state-demo",
+      type: "registry:example",
+      files: [{
+        path: "registry/8starlabs-ui/examples/empty-state-demo.tsx",
+        type: "registry:example",
+        target: "components/8starlabs-ui/examples/empty-state-demo.tsx"
+      }],
+      component: empty_state_demo_component
     },
     "flip-clock-countdown-demo": {
       name: "flip-clock-countdown-demo",

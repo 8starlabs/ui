@@ -11,6 +11,7 @@ import ShakeCard from "./shake-card";
 import OpenInChatCard from "./open-in-chat-card";
 import StatusMonitorCard from "./status-monitor-card";
 import RelativeTimeCard from "./relative-time-card";
+import EmptyStateCard from "./empty-state-card";
 
 interface CardsProps {
   className?: string;
@@ -66,6 +67,9 @@ const Cards = ({ className }: CardsProps) => {
       </div>
       <div className="h-full sm:col-span-2 xl:col-start-1 xl:col-span-6 xl:row-start-8">
         <RelativeTimeCard />
+      </div>
+      <div className="h-full sm:col-span-2 xl:col-start-1 xl:col-span-6 xl:row-start-9">
+        <EmptyStateCard />
       </div>
     </div>
   );
